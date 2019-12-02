@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutNodata"
+    android:layout_width="match_parent"
+    android:layout_height="365dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:src="@mipmap/bg_cart_top" />
+
+    <TextView
+        android:id="@+id/tvNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="洪荒之力都用上了还是空空如也~"
+        android:textColor="@color/gray"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvGoMain"
+        style="@style/MyButton.DDMRed"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:gravity="center"
+        android:text="去挑选好货"
+        android:textColor="@color/white" />
+
+</LinearLayout>

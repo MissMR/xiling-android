@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/mainRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/item_like_product_bg"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_img"
+            style="@style/DefaultSimpleDraweeView"
+            android:layout_width="133dp"
+            android:layout_height="74dp"
+            android:layout_marginRight="15dp"
+            app:roundedCornerRadius="8dp"
+            tools:background="@color/ddm_gray_dark" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/sdv_img"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="----------" />
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/sdv_img"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="----------"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/sdv_img"
+            android:layout_toRightOf="@id/sdv_img">
+
+            <ImageView
+                android:id="@+id/itemTrashBtn"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/icon_btn_more" />
+
+            <TextView
+                android:id="@+id/tv_tip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/itemTrashBtn"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="--喜欢"
+                android:textColor="@color/ddm_gray_dark"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

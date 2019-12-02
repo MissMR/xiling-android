@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.dodomall.ddmall.module.community.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:id="@+id/titleView"
+        app:titleStr="发布"
+        app:rightStr="提交"
+        />
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingRight="@dimen/distance_15"
+            android:paddingTop="13dp"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:minHeight="85dp"
+                android:gravity="top"
+                android:maxLength="600"
+                android:id="@+id/input_code_et"
+                android:hint="来说点什么"
+                android:textColorHint="@color/color_99"
+                android:textColor="@color/color_33"
+                android:textSize="@dimen/sp_16"
+                android:lineSpacingExtra="@dimen/distance_5"
+                tools:text="有时候还会有一个需求，那就是需要添加图片的加载进度，Glide官方也是不支持的，
+我会在另一篇博客上面介绍。"
+                android:layout_height="wrap_content"/>
+
+            <com.dodomall.ddmall.module.community.MyGrildView
+                android:layout_width="match_parent"
+                android:numColumns="3"
+                android:layout_marginTop="35dp"
+                android:id="@+id/gv_pic_or_video"
+                android:horizontalSpacing="@dimen/distance_15"
+                android:verticalSpacing="@dimen/distance_15"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="35dp"
+                android:visibility="gone"
+                android:id="@+id/video_ll"
+                tools:visibility="visible"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_33"
+                    android:textSize="@dimen/sp_16"
+                    android:text="上传封面照"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    tools:layout_width="100dp"
+                    android:id="@+id/video_cover_rl"
+                    android:layout_marginTop="@dimen/distance_15"
+                    tools:layout_height="100dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:src="@drawable/icon_add_small"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/iv_cover_preview"
+                        android:layout_marginRight="@dimen/distance_10"
+                        android:layout_marginTop="@dimen/distance_10"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:padding="@dimen/distance_5"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:id="@+id/iv_cover_delete"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_delete_picture"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="26dp"
+                android:id="@+id/category_ll"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_16"
+                    android:textColor="@color/color_33"
+                    android:text="分类"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:lines="1"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/color_99"
+                    android:drawableRight="@drawable/ic_arrow_right_gray"
+                    android:id="@+id/category_tv"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:text="未分类"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

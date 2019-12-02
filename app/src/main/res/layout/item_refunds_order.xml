@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:divider="@drawable/list_divider"
+              android:orientation="vertical"
+              android:showDividers="beginning|middle|end">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/marginTop"
+        android:background="@color/bg_gray"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:id="@+id/tvRefundsCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:text="店铺名称"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvRefundStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="状态"
+            android:textColor="@color/red"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvProduch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/marginTop"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="@dimen/marginTop"
+        >
+
+        <TextView
+            android:id="@+id/tvPrompt"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="商家已时候到申请"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|right"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+
+        <TextView
+            android:id="@+id/tvItemCS"
+            style="@style/OrderBtnPlain"
+            android:text="商家客服"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemEdit"
+            style="@style/OrderBtnPlain"
+            android:text="修改申请"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemInput"
+            style="@style/OrderBtnRed"
+            android:text="填写寄回单号"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemCancel"
+            style="@style/OrderBtnRed"
+            android:text="撤回申请"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemStoreRefuse"
+            style="@style/OrderBtnPlain"
+            android:text="拒绝退款"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemStoreAgree"
+            style="@style/OrderBtnRed"
+            android:text="同意退款"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemStoreFinish"
+            style="@style/OrderBtnRed"
+            android:text="确认收货"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+</LinearLayout>

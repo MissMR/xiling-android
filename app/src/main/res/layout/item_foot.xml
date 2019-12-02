@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/itemThumbIv"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:actualImageScaleType="fitXY"
+        app:placeholderImage="@drawable/default_image"
+        app:placeholderImageScaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/itemTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@id/itemThumbIv"
+        android:ellipsize="end"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="2"
+        android:text="ZHR2017夏季新款坡跟松糕凉鞋真皮厚底女鞋韩版百搭学生罗马凉鞋"
+        android:textColor="@color/default_text_color"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/itemMoneyTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/itemThumbIv"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@id/itemThumbIv"
+        android:gravity="bottom"
+        android:includeFontPadding="false"
+        android:text="$5555"
+        android:textColor="@color/redPrice"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/itemMoneyTv2"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/itemMoneyTv"
+        android:layout_marginBottom="1dp"
+        android:layout_toRightOf="@id/itemMoneyTv" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/itemMoneyTv"
+        android:layout_marginLeft="9dp"
+        android:layout_marginBottom="2dp"
+        android:layout_toRightOf="@id/itemThumbIv"
+        android:text="11111111" />
+
+    <ImageView
+        android:id="@+id/itemTrashBtn"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_alignBottom="@id/itemThumbIv"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@mipmap/icon_address_trash" />
+</RelativeLayout>

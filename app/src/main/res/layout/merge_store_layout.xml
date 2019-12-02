@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:fresco="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:divider="@drawable/list_divider"
+        android:orientation="vertical"
+        android:showDividers="beginning|end">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/storeLogoIv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                fresco:actualImageScaleType="fitXY"
+                fresco:placeholderImage="@drawable/default_image"
+                fresco:placeholderImageScaleType="fitXY"
+                fresco:viewAspectRatio="1" />
+
+            <TextView
+                android:id="@+id/storeNameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/storeLogoIv"
+                tools:text="XXX的小店"
+                android:includeFontPadding="false"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/storeDescTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/storeNameTv"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/storeLogoIv"
+                tools:text="XXX的小店"
+                android:textColor="@color/grayDark"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/viewStoreBtn"
+                android:layout_width="130dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/btn_gray_dark_frame"
+                android:gravity="center"
+                android:text="联系店主"
+                android:textColor="@color/grayDark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/viewStoreProductBtn"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:background="@drawable/btn_gray_dark_frame"
+                android:gravity="center"
+                android:text="进入店铺"
+                android:textColor="@color/grayDark"
+                android:textSize="14sp"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</merge>

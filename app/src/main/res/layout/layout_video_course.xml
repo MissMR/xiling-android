@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:layout_width="match_parent"
+        android:id="@+id/video_player"
+        android:layout_height="200dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_border_1dp_gray"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                android:id="@+id/video_title_tv"
+                android:textSize="@dimen/text_large"
+                tools:text="美肌颜boss营销新模式：老客户维护的几个要点，积极翻几倍"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_playtimes"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="55dp"
+                    android:minWidth="20dp"
+                    android:id="@+id/brower_num_tv"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_small"
+                    tools:text="7"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_comment"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:maxWidth="50dp"
+                    android:minWidth="20dp"
+                    android:id="@+id/leave_msg_tv"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_small"
+                    tools:text="1"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                tools:text="美肌颜boss营销新模式：老客户维护的几个要点，积极翻几倍"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="15dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/distance_10"
+            android:background="@color/background"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/sp_border_1dp_gray"
+            android:paddingLeft="@dimen/distance_15"
+            android:paddingTop="@dimen/distance_10"
+            android:id="@+id/comment_ll"
+            android:paddingBottom="@dimen/distance_10"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_commont_num"
+                android:textSize="@dimen/sp_14"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/topSpaceView"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_poster_bottom">
+
+        <Button
+            android:id="@+id/sharePosterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/wx_share_btn"
+            android:text="@string/share_friend"
+            android:textColor="#F0CCB6" />
+
+    </RelativeLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/posterImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomPanel"
+        android:layout_below="@id/topSpaceView"
+        android:background="@color/black"
+        app:actualImageScaleType="fitXY"
+        app:placeholderImage="@drawable/default_image"
+        app:placeholderImageScaleType="fitXY" />
+
+
+</RelativeLayout>

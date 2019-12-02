@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ddui.activity.UploadAuthInfoActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/ddm_gray_light"
+        android:gravity="center"
+        android:text="请填写实名认证基本信息"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="@dimen/text_size_12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="姓名" />
+
+        <EditText
+            android:id="@+id/et_user_name"
+            style="@style/DDMEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="填写本人真实姓名" />
+    </LinearLayout>
+
+    <View style="@style/settings_row_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="身份证号" />
+
+        <EditText
+            android:id="@+id/et_user_id"
+            style="@style/DDMEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:digits="0123456789xX"
+            android:hint="填写本人真实身份证号"
+            android:maxLength="18" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_confirm"
+        style="@style/MyButton.DDMRed"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="16dp"
+        android:text="提交" />
+
+</LinearLayout>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        app:roundAsCircle="true"
+        />
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginTop"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:layout_toRightOf="@id/ivAvatar"
+        tools:text="dddd"
+        />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
+        android:layout_marginLeft="@dimen/marginTop"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/ivAvatar"
+        tools:text="dddd"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivAvatar"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:lineSpacingExtra="4dp"
+        tools:text="dddd\ndddddddddd\dndd 大大所大大多"
+        />
+
+    <TextView
+        android:id="@+id/tvProperties"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvContent"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        />
+
+    <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+        android:id="@+id/layoutNineImages"
+        style="@style/MatchWrap"
+        android:layout_below="@id/tvProperties"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="8dp"
+        app:bga_npl_itemCornerRadius="0dp"
+        app:bga_npl_itemSpanCount="4"
+        app:bga_npl_itemWhiteSpacing="14.5dp"
+        app:bga_npl_itemWidth="0dp"
+        app:bga_npl_otherWhiteSpacing="30dp"
+        app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+        app:bga_npl_showAsLargeWhenOnlyOne="false"/>
+
+    <TextView
+        android:id="@+id/tvTag"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutNineImages"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:text="我的回复"
+        />
+
+    <TextView
+        android:id="@+id/tvReply"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutNineImages"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:text="我的回复"
+        />
+
+    <TextView
+        android:id="@+id/tvMyReply"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTag"
+        android:layout_marginBottom="@dimen/padingLeftRight"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:text="我的回复"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.ntalker.uiview.dragdismisslayout.DragDismissLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_viewpager_dragDismiss"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.ntalker.utils.photoview.PhotoView
+        android:id="@+id/item_viewpager_img_cover"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+
+</cn.ntalker.uiview.dragdismisslayout.DragDismissLayout>
+
+

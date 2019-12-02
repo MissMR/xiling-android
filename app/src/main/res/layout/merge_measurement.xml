@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <LinearLayout
+        android:id="@+id/ll_anchor_avatar"
+        android:layout_width="43dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/measurement_avatar_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_avatar"
+            style="@style/DefaultSimpleDraweeView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="1.5dp"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:text="官方品控师"
+            android:textColor="@color/white"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_measurement_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_toRightOf="@id/ll_anchor_avatar"
+        android:text="品控师昵称" />
+
+    <TextView
+        android:id="@+id/tv_measurement_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_measurement_nickname"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@id/ll_anchor_avatar"
+        android:text="已甄选--件好货"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="10sp" />
+</merge>

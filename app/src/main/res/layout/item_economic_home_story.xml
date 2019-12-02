@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.drawee.view.SimpleDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sdv_img"
+    style="@style/DefaultSimpleDraweeView"
+    android:layout_width="162dp"
+    android:layout_height="91dp"
+    android:layout_marginRight="12dp"
+    app:roundedCornerRadius="12dp" />

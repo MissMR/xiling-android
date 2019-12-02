@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/item_like_product_bg">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/itemThumbIv"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="15dp"
+            app:actualImageScaleType="fitXY"
+            app:placeholderImage="@drawable/default_image"
+            app:placeholderImageScaleType="fitXY"
+            tools:background="@drawable/default_image" />
+
+        <TextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_toRightOf="@id/itemThumbIv"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="2"
+            android:text="---------------------------------"
+            android:textColor="@color/default_text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/itemMoneyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemThumbIv"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@id/itemThumbIv"
+            android:gravity="bottom"
+            android:includeFontPadding="false"
+            android:text="￥--.--"
+            android:textColor="@color/mainColor"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/itemMoneyTv2"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemMoneyTv"
+            android:layout_marginBottom="1dp"
+            android:layout_toRightOf="@id/itemMoneyTv"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tvCount"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitleTv"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/itemThumbIv"
+            android:text="--人收藏" />
+
+
+        <ImageView
+            android:id="@+id/itemTrashBtn"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignBottom="@id/itemThumbIv"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/icon_btn_more" />
+    </RelativeLayout>
+
+</LinearLayout>

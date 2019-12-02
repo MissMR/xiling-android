@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/section_border"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/thumbIv"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        fresco:actualImageScaleType="fitXY"
+                        fresco:placeholderImage="@drawable/default_image"
+                        fresco:placeholderImageScaleType="fitXY"
+                        fresco:viewAspectRatio="1" />
+
+                    <TextView
+                        android:id="@+id/titleTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="4sp"
+                        android:maxLines="2"
+                        android:text="产品名称"
+                        android:textColor="@color/default_text_color"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="填写评价"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/contentEt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/border_bottom"
+                    android:gravity="top"
+                    android:hint="亲，购买的宝贝？跟大家分享一下吧~"
+                    android:lineSpacingExtra="6sp"
+                    android:lines="4"
+                    android:maxLines="4"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text=""
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="上传照片"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7.5dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/border_top"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="10dp"
+                    android:text="服务评价"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <com.dodomall.ddmall.shared.component.StarField
+                    android:id="@+id/descStarField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    fresco:sf_label="描述相符" />
+
+                <com.dodomall.ddmall.shared.component.StarField
+                    android:id="@+id/expressStarField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    fresco:sf_label="物流服务" />
+
+                <com.dodomall.ddmall.shared.component.StarField
+                    android:id="@+id/serviceStarField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    fresco:sf_label="服务态度" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/submitBtn"
+                style="@style/MyButton.DDMRed"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:text="发表评价" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ddui.activity.CheckIdentityActivity">
+
+    <TextView
+        style="@style/TextView.SettingTopTip"
+        android:text="请用实名认证身份证号验证" />
+
+    <EditText
+        android:id="@+id/et_identity"
+        style="@style/DDMEditText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:digits="0123456789xX"
+        android:gravity="center_vertical"
+        android:hint="请输入身份证号"
+        android:maxLength="18"
+        android:paddingLeft="16dp" />
+
+    <TextView
+        android:id="@+id/tv_btn_next"
+        style="@style/MyButton.DDMRed"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        android:text="下一步" />
+
+</LinearLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical"
+    tools:context="com.dodomall.ddmall.module.user.WxRegisterActivity"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/marginTop"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivAvatar"
+            android:layout_width="61dp"
+            android:layout_height="61dp"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            app:placeholderImage="@mipmap/default_avatar"
+            app:roundAsCircle="true"
+            />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:textColor="@color/text_black"
+            android:textSize="18sp"
+            tools:text="wwww"
+            />
+    </LinearLayout>
+
+    <TextView
+        style="@style/tvCommonMainGray"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:gravity="bottom"
+        android:paddingBottom="@dimen/marginTop"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:text="补全你的信息"
+        />
+
+    <LinearLayout
+        style="@style/Form"
+        >
+
+        <LinearLayout
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="手机号："/>
+
+            <EditText
+                android:id="@+id/newPhoneEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入手机号码"
+                android:inputType="phone"
+                android:maxLength="11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="验证码："/>
+
+            <EditText
+                android:id="@+id/captchaEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="8"/>
+
+            <com.dodomall.ddmall.shared.component.CaptchaBtn
+                android:id="@+id/captchaBtn"
+                style="@style/btnCaptcha"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:clickable="true"
+                android:text="获取验证码"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="邀请码："/>
+
+            <EditText
+                android:id="@+id/etInvitationCode"
+                style="@style/Form.Field.Input"
+                android:hint="请输入您的邀请码"
+                android:inputType="number"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSubmit"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="20dp"
+        android:text="提交"
+        />
+</LinearLayout>

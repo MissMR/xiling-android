@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dodomall.ddmall.ddui.custom.camera.DDIDCameraPreview
+        android:id="@+id/camera_surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/camera_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_mask_front" />
+
+        <View
+            android:id="@+id/vMaskTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/camera_crop"
+            android:layout_alignParentTop="true"
+            android:background="#b3222222" />
+
+        <View
+            android:id="@+id/vMaskBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/camera_crop"
+            android:layout_alignParentBottom="true"
+            android:background="#b3222222" />
+
+        <View
+            android:id="@+id/vMaskLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/vMaskBottom"
+            android:layout_below="@id/vMaskTop"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/camera_crop"
+            android:background="#b3222222" />
+
+        <View
+            android:id="@+id/vMaskRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/vMaskBottom"
+            android:layout_below="@id/vMaskTop"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/camera_crop"
+            android:background="#b3222222" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:minWidth="24dp"
+            android:minHeight="24dp"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/takePhotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:background="@mipmap/btn_id_take_photo"
+            android:minWidth="64dp"
+            android:minHeight="64dp" />
+
+    </RelativeLayout>
+
+</FrameLayout>

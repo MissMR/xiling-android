@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <ImageView
+            android:id="@+id/itemBackgroundIv"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_coupon"/>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/itemThumbIv"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/default_image"
+            app:placeholderImageScaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/itemThumbIv"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="4sp"
+            android:lines="2"
+            android:maxLines="2"
+            android:text="Title"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/itemPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemThumbIv"
+            android:layout_marginBottom="-3dp"
+            android:layout_marginRight="3dp"
+            android:layout_toRightOf="@id/itemThumbIv"
+            android:includeFontPadding="false"
+            android:text="￥234"
+            android:textColor="@color/redPrice"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/itemDescTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemThumbIv"
+            android:layout_toRightOf="@id/itemPriceTv"
+            android:text="满100减99"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                >
+
+                <TextView
+                    android:id="@+id/itemTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="有效期"
+                    android:textColor="@color/grayDark"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="2dp"
+                    />
+
+                <TextView
+                    android:id="@+id/itemStoreNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="店名"
+                    android:textColor="@color/grayDark"
+                    android:textSize="12sp"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/toUseBtn"
+                style="@style/MyButton.Red.Radius"
+                android:layout_width="70dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/marginTop"
+                android:text="去使用"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/itemSelectFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/icon_coupon_flag"
+            />
+    </RelativeLayout>
+</LinearLayout>

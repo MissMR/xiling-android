@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anchor_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/white">
+
+
+    <TextView
+        style="@style/TextView.LeftRedTag"
+        android:layout_height="50dp"
+        android:layout_marginLeft="12dp"
+        android:text="商品详情" />
+
+    <com.dodomall.ddmall.ddui.custom.DDWebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:minHeight="1dp">
+
+    </com.dodomall.ddmall.ddui.custom.DDWebView>
+</LinearLayout>

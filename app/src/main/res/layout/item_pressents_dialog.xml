@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="@dimen/marginTop"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:layout_marginRight="@dimen/marginTop"
+        />
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/ivAvatar"
+        />
+
+    <TextView
+        android:id="@+id/tvCount"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_toRightOf="@id/ivAvatar"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:src="@mipmap/icon_arrow_right"
+        android:visibility="gone"
+        />
+
+
+    <View
+        style="@style/lineHorizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        />
+</RelativeLayout>

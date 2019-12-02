@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="12dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sd_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:actualImageScaleType="fitXY"
+            app:placeholderImage="@drawable/default_image"
+            app:placeholderImageScaleType="fitXY"
+            app:roundedCornerRadius="8dp"
+            app:viewAspectRatio="2.19375" />
+
+        <TextView
+            android:id="@+id/spuStatusView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_home_recommend_sku_mask"
+            android:gravity="center"
+            android:text="已抢光"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="14dp">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:minLines="1"
+            android:text="美迪惠尔(Mediheal)水润保湿面膜10片水库针剂(补水女护肤适用) 可莱丝 韩国进口"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titleTextView"
+            android:layout_marginTop="5dp">
+
+            <include
+                android:id="@+id/layout_avatar"
+                layout="@layout/layout_three_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/tv_sale_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/layout_avatar"
+                android:text="已抢1.8w件"
+                android:textColor="#999999"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:id="@+id/layout_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_sale_count"
+                android:gravity="center|left"
+                android:minHeight="24dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_price_vip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btn_share"
+            android:layout_width="62dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_bg_red_r16"
+            android:text="推广赚"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_store"
+            android:layout_width="62dp"
+            android:layout_height="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/btn_share"
+            android:background="@drawable/btn_bg_frame_gray_r16"
+            android:text="上 架"
+            android:textColor="@color/gray"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/btn_store"
+            android:orientation="horizontal">
+
+            <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+                android:id="@+id/tv_price_vip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="￥54.2"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_price_reward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_price_vip"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_price_vip"
+                android:gravity="center"
+                android:text="赚￥560"
+                android:textColor="@color/red" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_price_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp">
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_bg_red_r12"
+            android:minWidth="64dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:text="立即购买"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/btn_buy"
+            android:orientation="horizontal">
+
+            <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+                android:id="@+id/tv_price_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:text="￥54.2"
+                android:textColor="@color/red"
+                android:textSize="21sp" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tv_price_now"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/tv_price_now"
+                android:text="￥560"
+                android:textColor="@color/gray" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="#f2f2f2" />
+
+</LinearLayout>

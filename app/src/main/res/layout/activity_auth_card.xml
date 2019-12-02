@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_auth_identity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            android:text="银行卡信息（需是您本人的银行卡）"
+            android:textColor="@color/text_black"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="@dimen/marginTop"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="持卡人:"
+                />
+
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="身份证号:"
+                />
+
+            <TextView
+                android:id="@+id/tvNumber"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="开户银行:"
+                />
+
+            <TextView
+                android:id="@+id/spSelectYH"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:text="@string/sp_select"
+                android:gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="开户地区:"
+                />
+
+            <TextView
+                android:id="@+id/tvYhLocation"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请选择开户地区"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="开户支行:"
+                />
+
+            <EditText
+                android:id="@+id/etYhZhihang"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:hint="如：中山大道支行"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="银行卡号:"
+                />
+
+            <EditText
+                android:id="@+id/etCardNumber"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:hint="请输入银行卡号"
+                android:inputType="number"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+
+        <View
+            style="@style/lineHorizontal"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="190"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:text="手机号:"
+                />
+
+            <EditText
+                android:id="@+id/etPhoneNumber"
+                style="@style/tvCommonTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="560"
+                android:background="@null"
+                android:hint="请输入银行预留手机号"
+                android:inputType="number"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    style="@style/tvCommonTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="180"
+                    android:paddingLeft="15dp"
+                    android:text="验证码:"
+                    />
+
+                <EditText
+                    android:id="@+id/etCheckNumber"
+                    style="@style/tvCommonTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="560"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:inputType="phone"
+                    android:maxLength="9"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvGetCheckNumber"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="获取验证码"
+                style="@style/btnCaptcha"
+                android:textSize="14sp"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            android:text="上传银行卡正面照片"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/padingLeftRight"
+            >
+
+            <RelativeLayout
+                android:layout_width="170dp"
+                android:layout_height="110dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="7dp"
+                >
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/IvIdCard1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/ic_update_card"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivDeleteCard1"
+                    style="@style/iv_auth_img_delete"
+                    android:src="@drawable/ic_delete_img"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/tvCommonMainGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="示例图"
+                />
+
+            <RelativeLayout
+                android:layout_width="170dp"
+                android:layout_height="110dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="7dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/iv_card_simple"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            style="@style/MyButton.Red.Radius"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="@dimen/padingLeftRight"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="20dp"
+            android:text="提交审核"
+            />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_measurement"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_measurement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <include layout="@layout/merge_measurement" />
+
+        <com.dodomall.ddmall.ddui.custom.DDStarView
+            android:id="@+id/dd_star_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"></com.dodomall.ddmall.ddui.custom.DDStarView>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@color/ddm_gray_light" />
+
+    <com.dodomall.ddmall.ddui.custom.DDExpandTextView
+        android:id="@+id/tv_measurement_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="7"
+        android:padding="12dp"
+        android:text="sssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkksssssssksjflksjlkfsjfsjfklsflksfklskfdlksjlkk" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_measurement_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <FrameLayout
+        android:id="@+id/fl_video"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/gray_bg_radius_8"
+        tools:visibility="visible">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_video"
+            style="@style/DefaultSimpleDraweeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:actualImageScaleType="focusCrop" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/icon_play_button" />
+    </FrameLayout>
+
+    <include layout="@layout/include_divider_10" />
+</LinearLayout>

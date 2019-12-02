@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dodomall.ddmall.module.store.StoreSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gray"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:paddingRight="@dimen/padingLeftRight"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/marginTop"
+            >
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺名称"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/etName"
+            style="@style/et_while"
+            android:hint="请输入店铺名称"
+            />
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:drawableRight="@drawable/ic_red_star"
+            android:text="上传店铺头像"
+            android:visibility="gone"
+
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="@dimen/marginTop"
+            android:background="@drawable/bg_while_gray_corners_stroke"
+            android:visibility="gone"
+
+            >
+
+            <RelativeLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                >
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivAddAvatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/ic_add_photo"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivDelAvatar"
+                    style="@style/iv_auth_img_delete"
+                    android:src="@drawable/ic_delete_img"
+                    android:visibility="gone"
+                    />
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                >
+
+                <TextView
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="店铺地址"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    />
+            </LinearLayout>
+
+            <TextView
+                style="@style/tvCommonMini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="（买家退货时会退回到本地址）"
+                android:visibility="gone"
+
+                />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layoutSelectCity"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="@dimen/marginTop"
+            android:background="@drawable/bg_while_gray_corners_stroke"
+            android:paddingLeft="@dimen/marginTop"
+            android:paddingRight="@dimen/marginTop"
+            >
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="请选择区域"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:src="@mipmap/icon_arrow_down"
+                />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/etAddress"
+            style="@style/et_while"
+            android:layout_height="75dp"
+            android:gravity="top"
+            android:hint="请输入详细地址"
+            android:maxLines="5"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:visibility="gone"
+            >
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_red_star"
+                android:text="店铺联系人"
+                />
+
+            <TextView
+                style="@style/tvCommonMini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text=""
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+
+            >
+
+            <EditText
+                android:id="@+id/etContacts"
+                style="@style/et_while"
+                android:hint="请输入联系人姓名"
+                />
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:drawableRight="@drawable/ic_red_star"
+                android:text="联系电话"
+                />
+
+            <EditText
+                android:id="@+id/etPhone"
+                style="@style/et_while"
+                android:hint="请输入联系电话"
+                android:inputType="phone"
+                />
+
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:drawableRight="@drawable/ic_red_star"
+                android:text="发货城市"
+                />
+
+            <FrameLayout
+                android:id="@+id/layoutSelectShipCity"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@drawable/bg_while_gray_corners_stroke"
+                android:paddingLeft="@dimen/marginTop"
+                android:paddingRight="@dimen/marginTop"
+                >
+
+                <TextView
+                    android:id="@+id/tvShipCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="请选择发货城市"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@mipmap/icon_arrow_down"
+                    />
+            </FrameLayout>
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:drawableRight="@drawable/ic_red_star"
+                android:text="默认快递"
+                />
+
+            <EditText
+                android:id="@+id/etExpressName"
+                style="@style/et_while"
+                android:hint="请输入默认快递"
+                />
+
+            <LinearLayout
+                android:id="@+id/layoutShipTypeTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/ic_red_star"
+                    android:text="发货方式"
+                    />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutSelectShipType"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@drawable/bg_while_gray_corners_stroke"
+                android:paddingLeft="@dimen/marginTop"
+                android:paddingRight="@dimen/marginTop"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/tvShipType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="选择发货方式"
+                    android:textColor="@drawable/color_gray_black_selector"
+                    android:textSize="14sp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:src="@mipmap/icon_arrow_down"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvShipTypeInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTop"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:drawableRight="@drawable/ic_red_star"
+                android:text="上传店主微信二维码"
+                />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@drawable/bg_while_gray_corners_stroke"
+                >
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="110dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="15dp"
+                    >
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/icAddQrCode"
+                        android:layout_width="70dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/ic_add_photo"
+                        />
+
+                    <ImageView
+                        android:id="@+id/ivDelQrCode"
+                        style="@style/iv_auth_img_delete"
+                        android:src="@drawable/ic_delete_img"
+                        android:visibility="gone"
+                        />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/ic_store_demo"
+                    />
+            </FrameLayout>
+
+            <TextView
+                style="@style/tvCommonMini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="会员联系店主时，将通过此二维码添加您的微信"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            style="@style/MyButton.Red.Radius"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:text="保存"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+</ScrollView>

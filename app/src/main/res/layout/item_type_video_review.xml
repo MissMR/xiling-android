@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/user_pic_iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/distance_15"
+        android:layout_marginTop="@dimen/distance_15"
+        android:src="@drawable/img_default"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_17"
+        android:singleLine="true"
+        android:text="多美优品官方朋友圈"
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintLeft_toRightOf="@+id/user_pic_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/send_data_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/distance_10"
+        android:layout_marginTop="@dimen/distance_2"
+        android:singleLine="true"
+        android:text="2017-12-27 20:30"
+        android:textColor="@color/color_99"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toRightOf="@+id/user_pic_iv"
+        app:layout_constraintTop_toBottomOf="@id/user_name_tv"
+        />
+
+    <com.dodomall.ddmall.shared.component.ExpandableTextView
+        android:id="@+id/user_send_content_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/distance_15"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/distance_5"
+        app:layout_constraintLeft_toRightOf="@id/user_pic_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_pic_iv"
+        >
+
+        <TextView
+            android:id="@id/id_source_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.3"
+            android:textColor="@color/color_33"
+            android:textSize="@dimen/text_size_14sp"
+            />
+
+        <TextView
+            android:id="@id/id_expand_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展开"
+            android:textColor="@color/blue_more"/>
+
+    </com.dodomall.ddmall.shared.component.ExpandableTextView>
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/video_item_player"
+        app:layout_constraintTop_toBottomOf="@id/user_send_content_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="@dimen/distance_65"
+        android:layout_marginEnd="@dimen/distance_15"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <LinearLayout
+        android:id="@+id/do_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/distance_65"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:weightSum="4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/video_item_player"
+        >
+        <TextView
+            android:id="@+id/save_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/distance_5"
+            android:drawableStart="@drawable/ic_save"
+            android:text="@string/s_save_text"
+            android:textColor="@color/color_99"
+            android:paddingTop="@dimen/distance_15"
+            android:paddingBottom="@dimen/distance_15"
+            android:textSize="@dimen/text_size_14sp"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/forward_tv"
+            />
+
+        <TextView
+            android:id="@+id/forward_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/distance_5"
+            android:drawableStart="@drawable/ic_forward"
+            android:text="@string/s_forward_text"
+            android:textColor="@color/color_99"
+            android:paddingTop="@dimen/distance_15"
+            android:paddingBottom="@dimen/distance_15"
+            android:textSize="@dimen/text_size_14sp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:id="@+id/item_bottom_line"
+        app:layout_constraintTop_toBottomOf="@id/do_layout"
+        android:background="@color/color_e6"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="@dimen/distance_15"
+        android:layout_marginEnd="@dimen/distance_15"
+        />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/marginTop"
+    tools:context="com.dodomall.ddmall.module.deal.DealFirstActivity"
+    >
+
+    <View
+        style="@style/lineHorizontal"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:paddingRight="@dimen/padingLeftRight"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            style="@style/tvCommonTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_deal_card"
+            android:drawablePadding="8dp"
+            android:text="提现到银行卡"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_selected"
+            />
+    </LinearLayout>
+
+    <View
+        style="@style/lineHorizontal"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:paddingRight="@dimen/padingLeftRight"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:textColor="@color/text_black"
+            android:textSize="26sp"
+            />
+
+        <EditText
+            android:id="@+id/etMoney"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="最多可提现"
+            android:maxLines="1"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/tvAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padingLeftRight"
+            android:text="全部提现"
+            android:textColor="#0097e8"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
+
+    <View
+        style="@style/lineHorizontal"
+        />
+
+    <TextView
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:text="审核完成后，将在 5 个工作日内打款到您的银行卡。"
+        />
+
+    <TextView
+        android:id="@+id/tvSubmit"
+        style="@style/MyButton.Red.Radius"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:text="提交申请"
+        />
+</LinearLayout>

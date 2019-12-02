@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dodomall.ddmall.module.store.StoreSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gray"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:paddingRight="@dimen/padingLeftRight"
+        >
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTop"
+            android:drawableRight="@drawable/ic_red_star"
+            android:text="快递公司"
+            />
+
+        <EditText
+            android:id="@+id/etName"
+            style="@style/et_while"
+            android:hint="请填写物流公司"/>
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:drawableRight="@drawable/ic_red_star"
+            android:text="快递单号"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTop"
+            >
+
+            <EditText
+                android:id="@+id/etCode"
+                style="@style/et_while"
+                android:layout_marginTop="0dp"
+                android:hint="请输入物流单号"
+                android:inputType="phone"
+                android:maxLength="20"
+                />
+
+            <ImageView
+                android:id="@+id/ivScan"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right|center_vertical"
+                android:paddingLeft="@dimen/marginTop"
+                android:paddingRight="@dimen/marginTop"
+                android:src="@drawable/ic_scan"
+                />
+        </FrameLayout>
+
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:text="卖家备注"
+            />
+
+        <EditText
+            android:id="@+id/etRemark"
+            style="@style/et_while"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="最多输入200个字"
+            android:maxEms="200"
+            android:maxLines="10"
+            android:minHeight="70dp"
+            android:padding="@dimen/marginTop"
+            />
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            style="@style/MyButton.Red.Radius"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:text="提交"
+            />
+    </LinearLayout>
+</ScrollView>

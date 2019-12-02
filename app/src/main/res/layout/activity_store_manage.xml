@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dodomall.ddmall.module.store.StoreManageActivity"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/red"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/padingLeftRight"
+                    android:text="本月销售额（元）"
+                    android:textColor="#fac8db"
+                    android:textSize="14sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvMonthMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="36sp"
+                    tools:text="88888.99"
+                    />
+
+                <TextView
+                    android:id="@+id/tvTotlaMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/padingLeftRight"
+                    android:textColor="#fac8db"
+                    android:textSize="14sp"
+                    tools:text="总销售额（元）：  "
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                >
+
+                <com.dodomall.ddmall.shared.component.ItemWithIcon
+                    android:id="@+id/itemDaifahuo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon_divider="10dp"
+                    app:icon_drawable="@drawable/ic_store_manage_daifahuo"
+                    app:icon_height="25dp"
+                    app:icon_width="25dp"
+                    app:item_label="待发货"/>
+
+                <com.dodomall.ddmall.shared.component.ItemWithIcon
+                    android:id="@+id/itemYifahuo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon_divider="10dp"
+                    app:icon_drawable="@drawable/ic_store_manage_yifahuo"
+                    app:icon_height="25dp"
+                    app:icon_width="25dp"
+                    app:item_label="已发货"/>
+
+                <com.dodomall.ddmall.shared.component.ItemWithIcon
+                    android:id="@+id/itemYishouhuo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon_divider="10dp"
+                    app:icon_drawable="@drawable/ic_store_manage_yishouhuo"
+                    app:icon_height="25dp"
+                    app:icon_width="25dp"
+                    app:item_label="已收货"/>
+
+                <com.dodomall.ddmall.shared.component.ItemWithIcon
+                    android:id="@+id/itemYiguanbi"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:icon_divider="10dp"
+                    app:icon_drawable="@drawable/ic_store_manage_guanbi"
+                    app:icon_height="25dp"
+                    app:icon_width="25dp"
+                    app:item_label="已关闭"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutRefund"
+                style="@style/Form.Field"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/padingLeftRight"
+                >
+
+                <TextView
+                    style="@style/Form.Field.Label.Auto"
+                    android:text="退款退货订单"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+
+                <TextView
+                    android:id="@+id/tvRefundQuantity"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/red_20_badge"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:text="111"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padingLeftRight"
+                    android:src="@mipmap/icon_arrow_right"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutComent"
+                style="@style/Form.Field"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    style="@style/Form.Field.Label.Auto"
+                    android:text="收到的评价"/>
+
+                <TextView
+                    android:id="@+id/tvCommentQuantity"
+                    style="@style/Form.Field.Text.Link"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

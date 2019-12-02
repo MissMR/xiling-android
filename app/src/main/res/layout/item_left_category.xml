@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/itemLabelTv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_category_left_selector"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:text="Label"
+        android:textSize="14sp" />
+</LinearLayout>

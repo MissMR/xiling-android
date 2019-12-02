@@ -1,0 +1,454 @@
+apply plugin: 'com.android.application'
+
+android {
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
+    defaultConfig {
+        applicationId "com.dodomall.ddmall"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 2100
+        versionName "2.1.0"
+        multiDexEnabled true
+
+        flavorDimensions "channel"
+
+        buildConfigField("String", "TOKEN_SALT", "\"a70c34cc321f407d990c7a2aa7900729\"")
+        buildConfigField("String", "COOKIE_DOMAIN", "\"*.beautysecret.cn\"")
+
+        // 内置首页版本号
+        buildConfigField("int", "HOME_WEB_VERSION", "1")
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+    }
+
+    dexOptions {
+        // 解决api21 dex包超出不能超出100个的限制
+        preDexLibraries = false
+        // OutOfMemoryError: GC overhead limit exceeded
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../dodomall.jks")
+            storePassword "dodomall123"
+            keyAlias "dodomall"
+            keyPassword "dodomall123"
+        }
+
+        debug {
+            storeFile file("../dodomall.jks")
+            storePassword "dodomall123"
+            keyAlias "dodomall"
+            keyPassword "dodomall123"
+
+//            storeFile file("../Test.jks")
+//            storePassword "123456"
+//            keyAlias "HANQ"
+//            keyPassword "123456"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                // 输出apk名称为dodomall_v1.0.1_15333134123412.apk
+                def version = "v${versionName}"
+                def date = new Date().getTime()
+                def fileName = "dodomall_${version}_${variant.productFlavors[0].name}_${date}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    productFlavors {
+
+        Web {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Web",
+                    JPUSH_CHANNEL: "Web",
+                    CHANNEL_ID   : 999
+            ]
+            dimension "channel"
+        }
+
+        Tencent {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Tencent",
+                    JPUSH_CHANNEL: "Tencent",
+                    CHANNEL_ID   : 1000
+            ]
+            dimension "channel"
+        }
+
+        HuaWei {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "HuaWei",
+                    JPUSH_CHANNEL: "HuaWei",
+                    CHANNEL_ID   : 1001
+            ]
+            dimension "channel"
+        }
+
+        XiaoMi {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "XiaoMi",
+                    JPUSH_CHANNEL: "XiaoMi",
+                    CHANNEL_ID   : 1002
+            ]
+            dimension "channel"
+        }
+
+
+        OPPO {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "OPPO",
+                    JPUSH_CHANNEL: "OPPO",
+                    CHANNEL_ID   : 1004
+            ]
+            dimension "channel"
+        }
+
+        VIVO {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "VIVO",
+                    JPUSH_CHANNEL: "VIVO",
+                    CHANNEL_ID   : 1005
+            ]
+            dimension "channel"
+        }
+
+        Lenovo {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Lenovo",
+                    JPUSH_CHANNEL: "Lenovo",
+                    CHANNEL_ID   : 1009
+            ]
+            dimension "channel"
+        }
+
+        Baidu {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Baidu",
+                    JPUSH_CHANNEL: "Baidu",
+                    CHANNEL_ID   : 1013
+            ]
+            dimension "channel"
+        }
+
+        //        Store360 {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "Store360",
+//                    JPUSH_CHANNEL: "Store360",
+//                    CHANNEL_ID   : 1003
+//            ]
+//            dimension "channel"
+//        }
+
+//        MeiZu {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "MeiZu",
+//                    JPUSH_CHANNEL: "MeiZu",
+//                    CHANNEL_ID   : 1006
+//            ]
+//            dimension "channel"
+//        }
+
+//        OnePlus {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "OnePlus",
+//                    JPUSH_CHANNEL: "OnePlus",
+//                    CHANNEL_ID   : 1007
+//            ]
+//            dimension "channel"
+//        }
+
+//        Smartisan {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "Smartisan",
+//                    JPUSH_CHANNEL: "Smartisan",
+//                    CHANNEL_ID   : 1008
+//            ]
+//            dimension "channel"
+//        }
+
+//        Nubia {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "Nubia",
+//                    JPUSH_CHANNEL: "Nubia",
+//                    CHANNEL_ID   : 1010
+//            ]
+//            dimension "channel"
+//        }
+
+//        Samsung {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "Samsung",
+//                    JPUSH_CHANNEL: "Samsung",
+//                    CHANNEL_ID   : 1011
+//            ]
+//            dimension "channel"
+//        }
+
+//        Google {
+//            manifestPlaceholders = [
+//                    UMENG_CHANNEL: "Google",
+//                    JPUSH_CHANNEL: "Google",
+//                    CHANNEL_ID   : 1012
+//            ]
+//            dimension "channel"
+//        }
+
+
+    }
+
+    buildTypes {
+        release {
+            manifestPlaceholders = [
+                    APP_NAME     : "@string/appName",
+
+                    JPUSH_PKGNAME: defaultConfig.applicationId,
+                    JPUSH_APPKEY : "1c17c29dc8530000969dc216", //JPush上注册的包名对应的appkey.
+
+                    UMENG_APPKEY : "5b6a89d6a40fa3082800006d", //友盟App Key
+            ]
+
+            // 生产环境
+            buildConfigField("String", "BASE_URL", "\"https://store.dodomall.com/\"")
+
+            //H5页服务器地址
+            buildConfigField("String", "H5_URL", "\"https://h5.dodomall.com/\"")
+            //H5的附加版本号
+            buildConfigField("String", "H5_FUNC", "\"5\"")
+
+            buildConfigField("String", "WX_APP_ID", "\"wx4d7aac8dbecd638f\"")
+            buildConfigField("String", "WXAPP_SECRET", "\"a4296a0b6e388c944bef661bb3814114\"")
+
+            buildConfigField("String", "WX_MCH_ID", "\"1512666651\"")
+            buildConfigField("String", "WX_PAY_NOTIFY_URL", "\"wxnotify/gzhwxpay\"")
+            buildConfigField("String", "WX_PAY_KEY", "\"a4296a0b6e388c944bef661bb3814114\"")
+
+            buildConfigField("String", "ALIPAY_APP_ID", "\"2018080960970568\"")
+            buildConfigField("String", "ALIPAY_RSA_KEY", "\"MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCpOeHbLVY/zFBdCdsYrt47qLqQ4gSX2Xp5vRnKRFMbXaVTDulPo721ar6Xd4oq4H2uCgH+29pAKvKIk6she6YL+JI/pKyGGhmnkngRx8QsqyDi0eCzATzTaJcbglMHQb5kNrFfTsSeBbWkIb9iemQlBVGukY6WNYxK1HQwkCv8GjggpeTZuefNfrtIr5+7Ueg2QpIMaFrrDvrja+PKw8Wo7lk5FSZNy7e4EuspSF4ZQWB426obiDPsUzOHo3/8jkj1AwDNgeJuB24EKpAMWcnHQJU5blrLTqYb95Boy+pPP37PMSqp1CVa+mGdpDRa/fhQW6Q5y53BOL77wypPQzatAgMBAAECggEAQZlziSA5CAAuwvI4IYhgE6ZjtBg5iZe/l4OLhNIZmUki9mCYZsvllXbsrRCk2dwuPBIbFe2p3CgJ3pHHy/H/uzI/lzZBvrZNbZ0kuFfFHz+zPtn3Dc0UBCvOL9bEUtLUeEqPVY/WPh+eeyKt6wHg4kz+jfpU2LunR7a118F7m3z4CXYrJhnixnRN6eo2bRlniq4LQIMCpnvCy8wYVEpex8gEvSTwPicAB21xBbnbi0Z8qll7tJcf320XnBCrPtokjWKYLLdTuFhyz811pT7eSGFRq7togSNdNlDFtwi4MYzhQLToyBI09sNTxKb9Hf8+GdIFMKJuqBFOaXkVU39LrQKBgQDpYFyTvc7R793wsPmQssl0vq8ni2xmJFdb6GyEHtC9qB8+JOIi6sqMa/PV+XOlw4eCNDAKHFwhOXeIl0g3yRY40zzpi7J9unKqavQJ+BLOYg6kRmaAvfzvrRJ6EMb52MD9TF94z7jShKCgHsjf7/ObEq3Bq2r+8LIQgvfrWrDdgwKBgQC5oYUdwVPyBO/MrSIRaxsFZdhNKjDBuPAt1UBJctPFvzivTm0PwAAhICbbhBBSRByPgozew57IPGf544GClzHaq17UJIrL5p5BOQ7OhiOyrc1YLNSEtNtOpVRlE1JYvpe1uQzzgyeOcQ5dxB3jmVHEYs+U4L+mvWvC/YexgIgUDwKBgD7l0K2k51vfeQKIwApGlVMYnV5cDlANFVpY7v5Ay+OBr0HxcN0WSJbF9YbC329anmfyJsxizlXKBjRTCYy3bnzMOct78hQ+ru7NOo6BRJhJB0cxDik+izARhjxNz0LBL2pVLhoCaf6a7iuZgGwSYKZ3x0q+J20kc+lNUwIkhCx/AoGBAKJZHhfg7i77nFIwlVwQhUhaQytxm8TBnuUm3ZufHpGS5NuFRqMAs9xEx1czECcyxJvKfLOS+Lp9Ah6tl6YD36k0ObJl5zHfF0dJxKZg8LWjhbT5OEB8AFWvCLmBhYJx5jMbjbUnXqAYRo1BKTbV74pHNO8rBNKqVaXqoBNgqyKHAoGAFgcIf1B5xUiiv8Vbl7pXA32GzYvn3bYVndudOzdQ9SJd9av3iXyKAy0r/81p6IxSns6Snbtakcr7tPHwO3orAcGvfn1zdT/cK4Y0rzVEGNY3LkNFJIcX1lsFZ/5OVo/f0uQev74g/rJuF2q71NzYqdLk0HGpe81/NIYdkrdqEKE=\"")
+            buildConfigField("String", "ALIPAY_NOTIFY_URL", "\"alipaynotify/gzhalipay\"")
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.release
+
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
+        }
+
+        debug {
+            manifestPlaceholders = [
+                    APP_NAME     : "@string/appNameDebug",
+
+                    JPUSH_PKGNAME: defaultConfig.applicationId,
+                    JPUSH_APPKEY : "1c17c29dc8530000969dc216", //JPush上注册的包名对应的appkey.
+
+                    UMENG_APPKEY : "5aaf357ff29d983f54000021", //友盟App Key
+            ]
+
+            // 开发环境  150映射 61.162.59.74:9080
+//            buildConfigField("String", "BASE_URL", "\"http://61.162.59.74:9080/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.1.150:8080/\"")
+
+            // 测试环境  210映射 61.162.59.74:9050
+            buildConfigField("String", "BASE_URL", "\"http://store.dianduoduo.store/\"")
+            //Mock地址
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.1.164/mock/32/\"")
+
+            //H5页服务器地址
+            buildConfigField("String", "H5_URL", "\"http://h5.dianduoduo.store/\"")
+
+            //H5的附加版本号
+            buildConfigField("String", "H5_FUNC", "\"5\"")
+
+            // 测试key
+            buildConfigField("String", "WX_APP_ID", "\"wx686bef05a40ad630\"")
+            buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
+
+            buildConfigField("String", "WX_MCH_ID", "\"1514718991\"")
+            buildConfigField("String", "WX_PAY_NOTIFY_URL", "\"wxnotify/gzhwxpay\"")
+            buildConfigField("String", "WX_PAY_KEY", "\"e93f87ab75e52d48fa1a86143e3a64a3\"")
+
+            buildConfigField("String", "ALIPAY_APP_ID", "\"2018052460199368\"")
+            buildConfigField("String", "ALIPAY_RSA_KEY", "\"MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYK9cVhRQ2OABL3mry65jxmXbUuzJyCLDPpOJvrdVboZRsi46scjMe+uvAn1haiiJfabGQlaOtX0nNot7L3RQFbw2EhtMjRFPHOVF6ueFDi72E/8zeuZ92DE0gu9b6R4EhD0Kbp9A1FeeU1WTNa7H131upAwKW+wmxeOiuKL8MWcJM5wSOnp3Ua39eVoouIUg6IjjZyp5OjTtTtkQN5bRkilTgdt+L7fwPEMkkvbZuvkRYpdaDyIt6fLrswP67kTqi4neJn4WIoi/rpwx/xji8a4UA15X9TcaPNSLxisiSmyTjt74JQNZ6B7XsN5p/bAeTqIIBptTyxiRKiA+HsdLHAgMBAAECggEAA85x0R0wx+ughbV66KAhZ0+uefx53OwuQNnEavcCpMRpmqeycXLpV4hPkmq74YxBIrD3wXYBFdJxuD8/8RMJgTb9Y/ID0cEoQH/P4XtYbhoN0kO21c0q86cvzH3CQVH1AiIEqD0CO40RMNu5FKzqy0uNj6JP71yoRQm9/yMUiiEaM93ePl0Hly+WEOgfu1yp0tc/KNzLNDumK4xmHwpeJ/0/ReKAlUVt7ZfhWlDxIxnPwS9hitThcyv5b13fqwiAOALHqepARzez9qF5GRmAFKKsgVgRZ2Udys6CVLnYofrVWKOy8sl/iZqSuRxIsRyRMq2ElHJxYC/e7j4QZ58SgQKBgQDsb+W3Vj6WjWJ3at9PnQOXfjGw5/O2Bl7VWHGj8/isk4JXi/551Z9CmCpB4sFS6Yn0JrFC1YbJv9ap36I15rp0k1WHF85mVyqh3EwHwI8uKkb/JebDdIVIsSQBbCmtxPd+qqx+eLQPtytKt6T5S2dWNdcSkYBWllmTl/ZNcmJ8pwKBgQDqDq5PYyEJcrKuODFuJai9te8zLb7vJyj8HxRWk2JWthl03vJNzdHJNbkQTzsRbl3UMF9XSzlDtsiJ4HZnBZsLKQ/lMtWEBm9OimDYsjc5IGUL10OfoYN1dGfWtbNTodV9hZFUTzsRf2Xin7fxMtoIDOkdXbubgPj2RheaqoAc4QKBgGXNQEGSVtyH/8+fKoui9XrzEP40wRCs6YQ+0p9fWsEjuklrs6RNwIbx8a/wrIDAoW+IgWZffeu8N/donPVMZRfwoDDMpUgXW/nZWrszw/KCrZMKhLO/pevIqdIa+k8hsdbOMfs6iX0Cxxciv1u/hbzu7a3HDFU741HTam+qQpGdAoGBAJLMQmdoNQBH/+llNRtwYzUZNr1So747QWlf1NG3/qWD8NNsQWyq+jjIiRnBl7qHDjJXZHTLqU7fBUf0kE5tJaEKT/3gtCnqH0WTZMqEfD5IIxgaGz+zfU/dgoMX0zFQ/yWK8GuAhfuje7N3mVaeHkGOV2cjstcFPSC5NXS8Gz4BAoGBAIQMnDth1m2ZCKNYDQFEWpdyjXuxLFibHj0bIRW/hk3KYw2CW6NYkvt0HTgioMhzpNwSbS2SliVMujNadZjALiDJLMsC9hqditszCV5Il7JjlIWowqtPmVLNVhvkRTuQLxHmqzCbhrHVsLZqfa9uyEc9tcF5i7Io2rDmbZFQJm5g\"")
+
+            buildConfigField("String", "ALIPAY_NOTIFY_URL", "\"alipaynotify/gzhalipay\"")
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    useLibrary 'org.apache.http.legacy'
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+static def getMyVersionCode() {
+    def date = new Date()
+    return date.format('yyyyMMddHH')
+}
+
+dependencies {
+    //引入libs文件夹下的所有库文件
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //引入系统库
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    //编译插件库
+    implementation project(':ntalkerChatUI')
+    implementation project(':matisse')
+    implementation project(':magicindicator')
+
+    //支付相关
+    implementation files('libs/alipaySdk-20170623-proguard.jar')
+
+    implementation 'com.google.guava:guava:22.0-android'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+
+    //极光
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'
+
+    implementation 'com.facebook.fresco:fresco:1.10.0'
+    implementation 'com.facebook.fresco:imagepipeline-okhttp3:1.3.0'
+    implementation 'com.facebook.fresco:animated-gif:1.10.0'
+
+    implementation 'com.umeng.analytics:analytics:6.1.4@jar'
+
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'com.orhanobut:logger:1.15'
+    implementation 'com.google.android:flexbox:0.2.6'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.3.1@jar'
+
+    implementation 'com.blankj:utilcode:1.3.6'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    implementation 'com.github.chenBingX:SuperTextView:v1.3'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.7'
+    implementation 'com.tencent.bugly:nativecrashreport:3.6.0.1'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
+    implementation 'com.zhy:magic-viewpager:1.0.1'
+    implementation 'com.contrarywind:Android-PickerView:3.2.3'
+    implementation 'com.sobot.chat:sobotsdk:2.3.0'
+    implementation 'com.just.agentweb:agentweb:1.2.6'
+    implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'top.zibin:Luban:1.1.2'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'com.iarcuschin:simpleratingbar:0.1.5'
+    implementation 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    implementation 'cn.bingoogolapple:bga-zbar:1.1.7@aar'
+    implementation 'cn.bingoogolapple:bga-adapter:1.1.8@aar'
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.3@aar'
+    implementation 'cn.bingoogolapple:bga-zxing:1.1.9@aar'
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.bigkoo:alertview:1.0.2'
+
+    //高德定位
+    implementation 'com.amap.api:location:4.5.0@jar'
+    //高德地图
+    implementation 'com.amap.api:map2d:5.2.0@jar'
+    //高德搜索
+    implementation 'com.amap.api:search:6.5.0.1@jar'
+
+    //美洽客服
+//    implementation 'com.meiqia:meiqiasdk:3.4.7@aar'
+
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+    implementation 'com.qmuiteam:qmui:1.0.4'
+    implementation 'me.relex:circleindicator:1.2.2@aar'
+    implementation 'com.github.zhangjm404:ZViews:0.3.2'
+
+    // 视频播放的dependencies
+    implementation 'com.shuyu:gsyVideoPlayer-java:2.0.6'
+    implementation 'com.shuyu:gsyVideoPlayer-armv5:2.0.6'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:2.0.6'
+    implementation 'com.shuyu:gsyVideoPlayer-arm64:2.0.6'
+    implementation 'com.shuyu:gsyVideoPlayer-x64:2.0.6'
+    implementation 'com.shuyu:gsyVideoPlayer-x86:2.0.6'
+
+    implementation 'com.github.esafirm:rxdownloader:2.0.0'
+    implementation 'zlc.season:rxdownload2:2.0.4'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.chanven.lib:cptr:1.1.0'
+    implementation 'org.parceler:parceler-api:1.1.10'
+    annotationProcessor 'org.parceler:parceler:1.1.10'
+
+    implementation 'cn.carbs.android:ExpandableTextView:1.0.3'
+    //    compile 'com.zhihu.android:matisse:0.4.3'
+    //    implementation 'com.zhihu.android:matisse:0.5.0-beta3'
+    //banner布局
+    implementation 'com.github.joker-fu:BannerPager:0.1.0'
+    implementation 'com.alimuzaffar.lib:pinentryedittext:1.3.3'
+    //高斯模糊
+    implementation 'jp.wasabeef:blurry:2.1.1'
+
+    //TextView文字特效
+    implementation 'hanks.xyz:htextview-library:0.1.2'
+
+    implementation 'junit:junit:4.12'
+}

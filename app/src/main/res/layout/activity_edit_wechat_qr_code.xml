@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context=".ddui.activity.EditWechatQrCodeActivity">
+
+    <com.zhihu.matisse.internal.ui.widget.SquareFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginRight="56dp"
+        android:layout_marginTop="74dp"
+        android:background="@drawable/white_radius_8"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/ddm_gray_light"
+            android:gravity="center"
+            android:text="请上传微信二维码"
+            android:textColor="@color/ddm_gray" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/iv_qr_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            app:actualImageScaleType="fitXY" />
+
+
+    </com.zhihu.matisse.internal.ui.widget.SquareFrameLayout>
+
+    <TextView
+        android:id="@+id/tv_upload_qr_code"
+        style="@style/MyButton.DDMRed"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="点击此处上传微信二维码" />
+
+</RelativeLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_background"
+        android:divider="@drawable/list_divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="请输入数量"
+            android:textColor="@color/default_text_color"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/minusBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_num_minus_selector" />
+
+            <EditText
+                android:id="@+id/valueEt"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/input_frame"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/plusBtn"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_num_plus_selector" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:divider="@drawable/horizontal_list_divider"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <TextView
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/default_text_color"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/confirmBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/default_text_color"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="170dp"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.dodomall.ddmall.module.product.ZujiItemFragment"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivImg"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/marginTop"
+        android:layout_marginRight="@dimen/marginTop"
+        android:layout_marginTop="@dimen/marginTop"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="1111"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginTop"
+        android:layout_marginLeft="@dimen/marginTop"
+        android:gravity="center_vertical"
+        android:text="$1111"
+        android:textColor="@color/redPrice"
+        android:textSize="16sp"
+        />
+
+</LinearLayout>

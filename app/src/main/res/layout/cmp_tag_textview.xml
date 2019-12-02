@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <LinearLayout
+        android:id="@+id/tagContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="2dp"
+        android:divider="@drawable/tag_divider"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:showDividers="middle|end"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/titleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="2"
+        tools:text="产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题"
+        android:textColor="@color/default_text_color"
+        android:textSize="16sp" />
+</FrameLayout>

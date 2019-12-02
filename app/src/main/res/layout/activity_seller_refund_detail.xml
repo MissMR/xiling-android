@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dodomall.ddmall.module.order.RefundDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/layoutRefundType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:orientation="vertical"
+                android:padding="@dimen/padingLeftRight"
+                >
+
+                <TextView
+                    android:id="@+id/tvRefundType1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="111"
+                    />
+
+                <TextView
+                    android:id="@+id/tvRefundType2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="111"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutStore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:paddingRight="@dimen/padingLeftRight"
+                android:paddingTop="12dp"
+                >
+
+                <TextView
+                    android:id="@+id/tvStoreName"
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商家姓名"
+                    />
+
+                <TextView
+                    android:id="@+id/tvStorePhone"
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="商家电话"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="商家地址： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvStoreAddress"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="寄回单号： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvStoreExpress"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutRefundInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/tvRefundTagTitle"
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:text="退货信息"
+                    />
+
+                <View
+                    style="@style/lineHorizontal"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTop"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvRefundTagReason"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退货原因： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundReason"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvRefundTagMoney"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="申请退货金额： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundMoney"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvRefundTagRemark"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退货说明： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundRemark"
+                        style="@style/tvCommonMainBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvRefundImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="@dimen/marginTop"
+                    />
+
+                <View
+                    style="@style/lineHorizontal"
+                    android:layout_marginTop="@dimen/marginTop"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTop"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="申请时间： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundDate"
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="售后单号： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundCode"
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/marginTop"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:paddingRight="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="原订单号： "
+                        />
+
+                    <TextView
+                        android:id="@+id/tvRefundOrderCode"
+                        style="@style/tvCommonMainGray"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:paddingRight="@dimen/padingLeftRight"
+                >
+
+                <TextView
+                    android:id="@+id/tvBuyerName"
+                    style="@style/tvCommonTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="买家："
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginTop"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padingLeftRight"
+                    android:text="商品信息"
+                    />
+
+                <View
+                    style="@style/lineHorizontal"
+                    />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutOrder"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="@dimen/marginTop"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:paddingRight="@dimen/padingLeftRight"
+                >
+
+                <TextView
+                    style="@style/tvCommonTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="原订单信息"
+                    />
+
+                <TextView
+                    android:id="@+id/tvOrderCode"
+                    style="@style/tvCommonMainGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:drawableRight="@mipmap/icon_arrow_right"
+                    android:text="原订单信息"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+
+        <TextView
+            android:id="@+id/tvItemStoreRefuse"
+            style="@style/OrderBtnPlain"
+            android:text="拒绝退款"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemStoreAgree"
+            style="@style/OrderBtnRed"
+            android:text="同意退款"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/tvItemStoreFinish"
+            style="@style/OrderBtnRed"
+            android:text="确认收货"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+</LinearLayout>

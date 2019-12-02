@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="textColor" format="color" />
+    <declare-styleable name="ItemWithIcon">
+        <attr name="icon_width" format="dimension" />
+        <attr name="icon_height" format="dimension" />
+        <attr name="icon_divider" format="dimension" />
+        <attr name="icon_drawable" format="reference" />
+        <attr name="item_label" format="string" />
+        <attr name="item_color" format="color|reference" />
+        <attr name="item_badge" format="integer" />
+        <attr name="item_textSize" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="CountDown">
+        <attr name="cd_color" format="color|reference" />
+        <attr name="cd_dot_color" format="color|reference" />
+        <attr name="cd_background" format="reference" />
+        <attr name="cd_frame" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CaptchaBtn">
+        <attr name="cb_count_time" format="integer" />
+        <attr name="cb_interval" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="StarField">
+        <attr name="sf_label" format="string|reference" />
+        <attr name="sf_value" format="integer|reference" />
+    </declare-styleable>
+    <declare-styleable name="DragScrollDetailsLayout">
+        <!-- float value for indicate the moment of switch panel-->
+        <attr name="percent" format="float" />
+        <!-- how long the animation keep-->
+        <attr name="duration" format="integer" />
+        <!-- default panel to show after init-->
+        <attr name="default_panel" format="enum">
+            <enum name="front" value="0" />
+            <enum name="behind" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="TitleView">
+        <attr name="titleStr" format="string" />
+        <attr name="rightStr" format="string" />
+        <attr name="rightDrawable" format="reference" />
+        <attr name="leftBack" format="boolean" />
+        <attr name="leftText" format="boolean" />
+        <attr name="bottomLine" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="DDTagView">
+        <attr name="tag_background" format="color" />
+    </declare-styleable>
+    <declare-styleable name="RatioDraweeView">
+        <attr name="ratio" format="float" />
+    </declare-styleable>
+    <declare-styleable name="DDStatusButton">
+        <attr name="icon" format="reference" />
+        <attr name="label" format="string" />
+        <attr name="count" format="integer" />
+        <attr name="textColor" />
+    </declare-styleable>
+    <!-- 原始textview -->
+    <item name="id_source_textview" type="id"></item>
+    <!-- 收起展开按钮textview -->
+    <item name="id_expand_textview" type="id"></item>
+
+    <declare-styleable name="DDIndicator">
+        <attr name="indicator" format="reference" />
+        <attr name="indicator_index_active" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="DDAvatarContainerView">
+        <attr name="avatarRadius" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="DDStarView">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" />
+        <attr name="value" format="integer" />
+        <attr name="starDrawable" format="reference" />
+        <attr name="orientation" format="enum">
+            <enum name="HORIZONTAL" value="0" />
+            <enum name="VERTICAL" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="SaleProgressView">
+        <attr name="sp_background" format="reference" />
+        <attr name="sp_sideColor" format="color" />
+        <attr name="sp_textColor" format="color" />
+        <attr name="sp_sideWidth" format="dimension" />
+        <attr name="sp_overText" format="string" />
+        <attr name="sp_nearOverText" format="string" />
+        <attr name="sp_textSize" format="dimension" />
+        <attr name="sp_isNeedAnim" format="boolean" />
+    </declare-styleable>
+</resources>

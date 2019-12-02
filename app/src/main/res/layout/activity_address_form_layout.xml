@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/contactPanel"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contactInfoPanel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/icon_button_contact" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="0.5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contactInfoPanel"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/contactPanel"
+        android:background="@drawable/activity_divider" />
+
+    <LinearLayout
+        android:id="@+id/contactInfoPanel"
+        style="@style/Form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/vLine"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="15dp">
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="联系人"
+                android:textColor="#262626" />
+
+
+            <EditText
+                android:id="@+id/contactsEt"
+                style="@style/Form.Field.Input"
+                android:hint="请填写联系人姓名"
+                android:maxLength="20" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="电话"
+                android:textColor="#262626" />
+
+            <EditText
+                android:id="@+id/phoneEt"
+                style="@style/Form.Field.Input"
+                android:digits="0123456789-+*"
+                android:hint="请填写有效联系电话"
+                android:inputType="phone"
+                android:maxLength="11" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contactInfoPanel"
+        android:orientation="vertical">
+
+        <LinearLayout style="@style/Form">
+
+
+            <LinearLayout
+                android:id="@+id/regionLayout"
+                style="@style/Form.FieldText">
+
+                <TextView
+                    style="@style/Form.FieldText.Label"
+                    android:text="所在地区"
+                    android:textColor="#262626" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp">
+
+                    <LinearLayout
+                        android:id="@+id/selectNowAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@mipmap/icon_list_current" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="15dp"
+                            android:text="选择位置"
+                            android:textColor="@color/grayDark" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/regionTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_toLeftOf="@id/selectNowAddress"
+                        android:gravity="center_vertical"
+                        android:hint="请选择地球上具体位置"
+                        android:textColor="@color/grayDark"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/Form.FieldText">
+
+                <TextView
+                    style="@style/Form.FieldText.Label"
+                    android:text="详细地址"
+                    android:textColor="#262626" />
+
+                <EditText
+                    android:id="@+id/detailEt"
+                    style="@style/Form.FieldText.Input"
+                    android:gravity="left|top"
+                    android:hint="请填写详细地址(例:10号楼501室)"
+                    android:maxLength="80"
+                    android:minLines="2"
+                    android:text=""
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Form"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                style="@style/Form.Field"
+                android:gravity="center"
+                android:paddingRight="15dp">
+
+                <TextView
+                    style="@style/Form.Field.Label.Auto"
+                    android:layout_weight="1"
+                    android:text="设为默认地址" />
+
+                <ImageView
+                    android:id="@+id/defaultSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/switch_setting_selector" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/saveBtn"
+            style="@style/MyButton.DDMRed"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:text="保存" />
+    </LinearLayout>
+
+
+</RelativeLayout>

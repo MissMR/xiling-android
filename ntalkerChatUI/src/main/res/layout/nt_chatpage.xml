@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nt_base_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:id="@+id/chatpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical">
+        
+        <cn.ntalker.uiview.NoMoveScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <ViewStub
+                    android:id="@+id/stub_all_bubble"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/nt_view_all_bubble" />
+                
+                <ImageView
+                    android:id="@+id/nt_background_chatarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="720dp"
+                    android:background="@drawable/nt_chat_background"
+                    skin:enable="true"
+                    tools:ignore="UnusedIds" />
+            </RelativeLayout>
+        
+        </cn.ntalker.uiview.NoMoveScrollView>
+        
+        <ViewStub
+            android:id="@+id/stub_newchatwindow_transfer"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@id/rl_chathead"
+            android:inflatedId="@+id/newchatwindow_transfer"
+            android:layout="@layout/nt_newchatwindow_transfer" />
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_chathead"
+            android:orientation="vertical">
+            
+            <ViewStub
+                android:id="@+id/stub_chat_area"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:inflatedId="@+id/chat_area"
+                android:layout="@layout/nt_newchatwindow_chatarea" />
+            
+            <com.baidu.security.api.webview.SafeWebView
+                android:id="@+id/wv_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="26dp"
+                android:visibility="gone" />
+            
+            <cn.ntalker.chatoperator.ChatOperator
+                android:id="@+id/nt_chat_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-50dp" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/nt_tv_newchatwindow_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_chathead"
+            android:background="#88000000"
+            android:visibility="gone" />
+        
+        <RelativeLayout
+            android:id="@+id/nt_rl_newchatwindow_nettip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_chathead"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone">
+            
+            <ViewStub
+                android:id="@+id/stub_newchatwindow_network_tip"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout="@layout/nt_newchatwindow_network_tip" />
+        </RelativeLayout>
+        
+        <TextView
+            android:id="@+id/nt_tv_chat_video_hint"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_below="@id/msg_head"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/nt_chat_video_hint_text_red"
+            android:gravity="center_vertical"
+            android:paddingLeft="25dp"
+            android:textColor="@color/xn_white"
+            android:textSize="14dp"
+            android:visibility="gone"
+            tools:text="00:00:00  您正在视频通话中..."
+            tools:visibility="visible" />
+        
+        <ViewStub
+            android:id="@+id/stub_chat_kef_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_chathead"
+            android:inflatedId="@+id/nt_chat_kef_detail"
+            android:layout="@layout/nt_newchatwindow_kfdetail"
+            tools:visibility="gone" />
+        
+        <TextView
+            android:id="@+id/msg_refresh_top_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/nt_oval_new_msg"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/nt_img_down_history"
+            android:paddingBottom="2.5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="2.5dp"
+            android:text="@string/xn_down_more_history"
+            android:textColor="@color/msg_system_text"
+            android:visibility="gone"
+            skin:enable="true"
+            tools:visibility="visible" />
+        
+        <ViewStub
+            android:id="@+id/stub_chathead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:inflatedId="@+id/rl_chathead"
+            android:layout="@layout/nt_newchatwindow_titlebar" />
+        
+        <ViewStub
+            android:id="@+id/stub_msg_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inflatedId="@+id/msg_head"
+            android:layout="@layout/nt_head_view" />
+    
+    
+    </RelativeLayout>
+</RelativeLayout>

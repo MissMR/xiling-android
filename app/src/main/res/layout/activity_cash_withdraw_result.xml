@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.CashWithdrawResultActivity">
+
+    <TextView
+        android:id="@+id/tv_btn_back"
+        style="@style/MyButton.Stroke"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:text="返回店主中心"
+        android:textColor="@color/ddm_gray_dark" />
+
+    <TextView
+        android:id="@+id/tv_btn_withdraw_record"
+        style="@style/MyButton.DDMRed"
+        android:layout_above="@id/tv_btn_back"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:text="查看提现记录" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_btn_withdraw_record"
+        android:gravity="center"
+
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:src="@mipmap/ic_master_cashdraw" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="提交提现申请成功 请耐心等待"
+            android:textColor="@color/ddm_gray_dark" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现流水号 "
+                android:textColor="@color/ddm_gray_dark" />
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1231231231" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

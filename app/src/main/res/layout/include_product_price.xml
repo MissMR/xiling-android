@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="8dp"
+        android:includeFontPadding="false"
+        android:text="￥--"
+        android:textSize="36dp" />
+
+    <TextView
+        android:id="@+id/tv_price_market"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_price"
+        android:layout_toRightOf="@id/tv_price"
+        android:text="￥--"
+        android:textColor="@color/ddm_gray_ccc"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_price_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_price"
+        android:layout_toRightOf="@id/tv_price"
+        android:text="赚￥33"
+        android:textColor="@color/ddm_red"
+        android:textSize="18sp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_share_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_price_reward"
+        android:layout_toRightOf="@id/tv_price"
+        android:text="已推--次"
+        android:textColor="#2F8F0F"
+        android:textSize="10sp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tv_sale_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:text="已售-件"
+        android:textColor="@color/ddm_gray_dark"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/ll_flash_sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_flash_hint_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距开始"
+                android:textColor="@color/ddm_red"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.dodomall.ddmall.shared.component.CountDown
+                android:id="@+id/count_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+            </com.dodomall.ddmall.shared.component.CountDown>
+
+        </LinearLayout>
+
+        <com.dodomall.ddmall.dduis.custom.SaleProgressView
+            android:id="@+id/sale_progress_view"
+            android:layout_width="120dp"
+            android:layout_height="13dp"
+            app:sp_isNeedAnim="false"
+            app:sp_nearOverText="即将售罄"
+            app:sp_overText="已售罄"
+            app:sp_sideWidth="0dp"
+            app:sp_textColor="@color/red"
+            app:sp_textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_flash_sale_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</RelativeLayout>

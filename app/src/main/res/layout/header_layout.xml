@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="45dp">
+
+    <TextView
+        android:id="@+id/headerTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/appName"
+        android:textColor="@color/black"
+        android:textSize="@dimen/header_text_size" />
+
+    <TextView
+        android:id="@+id/headerLeftTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/red"
+        android:minWidth="45dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/headerLeftIv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:minWidth="45dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_back_black"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/headerRightTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:gravity="center_vertical"
+        android:minWidth="45dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/headerRightIv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:minWidth="45dp"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/rightAnchor"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="13dp" />
+</FrameLayout>

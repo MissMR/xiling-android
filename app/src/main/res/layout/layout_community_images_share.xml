@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/SharePanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_dialog_share_wx"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/shareFriendBtn"
+            style="@style/WXShareItem">
+
+            <ImageView
+                android:id="@+id/shareFriendArrow"
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp" />
+
+            <ImageView
+                android:id="@+id/shareFriendIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:background="@mipmap/icon_share_friend" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/shareFriendArrow"
+                android:layout_toRightOf="@id/shareFriendIcon"
+                android:gravity="center_vertical"
+                android:text="分享给微信好友"
+                android:textColor="#333333" />
+
+        </RelativeLayout>
+
+        <View style="@style/WXShareLine" />
+
+        <RelativeLayout
+            android:id="@+id/shareCircleBtn"
+            style="@style/WXShareItem">
+
+            <ImageView
+                android:id="@+id/shareCircleArrow"
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp" />
+
+            <ImageView
+                android:id="@+id/shareCircleIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:background="@mipmap/icon_share_wechat_circle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/shareCircleArrow"
+                android:layout_toRightOf="@id/shareCircleIcon"
+                android:gravity="center_vertical"
+                android:text="分享到朋友圈"
+                android:textColor="#333333" />
+        </RelativeLayout>
+
+        <View style="@style/WXShareLine" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="33dp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/SharePanel"
+        android:layout_alignParentTop="true"
+        android:background="@color/transparent" />
+
+</RelativeLayout>

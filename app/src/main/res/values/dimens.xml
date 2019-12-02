@@ -1,0 +1,54 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="header_text_size">18sp</dimen>
+
+    <dimen name="padingLeftRight">15dp</dimen>
+    <dimen name="marginTop">10dp</dimen>
+    <dimen name="lineSpacingExtra">4sp</dimen>
+
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="text_middle">16sp</dimen>
+    <dimen name="text_normal">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="distance_15">15dp</dimen>
+    <dimen name="distance_10">10dp</dimen>
+    <dimen name="distance_17">17dp</dimen>
+    <dimen name="distance_30">30dp</dimen>
+    <dimen name="distance_45">45dp</dimen>
+    <dimen name="distance_2">2dp</dimen>
+    <dimen name="distance_5">5dp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="distance_65">65dp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="distance_68">68dp</dimen>
+    <dimen name="common_title_height">44dp</dimen>
+    <dimen name="distance_7">7dp</dimen>
+    <dimen name="distance_20">20dp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="distance_3">3dp</dimen>
+
+    <dimen name="dd_mine_top_height">66dp</dimen>
+    <!--有分类 92dp 无分类52dp-->
+    <dimen name="dd_home_top_height">66dp</dimen>
+    <dimen name="dd_home_title_bar_height">44dp</dimen>
+
+    <!--今日特价 轮播图 高度-->
+    <dimen name="dd_today_banner_height">160dp</dimen>
+    <!--有分类 224dp 无分类184dp-->
+    <dimen name="dd_today_banner_mask_height">184dp</dimen>
+    <!--今日特价 轮播图 上内间距-->
+    <!--今日特价 轮播图 下内间距-->
+
+    <!--设置界面的通用间隔-->
+    <dimen name="settings_row_space">10dp</dimen>
+    <!--设置界面的行高度-->
+    <dimen name="settings_row_height">60dp</dimen>
+    <!--设置界面的分割线高度-->
+    <dimen name="settings_line_height">1dp</dimen>
+
+    <dimen name="like_radius">8dp</dimen>
+
+    <!--分类圆角-->
+    <dimen name="category_radius">7dp</dimen>
+
+</resources>

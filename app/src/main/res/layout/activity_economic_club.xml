@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ddui.activity.EconomicClubActivity">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--头部背景-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="285dp"
+                    android:background="@drawable/bg_ecomonmic_club_banner" />
+
+                <LinearLayout
+                    android:id="@+id/ll_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="75dp"
+                    android:orientation="vertical">
+                    <!--banner-->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="12dp"
+                        android:clipChildren="false">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="130dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:clipChildren="false"></android.support.v4.view.ViewPager>
+
+                    </FrameLayout>
+                    <!--新闻头条-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp">
+
+                        <ImageView
+                            android:id="@+id/iv_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="16dp"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="4dp"
+                            android:paddingTop="4dp"
+                            android:src="@mipmap/icon_arrow_right" />
+
+                        <ImageView
+                            android:id="@+id/iv_top_news_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_top_news" />
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="1dp"
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginRight="6dp"
+                            android:layout_toRightOf="@id/iv_top_news_icon"
+                            android:background="@color/ddm_gray_light" />
+
+                        <ViewFlipper
+                            android:id="@+id/vf_top_news"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="4dp"
+                            android:layout_toLeftOf="@id/iv_right"
+                            android:layout_toRightOf="@id/divider"
+                            android:autoStart="true"
+                            android:flipInterval="5000"
+                            android:inAnimation="@anim/translate_in"
+                            android:outAnimation="@anim/translate_out">
+
+                            <include layout="@layout/item_view_flipper_news" />
+
+                        </ViewFlipper>
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:background="@drawable/white_top_radius" />
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <!--店主故事-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp">
+
+                    <TextView
+                        android:id="@+id/tv_tmp_story"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="店主故事"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/tv_tmp_story"
+                        android:text="   |  店主故事副标题"
+                        android:textColor="@color/ddm_gray_dark"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_more_story"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="16dp"
+                        android:drawablePadding="4dp"
+                        android:drawableRight="@mipmap/icon_arrow_right"
+                        android:text="更多"
+                        android:textColor="@color/ddm_gray_dark" />
+                </RelativeLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:id="@+id/ll_story_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_economic_home_story" />
+
+                        <include layout="@layout/item_economic_home_story" />
+
+                        <include layout="@layout/item_economic_home_story" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
+            <!--精品课堂-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="22dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_tmp_course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="精品课堂"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/tv_all_course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="4dp"
+                        android:drawableRight="@mipmap/icon_arrow_right"
+                        android:text="全部"
+                        android:textColor="@color/ddm_gray_dark" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_course"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/tv_all_course"
+                        android:layout_toRightOf="@id/tv_tmp_course"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_tab1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="22dp"
+                            android:background="@drawable/bg_economic_home_tab_course"
+                            android:button="@null"
+                            android:text="新手课堂"
+                            android:textColor="@color/radiobutton_text_color" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="22dp"
+                            android:background="@drawable/bg_economic_home_tab_course"
+                            android:button="@null"
+                            android:text="店主进阶"
+                            android:textColor="@color/radiobutton_text_color" />
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/v_toolbar_background"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:alpha="0"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="16dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/ic_back_white" />
+
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="商学院"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+</FrameLayout>

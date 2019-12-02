@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutComent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <TextView
+        android:id="@+id/tvCommentCount"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:drawableRight="@mipmap/icon_arrow_right"
+        android:text="商品评价"
+        android:textSize="14sp" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_avatar"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_below="@id/tvCommentCount"
+        app:placeholderImage="@mipmap/default_avatar"
+        app:roundAsCircle="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCommentCount"
+        android:layout_toRightOf="@id/iv_avatar"
+        android:orientation="vertical"
+        android:paddingLeft="12dp">
+
+
+        <TextView
+            android:id="@+id/tvCommentName"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/ddm_gray_dark"
+            tools:text="昵称" />
+
+
+        <TextView
+            android:id="@+id/tvCommentContent"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4dp"
+            tools:text="dddsdfsfsdfsdfsdfsfsdfsdfdsfsdfsdfsdfsdfsdfsdfsfdd\ndddddddddd\dndd 大大所大大多" />
+
+        <TextView
+            android:id="@+id/tvCommentProperties"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginTop"
+            tools:text="规格" />
+
+        <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+            android:id="@+id/layoutCommentNineImages"
+            style="@style/MatchWrap"
+            android:layout_below="@id/tvCommentProperties"
+            android:layout_marginTop="8dp"
+            app:bga_npl_itemCornerRadius="0dp"
+            app:bga_npl_itemSpanCount="4"
+            app:bga_npl_itemWhiteSpacing="14.5dp"
+            app:bga_npl_itemWidth="0dp"
+            app:bga_npl_otherWhiteSpacing="30dp"
+            app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+            app:bga_npl_showAsLargeWhenOnlyOne="false" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCommentAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_comment"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/btn_gray_dark_frame"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/marginTop"
+        android:paddingRight="@dimen/marginTop"
+        android:paddingTop="5dp"
+        android:text="查看全部评价"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="@dimen/textSize_12" />
+</RelativeLayout>

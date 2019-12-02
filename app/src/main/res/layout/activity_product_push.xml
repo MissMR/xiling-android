@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/searchLayout"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/border_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            style="@style/SearchView"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/tvPushRexiao"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="6dp"
+            android:drawableTop="@drawable/ic_push_rexiao"
+            android:gravity="center"
+            android:text="热销商品"
+            />
+
+        <View
+            android:layout_width="0.75dp"
+            android:layout_height="60dp"
+            android:background="@color/line"
+            />
+
+        <TextView
+            android:id="@+id/tvPushZhutui"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="6dp"
+            android:drawableTop="@drawable/ic_push_zhutui"
+            android:gravity="center"
+            android:text="主推产品"
+            />
+
+        <View
+            android:layout_width="0.75dp"
+            android:layout_height="60dp"
+            android:background="@color/line"
+            />
+
+        <TextView
+            android:id="@+id/tvPushZhuande"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="6dp"
+            android:drawableTop="@drawable/ic_push_zhuande"
+            android:gravity="center"
+            android:text="赚的最多"
+            />
+    </LinearLayout>
+
+    <TextView
+        style="@style/tvCommonTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/padingLeftRight"
+        android:text="商品分类"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPush"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padingLeftRight"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:background="@color/white"
+        />
+</LinearLayout>

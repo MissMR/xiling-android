@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="170dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingRight="@dimen/distance_15"
+        android:paddingTop="56dp"
+        android:background="@drawable/bg_publish_header"
+        android:layout_height="140dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="69dp"
+            android:layout_height="69dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/color_white_60"
+            android:id="@+id/header_user_iv"
+            app:civ_border_overlay="true"
+            tools:src="@drawable/default_image"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@id/header_user_iv"
+            tools:text="元气小仙女"
+            android:id="@+id/header_user_name"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textSize="@dimen/text_size_18sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp"
+            tools:text="素材 25"
+            android:layout_below="@id/header_user_name"
+            android:layout_alignLeft="@id/header_user_name"
+            android:layout_marginTop="10dp"
+            android:id="@+id/head_material_num"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_14sp"
+            tools:text="视频 6"
+            android:id="@+id/header_video_num"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@id/head_material_num"
+            android:layout_below="@id/header_user_name"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

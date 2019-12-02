@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="原手机号"/>
+
+            <TextView
+                android:id="@+id/oldPhoneTv"
+                style="@style/Form.Field.Label.Auto"
+                android:text="18888888888"/>
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="登录密码"/>
+
+            <EditText
+                android:id="@+id/passwordEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入登录密码"
+                android:inputType="textPassword"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="新手机号"/>
+
+            <EditText
+                android:id="@+id/newPhoneEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入手机号码"
+                android:inputType="phone"
+                android:maxLength="11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="验证码"/>
+
+            <EditText
+                android:id="@+id/captchaEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="8"/>
+
+            <com.dodomall.ddmall.shared.component.CaptchaBtn
+                android:id="@+id/captchaBtn"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:clickable="true"
+                android:text="获取验证码"
+                style="@style/btnCaptcha"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/editBtn"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="确认"/>
+
+</LinearLayout>

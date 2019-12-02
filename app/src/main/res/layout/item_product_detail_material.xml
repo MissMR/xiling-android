@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@color/white">
+
+    <View
+        android:id="@+id/anchor_top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/ddm_gray_light" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_avatar"
+        style="@style/DefaultSimpleDraweeView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/anchor_top_divider"
+        android:layout_margin="12dp"
+        app:roundAsCircle="true"
+        tools:background="@color/ddm_gray_light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_avatar"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每日店小象" />
+
+        <TextView
+            android:id="@+id/tv_diff_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1分钟前"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="10dp"
+            android:text="这是素材内容\n这里开始就浪费 势力扩大解放是发了\n两节课离开家 离开"
+            android:textColor="@color/ddm_gray_dark" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/videoPanel"
+                android:layout_width="match_parent"
+                android:layout_height="162dp"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:transitionName="transition"
+                android:visibility="visible">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdVideoMaskView"
+                    style="@style/DefaultSimpleDraweeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/item_like_video_mask"
+                    android:clickable="false"
+                    app:roundedCornerRadius="8dp" />
+
+                <ImageView
+                    android:id="@+id/videoMaskView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item_like_video_mask"
+                    android:clickable="false" />
+
+                <ImageView
+                    android:id="@+id/playVideoImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/icon_play_button"
+                    android:clickable="false" />
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/photoPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+                    android:id="@+id/plPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    app:bga_npl_itemCornerRadius="12dp"
+                    app:bga_npl_itemSpanCount="3"
+                    app:bga_npl_itemWhiteSpacing="10dp"
+                    app:bga_npl_otherWhiteSpacing="60dp"
+                    app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                    app:bga_npl_showAsLargeWhenOnlyOne="false" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

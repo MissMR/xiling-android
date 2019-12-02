@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/layoutMainAd"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_while_gray_corners_stroke"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padingLeftRight"
+        android:paddingLeft="@dimen/marginTop"
+        android:paddingRight="@dimen/marginTop"
+        android:paddingTop="@dimen/padingLeftRight"
+        >
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="店主微信二维码"
+            />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivQrCode"
+            android:layout_width="130dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            app:actualImageScaleType="centerInside"
+            />
+
+        <TextView
+            style="@style/tvCommonMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/marginTop"
+            android:text="长按二维码保存图片"
+            />
+
+        <TextView
+            android:id="@+id/tvAddress"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_ad_close"
+        />
+</LinearLayout>

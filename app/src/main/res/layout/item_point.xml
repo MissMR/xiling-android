@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="12dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/itemTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:text="时间："
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/itemTypeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:text="类型："
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/itemProfitTv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="15dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="4sp"
+        android:maxLines="1"
+        android:text="+ 90"
+        android:textColor="@color/red"
+        android:textSize="18sp" />
+
+</LinearLayout>

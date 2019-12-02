@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="contentDescription">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/shape_search_bar"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:id="@+id/ll_search_bar_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/iv_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_search_gray"
+                android:paddingLeft="@dimen/distance_7"
+                android:text="@string/s_search_order_hint"
+                android:textColor="#cfcfcf" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
+                android:lines="1"
+                android:maxLength="25"
+                android:paddingStart="24dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="#999"
+                android:textCursorDrawable="@drawable/bg_edit_text_cursor"
+                android:textSize="@dimen/text_size_14sp" />
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</merge>

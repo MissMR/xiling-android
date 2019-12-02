@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
+
+    <LinearLayout
+        android:id="@+id/layout_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/btn_event01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.55"
+            android:background="@color/white"
+            app:actualImageScaleType="fitXY"
+            app:placeholderImage="@drawable/default_image"
+            app:placeholderImageScaleType="fitXY"
+            app:viewAspectRatio="0.86" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/ddm_gray_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"
+            android:orientation="vertical">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/btn_event02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@color/white"
+                app:actualImageScaleType="fitXY"
+                app:placeholderImage="@drawable/default_image"
+                app:placeholderImageScaleType="fitXY" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/ddm_gray_background" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/btn_event03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:background="@color/white"
+                app:actualImageScaleType="fitXY"
+                app:placeholderImage="@drawable/default_image"
+                app:placeholderImageScaleType="fitXY" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#F2F2F2" />
+
+</LinearLayout>
+
+

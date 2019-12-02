@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.dodomall.ddmall.module.user.NewRegisterActivity"
+    >
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_login_logo"
+        />
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:textColor="@color/text_black"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/bg_register_phone"
+        android:hint="请输入手机号"
+        android:textSize="14sp"
+        android:inputType="phone"
+        android:maxLength="11"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="@dimen/marginTop"
+        >
+
+        <EditText
+            android:id="@+id/etMsgCode"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_register_password"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="8"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tvGetMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padingLeftRight"
+            android:paddingRight="@dimen/padingLeftRight"
+            android:text="获取验证码"
+            android:textColor="@drawable/color_gray_accent_selector"
+            android:textSize="14dp"
+            />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/tvGetMsg"
+            android:background="#cccccc"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="@dimen/marginTop"
+        >
+
+        <TextView
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册即表示您已同意"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tvAgreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《店多多用户协议》"
+            android:textSize="12sp"
+            android:textColor="#3377ff"
+            android:background="?android:selectableItemBackground"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvRegister"
+        style="@style/MyButton.Red.Ellipse_"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        />
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/marginTop"
+        android:background="?android:selectableItemBackground"
+        android:text="已有账号，去登录 >>"
+        android:textSize="12sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padingLeftRight"
+        >
+
+        <TextView
+            android:id="@+id/tvStoreTips"
+            style="@style/tvCommonMini.black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/ic_register_store"
+            android:text="您的邀请人"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutLocalizeSucceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                >
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ivStoreAvatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:roundAsCircle="true"
+                    />
+
+                <TextView
+                    android:id="@+id/tvStoreName"
+                    style="@style/tvCommonMini.black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/marginTop"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/tvNearStore"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="查看附近店主"
+                    android:textColor="#3377ff"
+                    android:padding="@dimen/marginTop"
+                    android:background="?android:selectableItemBackground"
+                    />
+
+                <TextView
+                    android:id="@+id/tvInvitationCode"
+                    android:layout_width="110dp"
+                    android:padding="@dimen/marginTop"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="我有邀请码"
+                    android:textColor="#3377ff"
+                    android:background="?android:selectableItemBackground"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutLocalizeFail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请允许App访问您的位置，系统将为您自动"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="分配附近的店主，或手动"
+                    />
+
+                <TextView
+                    android:id="@+id/tvInvitationCode2"
+                    style="@style/tvCommonMainBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="输入店主邀请码"
+                    android:textColor="#3377ff"
+                    android:background="?android:selectableItemBackground"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xn_flashserver>
+    <flashserver id="1">
+        <name>正式环境</name>
+        <!--<url>https://init.ntalker.com</url>-->
+        <url>http://init.ntalker.com/api/gate/visitant</url>
+    </flashserver>
+</xn_flashserver>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/avatarIv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImage="@drawable/default_image"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:roundAsCircle="true"
+        fresco:viewAspectRatio="1" />
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:includeFontPadding="false"
+        android:text="昵称"
+        android:textColor="@color/default_text_color"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/phoneTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text="13800138000"
+        android:textColor="@color/grayDark"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/section_border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="转帐金额"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/currency"
+                android:textColor="@color/default_text_color"
+                android:textSize="30sp" />
+
+            <com.dodomall.ddmall.shared.component.DecimalEditText
+                android:id="@+id/moneyEt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:gravity="center_vertical"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:text=""
+                android:textColor="@color/default_text_color"
+                android:textColorHint="@color/gray"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/remarkEt"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/border_top"
+            android:hint="添加备注（20字以内）"
+            android:maxLength="20"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/confirmBtn"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="转帐" />
+</LinearLayout>

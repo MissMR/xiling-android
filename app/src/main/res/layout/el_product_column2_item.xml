@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/marginTopView"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginRight="2.5dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/itemThumbIv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            fresco:actualImageScaleType="fitXY"
+            fresco:placeholderImage="@drawable/default_image"
+            fresco:placeholderImageScaleType="fitXY"
+            fresco:viewAspectRatio="1"/>
+
+        <com.dodomall.ddmall.shared.component.TagTextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginTop="7dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="4sp"
+            android:lines="2"
+            android:maxLines="2"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+
+            <TextView
+                android:id="@+id/itemPriceTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="￥0.00"
+                android:textColor="@color/redPrice"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/itemSalesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="销量：3242件"
+                android:textColor="@color/grayDark"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

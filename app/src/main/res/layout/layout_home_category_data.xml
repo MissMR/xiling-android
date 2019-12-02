@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/layout_thumb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sd_thumb"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            app:actualImageScaleType="fitXY"
+            app:placeholderImage="@drawable/default_image"
+            app:placeholderImageScaleType="fitXY"
+            app:roundedCornerRadius="4dp" />
+
+        <TextView
+            android:id="@+id/tv_rush_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:background="@drawable/bg_rush_rag_r8"
+            android:gravity="center"
+            android:minHeight="18dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/txt_rush_rag"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/spuStatusView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_cart_sku_mask"
+            android:gravity="center"
+            android:text="已抢光"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/layout_thumb"
+        android:layout_alignBottom="@id/layout_thumb"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/layout_thumb"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="1.3dp"
+            android:maxLines="2"
+            android:minLines="1"
+            android:text="小腹纤维膳食ka小腹纤维纤维膳奥小腹纤维膳食营斯顿暗示法"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/layout_user_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+                    android:id="@+id/tv_price_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="￥49.9"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_price_market"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_price_now"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_price_now"
+                    android:text="￥560"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_vip_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+                    android:id="@+id/tv_vip_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥219"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_price_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tv_vip_price"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_vip_price"
+                    android:text="赚28.34"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/btn_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/btn_bg_red_r16"
+                android:minWidth="52dp"
+                android:text="去抢购"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btn_buy"
+                android:layout_alignBottom="@id/btn_buy"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="0dp"
+                android:layout_toLeftOf="@id/btn_buy"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <include
+                    android:id="@+id/layout_avatar"
+                    layout="@layout/layout_three_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left" />
+
+                <TextView
+                    android:id="@+id/tv_sale_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/layout_avatar"
+                    android:layout_alignBottom="@id/layout_avatar"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/layout_avatar"
+                    android:gravity="center|left"
+                    android:text="已抢412件"
+                    android:textColor="@color/gray"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_vip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btn_share"
+                android:layout_width="52dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/btn_bg_red_r16"
+                android:text="推广赚"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_store"
+                android:layout_width="58dp"
+                android:layout_height="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toLeftOf="@id/btn_share"
+                android:background="@drawable/btn_bg_frame_gray_r16"
+                android:text="上 架"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_share_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@id/btn_store"
+                android:gravity="center|left"
+                android:minHeight="24dp"
+                android:text="已推1234次"
+                android:textColor="@color/gray"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f2f2f2" />
+
+</RelativeLayout>

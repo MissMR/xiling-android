@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/settings_background"
+    tools:context=".ddui.activity.UserSettingsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/iconPanel"
+            style="@style/settings_row"
+            android:layout_marginTop="@dimen/settings_row_space">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="头像" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatarIv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/settings_row_space"
+                app:actualImageScaleType="fitXY"
+                app:placeholderImage="@mipmap/default_avatar"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true"
+                app:roundingBorderColor="@color/gray"
+                app:roundingBorderWidth="1px" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/nicknamePanel"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="昵称" />
+
+            <ImageView
+                android:id="@+id/nicknameArrow"
+                style="@style/settings_row_arrow" />
+
+            <TextView
+                android:id="@+id/nicknameValue"
+                style="@style/settings_row_value"
+                android:layout_toLeftOf="@id/nicknameArrow"
+                android:text="----" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/addressPanel"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="管理收货地址" />
+
+            <ImageView style="@style/settings_row_arrow" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/invitePanel"
+            style="@style/settings_row"
+            android:layout_marginTop="@dimen/settings_row_space">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="我的分享人" />
+
+            <ImageView style="@style/settings_row_arrow" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/authSecurityPanel"
+            style="@style/settings_row"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="账户与安全" />
+
+            <ImageView style="@style/settings_row_arrow" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_wechat"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="我的微信号" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_wechat_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未填写"
+                android:textColor="@color/ddm_red" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_wechat_qr_code"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="我的微信二维码" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_wechat_qr_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未上传"
+                android:textColor="@color/ddm_red" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/servicePanel"
+            style="@style/settings_row"
+            android:layout_marginTop="@dimen/settings_row_space"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="联系客服" />
+
+            <ImageView style="@style/settings_row_arrow" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_bind_phone"
+            style="@style/settings_row"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="绑定手机号" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_bind_phone_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                tools:text="13341221231231" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_auth"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="实名认证" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_auth_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未绑定" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/tv_bank_card"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="银行卡信息" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_bank_card_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未绑卡" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_trade_password"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="交易密码" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_trade_password_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未设置" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_security"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="安全问题" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_security_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未设置" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/protocolPanel"
+            style="@style/settings_row"
+            android:layout_marginTop="@dimen/settings_row_space">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="隐私协议" />
+
+            <ImageView
+                android:id="@+id/protocolArrow"
+                style="@style/settings_row_arrow" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/aboutPanel"
+            style="@style/settings_row"
+            android:layout_marginTop="@dimen/settings_row_space">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="当前版本" />
+
+
+            <ImageView
+                android:id="@+id/aboutArrow"
+                style="@style/settings_row_arrow"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_version"
+                style="@style/settings_row_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/aboutArrow"
+                tools:text="v1.0.0" />
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+
+        <RelativeLayout
+            android:id="@+id/exitPanel"
+            style="@style/settings_row"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="退出当前账号"
+                android:textColor="@color/mainColor" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

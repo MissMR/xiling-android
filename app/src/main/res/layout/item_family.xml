@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        app:roundAsCircle="true"
+        app:placeholderImage="@mipmap/default_avatar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/padingLeftRight"
+        android:layout_marginLeft="@dimen/marginTop"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/padingLeftRight"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:background="@drawable/btn_bg_black"
+                android:text="1111"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:layout_marginRight="@dimen/marginTop"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            >
+
+            <TextView
+                style="@style/tvCommonMainGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本月销售额: "
+                />
+
+            <TextView
+                android:id="@+id/tvMoney"
+                style="@style/tvCommonMainGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                tools:text="¥iiiiiii"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:background="@color/line"
+        />
+</RelativeLayout>

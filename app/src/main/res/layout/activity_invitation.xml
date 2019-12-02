@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@mipmap/referrer_bg"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_avatar"
+                    style="@style/DefaultSimpleDraweeView"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:roundAsCircle="true" />
+
+                <TextView
+                    android:id="@+id/tv_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="加载中…"
+                    android:textColor="@color/ddm_referrer_coffee" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="手机号"
+                android:textColor="@color/ddm_referrer_gray"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="加载中…"
+                    android:textColor="@color/ddm_referrer_coffee"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_btn_call"
+                    style="@style/TextView.Btn.Coffee"
+                    android:layout_marginLeft="14dp"
+                    android:text="拨打" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="微信号"
+                android:textColor="@color/ddm_referrer_gray"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_wechat_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/ddm_referrer_coffee"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_btn_copy_wechat"
+                    style="@style/TextView.Btn.Coffee"
+                    android:layout_marginLeft="14dp"
+                    android:text="复制" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="微信二维码"
+                android:textColor="@color/ddm_referrer_gray"
+                android:textSize="12sp" />
+
+            <com.zhihu.matisse.internal.ui.widget.SquareFrameLayout
+                android:id="@+id/fl_qr_code_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="64dp"
+                android:layout_marginRight="64dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/white15_radius_middle"
+                android:padding="12dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/iv_qr_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:visibility="visible"
+                    app:actualImageScaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/tv_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/ddm_referrer_coffee" />
+
+            </com.zhihu.matisse.internal.ui.widget.SquareFrameLayout>
+
+            <TextView
+                android:id="@+id/tv_btn_set_my_qr_code"
+                style="@style/TextView.Btn.Coffee.Large"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="18dp"
+                android:paddingLeft="34dp"
+                android:paddingRight="34dp"
+                android:text="上传我的微信二维码" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+

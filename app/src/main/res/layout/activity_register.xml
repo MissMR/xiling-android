@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/section_border"
+        android:divider="@drawable/list_divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="当前邀请人"
+            android:textColor="@color/default_text_color"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/userInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatarIv"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                app:actualImageScaleType="fitXY"
+                app:placeholderImage="@mipmap/default_avatar"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true" />
+
+            <ImageView
+                android:id="@+id/editIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/icon_address_edit" />
+
+            <TextView
+                android:id="@+id/nicknameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/editIv"
+                android:layout_toRightOf="@+id/avatarIv"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:text="昵称："
+                android:textColor="@color/default_text_color"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/phoneTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nicknameTv"
+                android:layout_marginTop="15dp"
+                android:layout_toLeftOf="@id/editIv"
+                android:layout_toRightOf="@+id/avatarIv"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:text="手机："
+                android:textColor="@color/default_text_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border_top"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="设置您的信息"
+        android:textColor="@color/default_text_color"
+        android:textSize="16sp" />
+
+    <LinearLayout style="@style/Form">
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="手机号" />
+
+            <EditText
+                android:id="@+id/phoneEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:maxLength="11" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="验证码" />
+
+            <EditText
+                android:id="@+id/captchaEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入验证码"
+                android:maxLength="8" />
+
+            <com.dodomall.ddmall.shared.component.CaptchaBtn
+                android:id="@+id/captchaBtn"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:clickable="true"
+                style="@style/btnCaptcha"
+                android:gravity="center"
+                android:text="获取验证码"
+                />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="密码" />
+
+            <EditText
+                android:id="@+id/passwordEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入密码"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label"
+                android:text="确认密码" />
+
+            <EditText
+                android:id="@+id/confirmedEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入密码"
+                android:inputType="textPassword" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/agreeIv"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:src="@drawable/checkbox_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我已阅读并同意"
+            android:textColor="@color/grayDark"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/agreementNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="店多多用户协议"
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/registerBtn"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="注册" />
+
+</LinearLayout>

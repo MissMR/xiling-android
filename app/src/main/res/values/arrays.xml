@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="refundReasons">
+        <item>拍错了 / 信息填写错误</item>
+        <item>不想要了</item>
+        <item>其它</item>
+    </string-array>
+    <string-array name="Message_Title_Arr">
+        <!--<item>店多多官方</item>-->
+        <item>素材库</item>
+        <!--<item>小视频</item>-->
+        <!--<item>商学院</item>-->
+    </string-array>
+    <string-array name="arr_school_str">
+        <item>图文课堂</item>
+        <item>语音课堂</item>
+        <item>视频课堂</item>
+    </string-array>
+
+</resources>

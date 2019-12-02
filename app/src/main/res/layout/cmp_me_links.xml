@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/section_border"
+        android:orientation="horizontal"
+        app:flexWrap="wrap">
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkFavCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_fav"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="收藏"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkHistoryCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_history"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="足迹"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkCouponCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_coupon"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="优惠券"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkMessageCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_message"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="消息"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkShipCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@drawable/ic_user_center_ship"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="店主发货"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkFamilyCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_family"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_textSize="14sp"
+            app:item_label="店多多会员"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkPush"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@drawable/ic_product_push"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="美集推手"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkQrCodeCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_qrcode"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="邀请有奖"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkStoreSettingCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/ic_user_center_store_setting"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="店铺配置"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkFamilyOrderCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_order"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="积分订单"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkPointCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_point"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="积分"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkBindWePayCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_bind_wechat"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="绑定微信钱包"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkVerifyCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_verify"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="实名认证"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkBindCardCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_bind_bank"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="绑定银行卡"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkUpgradeProgressCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_upgrade"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="升级进度"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkSubscribeCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_subscribe"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="关注我们"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkBindPhoneCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_bind_phone"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="绑定手机号"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkLockQrCodeCmp"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            android:visibility="gone"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/icon_link_lock"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="锁粉二维码"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/ic_user_center_notice"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="公告"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"/>
+
+        <com.dodomall.ddmall.shared.component.ItemWithIcon
+            android:id="@+id/linkeToBeShopkeeper"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/border_bottom"
+            app:icon_divider="5dp"
+            app:icon_drawable="@mipmap/ic_user_center_shopkeeper"
+            app:icon_height="30dp"
+            app:icon_width="30dp"
+            app:item_label="成为店主"
+            app:item_textSize="14sp"
+            app:layout_flexBasisPercent="25%"
+            />
+
+    </com.google.android.flexbox.FlexboxLayout>
+    <!--其它功能链接 结束-->
+</merge>

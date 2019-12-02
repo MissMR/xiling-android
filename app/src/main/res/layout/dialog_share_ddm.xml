@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_share_bg"
+    android:padding="@dimen/distance_17">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/ddm_red"
+            android:textSize="18sp"
+            tools:text="title" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="@dimen/distance_15"
+            android:layout_height="@dimen/distance_15"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_login_close" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_header"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/distance_30"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="@dimen/distance_2"
+        android:text="只要你的好友通过你的链接购买此商品，你就能赚到至少%s元的佣金哦~"
+        android:textColor="@color/color_99" />
+
+    <LinearLayout
+        android:id="@+id/ll_grid_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_content"
+        android:layout_marginTop="@dimen/distance_30"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/ll_wechat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_wechat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="微信" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_wechat_circle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_wechat_circle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="朋友圈" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_qq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_qq" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="QQ" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRow2Panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_grid_top"
+        android:layout_marginTop="@dimen/distance_20"
+        android:layout_marginBottom="@dimen/distance_20"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/ll_qrcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_qr_code" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="商品二维码" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_copy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_copy" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="复制链接" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/distance_45"
+                android:layout_height="@dimen/distance_45"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_share_qr_code" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance_7"
+                android:text="微博" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

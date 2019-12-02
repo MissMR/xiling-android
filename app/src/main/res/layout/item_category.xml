@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_category_banner"
+        style="@style/DefaultSimpleDraweeView"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        app:actualImageScaleType="fitXY"
+        app:roundedCornerRadius="@dimen/category_radius" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="分类"
+            android:textColor="@color/ddm_black_dark"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/tv_all_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:drawableRight="@mipmap/icon_arrow_next"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="全部产品"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_category_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_radius_8"
+        android:paddingBottom="10dp">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

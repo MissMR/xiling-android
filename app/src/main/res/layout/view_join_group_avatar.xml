@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="70dp"
+    android:layout_height="50dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImage="@mipmap/default_avatar"
+        app:placeholderImageScaleType="centerCrop"
+        app:roundAsCircle="true"
+        app:roundingBorderColor="@color/red"
+        app:roundingBorderWidth="1dp"
+        />
+
+    <ImageView
+        android:id="@+id/ivAvatarNoData"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_group_default"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/ivTag"
+        android:layout_width="32dp"
+        android:layout_height="15dp"
+        android:layout_alignParentRight="true"
+        android:text="团长"
+        android:textSize="10dp"
+        android:gravity="center"
+        android:textColor="@color/text_black"
+        android:background="@drawable/btn_join_group_bg_red"
+        />
+
+</RelativeLayout>

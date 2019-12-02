@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layoutCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <View
+            style="@style/lineHorizontal"
+            />
+
+        <TextView
+            android:id="@+id/tvCategory"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:drawableRight="@drawable/ic_triangle"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/marginTop"
+            android:paddingLeft="@dimen/padingLeftRight"
+            android:paddingRight="@dimen/padingLeftRight"
+            android:paddingTop="@dimen/marginTop"
+            android:text="全部退款单"
+            />
+
+        <View
+            style="@style/lineHorizontal"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <View
+            android:id="@+id/viewYinying"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8000"
+            android:visibility="gone"
+            />
+    </FrameLayout>
+
+</LinearLayout>

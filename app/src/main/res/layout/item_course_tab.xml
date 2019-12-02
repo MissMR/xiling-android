@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginRight="22dp"
+    android:background="@drawable/bg_economic_home_tab_course"
+    android:button="@null"
+    android:text="新手课堂"
+    android:textColor="@color/radiobutton_text_color" />

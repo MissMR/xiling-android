@@ -1,0 +1,25 @@
+<resources>
+    <string name="appName">店多多</string>
+    <string name="appNameDebug">店多多-测试</string>
+    <string name="loading">玩命加载中...</string>
+    <string name="format_money">%.2f</string>
+    <string name="currency">¥</string>
+    <string name="select_refund_goods_reason">请选择退货原因</string>
+
+    <string name="sp_select">请选择</string>
+    <string name="s_save_text">保存</string>
+    <string name="s_forward_text">转发</string>
+    <string name="s_leave_msg_text">留言</string>
+    <string name="s_weixin_not_avilible_text">您还没有安装微信</string>
+    <string name="s_saving_text">正在保存</string>
+    <string name="s_detail_title">详情</string>
+    <string name="s_search_order_hint">搜索</string>
+    <string name="comment">评论(%s)</string>
+    <string name="tip_invite_code">1.邀请码为平台店主用户的专属码，请和您的推荐人确认邀请码\n2.店主用户可以登录APP，在我-邀请有奖页面查看\n3.一个用户只可以绑定一个邀请码</string>
+    <string name="share_friend">分享好友</string>
+    <string name="title_activity_info_detail">InfoDetailActivity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="txt_rush_rag">限时抢购</string>
+</resources>

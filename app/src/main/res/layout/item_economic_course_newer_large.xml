@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/white_radius_large"
+        android:padding="16dp">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="为什么选择店多多微商操盘手培训" />
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="谁离开房间克莱斯勒反抗集散地立刻反击"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="12sp" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_img"
+            style="@style/DefaultSimpleDraweeView"
+            android:layout_width="match_parent"
+            android:layout_height="186dp"
+            android:layout_below="@id/tv_sub_title"
+            android:layout_marginTop="16dp"
+            app:actualImageScaleType="fitXY"
+            app:roundedCornerRadius="12dp"
+            tools:background="@color/ddm_gray_dark" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sdv_img"
+            android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="2.3已学"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+</FrameLayout>

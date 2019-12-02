@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_cornor4_f3"
+    >
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/item_video_iv"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius_top_left="2dp"
+        app:riv_corner_radius_top_right="@dimen/distance_2"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_height="148dp"
+        app:riv_oval="false" />
+
+    <TextView
+        android:layout_marginTop="@dimen/distance_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:id="@+id/item_video_title_tv"
+        android:ellipsize="end"
+        tools:text="透气柠檬面膜使用方法"
+        android:layout_marginLeft="@dimen/distance_15"
+        android:layout_marginRight="@dimen/distance_15"
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/sp_14"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/distance_10"
+        android:paddingLeft="@dimen/distance_15"
+        android:layout_marginBottom="@dimen/dp_10"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_playtimes"
+            android:layout_gravity="center_vertical"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_99"
+            tools:text="999万"
+            android:id="@+id/item_play_time_tv"
+            android:layout_marginLeft="@dimen/dp_4"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comment"
+            android:layout_marginLeft="@dimen/distance_20"
+            android:layout_gravity="center_vertical"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_99"
+            tools:text="999万"
+            android:id="@+id/item_leave_msg_tv"
+            android:layout_marginLeft="@dimen/dp_4"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

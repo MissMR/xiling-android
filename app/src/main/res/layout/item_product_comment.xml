@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/marginTop"
+              android:paddingTop="@dimen/marginTop"
+              android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tvCommentName"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        tools:text="dddd"
+        />
+
+
+    <TextView
+        android:id="@+id/tvCommentContent"
+        style="@style/tvCommonMainBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        android:lineSpacingExtra="4dp"
+        tools:text="dddd\ndddddddddd\dndd 大大所大大多"
+        />
+
+    <TextView
+        android:id="@+id/tvCommentProperties"
+        style="@style/tvCommonMainGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/marginTop"
+        />
+
+    <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+        android:id="@+id/layoutCommentNineImages"
+        style="@style/MatchWrap"
+        android:layout_below="@id/tvCommentProperties"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:layout_marginRight="@dimen/padingLeftRight"
+        android:layout_marginTop="8dp"
+        app:bga_npl_itemCornerRadius="0dp"
+        app:bga_npl_itemSpanCount="4"
+        app:bga_npl_itemWhiteSpacing="14.5dp"
+        app:bga_npl_itemWidth="0dp"
+        app:bga_npl_otherWhiteSpacing="30dp"
+        app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+        app:bga_npl_showAsLargeWhenOnlyOne="false"/>
+</LinearLayout>

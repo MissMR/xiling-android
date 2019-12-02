@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="510dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/dialog_share_bg"
+                android:orientation="vertical"
+                android:paddingLeft="143dp"
+                android:paddingTop="12dp">
+
+                <TextView
+                    android:id="@+id/tv_activity_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/btn_bg_red_r8"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:text="@string/txt_rush_rag"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/priceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_activity_tag"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/ddm_gray_dark"
+                    android:textSize="20sp"
+                    tools:text="1111/" />
+
+                <TextView
+                    android:id="@+id/tv_market_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_activity_tag"
+                    android:layout_alignBaseline="@id/priceTv"
+                    android:layout_marginLeft="4dp"
+                    android:layout_toRightOf="@id/priceTv"
+                    android:includeFontPadding="false"
+                    android:text=""
+                    android:textColor="@color/ddm_gray_dark"
+                    android:textSize="16sp"
+                    tools:text="334" />
+
+                <TextView
+                    android:id="@+id/tv_property_selected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/priceTv"
+                    android:layout_marginTop="4dp"
+                    android:text="请选择规格属性"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/tv_close"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:src="@mipmap/ic_login_close" />
+
+                <TextView
+                    android:id="@+id/stockTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:includeFontPadding="false"
+                    android:text="免运费 | 库存---件"
+                    android:textColor="@color/ddm_gray_dark"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/thumbIv"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_marginLeft="15dp"
+                android:background="@mipmap/qr_code_bg"
+                android:padding="14dp"
+                fresco:actualImageScaleType="fitXY"
+                fresco:placeholderImage="@drawable/default_image"
+                fresco:placeholderImageScaleType="fitXY"
+                fresco:viewAspectRatio="1" />
+
+        </FrameLayout>
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:paddingTop="6dp"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:nestedScrollingEnabled="false"
+                    tools:layout_height="140dp" />
+
+                <com.dodomall.ddmall.shared.component.NumberField
+                    android:id="@+id/numberField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recyclerView"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/numberField"
+                    android:text="购买数量" />
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/layoutBotttom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="18dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="14dp">
+
+            <TextView
+                android:id="@+id/tvBottomGreyText"
+                style="@style/MyButton.Gray"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="已下架"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/confirmBtn"
+                style="@style/MyButton.DDMRed"
+                android:layout_width="140dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="确定"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/addToCartBtn"
+                style="@style/MyButton.StrokeRed"
+                android:layout_width="0dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/buyNowBtn"
+                style="@style/MyButton.DDMRed"
+                android:layout_width="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="立即购买"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

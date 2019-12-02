@@ -1,0 +1,546 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title></title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
+#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write, pre { white-space: pre-wrap; }
+.CodeMirror, .md-fences, table { text-align: left; }
+.md-reset, a:active, a:hover { outline: 0px; }
+.md-reset, .md-toc-item a { text-decoration: none; }
+.MathJax_SVG, .md-reset { float: none; direction: ltr; }
+:root { --bg-color: #ffffff; --text-color: #333333; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.in-text-selection, ::selection { background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
+#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
+.first-line-indent #write p .md-line { text-indent: 0px; }
+.first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+#write > figure:first-child { margin-top: 16px; }
+figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
+.CodeMirror-line, .md-fences { break-inside: avoid; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; margin-right: 4px; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; background-position: 0px 0px; background-repeat: initial initial; }
+.md-toc-inner, a img, img a { cursor: pointer; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: nowrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > img:only-child { display: block; margin: auto; }
+.md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, tt { font-family: var(--monospace); }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/zjm/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/zjm/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/zjm/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/zjm/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff')
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write{
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 20px 30px 40px 30px;
+	padding-top: 20px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/zjm/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 4px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+    border-bottom: 1px solid #ddd;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #cccccc;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #ddd;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media screen and (min-width: 914px) {
+    /*body {
+        width: 854px;
+        margin: 0 auto;
+    }*/
+}
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag{
+	color: inherit;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+
+ .typora-export p {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p><strong>山东微众电子商务有限公司商户服务协议</strong></p><p>各服务条款前所列索引关键词仅为帮助您理解该条款表达的主旨之用，不影响或限制本协议条款的含义或解释。为维护您自身权益，建议您仔细阅读各条款具体表述。</p><p>【审慎阅读】您在申请注册流程中点击同意本协议之前，应当认真阅读本协议。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款、法律适用和争议解决条款。免除或者限制责任的条款将以粗体下划线标识，您应重点阅读。如您对协议有任何疑问，可向山东微众电子商务有限公司APP客服咨询。 </p><p>【签约动作】当您按照注册页面提示填写信息、阅读并同意本协议且完成全部注册程序后，即表示您已充分阅读、理解并接受本协议的全部内容，并与乙方达成一致，成为山东微众电子商务有限公司APP商户。阅读本协议的过程中，如果您不同意本协议或其中任何条款约定，您应立即停止注册程序。</p><p>本协议由同意并承诺遵守本协议规定使用山东微众电子商务有限公司APP服务的法律实体（下称“商户”或“甲方”）、山东微众电子商务有限公司（下称“乙方”）共同缔结，本协议具有法律效力。</p><p>一、协议内容及生效： </p><p>（一）本协议内容包括协议正文及所有乙方已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。乙方若就山东微众电子商务有限公司APP服务制定特别规则（下称“特别规则”），如特别规则与山东微众电子商务有限公司APP其他规则存在冲突，则以特别规则为准。</p><p>（二）商户在使用乙方提供的各项服务的同时，承诺接受并遵守各项相关规则的规定。乙方有权根据需要不时地制定、修改本协议或各类规则，如本协议有任何变更，乙方将在山东微众电子商务有限公司APP上以公示形式通知商户。如商户不同意相关变更，必须立即书面通知乙方以终止本协议。任何修订和新规则一经在山东微众电子商务有限公司APP公布即自动生效，成为本协议的一部分。登录或继续使用服务将表示商户接受经修订的协议和新规则。除另行明确声明外，任何使服务范围扩大或功能增强的新内容均受本协议约束。</p><p>（三）商户签署或在线接受本协议并不导致本协议在甲方、乙方之间立即生效，经过乙方审核通过并向商户发出服务开通通知时，本协议即在商户和乙方之间产生法律效力。本协议不涉及商户与山东微众电子商务有限公司APP其它用户之间因网上交易而产生的法律关系及法律纠纷。 </p><p>二、定义： </p><p>“山东微众电子商务有限公司”：指由乙方开发建立的，供商户开通经营线上商城，销售乙方旗下商品或供其它用户查询商品信息，进行信息交流，达成交易意向及向商户/用户提供其他与交易有关的辅助信息服务的移动端电子商务交易服务平台。</p><p>“商户及商户注册”：商户必须是符合本协议第四条规定的法律实体，如无经营资格或民事行为能力或违反本协议第五条之声明与保证的内容不当注册为山东微众电子商务有限公司商户或超越其民事权利或行为能力范围从事交易的，其与乙方之间的协议自始无效，乙方一经发现，有权立即注销该商户山东微众电子商务有限公司服务帐户，并追究其使用山东微众电子商务有限公司APP服务的一切法律责任。商户注册是指商户下载山东微众电子商务有限公司APP，并按要求填写相关信息、在线接受并同意履行本协议以最终激活其山东微众电子商务有限公司服务帐户的过程。</p><p>“山东微众电子商务有限公司服务帐户”：商户完成商户注册流程而获得的，其将在使用服务的过程中必须与自设的帐户密码共同使用的用户名。商户应妥善保管其山东微众电子商务有限公司服务帐户及密码信息，商户不得以任何形式擅自转让或授权他人使用自己的山东微众电子商务有限公司服务帐户；</p><p>乙方保留在任何时候自行决定对服务及其相关功能、应用软件变更、升级的权利。乙方进一步保留在服务中开发新的模块、功能和软件或其它语种服务的权利。上述所有新的模块、功能、软件服务的提供，除非乙方另有说明，否则仍适用本协议。服务随时可能因乙方的单方判断而被增加或修改，或因定期、不定期的维护而暂缓提供，商户将会得到相应的变更通知。商户在此同意乙方在履行必要的通知义务后无需向其或第三方在使用服务时对其在传输或联络中的迟延、不准确、错误或疏漏及因此而致使的损害负责。</p><p>本协议所指的APP是指依托互联网通讯技术并以移动终端设备为载体的客户服务目标程序。</p><p>三、证明文件提交： </p><p>（一）证明文件提交：商户欲使用本协议之服务，必须向乙方提交其在申请服务时所提供信息真实性的相关证明。具体证明信息内容如下：</p><p>1、商户为自然人的，需提供有效的乙方认可的身份证明文件；商户为法人、其他组织的，需提供营业执照副本、组织机构代码证、税务登记证复印件； </p><p>2、其他乙方认为需查验的信息。 </p><p>（二）信息变更的通知：协议期内，上述信息（包括相关证明文件）的任何变更，商户都应及时书面通知乙方或在山东微众电子商务有限公司服务帐户信息中进行修改，如上述信息变更后使得商户不再具备履行本协议的情形出现时，乙方有权立即终止或中止本协议。</p><p>（三）责任条款：商户同意为其未及时的通知或更新其信息承担全部法律和经济责任，商户保证其向乙方所提供的全部证明文件及山东微众电子商务有限公司服务帐户之信息真实、准确且不存在超过时效问题（即保证所有证明文件、信息在整个合同履行期间都处于有效期内）。如因上述原因发生纠纷或被相关国家主管机关处罚，商户应当独立承担全部法律和经济责任，如给乙方或山东微众电子商务有限公司APP（包括其合作伙伴、代理人、职员等）造成损失的，商户同意赔偿其全部损失。 </p><p>四、申请条件： </p><p>申请使用服务的商户必须同时满足以下条件： </p><p>（一）商户为自然人的，需具有独立的民事权利能力和民事行为能力；商户为法人、其他组织的，需持有中华人民共和国合法营业执照等；</p><p>（二）提交了本协议第三条约定的相关证明文件并获得乙方认可。</p><p>五、商户的声明与保证</p><p>（一）其符合商户的申请条件，且向乙方提供真实、合法、准确、有效的注册资料，并保证其诸如电子邮件地址、联系电话、联系地址、邮政编码等内容的有效性及安全性，保证乙方及其他用户可以通过上述联系方式与自己进行联系。同时，商户也有义务在相关资料实际变更时及时更新有关注册资料。商户保证不以他人资料在山东微众电子商务有限公司APP进行注册。 </p><p>（二）其承诺遵守本协议、以及所有公示于山东微众电子商务有限公司APP的规则和流程。</p><p>（三）其有合法的权利缔结本协议，使用服务。</p><p>（四）其发布于山东微众电子商务有限公司APP的所有信息真实、准确，符合相关法律法规及山东微众电子商务有限公司APP的规则。</p><p>（五）其对发布于山东微众电子商务有限公司APP的交易信息中所涉商品有合法的销售权。</p><p>（六）其将按照不低于《中华人民共和国产品质量法》、《中华人民共和国消费者权益保护法》及其他法规、部门规章和国家强制性标准规定的要求，出售商品并提供“三包”等售后服务。</p><p>（七）其在山东微众电子商务有限公司APP出售商品，有义务按照买家实际支付的现金金额为买家开具合法正规的税务发票，相关税费应按国家相关规定由商户自行承担。</p><p>（八）其保证在使用服务进行交易的过程中遵守诚实信用的原则，不在交易过程中采取不正当竞争行为，不扰乱线上交易的正常秩序，不从事与线上交易无关的行为。</p><p>（九）其保证在使用服务时实施的所有行为均遵守国家法律、法规和山东微众电子商务有限公司APP的相关规定以及各种社会公共利益或公共道德。如有违反导致任何法律后果的发生，商户将以自己的名义独立承担所有相应的法律责任。</p><p>（十）其承诺对线上商城负有管理义务，对线上商城出现的违反国家有关法律、法规规定及山东微众电子商务有限公司APP规则的信息予以立即改正。</p><p>（十一）其在线接受本协议并不当然导致本协议发生法律效力，本协议是附条件生效协议，即必须经过乙方对其提交的全部资料审核通过后方可生效。同时，其认可乙方有权独立的对其注册资料进行核准。审核结果以山东微众电子商务有限公司APP判断为准，其对此不持有任何异议。</p><p>六、业务交易以及权利与义务： </p><p>乙方将商品销售给甲方，乙方为甲方提供平台服务，甲方再将商品销售给消费者。</p><p>1、乙方有义务在现有技术上维护整个山东微众电子商务有限公司APP的正常运行，并努力提升和改进技术，使商户线上交易活动得以顺利进行，为甲方提供平台服务；</p><p>2、甲方在平台交易过程中按照平台交易规则及步骤向甲方支付所购货物货款。</p><p>3、在这交易过程中，消费者如需要商品销售发票的由甲方提供。</p><p>七、退换货规定</p><p>（一）凡乙方销售之商品，甲方自签收之日起7天内可进行退换货处理。</p><p>（二）甲方签收超过7天（含节假日），不予退换货。</p><p>（三）甲方请勿在未通知乙方客服部（唯一受理退换货窗口）的情况下自行寄回商品。否则乙方有权拒收或签收后不进行退换货处理。</p><p>（四）甲方自行寄回需退换货商品，乙方不承担寄回费用且不承担商品损毁灭失的风险。</p><p>（五）一张订单只为甲方办理一次退换货服务，非质量问题退换货来回程邮费均由甲方承担。乙方回程寄回运费请参照本约定第（七）条之标准。</p><p>（六）甲方寄回商品时，应确保商品完整，无脏污、破损，未经使用，不影响二次销售。且需将发货单、商品配件、说明书、赠品及所需退换商品一并寄回。否则无法办理退换货服务。如甲方购买商品时乙方已提供发票，则办理退货或订单金额发生变更的换货时，需将发票随商品一同返还。甲方应妥善保管发票，如发票丢失、损毁、涂改，将无法办理退换货。</p><p>（七）非质量问题甲方发生退货时，包邮的订单将扣除购买商品时乙方支付的单程邮寄费用，标准为首重1kg/10元人民币，续重1kg/5元人民币，以乙方委托物流商配送时的称重为准。</p><p>（八）非质量问题，甲方不允许对套餐产品进行部分退换。</p><p>（九）如甲方套装中商品或在满减等优惠活动中购买的商品进行部分退换，将无法享受套装或在满减等优惠活动中购买时的优惠。</p><p>注：本条款之“部分商品”指乙方推出之活动中购买多个套餐的某一套餐商品，而非套餐中的部分商品。</p><p>（十）甲方发生退货时，退回订单所产生的所有收益，包含但不限于秒结、月结等相关所有奖励将被扣除；当账户出现余额透支时，将在应退款项中扣减归还透支金额。。</p><p>以下情况不予办理退换货：</p><p>1、任何非由乙方出售的商品，不予办理退换货；</p><p>2、任何已使用商品，不予办理退换货，但有质量问题除外；</p><p>3、密封产品原包装已打开或破损（如一次性封贴或者胶条封箱被拆开或已破损），不予办理退换货；</p><p>4、任何因非正常使用及保管导致出现质量问题的商品，不予办理退换货；</p><p>5、以到付、平邮、挂号信方式退回商品，不予办理退换货。</p><p>注意事项：</p><p>1、判断实际收货日期规则：甲方实际签收日期视为实际收货日期，以第三方物流平台显示的实际到货日期为准。如果第三方物流平台不能有效反馈签收日期，则乙方将根据距离等因素与客户人工确认实际到货日期；</p><p>2、甲方委托快递公司将货品寄回，运输过程中可能发生的货物损坏，甲方自行与委托物流商解决，乙方不负责任。建议甲方在寄送商品时购买保险；</p><p>3、甲方寄回退换货的产品，产品品相是否符合退换货规定以乙方工作人员现场拆包检查结果为准。乙方负拆包检查之责任，产品出现任何的损坏，有告知甲方的责任，且按照规定进行扣减相应的费用；</p><p>4、甲方发生退换货时，若有赠品但没有寄回的，按照赠品的市场售价扣除费用；</p><p>5、产品损耗扣减标准：</p><p>（1）产品完全损毁、破裂，扣除全额货款；</p><p>（2）包材损坏：按照商品市场售价的30%扣除。</p><p>所售商品如在国家规定的三包商品范围内，退换货按国家相关政策、法规执行。未尽事宜，以国家相关法律和《山东微众电子商务有限公司经销商营业守则》规定为准。</p><p> </p><p>八、协议的终止： </p><p>（一）自然终止：如商户在线因任何原因设置终止本电子协议，则本协议将同时终止。 </p><p>（二）通知解除：协议任何一方均可以提前十五（15）天书面通知的方式终止本协议。</p><p>（三）乙方单方解除权：如商户违反山东微众电子商务有限公司APP的任何规则或本协议中的任何承诺或保证，包括但不限于本协议项下的任何约定，乙方都有权立刻终止本协议，且按有关规则对商户进行处罚。</p><p>（四）商户在连续超过【九十（90）】天的时间内未以山东微众电子商务有限公司服务账户及密码登录山东微众电子商务有限公司APP的，乙方有权终止本协议。 </p><p>（五）如非因乙方的原因，商户未能按本协议及附件之规定，按期全额支付有关服务费用和/或活动费用，且在乙方规定的延长时限内仍未支付，乙方有权部分或全部中止或终止本协议。</p><p>（六）本协议规定的其他协议终止条件发生或实现，导致本协议终止。</p><p>（七) 协议终止后有关事项的处理： </p><p>1、协议终止后，乙方没有义务为商户保留山东微众电子商务有限公司服务账户中或与之相关的任何信息，或转发任何未曾阅读或发送的信息给商户或第三方，亦不就终止协议而对商户或任何第三者承担任何责任；</p><p>2、无论本协议因何种原因终止，在协议终止前的行为所导致的任何赔偿和责任，商户必须完全且独立地承担； </p><p>3、协议终止后，乙方有权保留该商户的注册数据及以前的交易行为记录。如商户在协议终止前在山东微众电子商务有限公司APP上存在违法行为或违反协议的行为，乙方仍可行使本协议所规定的权利；</p><p>4、 协议终止之前，若商户已经与另一用户就某商品信息达成交易协议的，乙方可以不删除该项交易，但乙方有权在协议终止的同时将协议终止的情况通知该交易中的买方。</p><p>（八）无论本协议因何种原因终止，甲方已缴纳的服务费均不予退还。</p><p>（九）协议终止后，甲方将对乙方账户进行清算：</p><p>1、自协议终止之日起，甲方一年内仍可使用山东微众电子商务有限公司APP进行消费，但在该APP内所有消费行为不享受乙方提供的福利政策，最终解释权为乙方所有；</p><p>2、自协议终止之日起，甲方账户暂时冻结，15个工作日后方能进行登陆和操作；在一年之内账户有效余额可进行提现或消费。</p><p>九、协议期限： </p><p>本协议经商户在线接受且经过乙方审核通过后（或书面签署后）即告生效，除非本协议规定的中止/终止条件发生，本协议将持续有效。双方另有约定的除外。 </p><p>十、保密条款：</p><p>（一）本协议所称商业秘密包括但不限于本协议、任何补充协议所述内容及在合作过程中涉及的其他秘密信息。任何一方未经商业秘密提供方同意，均不得使用或将该信息向任何第三方披露、传播、编辑或展示。协议方承诺，本协议终止后仍承担此条款下的保密义务，直至相关信息被公众所知悉。</p><p>(二) 因信息提供方书面同意以及国家、行政、司法强制行为而披露商业秘密的，披露方不承担责任；该商业秘密已为公众所知悉的，披露方不承担责任。</p><p>十一、山东微众电子商务有限公司APP的法律地位</p><p>山东微众电子商务有限公司APP仅作为用户物色交易对象，就货物和服务的交易进行协商，以及获取各类与贸易相关的服务的平台。本协议的签署并不意味着乙方（或乙方的关联方）成为商户在山东微众电子商务有限公司APP上与第三方所进行交易的参与者，对前述交易乙方（或乙方的关联方）仅提供技术服务，不对商户行为的合法性、有效性及商品的真实性、合法性和有效性作任何明示或暗示的担保。商户因进行交易、获取有偿服务或接触山东微众电子商务有限公司APP服务器而发生的所有应纳税赋，均由商户自行负责支付。 </p><p>十二、有限责任： </p><p>（一）服务将按&quot;现状&quot;和按&quot;可得到&quot;的状态提供。乙方（或乙方的关联方）在此明确声明对服务不作任何明示或暗示的保证，包括但不限于对服务的可适用性，没有错误或疏漏，持续性，准确性，可靠性，适用于某一特定用途之类的保证，声明或承诺。乙方（或乙方的关联方）对服务所涉的技术和信息的有效性，准确性，正确性，可靠性，质量，稳定，完整和及时性均不作承诺和保证。</p><p>（二）使用服务下载或者获取任何资料的行为均出于商户的独立判断并自行承担风险。每一个商户独自承担实施上述行为对其手机移动端系统或资料灭失而造成的损失。</p><p>（三）不论在何种情况下，乙方（或乙方的关联方）均不对由于网络连接故障，电脑，通讯或其他系统的故障，电力故障，罢工，劳动争议，暴乱，起义，骚乱，生产力或生产资料不足，火灾，洪水，风暴，爆炸，不可抗力，战争，政府行为，国际、国内法院的命令或第三方的不作为而造成的不能服务或延迟服务承担责任。</p><p>（四）不论是否可以预见，不论是源于何种形式的行为，乙方（或乙方的关联方）不对由以下原因造成的任何特别的，直接的，间接的，惩罚性的，突发性的或有因果关系的损害或其他任何损害（包括但不限于利润或利息的损失，营业中断，资料灭失）承担责任。</p><p>1、使用或不能使用服务；</p><p>2、 通过服务购买或获取任何商品，样品，数据，信息或进行交易等，或其他可替代上述行为的行为而产生的费用；</p><p>3、 未经授权的存取或修改数据或数据的传输；</p><p>4、第三方通过服务所作的陈述或行为； </p><p>5、其它与服务相关事件，包括疏忽等，所造成的损害。 </p><p>十三、违约责任： </p><p>（一）商户同意赔偿由于使用服务或违反本协议而给乙方造成的任何损失（包括由此产生的全额的诉讼费用和律师费）。商户同意乙方不对任何商户张贴的资料，包括诽谤性的，攻击性的或非法的资料，承担任何责任；由于此类材料对其它用户造成的损失由商户自行全部承担。</p><p>（二）商户承诺，不会采取任何手段或措施，包括但不限于明示或暗示用户或通过其他方式转移其可以通过山东微众电子商务有限公司APP在线达成的交易，或达成交易后不经由山东微众电子商务有限公司APP线上交易，以规避向乙方支付相关服务费用。否则将视为严重违约，乙方将有权立即终止本协议，并可就违约行为向商户追偿。</p><p>（三）除本协议及山东微众电子商务有限公司APP规则另有约定之外，如一方发生违约行为，守约方可以书面通知方式要求违约方在指定的时限内停止违约行为，并就违约行为对其造成的损失进行索赔，如违约方未能按时停止违约行为，则守约方有权立即终止本协议。</p><p>十四、争议解决及其他： </p><p>1、本协议之解释与适用，以及与本协议有关的争议，均应依照中华人民共和国法律予以处理。若双方发生争议，任一方均有权向乙方所在地有管辖权的人民法院提起诉讼。</p><p>2、如本协议的任何条款被视作无效或无法执行，则上述条款可被分离，其余部份则仍具有法律效力。 </p><p>3、乙方于商户过失或违约时放弃本协议规定的权利的，不视为其对商户的其他或以后同类之过失或违约行为弃权。 </p><p> </p><p> </p></div>
+</body>
+</html>

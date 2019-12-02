@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:includeFontPadding="false"
+            android:text="您的剩余积分"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/scoreTotalTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:includeFontPadding="false"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="36sp" />
+        <TextView
+            android:id="@+id/tvSunGetScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:text="累计赚取积分"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            />
+    </LinearLayout>
+</LinearLayout>

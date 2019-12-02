@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:layout_marginRight="110dp"
+        >
+
+        <TextView
+            android:id="@+id/tvMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="2dp"
+            android:includeFontPadding="false"
+            android:text="$99999"
+            android:textColor="@color/text_black"
+            android:textSize="25sp"/>
+
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/label_bg_black"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="限时特卖"
+            android:textColor="@color/text_black"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:background="@color/text_black"
+        android:layout_gravity="right"
+        >
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="已结束"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutDownTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tvTimeStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="距结束还剩:"
+                android:textColor="@color/red"/>
+
+            <com.dodomall.ddmall.shared.component.CountDown
+                android:id="@+id/countDownView"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                app:cd_dot_color="@color/red"
+                app:cd_color="@color/text_black"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="12dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_img"
+        style="@style/DefaultSimpleDraweeView"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:scaleType="fitXY"
+        app:actualImageScaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_btn_follow"
+        style="@style/TextView.Follow"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:button="@null"
+        android:text="关注"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_below="@id/sdv_img"
+        android:background="@drawable/white_bottom_radius">
+
+        <LinearLayout
+            android:id="@+id/ll_hook"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_follow_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11万" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:textColor="@color/ddm_gray_dark"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/ll_hook"
+            android:background="@color/ddm_gray_light" />
+
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/divider"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="14dp"
+            android:text="#时空裂缝就是快来解放#" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ddui.activity.BindPhoneNumberActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/distance_20"
+        android:text="当前手机号"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="@dimen/textSize_12" />
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="133****1111" />
+
+    <TextView
+        android:id="@+id/tv_btn_change_phone"
+        style="@style/MyButton.DDMRed"
+        android:layout_margin="16dp"
+        android:text="更换手机号" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更换手机号后，原手机号将无法登录"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="@dimen/textSize_12" />
+</LinearLayout>

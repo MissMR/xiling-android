@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/list_divider"
+                    android:orientation="vertical"
+                    android:showDividers="middle|end">
+
+                    <RelativeLayout
+                        android:id="@+id/userHeaderLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@color/red">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/avatarIv"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/marginTop"
+                            app:actualImageScaleType="centerCrop"
+                            app:placeholderImage="@mipmap/default_avatar"
+                            app:placeholderImageScaleType="centerCrop"
+                            app:roundAsCircle="true" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/avatarIv"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/levelTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_level"
+                                android:text="23"
+                                android:textColor="@color/red"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/nicknameTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NickName"
+                                android:textColor="@color/text_black"
+                                android:textSize="16sp" />
+
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/ivSign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/padingLeftRight"
+                            android:layout_marginTop="@dimen/marginTop"
+                            android:src="@drawable/ic_user_sign"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutMoney"
+                        style="@style/CellSection">
+
+                        <LinearLayout
+                            android:id="@+id/pointLayout"
+                            style="@style/CellItem">
+
+                            <TextView
+                                style="@style/CellItem.Label"
+                                android:text="店多多" />
+
+                            <TextView
+                                android:id="@+id/pointTv"
+                                style="@style/CellItem.Value"
+                                android:textColor="@color/redPrice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/balanceLayout"
+                            style="@style/CellItem">
+
+                            <TextView
+                                style="@style/CellItem.Label"
+                                android:text="零钱包" />
+
+                            <TextView
+                                android:id="@+id/balanceTv"
+                                style="@style/CellItem.Value"
+                                android:textColor="@color/redPrice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutScore"
+                            style="@style/CellItem"
+                            android:visibility="gone">
+
+                            <TextView
+                                style="@style/CellItem.Label"
+                                android:text="积分" />
+
+                            <TextView
+                                android:id="@+id/tvScore"
+                                style="@style/CellItem.Value"
+                                android:textColor="@color/redPrice" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--订单 开始-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/list_divider"
+                    android:orientation="vertical"
+                    android:showDividers="beginning|end">
+
+                    <LinearLayout
+                        style="@style/CellSection"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/viewMoreOrderLayout"
+                            style="@style/CellItem">
+
+                            <TextView
+                                style="@style/CellItem.Label"
+                                android:text="我的订单" />
+
+                            <TextView
+                                style="@style/CellItem.Value"
+                                android:text="查看订单明细"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="-15dp"
+                            android:orientation="horizontal">
+
+                            <com.dodomall.ddmall.shared.component.ItemWithIcon
+                                android:id="@+id/orderUnpayCmp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:icon_divider="5dp"
+                                app:icon_drawable="@mipmap/icon_order_unpay"
+                                app:icon_height="25dp"
+                                app:icon_width="25dp"
+                                app:item_label="待付款" />
+
+                            <com.dodomall.ddmall.shared.component.ItemWithIcon
+                                android:id="@+id/orderPaidCmp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:icon_divider="5dp"
+                                app:icon_drawable="@mipmap/icon_order_paid"
+                                app:icon_height="25dp"
+                                app:icon_width="25dp"
+                                app:item_label="待发货" />
+
+                            <com.dodomall.ddmall.shared.component.ItemWithIcon
+                                android:id="@+id/orderDispatchedCmp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:icon_divider="5dp"
+                                app:icon_drawable="@mipmap/icon_order_dispatched"
+                                app:icon_height="25dp"
+                                app:icon_width="25dp"
+                                app:item_label="已发货" />
+
+                            <com.dodomall.ddmall.shared.component.ItemWithIcon
+                                android:id="@+id/orderCommentCmp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:icon_divider="5dp"
+                                app:icon_drawable="@mipmap/icon_order_finish"
+                                app:icon_height="25dp"
+                                app:icon_width="25dp"
+                                app:item_label="待评价" />
+
+                            <com.dodomall.ddmall.shared.component.ItemWithIcon
+                                android:id="@+id/orderServiceCmp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                app:icon_divider="5dp"
+                                app:icon_drawable="@mipmap/icon_order_service"
+                                app:icon_height="25dp"
+                                app:icon_width="25dp"
+                                app:item_label="售后" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--订单 结束-->
+
+                <include layout="@layout/cmp_me_links" />
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

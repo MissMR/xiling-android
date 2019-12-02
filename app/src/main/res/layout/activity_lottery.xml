@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dodomall.ddmall.module.lottery.LotteryActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/redLottery"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="45dp"
+            android:layout_marginRight="45dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="幸运大转盘"
+            android:textColor="@color/white"
+            />
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:minWidth="45dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_back_white"
+            />
+    </FrameLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_lotter"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_lottery_title"/>
+
+                <RelativeLayout
+                    android:layout_width="310dp"
+                    android:layout_height="310dp"
+                    android:layout_gravity="center_horizontal"
+                    >
+
+                    <ImageView
+                        android:id="@+id/ivLotteryTorntble"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <ImageView
+                        android:id="@+id/ivLotteryStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_lottery_pointer"
+                        />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tvLotteryNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/marginTop"
+                    android:text="剩余抽奖次数"
+                    android:textColor="@color/white"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivLotteryGoRecord"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padingLeftRight"
+                    android:src="@drawable/ic_lottery_go_record"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="@dimen/padingLeftRight"
+                    android:layout_marginRight="@dimen/padingLeftRight"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/bg_common_tr_white_round_normal"
+                    android:minHeight="130dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/padingLeftRight"
+                    android:paddingLeft="@dimen/marginTop"
+                    android:paddingRight="@dimen/marginTop"
+                    android:paddingTop="@dimen/padingLeftRight"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="活动规则"
+                        android:textColor="#f2487c"
+                        android:textSize="16sp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvLotteryRule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/marginTop"
+                        android:textColor="#f2487c"
+                        android:textSize="14sp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</FrameLayout>

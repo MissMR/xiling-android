@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="对方手机号：" />
+
+            <EditText
+                android:id="@+id/phoneEt"
+                style="@style/Form.Field.Input"
+                android:hint="请输入对方手机号"
+                android:inputType="phone"
+                android:maxLength="11"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/confirmBtn"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="下一步" />
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View style="@style/lineHorizontal"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/tvCommonMainGray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/marginTop"
+        android:paddingLeft="@dimen/padingLeftRight"
+        android:paddingRight="@dimen/padingLeftRight"
+        android:paddingTop="@dimen/marginTop"
+        />
+</LinearLayout>

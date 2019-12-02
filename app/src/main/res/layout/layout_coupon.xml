@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_anchor_top"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dd_coupon"
+    tools:minHeight="50dp"
+    tools:parentTag="android.widget.RelativeLayout">
+
+    <RelativeLayout
+        android:id="@+id/rl_anchor_left"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="12dp"
+        android:duplicateParentState="true">
+
+        <com.dodomall.ddmall.dduis.custom.DDNumberTextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:autoSizeMaxTextSize="40sp"
+            android:autoSizeMinTextSize="2sp"
+            android:autoSizeTextType="uniform"
+            android:duplicateParentState="true"
+            android:includeFontPadding="false"
+            android:maxWidth="70dp"
+            android:maxLines="1"
+            android:paddingBottom="13dp"
+            android:text="17"
+            android:textColor="@color/tv_coupon_red_s"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/tv_money_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_money"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/tv_money"
+            android:duplicateParentState="true"
+            android:text="元"
+            android:textColor="@color/tv_coupon_red_s"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_coupon_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:duplicateParentState="true"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="全场通用"
+            android:textColor="@color/tv_coupon_black_s"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/coupon_divider_v"
+            android:layerType="software" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/rl_anchor_left"
+        android:duplicateParentState="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="12dp"
+        android:text="新人专享全场通用券"
+        android:textColor="@color/tv_coupon_black_s"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_coupon_tag"
+        style="@style/TextView.DDTagRed"
+        android:layout_below="@id/tv_name"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_coupon_tag_s"
+        android:duplicateParentState="true"
+        android:text="新人" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_alignBottom="@id/rl_anchor_left"
+        android:layout_marginBottom="12dp"
+        android:text="有效期至2019-09-09"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_time"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="-12dp"
+        android:padding="12dp"
+        android:src="@drawable/ic_coupon_arrow"
+        android:visibility="gone"
+        tools:visibility="visible"></ImageView>
+
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:duplicateParentState="true"
+        android:src="@drawable/checkbox"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_btn_status"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/btn_gray_stroke_radius_10"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:text="已使用"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="10sp" />
+</merge>

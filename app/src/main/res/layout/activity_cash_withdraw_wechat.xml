@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.CashWithdrawWechatActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/top_red_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="22dp">
+
+        <ImageView
+            android:id="@+id/headerLeftIv"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="start"
+            android:minWidth="45dp"
+            android:padding="14dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_back_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="提现"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_tip_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="80dp"
+            android:text="为保证资金安全"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tip_big"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="6dp"
+            android:text="为保证资金安全"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/ic_master_cashdraw" />
+        <!--中间部分-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_qr_code"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@mipmap/qr_code_bg"
+                android:padding="10dp"
+                android:src="@mipmap/default_avatar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:text="长按保存图片至手机相册\n微信扫一扫选择识别图中二维码"
+                android:textSize="@dimen/textSize_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现步骤" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="1.关注“店多多社交商城”微信服务号\n2.在“店多多社交商城”中登录账户，在飞象系统中进行提现"
+                android:textSize="@dimen/textSize_12" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</FrameLayout>

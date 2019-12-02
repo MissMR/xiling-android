@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/reward_left_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="4dp"
+        android:text="赚"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/reward_right_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_money_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:paddingLeft="3dp"
+            android:text="￥"
+            android:textColor="@color/ddm_black_dark"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tv_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:paddingRight="8dp"
+            android:text="--.--"
+            android:textColor="@color/ddm_black_dark"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</merge>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_gray"
+    android:orientation="horizontal"
+    android:padding="@dimen/marginTop"
+    android:paddingLeft="@dimen/padingLeftRight"
+    android:paddingRight="@dimen/padingLeftRight"
+    >
+
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="0dp"
+        android:minHeight="75dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/bg_while_gray_corners_stroke"
+        android:gravity="left|top"
+        android:padding="4dp"
+        />
+
+    <TextView
+        android:id="@+id/tvSubmit"
+        style="@style/MyButton.Red.Radius"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/padingLeftRight"
+        android:text="发送"
+        android:textSize="14sp"
+        />
+</LinearLayout>

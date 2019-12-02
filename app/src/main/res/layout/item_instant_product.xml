@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="135dp"
+    android:background="@color/bg_gray"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/white"
+        >
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/ivImg"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/tvCommonTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/marginTop"
+            android:layout_toRightOf="@id/ivImg"
+            android:ellipsize="end"
+            android:maxLines="3"
+            />
+
+        <com.dodomall.ddmall.shared.component.InstantProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="80dp"
+            android:layout_height="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            />
+
+        <TextView
+            android:id="@+id/tvGo"
+            style="@style/MyButton.Red.Radius"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_above="@id/progressBar"
+            android:layout_alignRight="@id/progressBar"
+            android:layout_marginBottom="5dp"
+            android:text="马上抢"
+            android:textSize="16sp"
+            android:enabled="false"
+            />
+
+        <TextView
+            android:id="@+id/tvRetailPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:layout_marginLeft="@dimen/marginTop"
+            android:layout_toRightOf="@id/ivImg"
+            android:textColor="@color/redPrice"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/tvMarketPrice"
+            style="@style/tvCommonMainGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/tvRetailPrice"
+            android:layout_alignLeft="@id/tvRetailPrice"
+            android:layout_marginBottom="2dp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

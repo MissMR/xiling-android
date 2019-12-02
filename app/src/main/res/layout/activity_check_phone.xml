@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="36dp"
+        android:src="@mipmap/welcome" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="请输入手机号用以登录"
+        android:textColor="@color/color_99" />
+
+
+    <EditText
+        android:id="@+id/et_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/login_edittext_bg"
+        android:gravity="center"
+        android:hint="输入手机号"
+        android:inputType="number"
+        android:maxLength="11"
+        android:textColorHint="@color/color_99"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_agreement"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/checkbox"
+            android:button="@null"
+            android:checked="true" />
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我已阅读并同意《店多多用户协议》"
+            android:textColor="@color/color_99"
+            android:textSize="@dimen/textSize_12" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_next"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/login_next" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="36dp"
+        android:gravity="bottom"
+        android:textColor="@color/ddm_text_gray_light"
+        tools:text="v 2.0.1" />
+
+
+</LinearLayout>

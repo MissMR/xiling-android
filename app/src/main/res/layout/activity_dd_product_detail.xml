@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ddui.activity.DDProductDetailActivity">
+
+    <com.dodomall.ddmall.ddui.custom.DDProductActionContainer
+        android:id="@+id/dd_product_action_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"></com.dodomall.ddmall.ddui.custom.DDProductActionContainer>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nsv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/dd_product_action_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_product_detail_product" />
+
+            <include layout="@layout/include_product_detail_material" />
+
+
+            <ViewStub
+                android:id="@+id/vs_suggest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/include_product_detail_suggest" />
+
+            <include layout="@layout/include_product_detail_detail" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+        android:id="@+id/fl_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_toolbar_first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="25dp"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_back_first"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:src="@mipmap/ic_back_circle_gray_bg" />
+
+            <ImageView
+                android:id="@+id/iv_share_first"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:src="@mipmap/ic_share_circle_gray_bg" />
+
+            <ImageView
+                android:id="@+id/iv_collect_first"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/iv_share_first"
+                android:src="@drawable/collect_circle_selector" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_toolbar_second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="@color/white"
+            android:paddingTop="25dp"
+            tools:alpha="1"
+            tools:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_back_second"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:src="@mipmap/ic_back_gray_with_padding" />
+
+            <ImageView
+                android:id="@+id/iv_share_second"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:src="@mipmap/ic_share_gray" />
+
+            <ImageView
+                android:id="@+id/iv_collect_second"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/iv_share_second"
+                android:paddingLeft="8dp"
+                android:src="@drawable/collect_selector" />
+
+            <ImageView
+                android:id="@+id/iv_anchor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/iv_back_second"
+                android:paddingRight="8dp"
+                android:src="@mipmap/ic_share_gray"
+                android:visibility="invisible" />
+
+            <com.dodomall.ddmall.ddui.custom.DDSmartTab
+                android:id="@+id/dd_smart_tab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/iv_collect_second"
+                android:layout_toRightOf="@id/iv_anchor"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp">
+
+            </com.dodomall.ddmall.ddui.custom.DDSmartTab>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.2dp"
+                android:layout_alignParentBottom="true"
+                android:background="@mipmap/divider_bottom" />
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

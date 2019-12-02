@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:fresco="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/tools"
+                android:layout_weight="1">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/eleImageIv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImage="@drawable/default_image"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:viewAspectRatio="1" />
+
+    <ImageView
+        android:id="@+id/eleLabel"
+        android:layout_width="62.5dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/icon_title_instant_i" />
+
+    <com.dodomall.ddmall.shared.component.CountDown
+        android:id="@+id/eleCountDown"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        fresco:cd_frame="true"
+        />
+</RelativeLayout>

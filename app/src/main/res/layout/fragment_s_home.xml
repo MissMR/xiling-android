@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sv_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:actualImageScaleType="fitXY"
+        app:viewAspectRatio="2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginBottom="5dp"
+            android:visibility="visible" />
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:elevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/btn_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:contentDescription="左上角分类"
+                        android:minWidth="30dp"
+                        android:minHeight="30dp"
+                        app:actualImageScaleType="fitXY"
+                        app:placeholderImage="@mipmap/icon_home_category" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_top_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/btn_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="6dp"
+                            android:contentDescription="右侧的活动按钮"
+                            android:minWidth="30dp"
+                            android:minHeight="30dp"
+                            android:visibility="gone"
+                            app:actualImageScaleType="fitXY"
+                            app:placeholderImage="@mipmap/icon_home_to_vip" />
+
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <com.facebook.drawee.view.SimpleDraweeView
+                                android:id="@+id/btn_msg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="6dp"
+                                android:contentDescription="右上角消息入口"
+                                android:minWidth="30dp"
+                                android:minHeight="30dp"
+                                app:actualImageScaleType="fitXY"
+                                app:placeholderImage="@mipmap/icon_home_msg" />
+
+                            <ImageView
+                                android:id="@+id/titleMsgDotImageView"
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:layout_gravity="top|right"
+                                android:layout_marginRight="6dp"
+                                android:background="@mipmap/icon_msg_dot_red"
+                                android:visibility="invisible" />
+                        </FrameLayout>
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="6dp"
+                        android:layout_toLeftOf="@id/layout_top_right"
+                        android:layout_toRightOf="@id/btn_category"
+                        android:background="@drawable/btn_home_search_bar"
+                        android:minHeight="32dp"
+                        android:text="搜索商品名称"
+                        android:textColor="@color/ddm_gray_dark" />
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp">
+
+                    <net.lucode.hackware.magicindicator.MagicIndicator
+                        android:id="@+id/magicIndicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/fragment_name_mask_left" />
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/fragment_name_mask_right" />
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line" />
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/toastPanel"
+        layout="@layout/layout_main_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:visibility="gone" />
+</FrameLayout>

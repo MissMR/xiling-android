@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/padingLeftRight"
+    android:paddingRight="@dimen/padingLeftRight"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/marginTop"
+        android:layout_marginRight="@dimen/marginTop"
+        android:layout_marginTop="@dimen/marginTop"
+        app:placeholderImage="@mipmap/default_avatar"
+        app:roundAsCircle="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:gravity="center_vertical"
+        android:minHeight="10dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/tvCommonMainBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:gravity="center_vertical"
+            android:text="蛋蛋蛋蛋"
+            />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/tvCommonMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="已结束"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvJoin"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="去拼团"
+        android:textSize="14sp"
+        style="@style/MyButton.Red.Radius"
+        />
+
+</RelativeLayout>

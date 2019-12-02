@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/labelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="标签"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/starLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:divider="@drawable/horizontal_list_divider_5"
+            android:showDividers="middle">
+
+            <ImageView
+                android:id="@+id/star0Iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_fav_selector" />
+
+            <ImageView
+                android:id="@+id/star1Iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_fav_selector" />
+
+            <ImageView
+                android:id="@+id/star2Iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_fav_selector" />
+
+            <ImageView
+                android:id="@+id/star3Iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_fav_selector" />
+
+            <ImageView
+                android:id="@+id/star4Iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_fav_selector" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="描述"
+            android:textColor="@color/grayDark"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

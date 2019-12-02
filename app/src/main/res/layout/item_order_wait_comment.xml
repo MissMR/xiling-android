@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/item_order_cell_bg"
+        android:clickable="false"
+        android:focusable="false"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/itemThumbIv"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginBottom="@dimen/marginTop"
+                    android:layout_marginRight="@dimen/marginTop"
+                    android:layout_marginTop="@dimen/marginTop"
+                    app:roundedCornerRadius="5dp"
+                    fresco:actualImageScaleType="fitXY"
+                    fresco:placeholderImage="@drawable/default_image"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:viewAspectRatio="1" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/itemTitleTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:lineSpacingExtra="4sp"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="产品名称"
+                        android:textColor="@color/default_text_color"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/itemPropertyTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/itemTitleTv"
+                        android:layout_marginBottom="@dimen/marginTop"
+                        android:layout_marginTop="@dimen/marginTop"
+                        android:includeFontPadding="false"
+                        android:text="规格："
+                        android:textColor="@color/grayDark"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:minWidth="80dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:paddingRight="@dimen/padingLeftRight"
+                android:paddingTop="7dp">
+
+                <TextView
+                    android:id="@+id/itemPriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥0.00"
+                    android:textColor="@color/text_black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/itemPriceTvShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥0.00"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/itemAmountTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="× 1"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@drawable/list_divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="15dp">
+
+            <TextView
+                android:id="@+id/commentBtn"
+                style="@style/OrderBtnRed"
+                android:layout_width="75dp"
+                android:layout_height="28dp"
+                android:clickable="false"
+                android:text="评价"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

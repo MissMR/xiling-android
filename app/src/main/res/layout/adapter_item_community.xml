@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/v_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/ddm_gray_light"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/item_like_product_bg"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sdUserHeaderView"
+                style="@style/DefaultSimpleDraweeView"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                app:roundedCornerRadius="21dp"
+                tools:background="@color/ddm_gray_dark" />
+
+            <TextView
+                android:id="@+id/sendHintTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="0.7"
+                android:background="@drawable/suggest_time_bg"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="建议早上8:00发"
+                android:textColor="@color/mainColor"
+                android:textSize="11sp"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/sendHintTextView"
+                android:layout_toRightOf="@id/sdUserHeaderView"
+                android:orientation="vertical"
+                android:weightSum="3.0">
+
+
+                <TextView
+                    android:id="@+id/sendUserNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="店多多官方"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sendDateTimeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="1分钟前"
+                    android:textColor="@color/ddm_gray_dark"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/contentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="3dp"
+            android:maxLines="3"
+            android:text="#我是话题#阿斯顿发骄傲我【儿童激发外婆IE泰嘉股份啊我额【通过交付啊诶哦苹果减肥啊诶欧派认购甲方阿尔温柔IT剪个头发阿尔围殴推高房价阿尔我拍推高房价阿尔诶的高房价阿萨德发空间安慰；‘狗股票均为" />
+
+        <TextView
+            android:id="@+id/fullTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="全文"
+            android:textColor="#FFA304"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/materialProductPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/videoPanel"
+                android:layout_width="match_parent"
+                android:layout_height="162dp"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:transitionName="transition"
+                android:visibility="visible">
+
+                <com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/sdVideoMaskView"
+                    style="@style/DefaultSimpleDraweeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/item_like_video_mask"
+                    android:clickable="false"
+                    app:roundedCornerRadius="8dp" />
+
+                <ImageView
+                    android:id="@+id/videoMaskView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/item_like_video_mask"
+                    android:clickable="false" />
+
+                <ImageView
+                    android:id="@+id/playVideoImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/icon_paly_button_white"
+                    android:clickable="false" />
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/photoPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
+                    android:id="@+id/plPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    app:bga_npl_itemCornerRadius="12dp"
+                    app:bga_npl_itemSpanCount="3"
+                    app:bga_npl_itemWhiteSpacing="10dp"
+                    app:bga_npl_otherWhiteSpacing="60dp"
+                    app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                    app:bga_npl_showAsLargeWhenOnlyOne="false" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/materialMarketingPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_img"
+                style="@style/DefaultSimpleDraweeView"
+                android:layout_width="163dp"
+                android:layout_height="290dp"
+                android:transitionName="share" />
+
+            <ImageView
+                android:id="@+id/videoMaskView2"
+                android:layout_width="163dp"
+                android:layout_height="290dp"
+                android:background="#a3ffffff"
+                android:clickable="true" />
+
+            <ImageView
+                android:id="@+id/playVideoImageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/icon_play_button"
+                android:clickable="true" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/productPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/item_like_product_bg_gray"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sdProductView"
+                style="@style/DefaultSimpleDraweeView"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                app:roundedCornerRadius="8dp"
+                tools:background="@color/ddm_gray_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/sdProductView"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/productNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="超强无敌灭虫剂"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/productDescTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="本产品一滴大象倒，两滴清空动物园"
+                    android:textColor="#666666"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/productPricePanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:includeFontPadding="false"
+                        android:text="￥"
+                        android:textColor="@color/ddm_red"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/productPriceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:includeFontPadding="false"
+                        android:text="169.00"
+                        android:textColor="@color/ddm_red" />
+
+                    <TextView
+                        android:id="@+id/productRewardHintTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/reward_left_bg"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="4dp"
+                        android:text="赚"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/reward_right_bg"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="1dp"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:paddingLeft="3dp"
+                            android:text="￥"
+                            android:textColor="@color/ddm_black_dark"
+                            android:textSize="8sp" />
+
+                        <TextView
+                            android:id="@+id/productRewardTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:paddingRight="8dp"
+                            android:text="14.95"
+                            android:textColor="@color/ddm_black_dark"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/linkPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/item_like_product_bg_gray"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/linkPanelIconView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/icon_hot_community" />
+
+            <ImageView
+                android:id="@+id/linkButtonView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@mipmap/icon_hot_community_detail" />
+
+            <TextView
+                android:id="@+id/linkTitleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/linkButtonView"
+                android:layout_toRightOf="@id/linkPanelIconView"
+                android:ellipsize="end"
+                android:gravity="center|left"
+                android:singleLine="true"
+                android:text="来自法国直供凡士林乳收液美好生活芭啦芭啦透脂爽"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <com.dodomall.ddmall.ddui.custom.DDStatusButton
+                android:id="@+id/dsb_like"
+                style="@style/CommunityLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="14dp"></com.dodomall.ddmall.ddui.custom.DDStatusButton>
+
+            <com.dodomall.ddmall.ddui.custom.DDStatusButton
+                android:id="@+id/dsb_download"
+                style="@style/CommunityDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="14dp">
+
+            </com.dodomall.ddmall.ddui.custom.DDStatusButton>
+
+
+            <RelativeLayout
+                android:id="@+id/morePanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/moreImageView"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_btn_more" />
+
+                <com.dodomall.ddmall.ddui.custom.DDStatusButton
+                    android:id="@+id/dsb_share"
+                    style="@style/CommunityShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"></com.dodomall.ddmall.ddui.custom.DDStatusButton>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/blankView"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:visibility="gone" />
+
+</LinearLayout>

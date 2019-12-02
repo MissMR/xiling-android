@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/refundLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top">
+
+            <TextView
+                android:id="@+id/refundReasonLabelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退款原因："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundReasonValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top">
+
+            <TextView
+                android:id="@+id/refundApplyMoneyLabelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请退款金额："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundApplyMoneyValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/refundMoneyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/refundMoneyLabelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="实际退款金额："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundMoneyValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/refundRemarkLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/refundRemarkLabelTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退款说明："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundRemarkValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/imageRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-7.5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="7.5dp"
+            android:layout_marginRight="7.5dp" />
+
+        <LinearLayout
+            android:id="@+id/refundExpressCompanyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退货物流公司："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundExpressCompanyValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/refundExpressCodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="top"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退货物流单号："
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/refundExpressCodeValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:lineSpacingExtra="4sp"
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</merge>

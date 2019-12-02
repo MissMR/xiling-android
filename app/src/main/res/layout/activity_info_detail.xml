@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.InfoDetailActivity">
+
+    <WebView
+        android:id="@+id/wvContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusView"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:alpha="0"
+            android:background="@color/white" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="top|left">
+
+            <View
+                android:id="@+id/vTitleMask"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="45dp">
+
+                <ImageView
+                    android:id="@+id/btnTitleBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_title_back_write" />
+
+                <ImageView
+                    android:id="@+id/btnTitleShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/icon_title_share_write"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tvTitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@id/btnTitleShare"
+                    android:layout_toRightOf="@id/btnTitleBack"
+                    android:ellipsize="middle"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="----"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/header_text_size"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btnLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="30dp"
+        android:background="@mipmap/btn_unlike"
+        android:visibility="invisible" />
+
+</FrameLayout>

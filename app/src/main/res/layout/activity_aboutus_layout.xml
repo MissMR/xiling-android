@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/userHeaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layoutImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:background="@mipmap/user_avatar_bg"
+            android:gravity="center">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatarIv"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:actualImageScaleType="fitXY"
+                app:placeholderImage="@drawable/ic_login_logo"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true"
+                app:roundingBorderColor="@color/white"
+                app:roundingBorderWidth="1dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/Form.Field.Label.Auto"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutImg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop"
+            />
+
+        <TextView
+            style="@style/tvCommonMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:text="Copyright © 2018 山东微众电子商务有限公司. All Rights Reserved."
+            android:textSize="9sp"
+            />
+
+        <TextView
+            style="@style/tvCommonMini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:text="山东微众电子商务有限公司 版权所有"
+            android:textSize="9sp"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

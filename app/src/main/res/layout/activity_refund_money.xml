@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款原因"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/reasonSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/spinner_bg"
+                android:entries="@array/refundReasons"
+                android:prompt="@string/select_refund_goods_reason"
+                android:spinnerMode="dialog" />
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@drawable/dialog_background"-->
+            <!--android:drawableRight="@drawable/dropdown_selector"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:hint="@string/select_refund_money_reason"-->
+            <!--android:paddingLeft="15dp"-->
+            <!--android:paddingRight="15dp"-->
+            <!--android:text=""-->
+            <!--android:textColor="@color/default_text_color"-->
+            <!--android:textSize="14sp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款金额"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/maxMoneyTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（最多xxx元）"
+                    android:textColor="@color/grayDark"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.dodomall.ddmall.shared.component.DecimalEditText
+                android:id="@+id/moneyEt"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dialog_background"
+                android:gravity="center_vertical"
+                android:hint="请填写退款金额"
+                android:inputType="numberDecimal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text=""
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="退款说明"
+                    android:textColor="@color/default_text_color"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="（可不填）"
+                    android:textColor="@color/grayDark"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/refundRemarkEt"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dialog_background"
+                android:gravity="top"
+                android:hint="最多输入 200 个字"
+                android:lineSpacingExtra="6sp"
+                android:maxLength="200"
+                android:paddingBottom="13dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="13dp"
+                android:text=""
+                android:textColor="@color/default_text_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/submitBtn"
+                style="@style/MyButton.DDMRed"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:text="提交申请" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

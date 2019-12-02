@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anchor_material"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/anchor_tag"
+            style="@style/TextView.LeftRedTag"
+            android:text="发圈素材" />
+
+        <TextView
+            android:id="@+id/tv_material_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/anchor_tag"
+            android:textColor="@color/ddm_gray_dark"
+            tools:text="·98" />
+
+        <TextView
+            android:id="@+id/tv_material_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/icon_arrow_right"
+            android:gravity="center"
+            android:text="查看全部"
+            android:textColor="@color/ddm_gray_dark" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_material"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <include layout="@layout/include_divider_10" />
+</LinearLayout>

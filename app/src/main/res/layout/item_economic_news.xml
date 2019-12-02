@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_img"
+        style="@style/DefaultSimpleDraweeView"
+        android:layout_width="134dp"
+        android:layout_height="75dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="16dp"
+        app:roundedCornerRadius="12dp"
+        tools:background="@color/ddm_gray_dark" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@id/sdv_img"
+        android:ellipsize="end"
+        android:lineSpacingExtra="4dp"
+        android:maxLines="2"
+        android:text="为什么选择店多多微商操盘手培训sfsdfsfdsfsfsf" />
+
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/sdv_img"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="2dp"
+        android:layout_toLeftOf="@id/sdv_img"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="2.3已学"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/sdv_img"
+        android:layout_marginBottom="2dp"
+        android:layout_toLeftOf="@id/sdv_img"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="2.22222"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="12sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/sdv_img"
+        android:layout_marginTop="16dp"
+        android:background="@color/ddm_gray_light" />
+</RelativeLayout>

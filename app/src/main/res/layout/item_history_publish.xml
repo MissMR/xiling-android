@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="14dp"
+        tools:text="我是的"
+        android:layout_marginLeft="@dimen/distance_15"
+        android:id="@+id/item_order_status_tv"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"/>
+
+
+    <com.dodomall.ddmall.module.publish.BlockView
+        android:layout_width="75dp"
+        android:layout_marginLeft="13dp"
+        android:horizontalSpacing="3dp"
+        android:verticalSpacing="@dimen/distance_3"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_image_gv"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginLeft="@dimen/distance_5"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="这里是一条图片的动态,这里是一条图片的动态"
+            android:id="@+id/item_content_iv"
+            android:layout_marginRight="@dimen/distance_15"
+            android:textSize="@dimen/sp_14"
+            android:maxLines="3"
+            android:lineSpacingExtra="@dimen/distance_3"
+            android:textColor="@color/color_33"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_99"
+            android:textSize="@dimen/sp_12"
+            android:id="@+id/item_hour_num_tv"
+            tools:text="1小时前 共2张"
+            />
+
+    </RelativeLayout>
+</LinearLayout>

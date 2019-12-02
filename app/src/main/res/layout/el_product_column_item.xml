@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/itemThumbIv"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImage="@drawable/default_image"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:viewAspectRatio="1"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.dodomall.ddmall.shared.component.TagTextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/itemSalesTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:text="销量：0"
+            android:textColor="@color/text_gray"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/itemPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:text="￥0.00"
+            android:textColor="@color/redPrice"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/addToCartBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_circle_cart_btn"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/itemMarkPriceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/itemPriceTv"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/itemPriceTv"
+            android:text="￥0.00"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp"
+            />
+    </RelativeLayout>
+</LinearLayout>

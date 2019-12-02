@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ddm_gray_light" />
+
+    <FrameLayout
+        android:id="@+id/fl_image"
+        android:layout_width="133dp"
+        android:layout_height="133dp"
+        android:layout_margin="12dp">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_product"
+            style="@style/DefaultSimpleDraweeView"
+            android:layout_width="133dp"
+            android:layout_height="133dp" />
+
+        <include
+            layout="@layout/include_sold_out"
+            android:visibility="gone" />
+
+        <include
+            layout="@layout/include_flash_sale"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fl_image"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/fl_image"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="看来是几点开饭了就算了客服经理看是否就是克利夫兰尽快势力扩大解放克里斯多夫是老款的房间里开始减肥" />
+
+    <FrameLayout
+        android:id="@+id/fl_progress"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:layout_below="@id/tv_title"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/fl_image">
+
+        <com.dodomall.ddmall.dduis.custom.SaleProgressView
+            android:id="@+id/pb_progress"
+            android:layout_width="match_parent"
+            android:layout_height="13dp"
+            android:layout_centerInParent="true"
+            app:sp_isNeedAnim="true"
+            app:sp_nearOverText="即将售罄"
+            app:sp_overText="已售罄"
+            app:sp_sideWidth="0dp"
+            app:sp_textColor="@color/red"
+            app:sp_textSize="10sp" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fl_progress"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/fl_image"
+        android:text="￥111" />
+
+    <TextView
+        android:id="@+id/tv_price_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fl_progress"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/tv_price"
+        android:text="赚￥111"
+        android:textColor="@color/ddm_red" />
+
+    <TextView
+        android:id="@+id/tv_price_market"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fl_progress"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/tv_price"
+        android:text="￥111"
+        android:textColor="@color/ddm_gray_dark"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_sale_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_price"
+        android:layout_marginBottom="4dp"
+        android:layout_toRightOf="@id/fl_image"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.dodomall.ddmall.ddui.custom.DDAvatarContainerView
+            android:id="@+id/dd_avatar_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:avatarRadius="13dp"></com.dodomall.ddmall.ddui.custom.DDAvatarContainerView>
+
+        <TextView
+            android:id="@+id/tv_product_sale_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="已抢xx件"
+            android:textColor="@color/ddm_gray_dark"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_product_share"
+        style="@style/MyButton.DDMRed.H24"
+        android:layout_alignBottom="@id/fl_image"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:text="分享赚" />
+
+    <TextView
+        android:id="@+id/tv_btn_product_buy"
+        style="@style/MyButton.DDMRed.H24"
+        android:layout_alignBottom="@id/fl_image"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:text="去抢购" />
+
+    <TextView
+        android:id="@+id/tv_btn_product_top"
+        style="@style/MyButton.StrokeRed.H24"
+        android:layout_alignBottom="@id/fl_image"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/fl_image"
+        android:text="置顶" />
+
+    <TextView
+        android:id="@+id/tv_btn_product_remove"
+        style="@style/MyButton.StrokeRed.H24"
+        android:layout_alignBottom="@id/fl_image"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/tv_btn_product_top"
+        android:text="下架" />
+</RelativeLayout>

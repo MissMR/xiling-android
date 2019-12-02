@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_qrcode" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="33dp"
+            android:src="@drawable/ic_qrcode_top" />
+
+        <LinearLayout
+            android:id="@+id/layoutVip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="4dp"
+                android:text="需要成为店主后\n才能够邀请好友"
+                android:textColor="@color/text_black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/ivBuyStore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_buy_store" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/layoutQrCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                app:cardElevation="10dp">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/qrCodeIv"
+                    android:layout_width="94dp"
+                    android:layout_height="94dp"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical"
+                    fresco:actualImageScaleType="fitXY"
+                    fresco:placeholderImage="@drawable/default_image"
+                    fresco:placeholderImageScaleType="fitXY"
+                    fresco:viewAspectRatio="1" />
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/tvinviteCode"
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/bg_qrcode_text"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/text_black" />
+
+            <ImageView
+                android:id="@+id/tvCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/ic_copy_qrcode" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:placeholderImage="@mipmap/default_avatar"
+        fresco:roundedCornerRadius="10dp" />
+
+    <TextView
+        android:id="@+id/tvShare"
+        style="@style/MyButton.Red.Radius"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="22dp"
+        android:text="点击分享"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@drawable/bg_smart_tab_selector"
+    android:button="@null"
+    android:gravity="center"
+    android:textColor="@color/dd_smart_tab_text_color"
+    tools:text="button">
+
+</RadioButton>

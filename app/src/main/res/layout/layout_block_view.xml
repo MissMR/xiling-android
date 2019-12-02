@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:layout_height="75dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/img_default"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:id="@+id/first_iv"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:id="@+id/two_pic_layout"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:id="@+id/two_first_iv"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:src="@drawable/img_default"
+            android:scaleType="centerCrop"
+            />
+        <ImageView
+            android:layout_marginLeft="1dp"
+            android:layout_width="0dp"
+            android:id="@+id/two_two_iv"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:src="@drawable/img_default"
+            android:scaleType="centerCrop"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/four_pic_layout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        tools:visibility="visible"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/four_one_iv"
+                tools:src="@drawable/img_default"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"
+                tools:ignore="NestedWeights"/>
+
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/four_two_iv"
+                tools:src="@drawable/img_default"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                tools:src="@drawable/img_default"
+                android:scaleType="centerCrop"
+                android:id="@+id/four_there_iv"
+                android:layout_height="match_parent"
+                tools:ignore="NestedWeights"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:id="@+id/four_four_iv"
+                tools:src="@drawable/img_default"
+                android:scaleType="centerCrop"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/thd_pic_layout"
+        android:visibility="gone"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/thd_one_iv"
+            android:layout_height="match_parent"
+            tools:src="@drawable/img_default"
+            android:scaleType="centerCrop"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/thd_two_iv"
+                tools:src="@drawable/img_default"
+                android:scaleType="centerCrop"
+                android:layout_height="0dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/thd_there_iv"
+                tools:src="@drawable/img_default"
+                android:layout_marginTop="1dp"
+                android:scaleType="centerCrop"
+                android:layout_height="0dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/video_cover_ll"
+        android:visibility="gone"
+        android:background="#66000000"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@drawable/icon_play_white"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:id="@+id/iv_play"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:background="#66000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="重新提交"
+            android:id="@+id/retry_iv"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

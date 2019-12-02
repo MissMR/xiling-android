@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="36dp"
+        android:src="@mipmap/login_captcha" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="我们已经为你的尾号为%s的手机发送验证码"
+        android:textColor="@color/color_99"
+        android:textSize="@dimen/textSize_12" />
+
+    <com.dodomall.ddmall.shared.component.CaptchaBtn
+        android:id="@+id/tv_captcha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="重新获取"
+        android:textColor="@color/ddm_red"
+        android:textSize="@dimen/textSize_12" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.alimuzaffar.lib.pin.PinEntryEditText
+            android:id="@+id/et_pin_captcha"
+            style="@style/PinEntryEditText"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:id="@+id/tv_voice_captcha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/et_pin_captcha"
+            android:layout_below="@id/et_pin_captcha"
+            android:layout_gravity="right"
+            android:layout_marginTop="18dp"
+            android:text="收不到验证码？语音验证"
+            android:textColor="@color/ddm_red"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+
+
+    <ImageButton
+        android:id="@+id/ib_next"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/login_next" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="36dp"
+        android:gravity="bottom"
+        android:textColor="@color/ddm_text_gray_light"
+        android:textSize="@dimen/textSize_12"
+        tools:text="v 2.0.1" />
+
+
+</LinearLayout>

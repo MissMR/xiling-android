@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/statusBarBackgroundView"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="#ffffffff" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:id="@+id/fl_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/main_bottom_nav_bg">
+
+                <LinearLayout
+                    android:id="@+id/tabHomeLayout"
+                    style="@style/TabBarItem"
+                    android:state_selected="true">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_home_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="首页" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabCategoryLayout"
+                    style="@style/TabBarItem"
+                    android:visibility="gone">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_category_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="分类" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabCommunityLayout"
+                    style="@style/TabBarItem"
+                    android:visibility="gone">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_community_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="社区" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabStoreMaster"
+                    style="@style/TabBarItem">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_master_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="店主中心" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/TabBarItem"
+                    android:visibility="gone">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_near_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="附近店主" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tabCartLayout"
+                    style="@style/TabBarItem">
+
+                    <ImageView
+                        android:id="@+id/cartIconIv"
+                        style="@style/TabBarItemIcon"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/tab_item_cart_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:layout_below="@id/cartIconIv"
+                        android:layout_centerHorizontal="true"
+                        android:text="购物车" />
+
+                    <TextView
+                        android:id="@+id/cartBadgeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/cartIconIv"
+                        android:layout_alignRight="@id/cartIconIv"
+                        android:layout_marginTop="-3dp"
+                        android:layout_marginRight="-5dp"
+                        android:background="@drawable/order_badge"
+                        android:gravity="center"
+                        android:minWidth="15dp"
+                        android:minHeight="15dp"
+                        android:text="11"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabMeLayout"
+                    style="@style/TabBarItem">
+
+                    <ImageView
+                        style="@style/TabBarItemIcon"
+                        android:src="@drawable/tab_item_me_selector" />
+
+                    <TextView
+                        style="@style/TabBarItemLabel"
+                        android:text="我的" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <com.dodomall.ddmall.shared.component.NoScrollViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/fl_nav"
+            android:layout_weight="1"
+            android:background="@color/window_background" />
+
+        <ImageView
+            android:id="@+id/iv_master_active"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/tab_master_active"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

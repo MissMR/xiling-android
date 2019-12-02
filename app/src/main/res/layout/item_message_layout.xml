@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="@drawable/list_divider"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:showDividers="beginning|end">
+
+        <TextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Title"
+            android:textColor="@color/default_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemTimeTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Time"
+            android:textColor="@color/grayDark"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/itemContentTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="4sp"
+            android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
+            android:textColor="@color/default_text_color"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/itemThumbIv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:minHeight="50dp"
+            android:visibility="gone"
+            fresco:viewAspectRatio="2.3"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@drawable/default_image"
+            fresco:placeholderImageScaleType="fitXY" />
+
+        <LinearLayout
+            android:id="@+id/itemMoreLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:clickable="true"
+            android:divider="@drawable/list_divider"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:showDividers="beginning">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:drawableRight="@mipmap/icon_arrow_right"
+                android:gravity="center_vertical"
+                android:text="点击查看详情"
+                android:textColor="@color/default_text_color" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

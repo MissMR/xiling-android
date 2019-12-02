@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ddui.activity.AccessCaptchaActivity">
+
+    <TextView
+        android:id="@+id/tv_phone_number"
+        style="@style/TextView.SettingTopTip"
+        android:text="当前手机号码133****1111" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <EditText
+            android:id="@+id/et_captcha"
+            style="@style/DDMEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="4">
+
+            <requestFocus />
+        </EditText>
+
+        <com.dodomall.ddmall.shared.component.CaptchaBtn
+            android:id="@+id/cb_captcha"
+            style="@style/MyButton.DDMRed.Small"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="0dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="获取验证码"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_btn_forget_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="原手机号不用了？"
+            android:textColor="@color/ddm_red"
+            android:textSize="@dimen/textSize_12" />
+
+        <com.dodomall.ddmall.shared.component.CaptchaBtn
+            android:id="@+id/cb_btn_captcha_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="获取语音验证码"
+            android:textColor="@color/ddm_red"
+            android:textSize="@dimen/textSize_12" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_btn_next"
+        style="@style/MyButton.DDMRed"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="40dp"
+        android:text="下一步" />
+</LinearLayout>

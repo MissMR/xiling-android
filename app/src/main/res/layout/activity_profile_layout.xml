@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_height="80dp"
+        android:background="@drawable/border_bottom">
+
+        <LinearLayout
+            android:id="@+id/avatarLayout"
+            style="@style/Form.Field"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="头像" />
+
+            <LinearLayout style="@style/Form.Field.Text">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/avatarIv"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:actualImageScaleType="fitXY"
+                    app:placeholderImage="@mipmap/default_avatar"
+                    app:placeholderImageScaleType="fitXY"
+                    app:roundAsCircle="true"
+                    app:roundingBorderColor="@color/gray"
+                    app:roundingBorderWidth="1px" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:src="@mipmap/icon_arrow_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/nicknameLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="昵称" />
+
+            <TextView
+                android:id="@+id/nicknameTv"
+                style="@style/Form.Field.Text.Link"
+                android:ellipsize="end"
+                android:maxLength="7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phoneLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="当前绑定手机" />
+
+            <TextView
+                android:id="@+id/phoneTv"
+                style="@style/Form.Field.Text.Link"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/passwordLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                android:id="@+id/tvPassword"
+                style="@style/Form.Field.Label.Auto"
+                android:text="设置密码" />
+
+            <TextView
+                android:id="@+id/tvPasswordTips"
+                style="@style/Form.Field.Text.Link"
+                android:text="未设置" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/invitationLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="我的分享人" />
+
+            <TextView
+                android:id="@+id/invitationTv"
+                style="@style/Form.Field.Text.Link" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addressLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="管理收货地址" />
+
+            <TextView style="@style/Form.Field.Text.Link" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Form"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/layoutCS"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="联系客服" />
+
+            <TextView style="@style/Form.Field.Text.Link" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/aboutUsLayout"
+            style="@style/Form.Field">
+
+            <TextView
+                style="@style/Form.Field.Label.Auto"
+                android:text="关于我们" />
+
+            <TextView style="@style/Form.Field.Text.Link" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/logoutBtn"
+        style="@style/MyButton.Red"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:text="退出登录" />
+</LinearLayout>

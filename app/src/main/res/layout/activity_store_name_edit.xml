@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ddui.activity.StoreNameEditActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="请输入2-10个字的昵称"
+        android:textColor="@color/ddm_gray_dark" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <EditText
+            android:id="@+id/et_store_name"
+            style="@style/DDMEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="38dp"
+            android:gravity="center_vertical"
+            android:maxLength="10"
+            android:paddingLeft="12dp"
+            android:textSize="16sp"
+            tools:text="Jigsaw的店铺" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/icon_clean_gray" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_btn_save"
+            style="@style/MyButton.DDMRed"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="44dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="保存" />
+    </FrameLayout>
+
+
+</LinearLayout>

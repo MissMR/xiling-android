@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/hoursTv"
+        android:layout_width="18dp"
+        android:layout_height="20dp"
+        android:background="@drawable/counter_frame"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/text_black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/hourDotTv"
+        android:minWidth="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text=":"
+        android:textColor="@color/text_black" />
+
+    <TextView
+        android:id="@+id/minutesTv"
+        android:layout_width="18dp"
+        android:layout_height="20dp"
+        android:background="@drawable/counter_frame"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/text_black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/minuteDotTv"
+        android:minWidth="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text=":"
+        android:textColor="@color/text_black" />
+
+    <TextView
+        android:id="@+id/secondsTv"
+        android:layout_width="18dp"
+        android:layout_height="20dp"
+        android:background="@drawable/counter_frame"
+        android:gravity="center"
+        android:text="00"
+        android:textColor="@color/text_black"
+        android:textSize="12sp" />
+</LinearLayout>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.AuthSecurityActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_bind_phone"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="绑定手机号" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_bind_phone_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                tools:text="13341221231231" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_auth"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="实名认证" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_auth_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未绑定" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/tv_bank_card"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="银行卡信息" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_bank_card_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未绑卡" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_trade_password"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="交易密码" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_trade_password_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未设置" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_security"
+            style="@style/settings_row">
+
+            <TextView
+                style="@style/settings_row_title"
+                android:text="安全问题" />
+
+            <ImageView
+                style="@style/settings_row_arrow"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/tv_security_state"
+                style="@style/settings_row_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="未设置" />
+
+        </RelativeLayout>
+
+        <View style="@style/settings_row_line" />
+    </LinearLayout>
+</ScrollView>

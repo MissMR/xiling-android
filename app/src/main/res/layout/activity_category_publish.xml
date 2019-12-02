@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.dodomall.ddmall.module.community.TitleView
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:id="@+id/titleView"
+        app:titleStr="分类"
+        app:rightStr="完成"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rvList"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>

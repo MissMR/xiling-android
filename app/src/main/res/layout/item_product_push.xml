@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fresco="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/itemThumbIv"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        fresco:actualImageScaleType="fitXY"
+        fresco:placeholderImage="@drawable/default_image"
+        fresco:placeholderImageScaleType="fitXY"
+        fresco:viewAspectRatio="1"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.dodomall.ddmall.shared.component.TagTextView
+            android:id="@+id/itemTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/itemPriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_weight="1"
+                android:text="￥0.00"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tvGuige"
+                style="@style/tvCommonMainGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padingLeftRight"
+                android:text="规格"
+                android:textSize="12sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/itemVipPriceTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:text="￥0.00"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/itemSalesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="@dimen/padingLeftRight"
+                android:text="销量：0"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvSharePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginTop"
+            android:text="1111"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            />
+
+
+    </LinearLayout>
+</LinearLayout>

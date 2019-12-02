@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_img"
+        style="@style/DefaultSimpleDraweeView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:id="@+id/tv_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/badge_bg_red"
+        android:gravity="center"
+        android:minWidth="14dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/sdv_img"
+        android:layout_toLeftOf="@id/tv_badge"
+        android:layout_toRightOf="@id/sdv_img"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Title"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/sdv_img"
+        android:layout_toLeftOf="@id/tv_badge"
+        android:layout_toRightOf="@id/sdv_img"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="副标题"
+        android:textColor="@color/ddm_gray_dark"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/sdv_img"
+        android:background="@color/ddm_gray_light" />
+</RelativeLayout>

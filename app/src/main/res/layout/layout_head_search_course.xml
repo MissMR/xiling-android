@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/sp_border_gray_bg_gray"
+    android:paddingLeft="@dimen/distance_15"
+    android:paddingRight="@dimen/distance_15"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_cornor4_stroke_1"
+        android:paddingLeft="@dimen/distance_15"
+        android:paddingTop="@dimen/distance_5"
+        android:paddingBottom="@dimen/distance_5"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_gray"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索标题"
+            android:layout_marginLeft="@dimen/distance_5"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

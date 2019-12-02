@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.3"
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 26
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    // 版本不一致时,可更改版本号
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    // 如果也用到recyclerview ,版本不一致时,可更改版本号
+    // 核心必要jar
+//    api 'com.squareup.okhttp3:okhttp:3.11.0'
+    api 'com.squareup.okhttp3:okhttp:3.5.0'
+    // 如果也用到okhttp ,版本不一致时,可更改版本号
+    api files('libs/protobuf-java-3.0.0.jar')
+    api files('libs/ntalkerchatcore.jar')
+    api files('libs/ntalkerchatui.jar')
+    api files('libs/ntalkerimcc.jar')
+    api files('libs/org.eclipse.paho.client.mqttv3-1.1.0.jar')
+    api files('libs/skinlibrary.jar')
+    //主题jar (如不需主题更换可删除asset/skin/下的皮肤包)
+    api files('libs/xn_glide.jar')
+    api files('libs/ensecsdl.jar')
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dd_today_banner_mask_height">
+
+            <ImageView
+                android:id="@+id/leftMaskImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/rightMaskImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg_banner_footer" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dd_home_top_height" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <com.dodomall.ddmall.ddui.custom.NestScrollView
+                        android:id="@+id/mainScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+
+                                    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/convenientBanner"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/dd_today_banner_height"
+                                        android:visibility="visible"
+                                        app:canLoop="false" />
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <com.dodomall.ddmall.ddui.custom.NoScrollWebView
+                                android:id="@+id/nsWebView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/white"
+                                android:focusable="true"
+                                android:layoutMode="clipBounds"
+                                android:overScrollMode="never"
+                                android:scrollbars="none"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+                    </com.dodomall.ddmall.ddui.custom.NestScrollView>
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/toastPanel"
+            layout="@layout/layout_main_toast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
+</LinearLayout>

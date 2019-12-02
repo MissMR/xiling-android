@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dodomall.ddmall.module.store.StoreInfoActivity"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                style="@style/Form"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@drawable/border_bottom"
+
+                >
+
+                <LinearLayout
+                    android:id="@+id/avatarLayout"
+                    style="@style/Form.Field"
+                    android:layout_height="80dp"
+                    >
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="店铺头像"/>
+
+                    <LinearLayout style="@style/Form.Field.Text">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:actualImageScaleType="fitXY"
+                            app:placeholderImage="@mipmap/default_avatar"
+                            app:placeholderImageScaleType="fitXY"
+                            app:roundAsCircle="true"
+                            app:roundingBorderColor="@color/gray"
+                            app:roundingBorderWidth="1px"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                <!--style="@style/Form.Field">-->
+
+                <!--<TextView-->
+                <!--style="@style/Form.Field.Label.Auto"-->
+                <!--android:text="店铺名称"/>-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvName"-->
+                <!--style="@style/Form.Field.Text"-->
+                <!--tools:text="32342"/>-->
+                <!--</LinearLayout>-->
+
+                <!--<LinearLayout-->
+                <!--style="@style/Form.Field"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:minHeight="45dp"-->
+                <!--&gt;-->
+
+                <!--<TextView-->
+                <!--style="@style/Form.Field.Label.Auto"-->
+                <!--android:gravity="top"-->
+                <!--android:paddingTop="11.5dp"-->
+                <!--android:text="店铺地址"-->
+                <!--/>-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvAddress"-->
+                <!--style="@style/Form.Field.Text"-->
+                <!--tools:text="3234"/>-->
+                <!--</LinearLayout>-->
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Form"
+                android:layout_marginTop="@dimen/marginTop"
+                >
+
+                <LinearLayout
+                    style="@style/Form.Field">
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="店铺联系人"/>
+
+                    <TextView
+                        android:id="@+id/tvContacts"
+                        style="@style/Form.Field.Text"
+                        tools:text="32342"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Form.Field">
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="联系电话"/>
+
+                    <TextView
+                        android:id="@+id/tvContactsPhone"
+                        style="@style/Form.Field.Text"
+                        tools:text="32342"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Form.Field">
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="默认快递"/>
+
+                    <TextView
+                        android:id="@+id/tvExpress"
+                        style="@style/Form.Field.Text"
+                        tools:text="32342"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Form.Field">
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="发货城市"/>
+
+                    <TextView
+                        android:id="@+id/tvShipAddress"
+                        style="@style/Form.Field.Text"
+                        tools:text="32342"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutShipType"
+                    style="@style/Form.Field">
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="发货方式"/>
+
+                    <TextView
+                        android:id="@+id/tvShipType"
+                        style="@style/Form.Field.Text"
+                        tools:text="32342"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutExpressSetting"
+                    style="@style/Form.Field"
+                    android:visibility="gone"
+                    >
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="运费设置"/>
+
+                    <TextView
+                        android:id="@+id/tvExpressScoreSetting"
+                        style="@style/Form.Field.Text"
+                        android:text=" 点击设置运费"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Form"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/marginTop"
+                android:background="@drawable/border_bottom"
+                >
+
+                <LinearLayout
+                    style="@style/Form.Field"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="@dimen/marginTop"
+                    >
+
+                    <TextView
+                        style="@style/Form.Field.Label.Auto"
+                        android:text="店主微信二维码"/>
+
+                    <LinearLayout style="@style/Form.Field.Text">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/ivQrCode"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            app:actualImageScaleType="fitXY"
+                            app:placeholderImage="@mipmap/default_avatar"
+                            app:placeholderImageScaleType="fitXY"
+                            app:roundingBorderColor="@color/gray"
+                            app:roundingBorderWidth="1px"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <TextView
+        android:id="@id/tvSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/border_top"
+        android:gravity="center"
+        android:text="修改"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺名称"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="*"
+                android:textColor="@color/red"
+                />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/tvCommonMainGray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padingLeftRight"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/marginTop"
+            tools:text="3234"/>
+    </LinearLayout>
+
+    <View style="@style/lineHorizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/padingLeftRight"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                style="@style/tvCommonMainBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺地址"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:gravity="center"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvAddress"
+            style="@style/tvCommonMainGray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padingLeftRight"
+            android:layout_marginLeft="@dimen/padingLeftRight"
+            android:layout_marginRight="@dimen/padingLeftRight"
+            android:layout_marginTop="@dimen/marginTop"
+            tools:text="3234"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dodomall.ddmall.module.groupBuy.JoinGroupActivity"
+    >
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/layoutProductInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+                <FrameLayout
+                    android:id="@+id/layoutProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <View
+                    style="@style/lineHorizontal"
+                    />
+
+                <include layout="@layout/merge_product_stats_layout"/>
+
+                <View
+                    style="@style/lineHorizontal"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginTop"
+                android:background="@color/white"
+                android:divider="@drawable/list_divider"
+                android:orientation="vertical"
+                android:paddingBottom="25dp"
+                android:paddingTop="25dp"
+                >
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvTitleSucceed"
+                        style="@style/tvCommonTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="您已拼团成功，请等待商家发货"
+                        android:visibility="gone"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/layoutTitleWait"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/layoutGroupCountDown"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                style="@style/tvCommonMainGray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="@dimen/marginTop"
+                                android:text="剩余"
+                                />
+
+                            <com.dodomall.ddmall.shared.component.CountDownGray
+                                android:id="@+id/countDownView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvTitleWait"
+                            style="@style/tvCommonTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layoutGroupCountDown"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/padingLeftRight"
+                            android:gravity="center"
+                            android:text="参团人数已满"
+                            />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAvatars"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    />
+
+                <TextView
+                    android:id="@+id/tvJoinGroup"
+                    style="@style/MyButton.Red.Radius"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="@dimen/padingLeftRight"
+                    android:layout_marginRight="@dimen/padingLeftRight"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="一键拼团"
+                    />
+
+                <TextView
+                    android:id="@+id/tvQrCode"
+                    style="@style/tvCommonMainGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/padingLeftRight"
+                    android:drawableLeft="@drawable/ic_scan"
+                    android:drawablePadding="4dp"
+                    android:gravity="center_vertical"
+                    android:text="面对面扫码拼团"
+                    android:visibility="gone"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/layoutKaken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_group_take"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/layoutGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutProductName"
+                style="@style/CellItem"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/padingLeftRight"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    style="@style/CellItem.Label"
+                    android:text="商品名称"
+                    />
+
+                <TextView
+                    android:id="@+id/tvProductName"
+                    style="@style/CellItem.Value"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:maxWidth="200dp"
+                    android:text="大大大所大所大大所大对对对对对对订单订单"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <View
+                style="@style/lineHorizontal"
+                />
+
+            <LinearLayout
+                android:id="@+id/layoutRule"
+                style="@style/CellItem"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/padingLeftRight"
+                >
+
+                <TextView
+                    style="@style/CellItem.Label"
+                    android:text="拼团规则"/>
+
+                <TextView
+                    style="@style/CellItem.Value"
+                    android:text="好友拼团·人满发货·人不满退款"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/layoutQrCode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8000"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/ivQrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_login_logo"
+            android:background="@drawable/share_shadow"
+            />
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ivQrcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="用手机微信扫一扫，参加我的团购"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            />
+    </RelativeLayout>
+</FrameLayout>
