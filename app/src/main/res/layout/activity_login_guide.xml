@@ -22,7 +22,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="@dimen/dp_100"
             android:src="@mipmap/ic_login_ddm" />
 
         <TextView
@@ -33,7 +33,8 @@
             android:layout_marginTop="14dp"
             android:text="让分享创造价值"
             android:textColor="@color/color_99"
-            android:textSize="@dimen/textSize_12" />
+            android:textSize="@dimen/textSize_12"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,40 +46,40 @@
                 android:id="@+id/ll_btn_login_wechat"
                 style="@style/MyButton.DDMRed"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="@dimen/dp_50"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginBottom="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
                 android:background="@drawable/btn_ddmred_active"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
+                    android:layout_width="@dimen/dp_17"
+                    android:layout_height="@dimen/dp_17"
                     android:src="@mipmap/ic_login_wechat" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/dp_6"
                     android:text="微信登录"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_btn_login_phone"
                 style="@style/MyButton.Stroke"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="@dimen/dp_50"
                 android:layout_gravity="center"
-                android:layout_marginBottom="45dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:background="@drawable/btn_login_phon_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="invisible"
                 tools:visibility="visible">
 
                 <ImageView
@@ -89,21 +90,36 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="手机号登录"
-                    android:textColor="@color/ddm_gray_dark" />
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:text="手机号登录/注册"
+                    android:textColor="@color/login_button_wx_start"
+                    android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_version"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_80"
                 android:gravity="center"
-                android:text="v 1.0.1"
-                android:textColor="@color/color_99"
-                android:textSize="@dimen/textSize_12" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="阿里云提供计算机服务"
+                    android:textColor="@color/color_99"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="©xiling.com"
+                    android:textColor="@color/color_99"
+                    android:textSize="@dimen/sp_8" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </RelativeLayout>

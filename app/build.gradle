@@ -10,8 +10,8 @@ android {
         applicationId "com.dodomall.ddmall"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 2100
-        versionName "2.1.0"
+        versionCode 1000
+        versionName "1.0.0"
         multiDexEnabled true
 
         flavorDimensions "channel"
@@ -275,18 +275,18 @@ android {
                     UMENG_APPKEY : "5aaf357ff29d983f54000021", //友盟App Key
             ]
 
-            // 开发环境  150映射 61.162.59.74:9080
-//            buildConfigField("String", "BASE_URL", "\"http://61.162.59.74:9080/\"")
-//            buildConfigField("String", "BASE_URL", "\"http://192.168.1.150:8080/\"")
-
             // 测试环境  210映射 61.162.59.74:9050
-            buildConfigField("String", "BASE_URL", "\"http://store.dianduoduo.store/\"")
-            //Mock地址
-//            buildConfigField("String", "BASE_URL", "\"http://192.168.1.164/mock/32/\"")
+//            buildConfigField("String", "BASE_URL", "\"http://store.dianduoduo.store/\"")
+            //韩奇电脑
+            buildConfigField("String", "BASE_URL", "\"http://192.168.100.14:8080/\"")
+            //张哲
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.100.22:8080/\"")
+            //
+//            buildConfigField("String", "BASE_URL", "\"http://192.168.100.23:8080/\"")
 
             //H5页服务器地址
-            buildConfigField("String", "H5_URL", "\"http://h5.dianduoduo.store/\"")
-
+//            buildConfigField("String", "H5_URL", "\"http://h5.dianduoduo.store/\"")
+            buildConfigField("String", "H5_URL", "\"https://h5.dodomall.com/\"")
             //H5的附加版本号
             buildConfigField("String", "H5_FUNC", "\"5\"")
 

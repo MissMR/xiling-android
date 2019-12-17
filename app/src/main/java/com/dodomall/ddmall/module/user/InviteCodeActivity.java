@@ -63,19 +63,25 @@ public class InviteCodeActivity extends BaseActivity {
 
     @BindView(R.id.et_pin_captcha)
     PinEntryEditText mPeEditText;
+
     @BindView(R.id.tv_confirm)
     TextView mTvConfirm;
 
     @BindView(R.id.tv_invitor_empty)
     TextView tvInvitorEmpty;
+
     @BindView(R.id.iv_avatar)
     SimpleDraweeView mSdvAvatar;
+
     @BindView(R.id.tv_name)
     TextView tvName;
+
     @BindView(R.id.tv_phone_number)
     TextView tvPhoneNumber;
+
     @BindView(R.id.tv_identity)
     TextView tvIdentity;
+
     @BindView(R.id.rl_invitor)
     RelativeLayout rlInvitor;
 
@@ -108,6 +114,12 @@ public class InviteCodeActivity extends BaseActivity {
     private void initView() {
         showHeader("", true);
         setTitleNoLine();
+        showHeaderRightText("邀请码是什么？", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInviteCodeDialog();
+            }
+        });
         mTvConfirm.setEnabled(false);
         mPeEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -245,7 +257,7 @@ public class InviteCodeActivity extends BaseActivity {
                 || url.toLowerCase().contains("dianduoduo"));
     }
 
-    @OnClick(R.id.tv_what_is_code)
+
     void showInviteCodeDialog() {
         if (null == mDDMHintDialog) {
             mDDMHintDialog = new DDMHintDialog(this);

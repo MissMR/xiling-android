@@ -34,7 +34,8 @@
         android:theme="@style/AppTheme"
         tools:replace="android:label">
         <activity android:name=".ddui.activity.DDCouponIntroActivity"></activity>
-        <activity android:name=".ddui.activity.DDCouponActivity" /> <!-- 设置key -->
+        <activity android:name=".ddui.activity.DDCouponActivity" />
+        <!-- 设置key -->
         <!-- <meta-data -->
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="3824cb3b931408d842fca21b5224c5a0"/> -->

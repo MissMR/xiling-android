@@ -1,6 +1,6 @@
 <resources>
-    <string name="appName">店多多</string>
-    <string name="appNameDebug">店多多-测试</string>
+    <string name="appName">喜领</string>
+    <string name="appNameDebug">喜领-测试</string>
     <string name="loading">玩命加载中...</string>
     <string name="format_money">%.2f</string>
     <string name="currency">¥</string>

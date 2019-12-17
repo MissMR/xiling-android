@@ -104,4 +104,8 @@
     <color name="ddm_red_end">#fe6667</color>
     <color name="ddm_text_gray_light">#cfcfcf</color>
     <color name="home_tag_store_master_select">#cba386</color>
+
+    <color name="login_button_wx_start">#DCB982</color>
+    <color name="login_button_wx_end">#FFD593</color>
+    <color name="login_editext_bg">#F5F5F5</color>
 </resources>

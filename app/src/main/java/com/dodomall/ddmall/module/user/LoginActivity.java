@@ -49,8 +49,10 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.tv_version)
     TextView mTvVersion;
+
     @BindView(R.id.ll_btn_login_phone)
     LinearLayout mLlBtnLoginPhone;
+
     @BindView(R.id.ll_btn_login_wechat)
     LinearLayout mLlBtnLoginWechat;
 
@@ -83,14 +85,15 @@ public class LoginActivity extends BaseActivity {
 
     private void initData() {
         mUserService = ServiceManager.getInstance().createService(IUserService.class);
-        getLoginSwitch();
+//        getLoginSwitch();
     }
 
     private void initView() {
         QMUIStatusBarHelper.translucent(this);
         QMUIStatusBarHelper.setStatusBarLightMode(this);
         hideHeader();
-        mTvVersion.setText("v " + AppUtils.getAppVersionName(this));
+        mLlBtnLoginPhone.setVisibility(View.VISIBLE);
+//        mTvVersion.setText("v " + AppUtils.getAppVersionName(this));
     }
 
     private void getLoginSwitch() {

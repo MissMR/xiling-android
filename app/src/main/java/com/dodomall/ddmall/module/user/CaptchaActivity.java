@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.dodomall.ddmall.BuildConfig;
 import com.dodomall.ddmall.R;
+import com.dodomall.ddmall.ddui.tools.DLog;
 import com.dodomall.ddmall.module.MainActivity;
 import com.dodomall.ddmall.shared.Constants;
 import com.dodomall.ddmall.shared.basic.BaseActivity;
@@ -50,13 +52,12 @@ public class CaptchaActivity extends BaseActivity {
     @BindView(R.id.et_pin_captcha)
     PinEntryEditText mPeEditText;
     @BindView(R.id.ib_next)
-    ImageButton mIbNext;
+    Button mIbNext;
     @BindView(R.id.tv_captcha)
     CaptchaBtn mTvCaptcha;
     @BindView(R.id.tv_tip)
     TextView mTvTip;
-    @BindView(R.id.tv_voice_captcha)
-    TextView mTvVoiceCaptcha;
+
 
     private ICaptchaService mCaptchaService;
     private IUserService mUserService;
@@ -84,7 +85,13 @@ public class CaptchaActivity extends BaseActivity {
     private void initView() {
         showHeader("", true);
         setTitleNoLine();
-        mTvTip.setText(String.format(mTvTip.getText().toString(), PhoneNumberUtil.getLast4Number(mPhoneNumber)));
+        showHeaderRightText("没有收到验证码？", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCaptcha(ICaptchaService.TYPE_VOICE);
+            }
+        });
+        mTvTip.setText(String.format(mTvTip.getText().toString(), PhoneNumberUtil.getSecretPhoneNumber(mPhoneNumber)));
         mIbNext.setEnabled(false);
         mPeEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,28 +120,22 @@ public class CaptchaActivity extends BaseActivity {
             @Override
             public void onCountDownFinish(CaptchaBtn view) {
                 mTvCaptcha.setVisibility(View.VISIBLE);
-                mTvVoiceCaptcha.setVisibility(View.VISIBLE);
             }
         });
     }
 
 
-    @OnClick(R.id.tv_voice_captcha)
-    void onClickVoiceCaptcha() {
-        mTvVoiceCaptcha.setVisibility(View.INVISIBLE);
-        getCaptcha(ICaptchaService.TYPE_VOICE);
-    }
-
     @OnClick(R.id.tv_captcha)
     protected void onClickCaptcha() {
-        mTvVoiceCaptcha.setVisibility(View.INVISIBLE);
         getCaptcha(ICaptchaService.TYPE_MESSAGE);
     }
 
     private void getCaptcha(int type) {
         if (toLogin) {
+            mIbNext.setText("完成");
             getLoginCaptcha(type);
         } else {
+            mIbNext.setText("下一步");
             getRegisterCaptcha(type);
         }
     }

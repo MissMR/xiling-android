@@ -419,6 +419,11 @@ abstract public class BaseActivity extends AppCompatActivity implements SensorEv
         showHeader(title, true);
     }
 
+    public void showHeaderRightText(CharSequence right, View.OnClickListener listener) {
+        mHeaderLayout.setRightText(right);
+        mHeaderLayout.setOnRightClickListener(listener);
+    }
+
     public HeaderLayout getHeaderLayout() {
         return mHeaderLayout;
     }

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,7 +53,7 @@ public class CheckPhoneActivity extends BaseActivity {
     @BindView(R.id.et_phone_number)
     EditText mEtPhoneNumber;
     @BindView(R.id.ib_next)
-    ImageButton mIbNext;
+    Button mIbNext;
     @BindView(R.id.cb_agreement)
     CheckBox mCbAgreement;
     @BindView(R.id.tv_agreement)
@@ -113,18 +114,18 @@ public class CheckPhoneActivity extends BaseActivity {
     }
 
     private void initAgreement() {
-        mTvAgreement.setText(SpannableStringUtils.getBuilder("我已阅读并同意")
-                .append("《店多多用户协议》")
-                .setClickSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(CheckPhoneActivity.this, WebViewActivity.class);
-                        intent.putExtra("url", HtmlService.REGISTER_PROTOCOL);
-                        startActivity(intent);
-                    }
-
-                }).create());
-        mTvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
+//        mTvAgreement.setText(SpannableStringUtils.getBuilder("我已阅读并同意")
+////                .append("《店多多用户协议》")
+//                .setClickSpan(new ClickableSpan() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(CheckPhoneActivity.this, WebViewActivity.class);
+//                        intent.putExtra("url", HtmlService.REGISTER_PROTOCOL);
+//                        startActivity(intent);
+//                    }
+//
+//                }).create());
+//        mTvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 
@@ -138,36 +139,38 @@ public class CheckPhoneActivity extends BaseActivity {
     @OnClick(R.id.ib_next)
     public void onViewClicked() {
         if (!mCbAgreement.isChecked()) {
-            ToastUtil.error("请勾选\"我已阅读并同意《店多多用户协议》\"");
+            ToastUtil.error("请勾选\"我已经认真阅读并同意《喜领服务协议》及《隐私协议》\"");
             return;
         }
-        ToastUtil.showLoading(this);
-        String token = StringUtil.md5(BuildConfig.TOKEN_SALT + mEtPhoneNumber.getText().toString());
-        APIManager.startRequest(mIUserService.checkPhoneExist(mEtPhoneNumber.getText().toString(), token),
-                new BaseRequestListener<HashMap<String, Integer>>(this) {
-                    @Override
-                    public void onSuccess(HashMap<String, Integer> result, String msg) {
-                        super.onSuccess(result);
-                        if (result.containsKey("registerStatus") && result.get("registerStatus") == 1) {
-                            // 未注册
-                            if (isToLogin && null == mWeChatLoginModel) {
-                                // 登录流程 未授权 去走微信登录的流程
-                                sendWechatAuth();
-                            } else {
-                                goNextStep();
-                            }
 
-                        } else {
-                            // 注册过
-                            if (isToLogin) {
-                                goNextStep();
-                            } else {
-                                ToastUtil.error("手机号已存在");
-                            }
-                        }
-
-                    }
-                });
+        goNextStep();
+//        ToastUtil.showLoading(this);
+//        String token = StringUtil.md5(BuildConfig.TOKEN_SALT + mEtPhoneNumber.getText().toString());
+//        APIManager.startRequest(mIUserService.checkPhoneExist(mEtPhoneNumber.getText().toString(), token),
+//                new BaseRequestListener<HashMap<String, Integer>>(this) {
+//                    @Override
+//                    public void onSuccess(HashMap<String, Integer> result, String msg) {
+//                        super.onSuccess(result);
+//                        if (result.containsKey("registerStatus") && result.get("registerStatus") == 1) {
+//                            // 未注册
+//                            if (isToLogin && null == mWeChatLoginModel) {
+//                                // 登录流程 未授权 去走微信登录的流程
+//                                sendWechatAuth();
+//                            } else {
+//                                goNextStep();
+//                            }
+//
+//                        } else {
+//                            // 注册过
+//                            if (isToLogin) {
+//                                goNextStep();
+//                            } else {
+//                                ToastUtil.error("手机号已存在");
+//                            }
+//                        }
+//
+//                    }
+//                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

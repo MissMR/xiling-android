@@ -61,7 +61,8 @@ public class DDSplashActivity extends BaseActivity {
             jumpToWelcome();
             return;
         } else {
-            getSplashData();
+            jumpToMain();
+//            getSplashData();
         }
     }
 
