@@ -9,7 +9,7 @@
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.dodomall.ddmall.module.community.TitleView
+    <com.xiling.ddmall.module.community.TitleView
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:id="@+id/titleView"
@@ -48,7 +48,7 @@
 我会在另一篇博客上面介绍。"
                 android:layout_height="wrap_content"/>
 
-            <com.dodomall.ddmall.module.community.MyGrildView
+            <com.xiling.ddmall.module.community.MyGrildView
                 android:layout_width="match_parent"
                 android:numColumns="3"
                 android:layout_marginTop="35dp"

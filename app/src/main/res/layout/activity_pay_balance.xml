@@ -34,7 +34,7 @@
                 android:inputType="number"
                 />
 
-            <com.dodomall.ddmall.shared.component.CaptchaBtn
+            <com.xiling.ddmall.shared.component.CaptchaBtn
                 android:id="@+id/captchaBtn"
                 android:layout_width="100dp"
                 android:layout_height="30dp"

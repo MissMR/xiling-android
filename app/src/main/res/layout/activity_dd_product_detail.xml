@@ -6,11 +6,11 @@
     android:background="@color/white"
     tools:context=".ddui.activity.DDProductDetailActivity">
 
-    <com.dodomall.ddmall.ddui.custom.DDProductActionContainer
+    <com.xiling.ddmall.ddui.custom.DDProductActionContainer
         android:id="@+id/dd_product_action_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"></com.dodomall.ddmall.ddui.custom.DDProductActionContainer>
+        android:layout_alignParentBottom="true"></com.xiling.ddmall.ddui.custom.DDProductActionContainer>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_container"
@@ -120,7 +120,7 @@
                 android:src="@mipmap/ic_share_gray"
                 android:visibility="invisible" />
 
-            <com.dodomall.ddmall.ddui.custom.DDSmartTab
+            <com.xiling.ddmall.ddui.custom.DDSmartTab
                 android:id="@+id/dd_smart_tab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -130,7 +130,7 @@
                 android:paddingBottom="2dp"
                 android:paddingTop="2dp">
 
-            </com.dodomall.ddmall.ddui.custom.DDSmartTab>
+            </com.xiling.ddmall.ddui.custom.DDSmartTab>
 
             <View
                 android:layout_width="match_parent"

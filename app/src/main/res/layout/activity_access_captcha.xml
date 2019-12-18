@@ -32,7 +32,7 @@
             <requestFocus />
         </EditText>
 
-        <com.dodomall.ddmall.shared.component.CaptchaBtn
+        <com.xiling.ddmall.shared.component.CaptchaBtn
             android:id="@+id/cb_captcha"
             style="@style/MyButton.DDMRed.Small"
             android:layout_alignParentRight="true"
@@ -60,7 +60,7 @@
             android:textColor="@color/ddm_red"
             android:textSize="@dimen/textSize_12" />
 
-        <com.dodomall.ddmall.shared.component.CaptchaBtn
+        <com.xiling.ddmall.shared.component.CaptchaBtn
             android:id="@+id/cb_btn_captcha_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

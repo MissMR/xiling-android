@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dodomall.ddmall.module.lottery.WinnerListActivity"
+    tools:context="com.xiling.ddmall.module.lottery.WinnerListActivity"
     android:background="@drawable/bg_winner_list"
     >
     <include

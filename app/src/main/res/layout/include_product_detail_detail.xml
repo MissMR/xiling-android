@@ -14,7 +14,7 @@
         android:layout_marginLeft="12dp"
         android:text="商品详情" />
 
-    <com.dodomall.ddmall.ddui.custom.DDWebView
+    <com.xiling.ddmall.ddui.custom.DDWebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,5 +22,5 @@
         android:layout_marginRight="12dp"
         android:minHeight="1dp">
 
-    </com.dodomall.ddmall.ddui.custom.DDWebView>
+    </com.xiling.ddmall.ddui.custom.DDWebView>
 </LinearLayout>

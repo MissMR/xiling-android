@@ -44,10 +44,10 @@
                         android:text="首页" />
                 </LinearLayout>
 
+
                 <LinearLayout
-                    android:id="@+id/tabCategoryLayout"
-                    style="@style/TabBarItem"
-                    android:visibility="gone">
+                    android:id="@+id/tabStoreMaster"
+                    style="@style/TabBarItem">
 
                     <ImageView
                         style="@style/TabBarItemIcon"
@@ -58,46 +58,6 @@
                         android:text="分类" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/tabCommunityLayout"
-                    style="@style/TabBarItem"
-                    android:visibility="gone">
-
-                    <ImageView
-                        style="@style/TabBarItemIcon"
-                        android:src="@drawable/tab_item_community_selector" />
-
-                    <TextView
-                        style="@style/TabBarItemLabel"
-                        android:text="社区" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tabStoreMaster"
-                    style="@style/TabBarItem">
-
-                    <ImageView
-                        style="@style/TabBarItemIcon"
-                        android:src="@drawable/tab_item_master_selector" />
-
-                    <TextView
-                        style="@style/TabBarItemLabel"
-                        android:text="店主中心" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    style="@style/TabBarItem"
-                    android:visibility="gone">
-
-                    <ImageView
-                        style="@style/TabBarItemIcon"
-                        android:src="@drawable/tab_item_near_selector" />
-
-                    <TextView
-                        style="@style/TabBarItemLabel"
-                        android:text="附近店主" />
-                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/tabCartLayout"
@@ -119,14 +79,14 @@
                         android:id="@+id/cartBadgeTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/cartIconIv"
                         android:layout_alignRight="@id/cartIconIv"
-                        android:layout_marginTop="-3dp"
+                        android:layout_alignTop="@id/cartIconIv"
                         android:layout_marginRight="-5dp"
+                        android:layout_marginTop="-3dp"
                         android:background="@drawable/order_badge"
                         android:gravity="center"
-                        android:minWidth="15dp"
                         android:minHeight="15dp"
+                        android:minWidth="15dp"
                         android:text="11"
                         android:textColor="@color/white"
                         android:textSize="10sp"
@@ -149,7 +109,7 @@
         </FrameLayout>
 
 
-        <com.dodomall.ddmall.shared.component.NoScrollViewPager
+        <com.xiling.ddmall.shared.component.NoScrollViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

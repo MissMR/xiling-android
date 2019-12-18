@@ -110,19 +110,19 @@
                     android:textColor="@color/default_text_color"
                     android:textSize="14sp" />
 
-                <com.dodomall.ddmall.shared.component.StarField
+                <com.xiling.ddmall.shared.component.StarField
                     android:id="@+id/descStarField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     fresco:sf_label="描述相符" />
 
-                <com.dodomall.ddmall.shared.component.StarField
+                <com.xiling.ddmall.shared.component.StarField
                     android:id="@+id/expressStarField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     fresco:sf_label="物流服务" />
 
-                <com.dodomall.ddmall.shared.component.StarField
+                <com.xiling.ddmall.shared.component.StarField
                     android:id="@+id/serviceStarField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -27,7 +27,7 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.dodomall.ddmall.shared.component.NoData
+        <com.xiling.ddmall.shared.component.NoData
             android:id="@+id/noDataView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

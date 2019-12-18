@@ -6,13 +6,13 @@
     android:orientation="vertical"
     tools:context=".ddui.activity.DDCouponActivity">
 
-    <com.dodomall.ddmall.ddui.custom.DDMagicIndicator
+    <com.xiling.ddmall.ddui.custom.DDMagicIndicator
         android:id="@+id/dd_magic_indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
 
-    </com.dodomall.ddmall.ddui.custom.DDMagicIndicator>
+    </com.xiling.ddmall.ddui.custom.DDMagicIndicator>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

@@ -41,7 +41,7 @@
             android:layout_marginRight="5dp"
             />
 
-        <com.dodomall.ddmall.shared.component.CountDown
+        <com.xiling.ddmall.shared.component.CountDown
             android:id="@+id/countDownView"
             android:layout_width="wrap_content"
             android:layout_height="25dp"

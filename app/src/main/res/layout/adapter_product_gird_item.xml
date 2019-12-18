@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.dodomall.ddmall.ddui.custom.SquareDraweeView
+                <com.xiling.ddmall.ddui.custom.SquareDraweeView
                     android:id="@+id/itemThumbIv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="10dp">
 
-                <com.dodomall.ddmall.ddui.custom.DDTagView
+                <com.xiling.ddmall.ddui.custom.DDTagView
                     android:id="@+id/tagView"
                     style="@style/TextView.DDProductTag"
                     android:layout_width="wrap_content"

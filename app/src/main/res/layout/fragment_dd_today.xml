@@ -53,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:descendantFocusability="blocksDescendants">
 
-                    <com.dodomall.ddmall.ddui.custom.NestScrollView
+                    <com.xiling.ddmall.ddui.custom.NestScrollView
                         android:id="@+id/mainScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -84,7 +84,7 @@
 
                             </FrameLayout>
 
-                            <com.dodomall.ddmall.ddui.custom.NoScrollWebView
+                            <com.xiling.ddmall.ddui.custom.NoScrollWebView
                                 android:id="@+id/nsWebView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                                 android:visibility="visible" />
 
                         </LinearLayout>
-                    </com.dodomall.ddmall.ddui.custom.NestScrollView>
+                    </com.xiling.ddmall.ddui.custom.NestScrollView>
                 </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
             </RelativeLayout>

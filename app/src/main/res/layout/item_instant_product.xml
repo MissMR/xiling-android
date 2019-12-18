@@ -32,7 +32,7 @@
             android:maxLines="3"
             />
 
-        <com.dodomall.ddmall.shared.component.InstantProgressBar
+        <com.xiling.ddmall.shared.component.InstantProgressBar
             android:id="@+id/progressBar"
             style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="80dp"

@@ -24,7 +24,7 @@
                 android:src="@drawable/ic_back_white"/>
         </FrameLayout>
 
-        <com.dodomall.ddmall.module.community.FixedViewPager
+        <com.xiling.ddmall.module.community.FixedViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

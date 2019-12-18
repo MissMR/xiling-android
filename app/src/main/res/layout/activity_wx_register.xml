@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_gray"
     android:orientation="vertical"
-    tools:context="com.dodomall.ddmall.module.user.WxRegisterActivity"
+    tools:context="com.xiling.ddmall.module.user.WxRegisterActivity"
     >
 
     <LinearLayout
@@ -84,7 +84,7 @@
                 android:inputType="number"
                 android:maxLength="8"/>
 
-            <com.dodomall.ddmall.shared.component.CaptchaBtn
+            <com.xiling.ddmall.shared.component.CaptchaBtn
                 android:id="@+id/captchaBtn"
                 style="@style/btnCaptcha"
                 android:layout_marginLeft="10dp"

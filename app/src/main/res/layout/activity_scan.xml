@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dodomall.ddmall.module.qrcode.ScanActivity">
+    tools:context="com.xiling.ddmall.module.qrcode.ScanActivity">
 
     <cn.bingoogolapple.qrcode.zbar.ZBarView
         android:id="@+id/zbarview"

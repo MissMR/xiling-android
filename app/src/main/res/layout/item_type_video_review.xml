@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/user_name_tv"
         />
 
-    <com.dodomall.ddmall.shared.component.ExpandableTextView
+    <com.xiling.ddmall.shared.component.ExpandableTextView
         android:id="@+id/user_send_content_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:text="展开"
             android:textColor="@color/blue_more"/>
 
-    </com.dodomall.ddmall.shared.component.ExpandableTextView>
+    </com.xiling.ddmall.shared.component.ExpandableTextView>
 
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_item_player"

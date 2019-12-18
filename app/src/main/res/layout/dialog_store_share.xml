@@ -93,13 +93,13 @@
             android:text="取消" />
     </LinearLayout>
 
-    <com.dodomall.ddmall.ddui.custom.DDIndicator
+    <com.xiling.ddmall.ddui.custom.DDIndicator
         android:id="@+id/dd_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/ll_bottom"
         android:layout_centerHorizontal="true"
-        android:layout_margin="12dp"></com.dodomall.ddmall.ddui.custom.DDIndicator>
+        android:layout_margin="12dp"></com.xiling.ddmall.ddui.custom.DDIndicator>
 
     <com.joker.pager.BannerPager
         android:id="@+id/banner_pager"

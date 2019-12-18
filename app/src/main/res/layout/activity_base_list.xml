@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:descendantFocusability="blocksDescendants"
     >
-    <com.dodomall.ddmall.module.community.TitleView
+    <com.xiling.ddmall.module.community.TitleView
         android:layout_width="match_parent"
         android:layout_height="43dp"
         app:titleStr="发布记录"

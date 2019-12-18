@@ -7,7 +7,7 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <com.dodomall.ddmall.module.community.TitleView
+    <com.xiling.ddmall.module.community.TitleView
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:id="@+id/titleView"

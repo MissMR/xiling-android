@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.dodomall.ddmall.shared.component.NoData
+        <com.xiling.ddmall.shared.component.NoData
             android:id="@+id/no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
 
-        </com.dodomall.ddmall.shared.component.NoData>
+        </com.xiling.ddmall.shared.component.NoData>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

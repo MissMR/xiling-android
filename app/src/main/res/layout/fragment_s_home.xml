@@ -81,18 +81,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <com.facebook.drawee.view.SimpleDraweeView
-                                android:id="@+id/btn_msg"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="6dp"
-                                android:contentDescription="右上角消息入口"
-                                android:minWidth="30dp"
-                                android:minHeight="30dp"
-                                app:actualImageScaleType="fitXY"
-                                app:placeholderImage="@mipmap/icon_home_msg" />
-
                             <ImageView
                                 android:id="@+id/titleMsgDotImageView"
                                 android:layout_width="8dp"
@@ -118,6 +106,19 @@
                         android:minHeight="32dp"
                         android:text="搜索商品名称"
                         android:textColor="@color/ddm_gray_dark" />
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/btn_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/btn_search"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toEndOf="@+id/btn_search"
+                        android:contentDescription="右上角消息入口"
+                        android:minHeight="30dp"
+                        android:minWidth="30dp"
+                        app:actualImageScaleType="fitXY"
+                        app:placeholderImage="@mipmap/icon_home_msg" />
 
                 </RelativeLayout>
 

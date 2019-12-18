@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.dodomall.ddmall.shared.component.TagTextView
+        <com.xiling.ddmall.shared.component.TagTextView
             android:id="@+id/tvTitle"
             style="@style/tvCommonTitle"
             android:layout_width="wrap_content"

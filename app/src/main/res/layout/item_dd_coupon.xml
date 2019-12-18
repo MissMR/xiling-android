@@ -7,10 +7,10 @@
     android:paddingTop="10dp"
     android:paddingRight="12dp">
 
-    <com.dodomall.ddmall.ddui.custom.DDCouponView
+    <com.xiling.ddmall.ddui.custom.DDCouponView
         android:id="@+id/dd_coupon_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.dodomall.ddmall.ddui.custom.DDCouponView>
+        android:layout_height="wrap_content"></com.xiling.ddmall.ddui.custom.DDCouponView>
 
     <RelativeLayout
         android:id="@+id/rl_coupon_desc"

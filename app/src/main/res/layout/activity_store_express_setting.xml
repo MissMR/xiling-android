@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.dodomall.ddmall.module.store.StoreExpressSettingActivity">
+    tools:context="com.xiling.ddmall.module.store.StoreExpressSettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

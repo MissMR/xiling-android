@@ -146,7 +146,7 @@
 
             </RelativeLayout>
 
-            <com.dodomall.ddmall.module.community.SmartTabLayout
+            <com.xiling.ddmall.module.community.SmartTabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

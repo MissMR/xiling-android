@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:layout_height="wrap_content">
 
-    <com.dodomall.ddmall.module.community.MyGrildView
+    <com.xiling.ddmall.module.community.MyGrildView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.dodomall.ddmall.module.groupBuy.JoinGroupActivity"
+    tools:context="com.xiling.ddmall.module.groupBuy.JoinGroupActivity"
     >
 
     <android.support.v4.widget.NestedScrollView
@@ -101,7 +101,7 @@
                                 android:text="剩余"
                                 />
 
-                            <com.dodomall.ddmall.shared.component.CountDownGray
+                            <com.xiling.ddmall.shared.component.CountDownGray
                                 android:id="@+id/countDownView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>

@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"/>
 
 
-    <com.dodomall.ddmall.module.publish.BlockView
+    <com.xiling.ddmall.module.publish.BlockView
         android:layout_width="75dp"
         android:layout_marginLeft="13dp"
         android:horizontalSpacing="3dp"

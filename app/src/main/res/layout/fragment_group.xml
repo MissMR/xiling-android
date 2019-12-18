@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dodomall.ddmall.module.community.BetterPtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:cube_ptr="http://schemas.android.com/tools"
     android:id="@+id/pullRefresh"
@@ -22,4 +22,4 @@
         android:clipToPadding="true" />
 
 
-</com.dodomall.ddmall.module.community.BetterPtrClassicFrameLayout>
+</com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout>

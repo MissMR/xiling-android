@@ -45,7 +45,7 @@
 
             />
 
-        <com.dodomall.ddmall.shared.component.NoticeView
+        <com.xiling.ddmall.shared.component.NoticeView
             android:id="@+id/tvContent"
             style="@style/tvCommonMainBlack"
             android:layout_width="0dp"

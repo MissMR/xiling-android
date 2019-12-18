@@ -25,7 +25,7 @@
         android:layout_marginTop="10dp"
         android:src="@mipmap/icon_title_instant_i" />
 
-    <com.dodomall.ddmall.shared.component.CountDown
+    <com.xiling.ddmall.shared.component.CountDown
         android:id="@+id/eleCountDown"
         android:layout_width="wrap_content"
         android:layout_height="21dp"

@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.dodomall.ddmall.shared.component.DragScrollDetailsLayout
+        <com.xiling.ddmall.shared.component.DragScrollDetailsLayout
             android:id="@+id/layoutDragScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,7 +60,7 @@
                         <View style="@style/lineHorizontal" />
 
 
-                        <com.dodomall.ddmall.shared.component.FlashSaleLabel
+                        <com.xiling.ddmall.shared.component.FlashSaleLabel
                             android:id="@+id/flashSaleLabel"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
@@ -148,7 +148,7 @@
                             </LinearLayout>
                         </RelativeLayout>
 
-                        <com.dodomall.ddmall.shared.component.TagTextView
+                        <com.xiling.ddmall.shared.component.TagTextView
                             android:id="@+id/tvTagTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
                         <include layout="@layout/merge_product_coupon_layout" />
 
 
-                        <com.dodomall.ddmall.shared.component.ProductPresentsView
+                        <com.xiling.ddmall.shared.component.ProductPresentsView
                             android:id="@+id/productPresentsView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -373,7 +373,7 @@
                                 android:layout_height="@dimen/marginTop"
                                 android:background="@color/bg_gray" />
 
-                            <com.dodomall.ddmall.module.store.StoreCard
+                            <com.xiling.ddmall.module.store.StoreCard
                                 android:id="@+id/storeCard"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
-        </com.dodomall.ddmall.shared.component.DragScrollDetailsLayout>
+        </com.xiling.ddmall.shared.component.DragScrollDetailsLayout>
 
         <!--header toolbar -->
         <FrameLayout

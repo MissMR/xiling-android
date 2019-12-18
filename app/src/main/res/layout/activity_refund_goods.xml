@@ -89,7 +89,7 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <com.dodomall.ddmall.shared.component.DecimalEditText
+            <com.xiling.ddmall.shared.component.DecimalEditText
                 android:id="@+id/moneyEt"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"

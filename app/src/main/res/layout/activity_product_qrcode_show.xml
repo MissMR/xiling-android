@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_gray"
-    tools:context="com.dodomall.ddmall.module.product.ProductQrcodeShowActivity"
+    tools:context="com.xiling.ddmall.module.product.ProductQrcodeShowActivity"
     >
 
     <ScrollView

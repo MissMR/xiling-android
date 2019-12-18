@@ -22,7 +22,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.dodomall.ddmall.shared.component.TagTextView
+        <com.xiling.ddmall.shared.component.TagTextView
             android:id="@+id/itemTitleTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

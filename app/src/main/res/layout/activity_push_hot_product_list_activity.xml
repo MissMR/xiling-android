@@ -6,7 +6,7 @@
     android:orientation="vertical"
     >
 
-    <com.dodomall.ddmall.module.push.ProductScreenView
+    <com.xiling.ddmall.module.push.ProductScreenView
         android:id="@+id/screenView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:id="@+id/layoutRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.dodomall.ddmall.module.push.PushHotProductListActivityActivity"
+            tools:context="com.xiling.ddmall.module.push.PushHotProductListActivityActivity"
             >
 
             <android.support.v7.widget.RecyclerView

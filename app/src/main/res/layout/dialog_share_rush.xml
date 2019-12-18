@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.dodomall.ddmall.ddui.custom.NestScrollView
+    <com.xiling.ddmall.ddui.custom.NestScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -73,7 +73,7 @@
                 android:paddingBottom="15dp"
                 android:text="查看全部好货" />
         </LinearLayout>
-    </com.dodomall.ddmall.ddui.custom.NestScrollView>
+    </com.xiling.ddmall.ddui.custom.NestScrollView>
 
     <LinearLayout
         android:id="@+id/layout_bottom"
