@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 public class Constants {
 
-    public static final String API_VERSION = "2.0";
+    public static final String API_VERSION = "1.0";
 
     /*
     iOS(0, "IOS"),
@@ -23,7 +23,7 @@ public class Constants {
     */
     public static final String PLATFORM = "1";
 
-    public static final String URL_API_PREFIX = BuildConfig.BASE_URL + "ddmallapi/";
+    public static final String URL_API_PREFIX = BuildConfig.BASE_URL + "xl-api/";
 
     public static final String URL_WEB_PREFIX = BuildConfig.H5_URL + "app_web/";
 
@@ -115,6 +115,8 @@ public class Constants {
         public static final String PAY_RESULT = "pay_result";
         public static final String CONTENT = "content";
         public static final String FLASH_SALE_ID = "flash_sale_id";
+        //0 微信登录 1、手机号登录
+        public static final String LOGINTYPE = "logintype";
     }
 
 }

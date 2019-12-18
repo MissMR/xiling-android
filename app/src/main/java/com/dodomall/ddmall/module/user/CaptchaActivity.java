@@ -6,17 +6,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.blankj.utilcode.utils.AppUtils;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.dodomall.ddmall.BuildConfig;
 import com.dodomall.ddmall.R;
-import com.dodomall.ddmall.ddui.tools.DLog;
-import com.dodomall.ddmall.module.MainActivity;
 import com.dodomall.ddmall.shared.Constants;
 import com.dodomall.ddmall.shared.basic.BaseActivity;
+import com.dodomall.ddmall.shared.basic.BaseBean;
 import com.dodomall.ddmall.shared.basic.BaseRequestListener;
 import com.dodomall.ddmall.shared.bean.User;
 import com.dodomall.ddmall.shared.bean.event.EventMessage;
@@ -28,14 +28,17 @@ import com.dodomall.ddmall.shared.service.UserService;
 import com.dodomall.ddmall.shared.service.contract.ICaptchaService;
 import com.dodomall.ddmall.shared.service.contract.IUserService;
 import com.dodomall.ddmall.shared.util.PhoneNumberUtil;
-import com.dodomall.ddmall.shared.util.StringUtil;
 import com.dodomall.ddmall.shared.util.ToastUtil;
+import com.dodomall.ddmall.shared.util.WechatUtil;
 import com.google.common.base.Strings;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.HashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,19 +54,25 @@ public class CaptchaActivity extends BaseActivity {
 
     @BindView(R.id.et_pin_captcha)
     PinEntryEditText mPeEditText;
+
     @BindView(R.id.ib_next)
     Button mIbNext;
+
     @BindView(R.id.tv_captcha)
     CaptchaBtn mTvCaptcha;
+
     @BindView(R.id.tv_tip)
     TextView mTvTip;
 
+    @BindView(R.id.cb_agreement)
+    CheckBox mCbAgreement;
 
     private ICaptchaService mCaptchaService;
     private IUserService mUserService;
     private String mPhoneNumber;
-
-    private boolean toLogin = false;
+    private String loginType;
+    // 是否处理wechat回调  手机号登录 不处理回调
+    private boolean canHandleWechatCallback = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +81,16 @@ public class CaptchaActivity extends BaseActivity {
         ButterKnife.bind(this);
         initData();
         initView();
-        getCaptcha(ICaptchaService.TYPE_MESSAGE);
+        getphoneCode(0);
+//        getCaptcha(ICaptchaService.TYPE_MESSAGE);
     }
 
     private void initData() {
         mPhoneNumber = getIntent().getStringExtra(Constants.Extras.PHONE_NUMBER);
-        toLogin = null == getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER);
+//        toLogin = null == getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER);
         mCaptchaService = ServiceManager.getInstance().createService(ICaptchaService.class);
         mUserService = ServiceManager.getInstance().createService(IUserService.class);
+        loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
     }
 
     private void initView() {
@@ -115,7 +126,7 @@ public class CaptchaActivity extends BaseActivity {
             }
         });
 
-        mTvCaptcha.start();
+
         mTvCaptcha.setOnCountDownListener(new CaptchaBtn.OnCountDownListener() {
             @Override
             public void onCountDownFinish(CaptchaBtn view) {
@@ -131,48 +142,28 @@ public class CaptchaActivity extends BaseActivity {
     }
 
     private void getCaptcha(int type) {
-        if (toLogin) {
-            mIbNext.setText("完成");
-            getLoginCaptcha(type);
-        } else {
-            mIbNext.setText("下一步");
-            getRegisterCaptcha(type);
-        }
+        getphoneCode(type);
     }
 
-    protected void getRegisterCaptcha(int type) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        canHandleWechatCallback = true;
+    }
+
+    /**
+     * 获取验证码
+     * 0短信  1语音
+     *
+     * @param type
+     */
+    protected void getphoneCode(int type) {
         if (Strings.isNullOrEmpty(mPhoneNumber)) {
             ToastUtil.error("手机号为空");
             return;
         }
-        mTvCaptcha.start();
-        String token = StringUtil.md5(BuildConfig.TOKEN_SALT + mPhoneNumber);
-        APIManager.startRequest(mCaptchaService.getCaptchaForRegister(token, mPhoneNumber, type), new BaseRequestListener<Object>(this) {
-
-            @Override
-            public void onSuccess(Object result, String msg) {
-                super.onSuccess(result, msg);
-                mTvCaptcha.start();
-                ToastUtil.success(msg);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error("获取验证码失败");
-            }
-        });
-    }
-
-    protected void getLoginCaptcha(int type) {
-        if (Strings.isNullOrEmpty(mPhoneNumber)) {
-            ToastUtil.error("手机号为空");
-            return;
-        }
-        mTvCaptcha.start();
-        String token = StringUtil.md5(BuildConfig.TOKEN_SALT + mPhoneNumber);
-        APIManager.startRequest(mCaptchaService.getLoginCode(token, type, mPhoneNumber), new BaseRequestListener<Object>(this) {
-
+        APIManager.startRequest(mCaptchaService.getLoginCode(type, mPhoneNumber, Constants.API_VERSION, Constants.PLATFORM, AppUtils.getAppVersionName(this)
+        ), new BaseRequestListener<Object>(this) {
             @Override
             public void onSuccess(Object result, String msg) {
                 super.onSuccess(result, msg);
@@ -197,37 +188,184 @@ public class CaptchaActivity extends BaseActivity {
 
     @OnClick(R.id.ib_next)
     protected void doNext() {
-
-        int codeType = toLogin ? 1 : 0;
-        String token = StringUtil.md5(mPhoneNumber + BuildConfig.TOKEN_SALT + mPeEditText.getText().toString() + codeType);
-        APIManager.startRequest(mCaptchaService.checkCaptcha(mPhoneNumber, codeType, mPeEditText.getText().toString(), token),
-                new BaseRequestListener<HashMap<String, Integer>>(this) {
-                    @Override
-                    public void onSuccess(HashMap<String, Integer> result) {
-                        super.onSuccess(result);
-                        if (toLogin) {
-                            login();
-                        } else {
-                            ToastUtil.success("验证成功");
-                            Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
-                            intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
-                            intent.putExtra(Constants.Extras.PHONE_NUMBER, mPhoneNumber);
-                            intent.putExtra(Constants.Extras.REGISTER_CAPTCHA, mPeEditText.getText().toString());
-                            startActivity(intent);
-                        }
-
-                    }
-                });
+        if (!mCbAgreement.isChecked()) {
+            ToastUtil.error("请勾选\"我已经认真阅读并同意《喜领服务协议》及《隐私协议》\"");
+            return;
+        }
+        //根据登录方式  0  微信登录 1 手机号登录
+        switch (loginType) {
+            case "0":
+                //微信登录 绑定手机号
+                bindPhone();
+                break;
+            case "1":
+                //手机要登录 验证验证码
+                phoheLogin();
+                break;
+        }
 
     }
 
-    private void login() {
-        APIManager.startRequest(mUserService.login(mPhoneNumber, mPeEditText.getText().toString()), new BaseRequestListener<User>(this) {
-            @Override
-            public void onSuccess(User result) {
-                super.onSuccess(result);
-                UserService.loginSuccess(CaptchaActivity.this, result);
-            }
-        });
+    /**
+     * 手机号登录
+     */
+    private void phoheLogin() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("phone", mPhoneNumber);
+            jsonObject.put("code", mPeEditText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        APIManager.startRequest(mCaptchaService.checkCaptcha(APIManager.getRequestBody(jsonObject.toString())),
+                new BaseRequestListener<BaseBean<User>>(this) {
+                    @Override
+                    public void onSuccess(BaseBean<User> result) {
+                        super.onSuccess(result);
+                        switch (result.getCode()) {
+                            case 0:
+                                //登录成功
+                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
+                                break;
+                            default:
+                                //登录失败
+                                checkMessage(result.getMessage());
+                                break;
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 微信绑定电话
+     */
+    private void bindPhone() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("phone", mPhoneNumber);
+            jsonObject.put("code", mPeEditText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        APIManager.startRequest(mCaptchaService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
+                new BaseRequestListener<BaseBean<User>>(this) {
+                    @Override
+                    public void onSuccess(BaseBean<User> result) {
+                        super.onSuccess(result);
+                        switch (result.getCode()) {
+                            case 0:
+                                //登录成功
+                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
+                                break;
+                            default:
+                                //登录失败
+                                checkMessage(result.getMessage());
+                                break;
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 处理异常状态
+     *
+     * @param msg
+     */
+    private void checkMessage(String msg) {
+        switch (msg) {
+            case "uncheck-login":
+                //跳转到登录注册页面
+                finish();
+                break;
+            case "unbind-phone":
+                //跳转到绑定手机号页面
+                finish();
+                break;
+            case "unbind-wechat":
+                //跳转到绑定微信页面
+                if (WechatUtil.isWeChatAppInstalled(this)) {
+                    sendWechatAuth();
+                } else {
+                    ToastUtil.error("请先安装微信客户端");
+                }
+                break;
+            case "unbind-invite-code":
+                //跳转到绑定邀请码页面
+                Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
+                intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
+                intent.putExtra(Constants.Extras.PHONE_NUMBER, mPhoneNumber);
+                intent.putExtra(Constants.Extras.REGISTER_CAPTCHA, mPeEditText.getText().toString());
+                startActivity(intent);
+                break;
+            default:
+                ToastUtil.error(msg);
+                break;
+        }
+    }
+
+    /**
+     * 微信登录
+     */
+    private void sendWechatAuth() {
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "" + System.currentTimeMillis();
+        IWXAPI api = WXAPIFactory.createWXAPI(this, BuildConfig.WX_APP_ID);
+        api.sendReq(req);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onWechatAuth(EventMessage message) {
+        if (!canHandleWechatCallback) {
+            return;
+        }
+        if (message.getEvent().equals(Event.wxLoginSuccess)) {
+            //绑定微信成功
+            getAccessToken((String) message.getData());
+        } else if (message.getEvent().equals(Event.wxLoginCancel)) {
+            ToastUtil.hideLoading();
+            ToastUtil.error("登录取消");
+        }
+    }
+
+    /**
+     * 绑定微信code
+     *
+     * @param code
+     */
+    private void getAccessToken(String code) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("code", code);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        APIManager.startRequest(mUserService.getAccessToken(APIManager.getRequestBody(jsonObject.toString())),
+                new BaseRequestListener<BaseBean<User>>() {
+                    @Override
+                    public void onSuccess(BaseBean<User> result) {
+                        super.onSuccess(result);
+                        ToastUtil.hideLoading();
+                        //ToDo:
+                        switch (result.getCode()) {
+                            case 0:
+                                //登录成功
+                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
+                                break;
+                            default:
+                                //登录失败
+                                checkMessage(result.getMessage());
+                                break;
+                        }
+                        // TODO:Jigsaw 2019/3/20 等小程序准备就绪 用户已注册没有绑定手机号业务处理
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        ToastUtil.hideLoading();
+                    }
+                });
     }
 }

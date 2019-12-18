@@ -235,21 +235,21 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
 
     private void checkCaptcha() {
         String token = StringUtil.md5(mPhoneNumber + BuildConfig.TOKEN_SALT + etCaptcha.getText().toString() + ICaptchaService.CODE_TYPE_DEFAULT);
-        APIManager.startRequest(mCaptchaService.checkCaptcha(mPhoneNumber, ICaptchaService.CODE_TYPE_DEFAULT, etCaptcha.getText().toString(), token),
-                new BaseRequestListener<HashMap<String, Integer>>(this) {
-                    @Override
-                    public void onSuccess(HashMap<String, Integer> result) {
-                        super.onSuccess(result);
-                        ToastUtil.success("验证成功");
-                        startActivity(new Intent(AccessCaptchaActivity.this, mRouteArray.get(mRoute)));
-                        finish();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        ToastUtil.error("验证失败");
-                    }
-                });
+//        APIManager.startRequest(mCaptchaService.checkCaptcha( ICaptchaService.CODE_TYPE_DEFAULT,mPhoneNumber, etCaptcha.getText().toString(), token),
+//                new BaseRequestListener<HashMap<String, Integer>>(this) {
+//                    @Override
+//                    public void onSuccess(HashMap<String, Integer> result) {
+//                        super.onSuccess(result);
+//                        ToastUtil.success("验证成功");
+//                        startActivity(new Intent(AccessCaptchaActivity.this, mRouteArray.get(mRoute)));
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        ToastUtil.error("验证失败");
+//                    }
+//                });
     }
 
     private Observable<RequestResult<Object>> getApiObervable() {

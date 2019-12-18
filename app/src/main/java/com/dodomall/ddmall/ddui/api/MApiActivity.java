@@ -902,82 +902,82 @@ public class MApiActivity extends BaseActivity {
         });
     }
 
-    public void buildCodeTest() {
-        int codeTestId = adapter.addRootEvent(new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试验证码功能";
-            }
-        });
-
-        int registerId = adapter.addEvent(codeTestId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试注册验证码";
-            }
-        });
-        adapter.addEvent(registerId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试注册短信验证码";
-            }
-
-            @Override
-            public boolean onEvent() {
-                DLog.d("测试注册短信验证码");
-                sendRegisterCode("18766265967", ICaptchaService.SEND_TYPE_SMS);
-                return true;
-            }
-        });
-        adapter.addEvent(registerId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试注册语音验证码";
-            }
-
-            @Override
-            public boolean onEvent() {
-                DLog.d("测试注册语音验证码");
-                sendRegisterCode("18766265967", ICaptchaService.SEND_TYPE_VOICE);
-                return true;
-            }
-        });
-
-
-        int loginId = adapter.addEvent(codeTestId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试登录验证码";
-            }
-        });
-        adapter.addEvent(loginId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试登录短信验证码";
-            }
-
-            @Override
-            public boolean onEvent() {
-                DLog.d("测试登录短信验证码");
-                sendLoginCode("18766265967", ICaptchaService.SEND_TYPE_SMS);
-                return true;
-            }
-        });
-        adapter.addEvent(loginId, new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试登录语音验证码";
-            }
-
-            @Override
-            public boolean onEvent() {
-                DLog.d("测试登录语音验证码");
-                sendLoginCode("18766265967", ICaptchaService.SEND_TYPE_VOICE);
-                return true;
-            }
-        });
-
-    }
+//    public void buildCodeTest() {
+//        int codeTestId = adapter.addRootEvent(new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试验证码功能";
+//            }
+//        });
+//
+//        int registerId = adapter.addEvent(codeTestId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试注册验证码";
+//            }
+//        });
+//        adapter.addEvent(registerId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试注册短信验证码";
+//            }
+//
+//            @Override
+//            public boolean onEvent() {
+//                DLog.d("测试注册短信验证码");
+//                sendRegisterCode("18766265967", ICaptchaService.SEND_TYPE_SMS);
+//                return true;
+//            }
+//        });
+//        adapter.addEvent(registerId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试注册语音验证码";
+//            }
+//
+//            @Override
+//            public boolean onEvent() {
+//                DLog.d("测试注册语音验证码");
+//                sendRegisterCode("18766265967", ICaptchaService.SEND_TYPE_VOICE);
+//                return true;
+//            }
+//        });
+//
+//
+//        int loginId = adapter.addEvent(codeTestId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试登录验证码";
+//            }
+//        });
+//        adapter.addEvent(loginId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试登录短信验证码";
+//            }
+//
+//            @Override
+//            public boolean onEvent() {
+//                DLog.d("测试登录短信验证码");
+//                sendLoginCode("18766265967", ICaptchaService.SEND_TYPE_SMS);
+//                return true;
+//            }
+//        });
+//        adapter.addEvent(loginId, new ApiEvent() {
+//            @Override
+//            public String getTitle() {
+//                return "测试登录语音验证码";
+//            }
+//
+//            @Override
+//            public boolean onEvent() {
+//                DLog.d("测试登录语音验证码");
+//                sendLoginCode("18766265967", ICaptchaService.SEND_TYPE_VOICE);
+//                return true;
+//            }
+//        });
+//
+//    }
 
     public void checkPhoneExist(String phone) {
         IUserService mUserService = ServiceManager.getInstance().createService(IUserService.class);
@@ -1017,14 +1017,14 @@ public class MApiActivity extends BaseActivity {
         });
     }
 
-    public void sendLoginCode(String phone, final int sendType) {
-        APIManager.startRequest(mCaptchaService.getLoginCode(sendType, phone), new BaseRequestListener<Object>(this) {
-
-            @Override
-            public void onSuccess(Object result, String message) {
-                DLog.d("发送登录" + (sendType == 0 ? "短信" : "语音") + "验证码成功");
-                ToastUtil.success("" + message);
-            }
-        });
-    }
+//    public void sendLoginCode(String phone, final int sendType) {
+//        APIManager.startRequest(mCaptchaService.getLoginCode(sendType, phone), new BaseRequestListener<Object>(this) {
+//
+//            @Override
+//            public void onSuccess(Object result, String message) {
+//                DLog.d("发送登录" + (sendType == 0 ? "短信" : "语音") + "验证码成功");
+//                ToastUtil.success("" + message);
+//            }
+//        });
+//    }
 }

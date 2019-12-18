@@ -46,7 +46,8 @@ public class UserService {
     }
 
     public static void login(User user) {
-        MobclickAgent.onProfileSignIn(user.id);
+        //Todo 注册的什么鬼，不是很清楚
+//        MobclickAgent.onProfileSignIn(user.id);
         SessionUtil.getInstance().setLoginUser(user);
     }
 

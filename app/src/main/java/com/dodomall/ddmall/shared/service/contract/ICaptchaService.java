@@ -1,13 +1,19 @@
 package com.dodomall.ddmall.shared.service.contract;
 
+import com.dodomall.ddmall.shared.basic.BaseBean;
+import com.dodomall.ddmall.shared.bean.User;
 import com.dodomall.ddmall.shared.bean.api.RequestResult;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -33,12 +39,20 @@ public interface ICaptchaService {
     @GET("captcha/getMemberInfoChangeMsg")
     Observable<RequestResult<Object>> getUserCaptcha(@Query("token") String token, @Query("phone") String phone, @Query("sendType") int type);
 
+    //手机号登录--手机号 验证码
     @FormUrlEncoded
-    @POST("user/validatePhoneCode")
+    @POST("user/login-or-registry/phone-code")
     Observable<RequestResult<HashMap<String, Integer>>> checkCaptcha(@Field("phone") String phone,
-                                                                     @Field("codeType") int codeType,
-                                                                     @Field("code") String code,
-                                                                     @Field("token") String token);
+                                                                     @Field("code") String code);
+
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
+    @POST("user/login-or-registry/phone-code")
+    Observable<RequestResult<BaseBean<User>>> checkCaptcha(@Body RequestBody body);
+
+    //微信登录绑定手机号
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("user/bind-phone")
+    Observable<RequestResult<BaseBean<User>>> bindPhone(@Body RequestBody body);
 
     // 需要登录
     @GET("captcha/getMemberAuthMsg")
@@ -89,10 +103,13 @@ public interface ICaptchaService {
      * @param sendType 验证码类型
      * @param phone    手机号
      */
-    @GET("user/sendLoginPhoneCode")
+    @GET("user/sms-code")
     Observable<RequestResult<Object>> getLoginCode(
-            @Query("sendType") int sendType,
-            @Query("phone") String phone);
+            @Query("type") int sendType,
+            @Query("phone") String phone,
+            @Query("version") String version,
+            @Query("platform") String platform,
+            @Query("appVersion") String appVersion);
 
     @GET("user/sendLoginPhoneCode")
     Observable<RequestResult<Object>> getLoginCode(

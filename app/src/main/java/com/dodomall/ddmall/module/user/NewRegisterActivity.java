@@ -284,14 +284,14 @@ public class NewRegisterActivity extends BaseActivity {
     }
 
     private void getUserInfo(final QMUIDialog dialog, String code) {
-        APIManager.startRequest(mUserService.getUserInfoByCode(code), new BaseRequestListener<User>(this) {
-            @Override
-            public void onSuccess(User result) {
-                dialog.dismiss();
-                mUser = result;
-                setStoreData();
-            }
-        });
+//        APIManager.startRequest(mUserService.getUserInfoByCode(code), new BaseRequestListener<User>(this) {
+//            @Override
+//            public void onSuccess(User result) {
+//                dialog.dismiss();
+//                mUser = result;
+//                setStoreData();
+//            }
+//        });
     }
 
 

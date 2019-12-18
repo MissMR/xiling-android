@@ -21,6 +21,7 @@ import com.dodomall.ddmall.ddui.tools.DLog;
 import com.dodomall.ddmall.module.qrcode.DDMScanActivity;
 import com.dodomall.ddmall.shared.Constants;
 import com.dodomall.ddmall.shared.basic.BaseActivity;
+import com.dodomall.ddmall.shared.basic.BaseBean;
 import com.dodomall.ddmall.shared.basic.BaseRequestListener;
 import com.dodomall.ddmall.shared.basic.BaseSubscriber;
 import com.dodomall.ddmall.shared.bean.CheckNumber;
@@ -42,6 +43,8 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -156,14 +159,16 @@ public class InviteCodeActivity extends BaseActivity {
 
     private void getUserInfo(String code) {
         ToastUtil.showLoading(this);
-        APIManager.startRequest(mUserService.getUserInfoByCode(code), new BaseRequestListener<User>(this) {
+        APIManager.startRequest(mUserService.getUserInfoByCode(code), new BaseRequestListener<BaseBean<User>>(this) {
 
             @Override
-            public void onSuccess(User result) {
+            public void onSuccess(BaseBean<User> result) {
                 super.onSuccess(result);
-                mInvitor = result;
-                mTvConfirm.setEnabled(true);
-                showInvitorInfo(result);
+                if (result.getCode() == 0) {
+                    mInvitor = result.getData();
+                    mTvConfirm.setEnabled(true);
+                    showInvitorInfo(result.getData());
+                }
             }
 
             @Override
@@ -300,66 +305,85 @@ public class InviteCodeActivity extends BaseActivity {
     }
 
     private void postFormData() {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("phone", mPhoneNumber);
-        params.put("checkNumber", mCaptcha);
-
-        // 微信登录，获取微信昵称时，截取前20个字作为用户昵称，修改昵称，最多输入20个字
-        String nickName = mWeChatLoginModel.nickName.length() > 20 ?
-                mWeChatLoginModel.nickName.substring(0, 20) : mWeChatLoginModel.nickName;
-        params.put("nickName", nickName);
-        params.put("invitationCode", mPeEditText.getText().toString());
-        params.put("headImage", mWeChatLoginModel.headImage);
-        params.put("wechatOpenId", mWeChatLoginModel.openid);
-        params.put("wechatUnionId", mWeChatLoginModel.unionid);
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("phone", mPhoneNumber);
+//        params.put("checkNumber", mCaptcha);
+//
+//        // 微信登录，获取微信昵称时，截取前20个字作为用户昵称，修改昵称，最多输入20个字
+//        String nickName = mWeChatLoginModel.nickName.length() > 20 ?
+//                mWeChatLoginModel.nickName.substring(0, 20) : mWeChatLoginModel.nickName;
+//        params.put("nickName", nickName);
+//        params.put("invitationCode", mPeEditText.getText().toString());
+//        params.put("headImage", mWeChatLoginModel.headImage);
+//        params.put("wechatOpenId", mWeChatLoginModel.openid);
+//        params.put("wechatUnionId", mWeChatLoginModel.unionid);
 //        params.put("status", "9");
-        Observable<RequestResult<User>> registerAndLoginObservable = mUserService.registerNoPassword(params)
-                .flatMap(new Function<RequestResult<CheckNumber>, Observable<RequestResult<User>>>() {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("inviteCode", mPeEditText.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        APIManager.startRequest(mUserService.bindInviteCode(APIManager.getRequestBody(jsonObject.toString())),
+                new BaseRequestListener<BaseBean<User>>(this) {
                     @Override
-                    public Observable<RequestResult<User>> apply(final RequestResult<CheckNumber> result) throws Exception {
-                        if (result.code != 0) {
-                            RequestResult<User> userRequestResult = new RequestResult<>();
-                            userRequestResult.code = result.code;
-                            userRequestResult.message = result.message;
-                            userRequestResult.data = new User();
-                            return Observable.just(userRequestResult);
+                    public void onSuccess(BaseBean<User> result) {
+                        super.onSuccess(result);
+                        if (result.getCode() == 0) {
+                            UserService.loginSuccess(InviteCodeActivity.this, result.getData());
+                        } else {
+                            ToastUtil.error(result.getMessage());
                         }
-                        return mUserService.login(mPhoneNumber, result.data.checkNumber);
                     }
                 });
-
-
-        mUserService.registerNoPassword(params)
-                .map(new Function<RequestResult<CheckNumber>, Observable<RequestResult<User>>>() {
-                    @Override
-                    public Observable<RequestResult<User>> apply(RequestResult<CheckNumber> result) throws Exception {
-                        if (result.code != 0) {
-                            RequestResult<User> userRequestResult = new RequestResult<>();
-                            userRequestResult.code = result.code;
-                            userRequestResult.message = result.message;
-                            userRequestResult.data = new User();
-                            return Observable.just(userRequestResult);
-                        }
-                        return mUserService.login(mPhoneNumber, result.data.checkNumber);
-                    }
-                });
-
-
-        BaseSubscriber baseSubscriber = new BaseSubscriber<User>() {
-            @Override
-            public void onNext(User user) {
-                super.onNext(user);
-                UserService.loginSuccess(InviteCodeActivity.this, user);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-            }
-        };
-        baseSubscriber.setProgressDialog(getProgressDialog());
-        execute(registerAndLoginObservable, baseSubscriber);
+//        Observable<RequestResult<User>> registerAndLoginObservable = mUserService.registerNoPassword(params)
+//                .flatMap(new Function<RequestResult<CheckNumber>, Observable<RequestResult<User>>>() {
+//                    @Override
+//                    public Observable<RequestResult<User>> apply(final RequestResult<CheckNumber> result) throws Exception {
+//                        if (result.code != 0) {
+//                            RequestResult<User> userRequestResult = new RequestResult<>();
+//                            userRequestResult.code = result.code;
+//                            userRequestResult.message = result.message;
+//                            userRequestResult.data = new User();
+//                            return Observable.just(userRequestResult);
+//                        }
+//                        return mUserService.login(mPhoneNumber, result.data.checkNumber);
+//                    }
+//                });
+//
+//
+//        mUserService.registerNoPassword(params)
+//                .map(new Function<RequestResult<CheckNumber>, Observable<RequestResult<User>>>() {
+//                    @Override
+//                    public Observable<RequestResult<User>> apply(RequestResult<CheckNumber> result) throws Exception {
+//                        if (result.code != 0) {
+//                            RequestResult<User> userRequestResult = new RequestResult<>();
+//                            userRequestResult.code = result.code;
+//                            userRequestResult.message = result.message;
+//                            userRequestResult.data = new User();
+//                            return Observable.just(userRequestResult);
+//                        }
+//                        return mUserService.login(mPhoneNumber, result.data.checkNumber);
+//                    }
+//                });
+//
+//
+//        BaseSubscriber baseSubscriber = new BaseSubscriber<User>() {
+//            @Override
+//            public void onNext(User user) {
+//                super.onNext(user);
+//                UserService.loginSuccess(InviteCodeActivity.this, user);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                super.onError(e);
+//                ToastUtil.error(e.getMessage());
+//            }
+//        };
+//        baseSubscriber.setProgressDialog(getProgressDialog());
+//        execute(registerAndLoginObservable, baseSubscriber);
     }
 
 

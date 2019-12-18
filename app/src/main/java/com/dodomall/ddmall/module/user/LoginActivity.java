@@ -15,6 +15,7 @@ import com.dodomall.ddmall.ddui.tools.TextTools;
 import com.dodomall.ddmall.ddui.tools.ViewUtil;
 import com.dodomall.ddmall.shared.Constants;
 import com.dodomall.ddmall.shared.basic.BaseActivity;
+import com.dodomall.ddmall.shared.basic.BaseBean;
 import com.dodomall.ddmall.shared.basic.BaseRequestListener;
 import com.dodomall.ddmall.shared.bean.LoginSwitchBean;
 import com.dodomall.ddmall.shared.bean.User;
@@ -122,7 +123,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         if (message.getEvent().equals(Event.wxLoginSuccess)) {
-            getAccessToken((String) message.getData());
+            wxLogin((String) message.getData());
         } else if (message.getEvent().equals(Event.wxLoginCancel)) {
             ToastUtil.hideLoading();
             ToastUtil.error("登录取消");
@@ -152,19 +153,23 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-
-    private void getAccessToken(String code) {
-        APIManager.startRequest(mUserService.getAccessToken(code), new BaseRequestListener<WeChatLoginModel>() {
+    /**
+     * 微信登录
+     *
+     * @param code
+     */
+    private void wxLogin(String code) {
+        APIManager.startRequest(mUserService.wxLogin(APIManager.getRequestBody(code)), new BaseRequestListener<BaseBean<User>>() {
             @Override
-            public void onSuccess(WeChatLoginModel result) {
+            public void onSuccess(BaseBean<User> result) {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
-                if (result.registerStatus == 1) {
-                    // 注册过且已经完善信息了的直接登录
-                    loginByPassword(result.unionid, result.unionid);
+                if (result.getCode() == 0) {
+                    // 登录成功
+                    UserService.loginSuccess(LoginActivity.this, result.getData());
                 } else {
-                    // 走绑定手机号流程
-                    goCheckPhone(result);
+                    //
+                    checkMessage(result.getMessage());
                     finish();
                 }
                 // TODO:Jigsaw 2019/3/20 等小程序准备就绪 用户已注册没有绑定手机号业务处理
@@ -178,9 +183,52 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    private void goCheckPhone(WeChatLoginModel wechat) {
+    /**
+     * 处理异常状态
+     *
+     * @param msg
+     */
+    private void checkMessage(String msg) {
+        switch (msg) {
+            case "uncheck-login":
+                //跳转到登录注册页面
+                finish();
+                break;
+            case "unbind-phone":
+                //跳转到绑定手机号页面
+                goCheckPhone("0");
+                break;
+            case "unbind-wechat":
+                //跳转到绑定微信页面
+                if (WechatUtil.isWeChatAppInstalled(this)) {
+                    sendWechatAuth();
+                } else {
+                    ToastUtil.error("请先安装微信客户端");
+                }
+                break;
+            case "unbind-invite-code":
+                //跳转到绑定邀请码页面
+                Intent intent = new Intent(this, InviteCodeActivity.class);
+                intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
+                intent.putExtra(Constants.Extras.PHONE_NUMBER, "");
+                intent.putExtra(Constants.Extras.REGISTER_CAPTCHA, "");
+                startActivity(intent);
+                break;
+            default:
+                ToastUtil.error(msg);
+                break;
+        }
+    }
+
+    /**
+     * 登录方式
+     * ”0“ 微信登录 ”1“ 手机号登录
+     *
+     * @param type
+     */
+    private void goCheckPhone(String type) {
         Intent intent = new Intent(this, CheckPhoneActivity.class);
-        intent.putExtra(Constants.Extras.WECHAT_USER, wechat);
+        intent.putExtra(Constants.Extras.LOGINTYPE, type);
         startActivity(intent);
     }
 
@@ -198,7 +246,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.ll_btn_login_phone:
                 // 手机号登录
-                goCheckPhone(null);
+                goCheckPhone("1");
                 canHandleWechatCallback = false;
                 break;
         }

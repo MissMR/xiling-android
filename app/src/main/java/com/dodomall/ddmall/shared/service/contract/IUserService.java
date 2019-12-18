@@ -15,6 +15,7 @@ import com.dodomall.ddmall.module.auth.model.CardItemModel;
 import com.dodomall.ddmall.module.qrcode.model.GetSubscribe;
 import com.dodomall.ddmall.module.user.model.SignModel;
 import com.dodomall.ddmall.module.user.model.UpMemberModel;
+import com.dodomall.ddmall.shared.basic.BaseBean;
 import com.dodomall.ddmall.shared.bean.CheckNumber;
 import com.dodomall.ddmall.shared.bean.Family;
 import com.dodomall.ddmall.shared.bean.FamilyOrder;
@@ -32,6 +33,8 @@ import com.dodomall.ddmall.shared.bean.User;
 import com.dodomall.ddmall.shared.bean.VipTypeInfo;
 import com.dodomall.ddmall.shared.bean.WeChatLoginModel;
 import com.dodomall.ddmall.shared.bean.api.RequestResult;
+
+import org.androidannotations.annotations.rest.Post;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +79,9 @@ public interface IUserService {
     @GET("user/getUserInfo")
     Observable<RequestResult<User>> getUserInfo();
 
-    @GET("user/getMemberInfoByInviteCode")
-    Observable<RequestResult<User>> getUserInfoByCode(@Query("inviteCode") String invitationCode);
+    //更具邀请码获取用户基本信息
+    @GET("user/invite-code")
+    Observable<RequestResult<BaseBean<User>>> getUserInfoByCode(@Query("inviteCode") String invitationCode);
 
     @GET("user/getMemberInfoByPhone")
     Observable<RequestResult<User>> getUserInfoByPhone(@Query("phone") String phone);
@@ -201,6 +205,10 @@ public interface IUserService {
             @Body RequestBody body
     );
 
+    @Post("user/bind-invite-code")
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    Observable<RequestResult<BaseBean<User>>> bindInviteCode(@Body RequestBody body);
+
     /**
      * @return 获取店铺配置
      */
@@ -267,6 +275,27 @@ public interface IUserService {
     Observable<RequestResult<WeChatLoginModel>> getAccessToken(
             @Query("code") String unionid
     );
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Post("weChatOpen/getAccessToken")
+    Observable<RequestResult<BaseBean<User>>> getAccessToken(
+            @Body RequestBody body
+    );
+
+    /**
+     * 微信注册--登录
+     *
+     * @param body
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Post("user/login-or-registry/we-chat-code")
+    Observable<RequestResult<BaseBean<User>>> wxLogin(@Body RequestBody body);
+
+    //微信登录---绑定手机号
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Post("user/bind-phone")
+    Observable<RequestResult<BaseBean<User>>> bindPhone(@Body RequestBody body);
 
     //?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
     @GET("https://api.weixin.qq.com/sns/oauth2/access_token")

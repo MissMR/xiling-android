@@ -110,16 +110,16 @@ public class RegisterActivity extends BaseActivity {
 
 
     private void getUserInfoByCode(String invitationCode) {
-        APIManager.startRequest(mUserService.getUserInfoByCode(invitationCode), new BaseRequestListener<User>(this) {
-            @Override
-            public void onSuccess(User user) {
-                if (!user.isShowStoreView()) {
-                    ToastUtils.showShortToast("推荐人非店主");
-                }
-                userInfo = user;
-                setUserViews(user);
-            }
-        });
+//        APIManager.startRequest(mUserService.getUserInfoByCode(invitationCode), new BaseRequestListener<User>(this) {
+//            @Override
+//            public void onSuccess(User user) {
+//                if (!user.isShowStoreView()) {
+//                    ToastUtils.showShortToast("推荐人非店主");
+//                }
+//                userInfo = user;
+//                setUserViews(user);
+//            }
+//        });
     }
 
     private void setUserViews(User user) {

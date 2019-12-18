@@ -223,7 +223,7 @@ public class MainActivity extends BaseActivity {
         initTab();
 
         //检查升级
-        new AppUpgradeManager(context).check(false);
+//        new AppUpgradeManager(context).check(false);
 
         //获取消息条数
         loadUserStatus();

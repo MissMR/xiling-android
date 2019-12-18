@@ -92,4 +92,9 @@ public class APIManager {
     public static RequestBody buildJsonBody(Serializable object) {
         return RequestBody.create(MediaType.parse("application/json;charset=utf-8"), new Gson().toJson(object));
     }
+
+    public static RequestBody getRequestBody(String json) {
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
+        return body;
+    }
 }

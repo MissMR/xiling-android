@@ -60,11 +60,9 @@ public class CheckPhoneActivity extends BaseActivity {
     TextView mTvAgreement;
 
     private IUserService mIUserService;
-    private WeChatLoginModel mWeChatLoginModel;
+    private String loginType;
 
     // 根据前一页面传入的参数判断是什么操作 未传参数的话 是登录操作
-    private boolean isToLogin = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,12 +70,14 @@ public class CheckPhoneActivity extends BaseActivity {
         ButterKnife.bind(this);
         initData();
         initView();
+//        mEtPhoneNumber.setText("13475323377");
+//        mEtPhoneNumber.setText("15863222525");
+        mEtPhoneNumber.setText("13412345678");
     }
 
     private void initData() {
         mIUserService = ServiceManager.getInstance().createService(IUserService.class);
-        mWeChatLoginModel = (WeChatLoginModel) getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER);
-        isToLogin = null == mWeChatLoginModel;
+        loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
     }
 
     private void initView() {
@@ -194,7 +194,6 @@ public class CheckPhoneActivity extends BaseActivity {
                     ToastUtil.error("该微信已经注册过，请直接用微信登录！");
                 } else {
                     // 未注册过
-                    mWeChatLoginModel = result;
                     goNextStep();
                 }
             }
@@ -217,8 +216,8 @@ public class CheckPhoneActivity extends BaseActivity {
 
     private void goNextStep() {
         Intent intent = new Intent(CheckPhoneActivity.this, CaptchaActivity.class);
-        intent.putExtra(Constants.Extras.WECHAT_USER,
-                mWeChatLoginModel);
+        intent.putExtra(Constants.Extras.LOGINTYPE,
+                loginType);
         intent.putExtra(Constants.Extras.PHONE_NUMBER, mEtPhoneNumber.getText().toString());
         startActivity(intent);
     }
