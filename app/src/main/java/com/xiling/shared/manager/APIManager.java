@@ -60,10 +60,8 @@ public class APIManager {
                         EventBus.getDefault().post(new EventMessage(Event.goToLogin));
                         SessionUtil.getInstance().logout();
                     }
-                } else if (result.isFail()) {
-                    listener.onError(new Exception(message));
                 } else {
-                    listener.onError(new Exception("未知错误"));
+                    listener.onError(new Exception(message));
                 }
             }
 

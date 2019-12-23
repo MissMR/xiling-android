@@ -44,6 +44,11 @@ public interface ICaptchaService {
     Observable<RequestResult<HashMap<String, Integer>>> checkCaptcha(@Field("phone") String phone,
                                                                      @Field("code") String code);
 
+    /**
+     * 手机号登录，校验验证码
+     * @param body
+     * @return
+     */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
     @POST("user/login-or-registry/phone-code")
     Observable<RequestResult<BaseBean<User>>> checkCaptcha(@Body RequestBody body);
@@ -105,10 +110,7 @@ public interface ICaptchaService {
     @GET("user/sms-code")
     Observable<RequestResult<Object>> getLoginCode(
             @Query("type") int sendType,
-            @Query("phone") String phone,
-            @Query("version") String version,
-            @Query("platform") String platform,
-            @Query("appVersion") String appVersion);
+            @Query("phone") String phone);
 
     @GET("user/sendLoginPhoneCode")
     Observable<RequestResult<Object>> getLoginCode(

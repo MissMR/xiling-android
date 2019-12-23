@@ -2,6 +2,7 @@ package com.xiling.wxapi;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xiling.BuildConfig;
 import com.xiling.shared.bean.event.EventMessage;
@@ -45,7 +46,7 @@ public class WXEntryActivity extends DDWXEntryActivity implements IWXAPIEventHan
             SendAuth.Resp newResp = (SendAuth.Resp) resp;
             //获取微信传回的code
             String code = newResp.code;
-//            Log.i("newRespnewResp","   code    :"+code);
+            Log.i("newRespnewResp","   code    :"+code);
             if (TextUtils.isEmpty(code)) {
                 EventBus.getDefault().post(new EventMessage(Event.wxLoginCancel));
             } else {

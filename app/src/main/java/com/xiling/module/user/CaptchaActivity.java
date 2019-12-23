@@ -162,8 +162,7 @@ public class CaptchaActivity extends BaseActivity {
             ToastUtil.error("手机号为空");
             return;
         }
-        APIManager.startRequest(mCaptchaService.getLoginCode(type, mPhoneNumber, Constants.API_VERSION, Constants.PLATFORM, AppUtils.getAppVersionName(this)
-        ), new BaseRequestListener<Object>(this) {
+        APIManager.startRequest(mCaptchaService.getLoginCode(type, mPhoneNumber), new BaseRequestListener<Object>(this) {
             @Override
             public void onSuccess(Object result, String msg) {
                 super.onSuccess(result, msg);
@@ -207,7 +206,7 @@ public class CaptchaActivity extends BaseActivity {
     }
 
     /**
-     * 手机号登录
+     * 验证手机验证码
      */
     private void phoheLogin() {
         JSONObject jsonObject = new JSONObject();
@@ -227,11 +226,14 @@ public class CaptchaActivity extends BaseActivity {
                                 //登录成功
                                 UserService.loginSuccess(CaptchaActivity.this, result.getData());
                                 break;
-                            default:
-                                //登录失败
-                                checkMessage(result.getMessage());
-                                break;
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        //登录失败
+                        checkMessage(e.getMessage());
                     }
                 });
     }
@@ -322,7 +324,8 @@ public class CaptchaActivity extends BaseActivity {
         }
         if (message.getEvent().equals(Event.wxLoginSuccess)) {
             //绑定微信成功
-            getAccessToken((String) message.getData());
+            String wxCode = (String) message.getData();
+            bindWXCode(wxCode);
         } else if (message.getEvent().equals(Event.wxLoginCancel)) {
             ToastUtil.hideLoading();
             ToastUtil.error("登录取消");
@@ -334,14 +337,14 @@ public class CaptchaActivity extends BaseActivity {
      *
      * @param code
      */
-    private void getAccessToken(String code) {
+    private void bindWXCode(String code) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("code", code);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        APIManager.startRequest(mUserService.getAccessToken(APIManager.getRequestBody(jsonObject.toString())),
+        APIManager.startRequest(mUserService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
                 new BaseRequestListener<BaseBean<User>>() {
                     @Override
                     public void onSuccess(BaseBean<User> result) {
@@ -350,15 +353,14 @@ public class CaptchaActivity extends BaseActivity {
                         //ToDo:
                         switch (result.getCode()) {
                             case 0:
-                                //登录成功
+                                //绑定成功
                                 UserService.loginSuccess(CaptchaActivity.this, result.getData());
                                 break;
                             default:
-                                //登录失败
+                                //绑定失败
                                 checkMessage(result.getMessage());
                                 break;
                         }
-                        // TODO:Jigsaw 2019/3/20 等小程序准备就绪 用户已注册没有绑定手机号业务处理
                     }
 
                     @Override

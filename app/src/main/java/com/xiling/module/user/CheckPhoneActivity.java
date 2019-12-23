@@ -60,9 +60,6 @@ public class CheckPhoneActivity extends BaseActivity {
         ButterKnife.bind(this);
         initData();
         initView();
-//        mEtPhoneNumber.setText("13475323377");
-//        mEtPhoneNumber.setText("15863222525");
-        mEtPhoneNumber.setText("13412345678");
     }
 
     private void initData() {
@@ -134,33 +131,6 @@ public class CheckPhoneActivity extends BaseActivity {
         }
 
         goNextStep();
-//        ToastUtil.showLoading(this);
-//        String token = StringUtil.md5(BuildConfig.TOKEN_SALT + mEtPhoneNumber.getText().toString());
-//        APIManager.startRequest(mIUserService.checkPhoneExist(mEtPhoneNumber.getText().toString(), token),
-//                new BaseRequestListener<HashMap<String, Integer>>(this) {
-//                    @Override
-//                    public void onSuccess(HashMap<String, Integer> result, String msg) {
-//                        super.onSuccess(result);
-//                        if (result.containsKey("registerStatus") && result.get("registerStatus") == 1) {
-//                            // 未注册
-//                            if (isToLogin && null == mWeChatLoginModel) {
-//                                // 登录流程 未授权 去走微信登录的流程
-//                                sendWechatAuth();
-//                            } else {
-//                                goNextStep();
-//                            }
-//
-//                        } else {
-//                            // 注册过
-//                            if (isToLogin) {
-//                                goNextStep();
-//                            } else {
-//                                ToastUtil.error("手机号已存在");
-//                            }
-//                        }
-//
-//                    }
-//                });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

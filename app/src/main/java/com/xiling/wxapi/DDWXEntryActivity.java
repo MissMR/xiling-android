@@ -40,4 +40,6 @@ public class DDWXEntryActivity extends WXCallbackActivity {
         super.onResume();
         finish();
     }
+
+
 }
