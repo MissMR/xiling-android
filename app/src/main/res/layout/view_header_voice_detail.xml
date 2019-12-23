@@ -3,11 +3,11 @@
     <data>
         <variable
             name="item"
-            type="com.xiling.ddmall.module.community.Course"/>
+            type="com.xiling.module.community.Course"/>
 
         <variable
             name="data"
-            type="com.xiling.ddmall.module.community.VoiceDetailActivity.DataHandler"/>
+            type="com.xiling.module.community.VoiceDetailActivity.DataHandler"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

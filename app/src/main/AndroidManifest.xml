@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.xiling.ddmall">
+    package="com.xiling">
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
@@ -24,7 +24,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
-        android:name="com.xiling.ddmall.MyApplication"
+        android:name="com.xiling.MyApplication"
         android:allowBackup="true"
         android:enabled="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,8 +33,8 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDCouponIntroActivity"></activity>
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDCouponActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDCouponIntroActivity"></activity>
+        <activity android:name="com.xiling.ddui.activity.DDCouponActivity" />
         <!-- 设置key -->
         <!-- <meta-data -->
         <!-- android:name="com.amap.api.v2.apikey" -->
@@ -52,7 +52,7 @@
             android:name="CHANNEL_ID"
             android:value="${CHANNEL_ID}" /> <!-- 极光推送广播接收器 -->
         <receiver
-            android:name="com.xiling.ddmall.shared.receiver.JPushReceiver"
+            android:name="com.xiling.shared.receiver.JPushReceiver"
             android:enabled="true"
             tools:ignore="ExportedReceiver">
             <intent-filter>
@@ -68,7 +68,7 @@
             android:value="6a436979b59a3ae84b3e658d5557cc5f" />
 
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.DDSplashActivity"
+            android:name="com.xiling.ddui.activity.DDSplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -78,127 +78,127 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.xiling.ddmall.module.splash.SplashActivity"
+            android:name="com.xiling.module.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme" />
         <activity
-            android:name="com.xiling.ddmall.module.MainActivity"
+            android:name="com.xiling.module.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiling.ddmall.module.category.CategoryActivity"
+            android:name="com.xiling.module.category.CategoryActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.ProfileActivity"
+            android:name="com.xiling.module.user.ProfileActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.RegisterActivity"
+            android:name="com.xiling.module.user.RegisterActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.EditNicknameActivity"
+            android:name="com.xiling.module.user.EditNicknameActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.EditPhoneActivity"
+            android:name="com.xiling.module.user.EditPhoneActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.EditPasswordActivity"
+            android:name="com.xiling.module.user.EditPasswordActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.UserInfoActivity"
+            android:name="com.xiling.module.user.UserInfoActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.page.ShopkeeperActivity"
+            android:name="com.xiling.module.page.ShopkeeperActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.AboutUsActivity"
+            android:name="com.xiling.module.user.AboutUsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.collect.CollectListActivity"
+            android:name="com.xiling.module.collect.CollectListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.address.AddressListActivity"
+            android:name="com.xiling.module.address.AddressListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.address.AddressFormActivity"
+            android:name="com.xiling.module.address.AddressFormActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.foot.FootListActivity"
+            android:name="com.xiling.module.foot.FootListActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.module.transfer.StepFirstActivity" />
-        <activity android:name="com.xiling.ddmall.module.transfer.StepSecondActivity" />
-        <activity android:name="com.xiling.ddmall.module.transfer.StepThirdActivity" />
+        <activity android:name="com.xiling.module.transfer.StepFirstActivity" />
+        <activity android:name="com.xiling.module.transfer.StepSecondActivity" />
+        <activity android:name="com.xiling.module.transfer.StepThirdActivity" />
         <activity
-            android:name="com.xiling.ddmall.module.profit.ProfitListActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="com.xiling.ddmall.module.balance.BalanceListActivity"
+            android:name="com.xiling.module.profit.ProfitListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.search.SearchActivity"
+            android:name="com.xiling.module.balance.BalanceListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.balance.BalanceDetailActivity"
+            android:name="com.xiling.module.search.SearchActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.pay.PayActivity"
+            android:name="com.xiling.module.balance.BalanceDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.pay.PayDialogActivity"
+            android:name="com.xiling.module.pay.PayActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.xiling.module.pay.PayDialogActivity"
             android:launchMode="singleTop"
             android:theme="@style/DDMDialog" />
         <activity
-            android:name="com.xiling.ddmall.module.pay.PayBalanceActivity"
+            android:name="com.xiling.module.pay.PayBalanceActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.coupon.CouponListActivity"
+            android:name="com.xiling.module.coupon.CouponListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.coupon.CouponCenterActivity"
+            android:name="com.xiling.module.coupon.CouponCenterActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.coupon.CouponDetailActivity"
+            android:name="com.xiling.module.coupon.CouponDetailActivity"
             android:launchMode="singleTop" /> <!-- 消息分组界面 add at 2019/01/08 by hanQ -->
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.MessageGroupActivity"
+            android:name="com.xiling.ddui.activity.MessageGroupActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.message.MessageListActivity"
+            android:name="com.xiling.module.message.MessageListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.order.OrderDetailActivity"
+            android:name="com.xiling.module.order.OrderDetailActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.xiling.ddmall.module.order.OrderListActivity"
+            android:name="com.xiling.module.order.OrderListActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.order.OrderCommentActivity"
+            android:name="com.xiling.module.order.OrderCommentActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.instant.InstantActivity"
+            android:name="com.xiling.module.instant.InstantActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.module.page.WebViewActivity" />
-        <activity android:name="com.xiling.ddmall.module.page.CustomPageActivity" />
+        <activity android:name="com.xiling.module.page.WebViewActivity" />
+        <activity android:name="com.xiling.module.page.CustomPageActivity" />
         <activity
-            android:name="com.xiling.ddmall.module.order.RefundGoodsActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name="com.xiling.ddmall.module.order.RefundMoneyActivity"
+            android:name="com.xiling.module.order.RefundGoodsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.order.RefundExpressActivity"
+            android:name="com.xiling.module.order.RefundMoneyActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.user.QRCodeActivity"
+            android:name="com.xiling.module.order.RefundExpressActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.qrcode.QrCodeShowActivity"
+            android:name="com.xiling.module.user.QRCodeActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.point.PointListActivity"
+            android:name="com.xiling.module.qrcode.QrCodeShowActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="com.xiling.ddmall.module.upgrade.UpgradeProgressActivity"
+            android:name="com.xiling.module.point.PointListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.xiling.module.upgrade.UpgradeProgressActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -236,10 +236,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/sobot_AppTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.xiling.ddmall.module.auth.AuthIdentityActivity" />
-        <activity android:name="com.xiling.ddmall.module.auth.AuthPhoneActivity" />
-        <activity android:name="com.xiling.ddmall.module.auth.AuthIdentitySuccssdActivity" />
-        <activity android:name="com.xiling.ddmall.module.auth.SubmitStatusActivity" />
+        <activity android:name="com.xiling.module.auth.AuthIdentityActivity" />
+        <activity android:name="com.xiling.module.auth.AuthPhoneActivity" />
+        <activity android:name="com.xiling.module.auth.AuthIdentitySuccssdActivity" />
+        <activity android:name="com.xiling.module.auth.SubmitStatusActivity" />
 
         <service
             android:name="com.sobot.chat.core.channel.SobotTCPServer"
@@ -247,13 +247,13 @@
             android:label="SobotChatTCPServer" />
         <service android:name="com.sobot.chat.server.SobotSessionServer" />
 
-        <activity android:name="com.xiling.ddmall.module.user.BindPhoneActivity" />
-        <activity android:name="com.xiling.ddmall.module.user.FamilyOrderActivity" />
+        <activity android:name="com.xiling.module.user.BindPhoneActivity" />
+        <activity android:name="com.xiling.module.user.FamilyOrderActivity" />
         <activity
-            android:name="com.xiling.ddmall.module.user.FamilyActivity"
+            android:name="com.xiling.module.user.FamilyActivity"
             android:theme="@style/family" />
-        <activity android:name="com.xiling.ddmall.module.auth.AuthCardSuccssdActivity" />
-        <activity android:name="com.xiling.ddmall.module.auth.AuthCardActivity" /> <!-- bugly -->
+        <activity android:name="com.xiling.module.auth.AuthCardSuccssdActivity" />
+        <activity android:name="com.xiling.module.auth.AuthCardActivity" /> <!-- bugly -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
@@ -270,11 +270,11 @@
         </provider>
 
         <activity
-            android:name="com.xiling.ddmall.module.cart.CartActivity"
+            android:name="com.xiling.module.cart.CartActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.module.deal.DealFirstActivity" />
+        <activity android:name="com.xiling.module.deal.DealFirstActivity" />
         <activity
-            android:name="com.xiling.ddmall.wxapi.WXPayEntryActivity"
+            android:name="com.xiling.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent" /> <!-- <activity -->
         <!-- android:name="com.tengchi.zxyjsc.com.dodomall.ddmall.wxapi.WXPayEntryActivity" -->
@@ -287,65 +287,65 @@
         <!-- android:screenOrientation="portrait" -->
         <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"/> -->
         <activity
-            android:name="com.xiling.ddmall.module.user.FindPasswordActivity"
+            android:name="com.xiling.module.user.FindPasswordActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.module.notice.NoticeListActivity" />
-        <activity android:name="com.xiling.ddmall.module.notice.NoticeDetailsActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.StoreSettingActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.StoreManageActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.RefundOrderListActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.StoreCommentActivity">
+        <activity android:name="com.xiling.module.notice.NoticeListActivity" />
+        <activity android:name="com.xiling.module.notice.NoticeDetailsActivity" />
+        <activity android:name="com.xiling.module.store.StoreSettingActivity" />
+        <activity android:name="com.xiling.module.store.StoreManageActivity" />
+        <activity android:name="com.xiling.module.order.RefundOrderListActivity" />
+        <activity android:name="com.xiling.module.store.StoreCommentActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.xiling.ddmall.module.order.ShipActivity" />
-        <activity android:name="com.xiling.ddmall.module.qrcode.ScanActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.StoreInfoActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.StoreExpressSettingActivity" />
-        <activity android:name="com.xiling.ddmall.module.store.ReceiveRefundGoodsActivity" />
-        <activity android:name="com.xiling.ddmall.module.product.NewUpPriductListActivity" />
-        <activity android:name="com.xiling.ddmall.module.product.ProductCommentListActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.ExpressDetailsActivity" />
-        <activity android:name="com.xiling.ddmall.module.NearStore.NearStoreDetailActivity" />
+        <activity android:name="com.xiling.module.order.ShipActivity" />
+        <activity android:name="com.xiling.module.qrcode.ScanActivity" />
+        <activity android:name="com.xiling.module.store.StoreInfoActivity" />
+        <activity android:name="com.xiling.module.store.StoreExpressSettingActivity" />
+        <activity android:name="com.xiling.module.store.ReceiveRefundGoodsActivity" />
+        <activity android:name="com.xiling.module.product.NewUpPriductListActivity" />
+        <activity android:name="com.xiling.module.product.ProductCommentListActivity" />
+        <activity android:name="com.xiling.module.order.ExpressDetailsActivity" />
+        <activity android:name="com.xiling.module.NearStore.NearStoreDetailActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name="com.xiling.ddmall.module.lottery.LotteryActivity" />
-        <activity android:name="com.xiling.ddmall.module.lottery.WinnerListActivity" />
+        <activity android:name="com.xiling.module.lottery.LotteryActivity" />
+        <activity android:name="com.xiling.module.lottery.WinnerListActivity" />
         <activity
-            android:name="com.xiling.ddmall.module.lottery.WinnerDetailsActivity"
+            android:name="com.xiling.module.lottery.WinnerDetailsActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.xiling.ddmall.module.product.ProductQrcodeShowActivity" />
-        <activity android:name="com.xiling.ddmall.module.push.ProductPushActivity" />
-        <activity android:name="com.xiling.ddmall.module.push.PushHotProductListActivityActivity" />
-        <activity android:name="com.xiling.ddmall.module.push.ProductPushDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.push.PushCategoryProductListActivity" />
-        <activity android:name="com.xiling.ddmall.module.groupBuy.JoinGroupActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.NewRefundGoodsActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.NewRefundsOrderListActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.RefundDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.SellerRefundListActivity" />
-        <activity android:name="com.xiling.ddmall.module.order.SellerRefundDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.user.NewRegisterActivity" />
-        <activity android:name="com.xiling.ddmall.module.NearStore.NearStoreListActivity" />
-        <activity android:name="com.xiling.ddmall.module.user.SetPasswordActivity" />
-        <activity android:name="com.xiling.ddmall.module.product.SalePriductListActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.CommunityDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.CommunityListActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.CourseAllActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.ImagePreviewActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.ArticleDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.VideoDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.community.VoiceDetailActivity" />
-        <activity android:name="com.xiling.ddmall.module.publish.PublishHisActivity" />
-        <activity android:name="com.xiling.ddmall.module.publish.CategoryActivity" />
-        <activity android:name="com.xiling.ddmall.module.publish.ImagePreviewActivity" />
-        <activity android:name="com.xiling.ddmall.module.publish.VideoPreViewActivity" />
-        <activity android:name="com.xiling.ddmall.module.publish.PublishPicActivity" /> <!-- umeng share -->
+        <activity android:name="com.xiling.module.product.ProductQrcodeShowActivity" />
+        <activity android:name="com.xiling.module.push.ProductPushActivity" />
+        <activity android:name="com.xiling.module.push.PushHotProductListActivityActivity" />
+        <activity android:name="com.xiling.module.push.ProductPushDetailActivity" />
+        <activity android:name="com.xiling.module.push.PushCategoryProductListActivity" />
+        <activity android:name="com.xiling.module.groupBuy.JoinGroupActivity" />
+        <activity android:name="com.xiling.module.order.NewRefundGoodsActivity" />
+        <activity android:name="com.xiling.module.order.NewRefundsOrderListActivity" />
+        <activity android:name="com.xiling.module.order.RefundDetailActivity" />
+        <activity android:name="com.xiling.module.order.SellerRefundListActivity" />
+        <activity android:name="com.xiling.module.order.SellerRefundDetailActivity" />
+        <activity android:name="com.xiling.module.user.NewRegisterActivity" />
+        <activity android:name="com.xiling.module.NearStore.NearStoreListActivity" />
+        <activity android:name="com.xiling.module.user.SetPasswordActivity" />
+        <activity android:name="com.xiling.module.product.SalePriductListActivity" />
+        <activity android:name="com.xiling.module.community.CommunityDetailActivity" />
+        <activity android:name="com.xiling.module.community.CommunityListActivity" />
+        <activity android:name="com.xiling.module.community.CourseAllActivity" />
+        <activity android:name="com.xiling.module.community.ImagePreviewActivity" />
+        <activity android:name="com.xiling.module.community.ArticleDetailActivity" />
+        <activity android:name="com.xiling.module.community.VideoDetailActivity" />
+        <activity android:name="com.xiling.module.community.VoiceDetailActivity" />
+        <activity android:name="com.xiling.module.publish.PublishHisActivity" />
+        <activity android:name="com.xiling.module.publish.CategoryActivity" />
+        <activity android:name="com.xiling.module.publish.ImagePreviewActivity" />
+        <activity android:name="com.xiling.module.publish.VideoPreViewActivity" />
+        <activity android:name="com.xiling.module.publish.PublishPicActivity" /> <!-- umeng share -->
         <!-- 微信 -->
         <activity
-            android:name="com.xiling.ddmall.wxapi.WXEntryActivity"
+            android:name="com.xiling.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- 新浪 -->
@@ -386,80 +386,80 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- umeng share end -->
-        <activity android:name="com.xiling.ddmall.module.user.WxRegisterActivity" />
-        <activity android:name="com.xiling.ddmall.module.splash.GuideActivity" />
+        <activity android:name="com.xiling.module.user.WxRegisterActivity" />
+        <activity android:name="com.xiling.module.splash.GuideActivity" />
         <activity
-            android:name="com.xiling.ddmall.ddui.api.MApiActivity"
+            android:name="com.xiling.ddui.api.MApiActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.UserSettingsActivity"
+            android:name="com.xiling.ddui.activity.UserSettingsActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.xiling.ddmall.module.user.LoginActivity"
+            android:name="com.xiling.module.user.LoginActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.xiling.ddmall.module.user.CheckPhoneActivity"
+            android:name="com.xiling.module.user.CheckPhoneActivity"
             android:windowSoftInputMode="stateVisible" />
-        <activity android:name="com.xiling.ddmall.module.user.CaptchaActivity" />
-        <activity android:name="com.xiling.ddmall.module.user.InviteCodeActivity" />
-        <activity android:name="com.xiling.ddmall.module.qrcode.DDMScanActivity" />
-        <activity android:name="com.xiling.ddmall.wxapi.DDWXEntryActivity" />
+        <activity android:name="com.xiling.module.user.CaptchaActivity" />
+        <activity android:name="com.xiling.module.user.InviteCodeActivity" />
+        <activity android:name="com.xiling.module.qrcode.DDMScanActivity" />
+        <activity android:name="com.xiling.wxapi.DDWXEntryActivity" />
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.AuthSecurityActivity"
+            android:name="com.xiling.ddui.activity.AuthSecurityActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.AuthActivity"
+            android:name="com.xiling.ddui.activity.AuthActivity"
             android:launchMode="singleTask" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.UploadIdCardActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.UploadAuthInfoActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.BankCardActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.AddBankCardActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.BindPhoneNumberActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.AccessCaptchaActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CheckIdentityActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.UpdatePhoneNumberActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.SecurityQuestionActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EditSecurityQuestionActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.TradePasswordActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.IncomeRecordActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawRecordActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawWechatActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawSecurityActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawResultActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CashWithdrawDetailActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.MyFollowersActivity">
+        <activity android:name="com.xiling.ddui.activity.UploadIdCardActivity" />
+        <activity android:name="com.xiling.ddui.activity.UploadAuthInfoActivity" />
+        <activity android:name="com.xiling.ddui.activity.BankCardActivity" />
+        <activity android:name="com.xiling.ddui.activity.AddBankCardActivity" />
+        <activity android:name="com.xiling.ddui.activity.BindPhoneNumberActivity" />
+        <activity android:name="com.xiling.ddui.activity.AccessCaptchaActivity" />
+        <activity android:name="com.xiling.ddui.activity.CheckIdentityActivity" />
+        <activity android:name="com.xiling.ddui.activity.UpdatePhoneNumberActivity" />
+        <activity android:name="com.xiling.ddui.activity.SecurityQuestionActivity" />
+        <activity android:name="com.xiling.ddui.activity.EditSecurityQuestionActivity" />
+        <activity android:name="com.xiling.ddui.activity.TradePasswordActivity" />
+        <activity android:name="com.xiling.ddui.activity.IncomeRecordActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawRecordActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawWechatActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawSecurityActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawResultActivity" />
+        <activity android:name="com.xiling.ddui.activity.CashWithdrawDetailActivity" />
+        <activity android:name="com.xiling.ddui.activity.MyFollowersActivity">
             <intent-filter>
                 <action android:name="test" />
             </intent-filter>
         </activity>
-        <activity android:name="com.xiling.ddmall.ddui.activity.SharePosterActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.OrderIntroduceActivity" />
+        <activity android:name="com.xiling.ddui.activity.SharePosterActivity" />
+        <activity android:name="com.xiling.ddui.activity.OrderIntroduceActivity" />
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.InfoDetailActivity"
+            android:name="com.xiling.ddui.activity.InfoDetailActivity"
             android:label="@string/title_activity_info_detail" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EconomicClubActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EconomicCourseActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EconomicTopNewsActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EconomicMasterStoryActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CommunityTopicActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.CommunityTopicDetailActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDVideoViewActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDPhonePreviewActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.SelectAddressMapActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDProductDetailActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.ProductMaterialActivity" />
+        <activity android:name="com.xiling.ddui.activity.EconomicClubActivity" />
+        <activity android:name="com.xiling.ddui.activity.EconomicCourseActivity" />
+        <activity android:name="com.xiling.ddui.activity.EconomicTopNewsActivity" />
+        <activity android:name="com.xiling.ddui.activity.EconomicMasterStoryActivity" />
+        <activity android:name="com.xiling.ddui.activity.CommunityTopicActivity" />
+        <activity android:name="com.xiling.ddui.activity.CommunityTopicDetailActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDVideoViewActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDPhonePreviewActivity" />
+        <activity android:name="com.xiling.ddui.activity.SelectAddressMapActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDProductDetailActivity" />
+        <activity android:name="com.xiling.ddui.activity.ProductMaterialActivity" />
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.EditWechatAccountActivity"
+            android:name="com.xiling.ddui.activity.EditWechatAccountActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.EditWechatQrCodeActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.WechatHelpActivity" /> <!-- 身份证拍照相机界面 -->
-        <activity android:name="com.xiling.ddmall.ddui.custom.camera.DDIDCardActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDCommunityActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.FollowerSearchActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.TeamOrderActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.TeamOrderDetailActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.DDCategoryActivity" /> <!-- =====================小能客服sdk内部使用的Activity========================= -->
+        <activity android:name="com.xiling.ddui.activity.EditWechatQrCodeActivity" />
+        <activity android:name="com.xiling.ddui.activity.WechatHelpActivity" /> <!-- 身份证拍照相机界面 -->
+        <activity android:name="com.xiling.ddui.custom.camera.DDIDCardActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDCommunityActivity" />
+        <activity android:name="com.xiling.ddui.activity.FollowerSearchActivity" />
+        <activity android:name="com.xiling.ddui.activity.TeamOrderActivity" />
+        <activity android:name="com.xiling.ddui.activity.TeamOrderDetailActivity" />
+        <activity android:name="com.xiling.ddui.activity.DDCategoryActivity" /> <!-- =====================小能客服sdk内部使用的Activity========================= -->
         <activity
             android:name="cn.ntalker.newchatwindow.ChatActivity"
             android:launchMode="singleTask"
@@ -568,18 +568,18 @@
         </receiver>
 
         <activity
-            android:name="com.xiling.ddmall.ddui.activity.PayResultActivity"
+            android:name="com.xiling.ddui.activity.PayResultActivity"
             android:launchMode="singleTop" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.MeasurementActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.MeasurementDetailActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.StoreSettingsActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.StoreNameEditActivity" />
-        <activity android:name="com.xiling.ddmall.ddui.activity.StoreDescEditActivity" />
+        <activity android:name="com.xiling.ddui.activity.MeasurementActivity" />
+        <activity android:name="com.xiling.ddui.activity.MeasurementDetailActivity" />
+        <activity android:name="com.xiling.ddui.activity.StoreSettingsActivity" />
+        <activity android:name="com.xiling.ddui.activity.StoreNameEditActivity" />
+        <activity android:name="com.xiling.ddui.activity.StoreDescEditActivity" />
         <activity
-            android:name="com.xiling.ddmall.dduis.activity.RushListActivity"
+            android:name="com.xiling.dduis.activity.RushListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.xiling.ddmall.dduis.activity.DDCategoryMainActivity"
+            android:name="com.xiling.dduis.activity.DDCategoryMainActivity"
             android:screenOrientation="portrait" />
     </application>
 

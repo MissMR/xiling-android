@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         tools:visibility="visible">
 
-        <com.xiling.ddmall.ddui.custom.DDSquareBanner
+        <com.xiling.ddui.custom.DDSquareBanner
             android:id="@+id/dd_square_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,10 +50,10 @@
     </FrameLayout>
 
     <!--价格区域-->
-    <com.xiling.ddmall.ddui.custom.DDProductPriceView
+    <com.xiling.ddui.custom.DDProductPriceView
         android:id="@+id/dd_product_price_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.xiling.ddmall.ddui.custom.DDProductPriceView>
+        android:layout_height="wrap_content"></com.xiling.ddui.custom.DDProductPriceView>
 
     <!--商品基础信息-->
     <TextView
@@ -214,7 +214,7 @@
             android:textColor="@color/ddm_gray_dark"
             android:textSize="10sp" />
 
-        <com.xiling.ddmall.ddui.custom.DDAvatarContainerView
+        <com.xiling.ddui.custom.DDAvatarContainerView
             android:id="@+id/dd_avatar_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
             android:layout_marginRight="12dp"
             app:avatarRadius="30dp">
 
-        </com.xiling.ddmall.ddui.custom.DDAvatarContainerView>
+        </com.xiling.ddui.custom.DDAvatarContainerView>
 
         <View
             android:layout_width="match_parent"

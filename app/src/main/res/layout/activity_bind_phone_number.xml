@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ddui.activity.BindPhoneNumberActivity">
+    tools:context="com.xiling.ddui.activity.BindPhoneNumberActivity">
 
     <TextView
         android:layout_width="wrap_content"

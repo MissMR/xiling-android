@@ -6,7 +6,7 @@
     android:id="@+id/layoutRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiling.ddmall.module.store.StoreManageActivity"
+    tools:context="com.xiling.module.store.StoreManageActivity"
     >
 
     <ScrollView
@@ -65,7 +65,7 @@
                 android:orientation="horizontal"
                 >
 
-                <com.xiling.ddmall.shared.component.ItemWithIcon
+                <com.xiling.shared.component.ItemWithIcon
                     android:id="@+id/itemDaifahuo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -76,7 +76,7 @@
                     app:icon_width="25dp"
                     app:item_label="待发货"/>
 
-                <com.xiling.ddmall.shared.component.ItemWithIcon
+                <com.xiling.shared.component.ItemWithIcon
                     android:id="@+id/itemYifahuo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -87,7 +87,7 @@
                     app:icon_width="25dp"
                     app:item_label="已发货"/>
 
-                <com.xiling.ddmall.shared.component.ItemWithIcon
+                <com.xiling.shared.component.ItemWithIcon
                     android:id="@+id/itemYishouhuo"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -98,7 +98,7 @@
                     app:icon_width="25dp"
                     app:item_label="已收货"/>
 
-                <com.xiling.ddmall.shared.component.ItemWithIcon
+                <com.xiling.shared.component.ItemWithIcon
                     android:id="@+id/itemYiguanbi"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

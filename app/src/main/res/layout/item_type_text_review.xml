@@ -47,7 +47,7 @@
         tools:text="2017-12-27 20:30"
         />
 
-    <com.xiling.ddmall.shared.component.ExpandableTextView
+    <com.xiling.shared.component.ExpandableTextView
         android:id="@+id/user_send_content_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:text="展开"
             android:textColor="@color/blue_more"/>
 
-    </com.xiling.ddmall.shared.component.ExpandableTextView>
+    </com.xiling.shared.component.ExpandableTextView>
 
     <RelativeLayout
         android:id="@+id/diffierent_layout"
@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@id/user_send_content_tv"
         app:layout_goneMarginTop="0dp">
 
-        <com.xiling.ddmall.module.community.MyGrildView
+        <com.xiling.module.community.MyGrildView
             android:id="@+id/user_pic_gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

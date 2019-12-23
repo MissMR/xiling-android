@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context=".ddui.activity.EditWechatQrCodeActivity">
+    tools:context="com.xiling.ddui.activity.EditWechatQrCodeActivity">
 
     <com.zhihu.matisse.internal.ui.widget.SquareFrameLayout
         android:layout_width="match_parent"

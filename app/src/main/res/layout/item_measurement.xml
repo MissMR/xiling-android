@@ -19,12 +19,12 @@
 
         <include layout="@layout/merge_measurement" />
 
-        <com.xiling.ddmall.ddui.custom.DDStarView
+        <com.xiling.ddui.custom.DDStarView
             android:id="@+id/dd_star_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"></com.xiling.ddmall.ddui.custom.DDStarView>
+            android:layout_centerVertical="true"></com.xiling.ddui.custom.DDStarView>
     </RelativeLayout>
 
     <View
@@ -32,7 +32,7 @@
         android:layout_height="1dp"
         android:background="@color/ddm_gray_light" />
 
-    <com.xiling.ddmall.ddui.custom.DDExpandTextView
+    <com.xiling.ddui.custom.DDExpandTextView
         android:id="@+id/dd_expand_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <com.xiling.ddmall.ddui.custom.DDAvatarContainerView
+        <com.xiling.ddui.custom.DDAvatarContainerView
             android:id="@+id/dd_avatar_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_toRightOf="@id/sdv_product"
             app:avatarRadius="14dp">
 
-        </com.xiling.ddmall.ddui.custom.DDAvatarContainerView>
+        </com.xiling.ddui.custom.DDAvatarContainerView>
 
         <TextView
             android:id="@+id/tv_sale_count"

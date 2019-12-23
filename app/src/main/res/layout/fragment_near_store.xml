@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.xiling.ddmall.module.NearStore.NearStoreListFragment"
+    tools:context="com.xiling.module.NearStore.NearStoreListFragment"
     >
 
-    <com.xiling.ddmall.shared.component.HeaderLayout
+    <com.xiling.shared.component.HeaderLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="45dp" />

@@ -15,7 +15,7 @@
         android:layout_marginRight="12dp"
         android:duplicateParentState="true">
 
-        <com.xiling.ddmall.dduis.custom.DDNumberTextView
+        <com.xiling.dduis.custom.DDNumberTextView
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="60dp"

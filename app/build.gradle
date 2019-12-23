@@ -7,7 +7,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.3'
     defaultConfig {
-        applicationId "com.xiling.ddmall"
+        applicationId "com.xiling"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1000

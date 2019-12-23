@@ -56,7 +56,7 @@
                 android:textColor="@color/text_black"
                 android:textSize="12sp" />
 
-            <com.xiling.ddmall.shared.component.CountDown
+            <com.xiling.shared.component.CountDown
                 android:id="@+id/eleCountDown"
                 android:layout_width="0dp"
                 android:layout_height="21dp"

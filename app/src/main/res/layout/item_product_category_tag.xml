@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xiling.ddmall.ddui.custom.DDTagView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiling.ddui.custom.DDTagView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/TextView.DDProductTag"
     android:gravity="center"
     android:text="category" />

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xiling.ddmall.shared.component.HeaderLayout
+    <com.xiling.shared.component.HeaderLayout
         android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

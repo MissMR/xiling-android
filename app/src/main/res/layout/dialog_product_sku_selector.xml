@@ -134,7 +134,7 @@
                     android:nestedScrollingEnabled="false"
                     tools:layout_height="140dp" />
 
-                <com.xiling.ddmall.shared.component.NumberField
+                <com.xiling.shared.component.NumberField
                     android:id="@+id/numberField"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

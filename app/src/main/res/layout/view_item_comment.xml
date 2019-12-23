@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.xiling.ddmall.module.community.Comment"/>
+            type="com.xiling.module.community.Comment"/>
     </data>
 
     <RelativeLayout

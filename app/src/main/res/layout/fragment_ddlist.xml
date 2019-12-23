@@ -4,19 +4,19 @@
     android:id="@+id/smart_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ddui.activity.DDListActivity">
+    tools:context="com.xiling.ddui.activity.DDListActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.xiling.ddmall.shared.component.NoData
+        <com.xiling.shared.component.NoData
             android:id="@+id/no_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
 
-        </com.xiling.ddmall.shared.component.NoData>
+        </com.xiling.shared.component.NoData>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

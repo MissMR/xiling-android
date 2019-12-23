@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/settings_background">
 
-    <com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout
+    <com.xiling.module.community.BetterPtrClassicFrameLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.xiling.ddmall.ddui.custom.NestScrollView
+        <com.xiling.ddui.custom.NestScrollView
             android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -178,7 +178,7 @@
                     android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/waitPayItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -190,7 +190,7 @@
                         app:item_color="#555555"
                         app:item_label="待付款" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/waitSendItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -202,7 +202,7 @@
                         app:item_color="#555555"
                         app:item_label="待发货" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/waitReceiveItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -214,7 +214,7 @@
                         app:item_color="#555555"
                         app:item_label="已发货" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/waitServiceItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -235,7 +235,7 @@
                     android:background="@color/white"
                     android:orientation="horizontal">
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/inviteItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -247,7 +247,7 @@
                         app:item_color="#555555"
                         app:item_label="邀请有奖" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/followItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -259,7 +259,7 @@
                         app:item_color="#555555"
                         app:item_label="关注我们" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/couponItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -271,7 +271,7 @@
                         app:item_color="#555555"
                         app:item_label="优惠券" />
 
-                    <com.xiling.ddmall.shared.component.ItemWithIcon
+                    <com.xiling.shared.component.ItemWithIcon
                         android:id="@+id/messageItem"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -463,9 +463,9 @@
                     android:src="@mipmap/ic_mine_dodomall" />
             </LinearLayout>
 
-        </com.xiling.ddmall.ddui.custom.NestScrollView>
+        </com.xiling.ddui.custom.NestScrollView>
 
-    </com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout>
+    </com.xiling.module.community.BetterPtrClassicFrameLayout>
 
     <View
         android:id="@+id/topBarMaskView"

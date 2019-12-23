@@ -13,7 +13,7 @@
         app:flexWrap="wrap">
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkFavCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -27,7 +27,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkHistoryCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -42,7 +42,7 @@
             app:layout_flexBasisPercent="25%"/>
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkCouponCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -56,7 +56,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkMessageCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -71,7 +71,7 @@
             app:layout_flexBasisPercent="25%"/>
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkShipCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -86,7 +86,7 @@
             app:layout_flexBasisPercent="25%"
             />
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkFamilyCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -100,7 +100,7 @@
             app:item_label="店多多会员"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkPush"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -115,7 +115,7 @@
             app:layout_flexBasisPercent="25%"
             />
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkQrCodeCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -129,7 +129,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkStoreSettingCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -145,7 +145,7 @@
             />
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkFamilyOrderCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -162,7 +162,7 @@
             />
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkPointCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -178,7 +178,7 @@
             app:layout_flexBasisPercent="25%"
             />
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkBindWePayCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -194,7 +194,7 @@
             app:layout_flexBasisPercent="25%"/>
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkVerifyCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -208,7 +208,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkBindCardCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -222,7 +222,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkUpgradeProgressCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -239,7 +239,7 @@
             />
 
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkSubscribeCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -253,7 +253,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkBindPhoneCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -268,7 +268,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkLockQrCodeCmp"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -283,7 +283,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkNotice"
             android:layout_width="wrap_content"
             android:layout_height="90dp"
@@ -297,7 +297,7 @@
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 
-        <com.xiling.ddmall.shared.component.ItemWithIcon
+        <com.xiling.shared.component.ItemWithIcon
             android:id="@+id/linkeToBeShopkeeper"
             android:layout_width="wrap_content"
             android:layout_height="90dp"

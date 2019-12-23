@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    tools:context=".ddui.activity.StoreSettingsActivity">
+    tools:context="com.xiling.ddui.activity.StoreSettingsActivity">
 
     <RelativeLayout
         android:id="@+id/rl_avatar"

@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.xiling.ddmall.dduis.custom.DDNumberTextView
+                <com.xiling.dduis.custom.DDNumberTextView
                     android:id="@+id/tv_price_now"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.xiling.ddmall.dduis.custom.DDNumberTextView
+                <com.xiling.dduis.custom.DDNumberTextView
                     android:id="@+id/tv_vip_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

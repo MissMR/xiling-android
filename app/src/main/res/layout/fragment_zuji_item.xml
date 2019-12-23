@@ -3,7 +3,7 @@
               android:layout_width="170dp"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.xiling.ddmall.module.product.ZujiItemFragment"
+              tools:context="com.xiling.module.product.ZujiItemFragment"
     >
 
     <com.facebook.drawee.view.SimpleDraweeView

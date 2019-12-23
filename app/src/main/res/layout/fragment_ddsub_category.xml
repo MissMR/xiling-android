@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ddui.fragment.DDSubCategoryFragment">
+    tools:context="com.xiling.ddui.fragment.DDSubCategoryFragment">
 
     <include layout="@layout/layout_home_category_filter" />
 
@@ -27,7 +27,7 @@
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-        <com.xiling.ddmall.shared.component.NoData
+        <com.xiling.shared.component.NoData
             android:id="@+id/noDataView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

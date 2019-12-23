@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ddui.activity.DDCouponActivity">
+    tools:context="com.xiling.ddui.activity.DDCouponActivity">
 
-    <com.xiling.ddmall.ddui.custom.DDMagicIndicator
+    <com.xiling.ddui.custom.DDMagicIndicator
         android:id="@+id/dd_magic_indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white">
 
-    </com.xiling.ddmall.ddui.custom.DDMagicIndicator>
+    </com.xiling.ddui.custom.DDMagicIndicator>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

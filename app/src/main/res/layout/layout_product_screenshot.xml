@@ -30,13 +30,13 @@
         android:text="------"
         android:textSize="16sp" />
 
-    <com.xiling.ddmall.ddui.custom.SquareDraweeView
+    <com.xiling.ddui.custom.SquareDraweeView
         android:id="@+id/ivProductImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ddm_gray_light" />
 
-    <com.xiling.ddmall.ddui.custom.SquareImageView
+    <com.xiling.ddui.custom.SquareImageView
         android:id="@+id/shotProductImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

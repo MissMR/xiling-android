@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xiling.ddmall.module.community.TitleView
+    <com.xiling.module.community.TitleView
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="43dp" />
@@ -32,7 +32,7 @@
             android:paddingRight="@dimen/distance_15"
             android:src="@drawable/ic_arrow_left_black" />
 
-        <com.xiling.ddmall.module.community.OrderSearchBar
+        <com.xiling.module.community.OrderSearchBar
             android:id="@+id/search_bar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

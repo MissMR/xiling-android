@@ -9,7 +9,7 @@
         android:layout_height="@dimen/dd_home_top_height"
         android:background="@color/mainColor" />
 
-    <com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.xiling.module.community.BetterPtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -23,17 +23,17 @@
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
         cube_ptr:ptr_resistance="1.8">
 
-        <com.xiling.ddmall.ddui.custom.NestScrollView
+        <com.xiling.ddui.custom.NestScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
 
-            <com.xiling.ddmall.ddui.custom.NoScrollWebView
+            <com.xiling.ddui.custom.NoScrollWebView
                 android:id="@+id/sWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
-        </com.xiling.ddmall.ddui.custom.NestScrollView>
-    </com.xiling.ddmall.module.community.BetterPtrClassicFrameLayout>
+        </com.xiling.ddui.custom.NestScrollView>
+    </com.xiling.module.community.BetterPtrClassicFrameLayout>
 </LinearLayout>

@@ -71,7 +71,7 @@
                 android:inputType="number"
                 android:maxLength="8"/>
 
-            <com.xiling.ddmall.shared.component.CaptchaBtn
+            <com.xiling.shared.component.CaptchaBtn
                 android:id="@+id/captchaBtn"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="15dp"

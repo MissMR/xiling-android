@@ -17,7 +17,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp">
 
-        <com.xiling.ddmall.ddui.custom.SquareDraweeView
+        <com.xiling.ddui.custom.SquareDraweeView
             android:id="@+id/sd_thumb"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="0dp">
 
-            <com.xiling.ddmall.dduis.custom.SaleProgressView
+            <com.xiling.dduis.custom.SaleProgressView
                 android:id="@+id/pb_progress"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
@@ -106,7 +106,7 @@
             android:paddingTop="4dp"
             android:visibility="gone">
 
-            <com.xiling.ddmall.dduis.custom.DDNumberTextView
+            <com.xiling.dduis.custom.DDNumberTextView
                 android:id="@+id/tv_vip_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             android:orientation="horizontal"
             android:paddingTop="4dp">
 
-            <com.xiling.ddmall.dduis.custom.DDNumberTextView
+            <com.xiling.dduis.custom.DDNumberTextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

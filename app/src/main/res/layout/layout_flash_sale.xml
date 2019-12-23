@@ -73,7 +73,7 @@
                 android:text="距结束还剩:"
                 android:textColor="@color/red"/>
 
-            <com.xiling.ddmall.shared.component.CountDown
+            <com.xiling.shared.component.CountDown
                 android:id="@+id/countDownView"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"

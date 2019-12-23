@@ -16,7 +16,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp">
 
-        <com.xiling.ddmall.ddui.custom.SquareDraweeView
+        <com.xiling.ddui.custom.SquareDraweeView
             android:id="@+id/sd_thumb"
             android:layout_width="133dp"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp">
 
-            <com.xiling.ddmall.dduis.custom.SaleProgressView
+            <com.xiling.dduis.custom.SaleProgressView
                 android:id="@+id/pb_progress"
                 android:layout_width="match_parent"
                 android:layout_height="14dp"

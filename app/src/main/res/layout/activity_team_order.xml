@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ddui.activity.TeamOrderActivity">
+    tools:context="com.xiling.ddui.activity.TeamOrderActivity">
 
-    <com.xiling.ddmall.module.community.SmartTabLayout
+    <com.xiling.module.community.SmartTabLayout
         android:id="@+id/smart_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         tools:layout_height="50dp">
 
-    </com.xiling.ddmall.module.community.SmartTabLayout>
+    </com.xiling.module.community.SmartTabLayout>
 
 
     <android.support.v4.view.ViewPager

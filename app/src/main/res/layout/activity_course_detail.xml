@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <com.xiling.ddmall.module.community.TitleView
+    <com.xiling.module.community.TitleView
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:id="@+id/titleView"

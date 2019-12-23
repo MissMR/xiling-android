@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.xiling.ddmall.ddui.custom.SquareDraweeView
+    <com.xiling.ddui.custom.SquareDraweeView
         android:id="@+id/sdv_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

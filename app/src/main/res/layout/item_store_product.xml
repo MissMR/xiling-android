@@ -54,7 +54,7 @@
         android:layout_marginTop="6dp"
         android:layout_toRightOf="@id/fl_image">
 
-        <com.xiling.ddmall.dduis.custom.SaleProgressView
+        <com.xiling.dduis.custom.SaleProgressView
             android:id="@+id/pb_progress"
             android:layout_width="match_parent"
             android:layout_height="13dp"
@@ -110,11 +110,11 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.xiling.ddmall.ddui.custom.DDAvatarContainerView
+        <com.xiling.ddui.custom.DDAvatarContainerView
             android:id="@+id/dd_avatar_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:avatarRadius="13dp"></com.xiling.ddmall.ddui.custom.DDAvatarContainerView>
+            app:avatarRadius="13dp"></com.xiling.ddui.custom.DDAvatarContainerView>
 
         <TextView
             android:id="@+id/tv_product_sale_info"

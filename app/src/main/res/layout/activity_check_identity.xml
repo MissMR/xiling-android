@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ddui.activity.CheckIdentityActivity">
+    tools:context="com.xiling.ddui.activity.CheckIdentityActivity">
 
     <TextView
         style="@style/TextView.SettingTopTip"

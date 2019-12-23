@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.xiling.ddmall.module.user.NewRegisterActivity"
+    tools:context="com.xiling.module.user.NewRegisterActivity"
     >
 
     <ImageView

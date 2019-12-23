@@ -6,7 +6,7 @@
     android:layout_height="60dp"
     tools:parentTag="android.widget.RelativeLayout">
 
-    <com.xiling.ddmall.dduis.custom.DDNumberTextView
+    <com.xiling.dduis.custom.DDNumberTextView
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,17 +89,17 @@
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <com.xiling.ddmall.shared.component.CountDown
+            <com.xiling.shared.component.CountDown
                 android:id="@+id/count_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp">
 
-            </com.xiling.ddmall.shared.component.CountDown>
+            </com.xiling.shared.component.CountDown>
 
         </LinearLayout>
 
-        <com.xiling.ddmall.dduis.custom.SaleProgressView
+        <com.xiling.dduis.custom.SaleProgressView
             android:id="@+id/sale_progress_view"
             android:layout_width="120dp"
             android:layout_height="13dp"

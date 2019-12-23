@@ -15,12 +15,12 @@
 
         <include layout="@layout/merge_measurement" />
 
-        <com.xiling.ddmall.ddui.custom.DDStarView
+        <com.xiling.ddui.custom.DDStarView
             android:id="@+id/dd_star_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"></com.xiling.ddmall.ddui.custom.DDStarView>
+            android:layout_centerVertical="true"></com.xiling.ddui.custom.DDStarView>
     </RelativeLayout>
 
     <View
@@ -30,7 +30,7 @@
         android:layout_marginRight="12dp"
         android:background="@color/ddm_gray_light" />
 
-    <com.xiling.ddmall.ddui.custom.DDExpandTextView
+    <com.xiling.ddui.custom.DDExpandTextView
         android:id="@+id/tv_measurement_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

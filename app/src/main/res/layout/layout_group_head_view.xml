@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.xiling.ddmall.module.community.CommonSearchBar
+    <com.xiling.module.community.CommonSearchBar
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -18,7 +18,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.xiling.ddmall.module.community.BetterRecyclerView
+    <com.xiling.module.community.BetterRecyclerView
         android:id="@+id/head_recycleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

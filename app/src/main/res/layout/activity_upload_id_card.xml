@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/ddm_gray_background"
     android:orientation="vertical"
-    tools:context=".ddui.activity.UploadIdCardActivity">
+    tools:context="com.xiling.ddui.activity.UploadIdCardActivity">
 
     <ScrollView
         android:layout_width="match_parent"

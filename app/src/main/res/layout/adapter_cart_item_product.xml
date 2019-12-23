@@ -104,7 +104,7 @@
                 android:textColor="#999999"
                 android:textSize="12sp" />
 
-            <com.xiling.ddmall.dduis.custom.DDNumberTextView
+            <com.xiling.dduis.custom.DDNumberTextView
                 android:id="@+id/itemPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                 android:textColor="@color/mainColor"
                 android:textSize="18sp" />
 
-            <com.xiling.ddmall.shared.component.NumberField
+            <com.xiling.shared.component.NumberField
                 android:id="@+id/itemNumberField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

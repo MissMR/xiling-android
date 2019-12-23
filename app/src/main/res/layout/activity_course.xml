@@ -13,14 +13,14 @@
         app:elevation="0dp"
         android:background="@color/white">
 
-        <com.xiling.ddmall.module.community.BannerView
+        <com.xiling.module.community.BannerView
             android:id="@+id/bannerView"
             android:layout_width="match_parent"
             app:layout_scrollFlags="scroll"
             android:layout_height="135dp"/>
 
 
-        <com.xiling.ddmall.module.community.SmartTabLayout
+        <com.xiling.module.community.SmartTabLayout
             android:layout_width="match_parent"
             android:id="@+id/tabLayout"
             app:layout_scrollFlags="scroll"

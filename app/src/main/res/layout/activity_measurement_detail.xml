@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        tools:context=".ddui.activity.MeasurementDetailActivity">
+        tools:context="com.xiling.ddui.activity.MeasurementDetailActivity">
 
         <RelativeLayout
             android:id="@+id/rl_engineer"
@@ -42,11 +42,11 @@
                 android:layout_height="wrap_content"
                 android:text="评分：" />
 
-            <com.xiling.ddmall.ddui.custom.DDStarView
+            <com.xiling.ddui.custom.DDStarView
                 android:id="@+id/dd_star_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:orientation="HORIZONTAL"></com.xiling.ddmall.ddui.custom.DDStarView>
+                app:orientation="HORIZONTAL"></com.xiling.ddui.custom.DDStarView>
         </LinearLayout>
 
         <include layout="@layout/include_divider_10" />

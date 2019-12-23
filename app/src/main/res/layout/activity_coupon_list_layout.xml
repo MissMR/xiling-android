@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.xiling.ddmall.shared.component.NoData
+    <com.xiling.shared.component.NoData
         android:id="@+id/noDataLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

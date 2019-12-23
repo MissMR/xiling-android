@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ddui.activity.AccessCaptchaActivity">
+    tools:context="com.xiling.ddui.activity.AccessCaptchaActivity">
 
     <TextView
         android:id="@+id/tv_phone_number"
@@ -32,7 +32,7 @@
             <requestFocus />
         </EditText>
 
-        <com.xiling.ddmall.shared.component.CaptchaBtn
+        <com.xiling.shared.component.CaptchaBtn
             android:id="@+id/cb_captcha"
             style="@style/MyButton.DDMRed.Small"
             android:layout_alignParentRight="true"
@@ -60,7 +60,7 @@
             android:textColor="@color/ddm_red"
             android:textSize="@dimen/textSize_12" />
 
-        <com.xiling.ddmall.shared.component.CaptchaBtn
+        <com.xiling.shared.component.CaptchaBtn
             android:id="@+id/cb_btn_captcha_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

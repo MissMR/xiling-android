@@ -43,7 +43,7 @@
             android:textColor="@color/color_99"
             android:textSize="@dimen/sp_16" />
 
-        <com.xiling.ddmall.shared.component.CaptchaBtn
+        <com.xiling.shared.component.CaptchaBtn
             android:id="@+id/tv_captcha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
