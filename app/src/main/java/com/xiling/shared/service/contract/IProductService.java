@@ -3,6 +3,8 @@ package com.xiling.shared.service.contract;
 import com.xiling.ddui.bean.CategoryBean;
 import com.xiling.ddui.bean.DDSkuListBean;
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.SecondCategoryBean;
+import com.xiling.ddui.bean.TopCategoryBean;
 import com.xiling.dduis.bean.DDProductBean;
 import com.xiling.module.groupBuy.GroupBuyModel;
 import com.xiling.module.order.body.AddCommentBody;
@@ -26,6 +28,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -33,9 +36,14 @@ import retrofit2.http.Url;
 
 public interface IProductService {
 
-    // 新的分类接口
-    @GET("category/getCategoryHomeData")
-    Observable<RequestResult<ArrayList<CategoryBean>>> getCategorys();
+    // 一级分类接口
+    @GET("home/getTopCategory")
+    Observable<RequestResult<ArrayList<TopCategoryBean>>> getTopCategory();
+
+    // 二级分类接口
+    @FormUrlEncoded
+    @POST("secondLevel/getSecondCategory")
+    Observable<RequestResult<SecondCategoryBean>> getSecondCategory(@Field("nodeId") String nodeId);
 
     @Deprecated
     @GET("category/list")

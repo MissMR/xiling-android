@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.bean.event.MsgMain;
 import com.xiling.shared.util.SessionUtil;
@@ -65,8 +66,7 @@ public class BaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if (isNeedLogin() && !SessionUtil.getInstance().isLogin()) {
-                EventBus.getDefault().post(new MsgMain(MsgMain.SELECT_HOME));
+            if (isNeedLogin() && !UserManager.getInstance().isLogin()) {
                 startActivity(new Intent(getContext(), LoginActivity.class));
             }
         }

@@ -3,30 +3,35 @@ package com.xiling.ddui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
-import com.xiling.ddui.activity.DDCategoryActivity;
 import com.xiling.ddui.adapter.CategoryAdapter;
+import com.xiling.ddui.adapter.CategoryBrandAdapter;
 import com.xiling.ddui.adapter.CategoryNavigationAdapter;
-import com.xiling.ddui.bean.CategoryBean;
-import com.xiling.ddui.tools.DLog;
+import com.xiling.ddui.bean.SecondCategoryBean;
+import com.xiling.ddui.bean.TopCategoryBean;
+import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+import com.xiling.image.GlideUtils;
 import com.xiling.module.search.SearchActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IProductService;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -36,8 +41,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * @author Jigsaw
- * @date 2018/12/10
  * 首页分类
  */
 public class DDCategoryFragment extends BaseFragment {
@@ -49,17 +52,29 @@ public class DDCategoryFragment extends BaseFragment {
     RecyclerView mRvCategoryNav;
 
     @BindView(R.id.rv_category)
-    RecyclerView mRvCategory;
+    RecyclerView rvCategory;
 
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout mSmartRefreshLayout;
 
+    ArrayList<TopCategoryBean> topCategoryList;
+
     Unbinder unbinder;
+    @BindView(R.id.sdv_category_banner)
+    SimpleDraweeView sdvCategoryBanner;
+    @BindView(R.id.tv_category)
+    TextView tvCategory;
+    @BindView(R.id.ll_brand)
+    LinearLayout llBrand;
+    @BindView(R.id.rv_category_brand)
+    RecyclerView rvCategoryBrand;
+
 
     private IProductService mProductService;
     private CategoryNavigationAdapter mCategoryNavigationAdapter;
     private CategoryAdapter mCategoryAdapter;
-    private boolean mDataLoaded = false;
+    private CategoryBrandAdapter categoryBrandAdapter;
+    private int childPosition = 0;
 
     public DDCategoryFragment() {
     }
@@ -90,8 +105,11 @@ public class DDCategoryFragment extends BaseFragment {
         mCategoryNavigationAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mCategoryNavigationAdapter.setCategoryActive(position);
-                ((LinearLayoutManager) mRvCategory.getLayoutManager()).scrollToPositionWithOffset(position, 0);
+                mCategoryNavigationAdapter.setmActiveIndex(position);
+                childPosition = position;
+                if (topCategoryList.size() > childPosition) {
+                    getSecondCategory(topCategoryList.get(childPosition).getCategoryId());
+                }
             }
         });
 
@@ -100,63 +118,86 @@ public class DDCategoryFragment extends BaseFragment {
 
 
         mCategoryAdapter = new CategoryAdapter();
-        mCategoryAdapter.setOnCategoryGridItemClickListener(new CategoryAdapter.OnCategoryGridItemClickListener() {
-            @Override
-            public void onCategoryGridItemClick(BaseQuickAdapter<CategoryBean, BaseViewHolder> adapter, CategoryBean parentCategory, View view, int position) {
-                CategoryBean bean = adapter.getItem(position);
-                DDCategoryActivity.jumpTo(getContext(), bean.getCategoryId(), parentCategory.getCategoryName(), position);
-            }
-        });
+        rvCategory.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
+        rvCategory.setAdapter(mCategoryAdapter);
+        rvCategory.setLayoutManager(new GridLayoutManager(mContext, 3));
 
-        mRvCategory.setAdapter(mCategoryAdapter);
-        mRvCategory.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRvCategory.setNestedScrollingEnabled(false);
-        mRvCategory.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                mCategoryNavigationAdapter.setCategoryActive(getCategoryActiveIndex(dy));
-            }
-        });
+
+        categoryBrandAdapter = new CategoryBrandAdapter();
+        rvCategoryBrand.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
+        rvCategoryBrand.setAdapter(categoryBrandAdapter);
+        rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 2));
 
         mSmartRefreshLayout.setEnableLoadMore(false);
         mSmartRefreshLayout.setEnableRefresh(true);
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                getCategoryList();
+                if (topCategoryList.size() > childPosition) {
+                    getSecondCategory(topCategoryList.get(childPosition).getCategoryId());
+                }
             }
         });
 
-        mSmartRefreshLayout.post(new Runnable() {
+
+    }
+
+
+    /**
+     * 获取一级分类列表（左侧）
+     */
+    private void getTopCategory() {
+        APIManager.startRequest(mProductService.getTopCategory(), new BaseRequestListener<ArrayList<TopCategoryBean>>(getActivity()) {
             @Override
-            public void run() {
-                DLog.i("rv : " + mRvCategory.getHeight());
-                DLog.i("sr : " + mSmartRefreshLayout.getHeight());
-                mCategoryAdapter.setHeightThreshold(mSmartRefreshLayout.getHeight());
+            public void onSuccess(ArrayList<TopCategoryBean> result) {
+                super.onSuccess(result);
+                topCategoryList = result;
+                mCategoryNavigationAdapter.setNewData(result);
+                childPosition = 0;
+                if (topCategoryList.size() > childPosition) {
+                    getSecondCategory(topCategoryList.get(childPosition).getCategoryId());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
             }
         });
-
     }
 
-    private int getCategoryActiveIndex(int dy) {
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRvCategory.getLayoutManager();
-        return linearLayoutManager.findFirstVisibleItemPosition();
-    }
 
-    private void getCategoryList() {
-        APIManager.startRequest(mProductService.getCategorys(), new BaseRequestListener<ArrayList<CategoryBean>>(getActivity()) {
+    private void getSecondCategory(String nodeId) {
+        APIManager.startRequest(mProductService.getSecondCategory(nodeId), new BaseRequestListener<SecondCategoryBean>(getActivity()) {
             @Override
             public void onStart() {
             }
 
             @Override
-            public void onSuccess(ArrayList<CategoryBean> result) {
+            public void onSuccess(SecondCategoryBean result) {
                 super.onSuccess(result);
                 try {
                     mSmartRefreshLayout.finishRefresh();
-                    mCategoryNavigationAdapter.replaceData(result);
-                    mCategoryAdapter.replaceData(result);
+                    if (result != null) {
+                        GlideUtils.loadImage(mContext, sdvCategoryBanner, topCategoryList.get(childPosition).getBannerUrl());
+                        tvCategory.setText(topCategoryList.get(childPosition).getCategoryName());
+                        if (result.getSecondCategoryList() != null) {
+                            mCategoryAdapter.setNewData(result.getSecondCategoryList());
+                        } else {
+                            mCategoryAdapter.setNewData(new ArrayList<SecondCategoryBean.SecondCategoryListBean>());
+                        }
+
+                        if (result.getBrandBeanList() != null && result.getBrandBeanList().size() > 0) {
+                            llBrand.setVisibility(View.VISIBLE);
+                            categoryBrandAdapter.setNewData(result.getBrandBeanList());
+                        } else {
+                            llBrand.setVisibility(View.GONE);
+                        }
+
+
+                    }
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -170,7 +211,7 @@ public class DDCategoryFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.tv_search, R.id.fl_search})
+    @OnClick({R.id.tv_search})
     void onClickSearch() {
         startActivity(new Intent(getContext(), SearchActivity.class));
     }
@@ -178,17 +219,13 @@ public class DDCategoryFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !mDataLoaded) {
-            getCategoryList();
-            mDataLoaded = true;
-        }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getCategoryList();
-        mDataLoaded = true;
+        getTopCategory();
     }
 
     @Override

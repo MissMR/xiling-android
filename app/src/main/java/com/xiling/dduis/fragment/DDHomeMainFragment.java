@@ -107,7 +107,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     TextView tvGrade;
     @BindView(R.id.iv_headIcon)
     CircleImageView ivHeadIcon;
-
+    private LinearLayoutManager bannerLayoutManager;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -145,7 +145,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewActivity.setAdapter(activityAdapter);
 
 
-        LinearLayoutManager bannerLayoutManager = new LinearLayoutManager(getActivity());
+        bannerLayoutManager = new LinearLayoutManager(getActivity());
         bannerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewBrand.setLayoutManager(bannerLayoutManager);
         brandAdapter = new HomeBrandAdapter(R.layout.item_home_brand, brandList);
@@ -245,6 +245,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         relBrandHead.setVisibility(View.VISIBLE);
                         brandAdapter.setNewData(brandList);
                         brandSize = brandList.size();
+                        brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
                         tvBrandPosition.setText(brandPosition + "");
                         tvBrandSize.setText(brandSize + "");
                     } else {

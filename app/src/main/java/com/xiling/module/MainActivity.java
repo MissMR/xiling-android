@@ -187,10 +187,10 @@ public class MainActivity extends BaseActivity {
                         darkStatusBar();
                     }
                 } else if (position == 1 || position == mFragments.size()) {
-                    //分类||店主中心 - 透明
+                    //分类 - 透明
                     clearViewHeight(statusBarBackgroundView);
                     window.setStatusBarColor(Color.TRANSPARENT);
-                    writeStatusBar();
+                    darkStatusBar();
                 } else if (position == 0) {
                     //首页
                     clearViewHeight(statusBarBackgroundView);

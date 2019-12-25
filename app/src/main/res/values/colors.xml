@@ -108,4 +108,6 @@
     <color name="login_button_wx_start">#DCB982</color>
     <color name="login_button_wx_end">#FFD593</color>
     <color name="login_editext_bg">#F5F5F5</color>
+    <color name="title_color">#202020</color>
+
 </resources>

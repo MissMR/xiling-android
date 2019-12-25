@@ -1,69 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.xiling.ddui.fragment.DDCategoryFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@color/ddm_red"
-        android:paddingTop="25dp"
-        android:visibility="gone">
-
-        <FrameLayout
-            android:id="@+id/fl_search"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/search_bg_white">
-
-            <TextView
-                android:id="@+id/tv_search"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="left"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="12dp"
-                android:drawableLeft="@mipmap/icon_search_address"
-                android:drawablePadding="3dp"
-                android:gravity="center"
-                android:text="请搜索产品相关关键词"
-                android:textColor="@color/ddm_gray_dark"
-                android:textSize="13sp" />
-        </FrameLayout>
-
-    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="@dimen/dp_330"
+        android:layout_height="@dimen/dp_32"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_50"
+        android:background="@drawable/bg_round_f2_16"
+        android:drawableLeft="@mipmap/icon_search_address"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_8"
+        android:text="搜索品类/单品/分类"
+        android:textColor="#AAAAAA"
+        android:textSize="@dimen/sp_13" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_5"
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_category_nav"
-            android:layout_width="80dp"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="#F5F5F5" />
 
-        </android.support.v7.widget.RecyclerView>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smart_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/ddm_gray_background">
+            android:background="@color/white">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_category"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-            </android.support.v7.widget.RecyclerView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/sdv_category_banner"
+                        style="@style/DefaultSimpleDraweeView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_83"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginRight="@dimen/dp_12"
+                        app:actualImageScaleType="fitXY"
+                        app:roundedCornerRadius="@dimen/category_radius" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:background="#F5F5F5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/sp_12"
+                            android:textColor="#ff202020"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <com.xiling.dduis.custom.NestRecyclerView
+                        android:id="@+id/rv_category"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_12" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:background="#F5F5F5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/sp_12"
+                            android:text="品牌推荐"
+                            android:textColor="#ff202020"
+                            android:textSize="@dimen/sp_12" />
+
+                    </LinearLayout>
+
+                    <com.xiling.dduis.custom.NestRecyclerView
+                        android:id="@+id/rv_category_brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
