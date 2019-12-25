@@ -130,7 +130,7 @@ public class LoginActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(EventMessage message) {
-        if (message.getEvent().equals(Event.loginSuccess)) {
+        if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
             finish();
         }
     }

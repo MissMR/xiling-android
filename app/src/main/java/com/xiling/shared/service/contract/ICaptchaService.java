@@ -1,6 +1,7 @@
 package com.xiling.shared.service.contract;
 
 import com.xiling.shared.basic.BaseBean;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.api.RequestResult;
 
@@ -51,7 +52,7 @@ public interface ICaptchaService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
     @POST("user/login-or-registry/phone-code")
-    Observable<RequestResult<BaseBean<User>>> checkCaptcha(@Body RequestBody body);
+    Observable<RequestResult<NewUserBean>> checkCaptcha(@Body RequestBody body);
 
     //微信登录绑定手机号
     @Headers({"Content-Type: application/json", "Accept: application/json"})

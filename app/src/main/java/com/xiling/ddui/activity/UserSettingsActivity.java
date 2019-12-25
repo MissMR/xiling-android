@@ -22,6 +22,7 @@ import com.xiling.ddui.manager.CSManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.UserAuthHelper;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.module.auth.Config;
 import com.xiling.module.page.WebViewActivity;
@@ -466,12 +467,8 @@ public class UserSettingsActivity extends BaseActivity {
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
-                CSManager.share().logout();
                 UserService.logout();
-                EventBus.getDefault().post(new EventMessage(Event.logout));
-                EventBus.getDefault().post(new EventMessage(Event.viewHome));
-                PushManager.setJPushInfo(context, null);
-                EventBus.getDefault().post(new EventMessage(Event.cartAmountUpdate, 0));
+                UserManager.getInstance().loginOut();
                 onBackPressed();
             }
 

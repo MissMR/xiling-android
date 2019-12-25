@@ -33,6 +33,7 @@ import com.xiling.ddui.api.MApiActivity;
 import com.xiling.ddui.config.AppConfig;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.UITools;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.Config;
 import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.bean.event.EventMessage;
@@ -85,7 +86,7 @@ abstract public class BaseActivity extends AppCompatActivity implements SensorEv
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (isNeedLogin() && !SessionUtil.getInstance().isLogin()) {
+        if (isNeedLogin() && !UserManager.getInstance().isLogin()) {
             EventBus.getDefault().post(new EventMessage(Event.goToLogin));
         }
 

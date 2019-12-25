@@ -1,6 +1,7 @@
 package com.xiling.shared.basic;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 public class BaseFragment extends Fragment {
 
     protected CharSequence title;
+    protected Context mContext;
 
     public void setTitle(CharSequence title) {
         this.title = title;
@@ -32,6 +34,11 @@ public class BaseFragment extends Fragment {
         return this.title;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public void onPause() {

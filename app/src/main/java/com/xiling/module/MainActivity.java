@@ -33,6 +33,7 @@ import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.AppTools;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.dduis.fragment.DDHomeMainFragment;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.event.MsgStatus;
 import com.xiling.module.publish.PublishDialog;
 import com.xiling.module.publish.PublishHisActivity;
@@ -361,38 +362,20 @@ public class MainActivity extends BaseActivity {
     @OnClick({R.id.tabHomeLayout, R.id.tabStoreMaster,
             R.id.tabCartLayout, R.id.tabMeLayout})
     protected void onClickTabItems(View view) {
-
-
         //获取当前界面的缓存坐标
         int index = mTabs.indexOf(view);
-        DLog.d("onClick:" + index);
 
-        if (view.getId() == R.id.tabStoreMaster) {
-            // 店主中心  若未登录 或 不是店主
-            mViewPager.setCurrentItem(index, false);
-            return;
-        }
-
-        //如果是小店 / 购物车或者我的界面则需要执行登录逻辑
-        if ((index >= 2 || index == 1) && !SessionUtil.getInstance().isLogin()) {
+        if (index > 1 && !UserManager.getInstance().isLogin()){
             EventBus.getDefault().post(new EventMessage(Event.goToLogin));
-            return;
-        }
-
-        //设置TAB选中状态
-        if (index == mViewPager.getCurrentItem()) {
-            view.setSelected(true);
-            return;
-        } else {
+        }else{
             mViewPager.setCurrentItem(index, false);
+            setTabActive(index);
+            //获取当前界面的tabName
+            mCurrentTab = mTabNames.get(index);
+            mCurrentIndex = index;
+            loadUserStatus();
         }
 
-        setTabActive(index);
-
-        //获取当前界面的tabName
-        mCurrentTab = mTabNames.get(index);
-        mCurrentIndex = index;
-        loadUserStatus();
     }
 
     private void showMasterGuidePager(int index) {
@@ -566,7 +549,7 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void publishInfo(EventMessage eventMessage) {
         if (eventMessage.getEvent() == Event.PUBLISH_NEW) {
-            if (!SessionUtil.getInstance().isLogin()) {
+            if (!UserManager.getInstance().isLogin()) {
                 toLogin();
                 return;
             }

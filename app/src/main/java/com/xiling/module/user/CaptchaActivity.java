@@ -14,10 +14,12 @@ import com.blankj.utilcode.utils.AppUtils;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseBean;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.CaptchaBtn;
@@ -180,7 +182,7 @@ public class CaptchaActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(EventMessage message) {
-        if (message.getEvent().equals(Event.loginSuccess)) {
+        if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
             finish();
         }
     }
@@ -217,16 +219,12 @@ public class CaptchaActivity extends BaseActivity {
             e.printStackTrace();
         }
         APIManager.startRequest(mCaptchaService.checkCaptcha(APIManager.getRequestBody(jsonObject.toString())),
-                new BaseRequestListener<BaseBean<User>>(this) {
+                new BaseRequestListener<NewUserBean>(this) {
                     @Override
-                    public void onSuccess(BaseBean<User> result) {
+                    public void onSuccess(NewUserBean result) {
                         super.onSuccess(result);
-                        switch (result.getCode()) {
-                            case 0:
-                                //登录成功
-                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
-                                break;
-                        }
+                        //登录成功
+                        UserManager.getInstance().loginSuccess(result);
                     }
 
                     @Override

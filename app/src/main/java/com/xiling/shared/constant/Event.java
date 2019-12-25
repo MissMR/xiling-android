@@ -40,4 +40,7 @@ public enum Event {
     addCommond, addSupport, cancelSupport, PUBLISH_EDIT_FINISH, wxLoginCancel,
     becomeStoreMaster, followStateChange, orderChange, materialUnLike
 
+    ,LOGIN_SUCCESS
+    ,LOGIN_OUT
+
 }

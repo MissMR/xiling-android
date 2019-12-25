@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,24 +23,36 @@ import com.xiling.R;
 import com.xiling.dduis.adapter.HomeActivityAdapter;
 import com.xiling.dduis.adapter.HomeBrandAdapter;
 import com.xiling.dduis.adapter.HomeHotAdapter;
-import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.adapter.HomeTabAdapter;
+import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeDataBean;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.BannerManager;
+import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
 import com.youth.banner.Banner;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
 
@@ -87,14 +100,20 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     RecyclerView recyclerViewRecommend;
     List<HomeRecommendDataBean.DatasBean> recommendDataList = new ArrayList<>();
     ShopListAdapter recommendAdapter;
-    int pageOffset = 1,pageSize = PAGE_SIZE,totalPage;
+    int pageOffset = 1, pageSize = PAGE_SIZE, totalPage;
+    @BindView(R.id.btn_login)
+    TextView btnLogin;
+    @BindView(R.id.tv_grade)
+    TextView tvGrade;
+    @BindView(R.id.iv_headIcon)
+    CircleImageView ivHeadIcon;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //初始化协议
         homeService = ServiceManager.getInstance().createService(DDHomeService.class);
-
+        EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_s_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
@@ -143,7 +162,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         };
         snapHelper.attachToRecyclerView(recyclerViewBrand);
 
-        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(),2){
+        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
@@ -155,9 +174,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             }
         };
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
-        recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(),12), ScreenUtils.dip2px(getActivity(),12)));
-        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend,recommendDataList);
+        recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
+        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
+        // 如果有登录信息，视为登录
+        if (UserManager.getInstance().getUser() != null){
+            UserManager.getInstance().loginSuccess(UserManager.getInstance().getUser());
+        }
     }
 
     /**
@@ -244,31 +267,31 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     /**
      * 请求推荐数据
      */
-    private void requestRecommend(){
-        APIManager.startRequest(homeService.getHomeRecommendData(pageOffset,pageSize), new BaseRequestListener<HomeRecommendDataBean>() {
+    private void requestRecommend() {
+        APIManager.startRequest(homeService.getHomeRecommendData(pageOffset, pageSize), new BaseRequestListener<HomeRecommendDataBean>() {
             @Override
             public void onSuccess(HomeRecommendDataBean result) {
                 super.onSuccess(result);
                 smartRefreshLayout.finishRefresh();
                 smartRefreshLayout.finishLoadMore();
-                if (result != null){
-                    if (result.getDatas() != null){
-                        if (pageOffset == 1){
+                if (result != null) {
+                    if (result.getDatas() != null) {
+                        if (pageOffset == 1) {
                             recommendDataList.clear();
                         }
                         totalPage = result.getTotalPage();
                         // 如果已经到最后一页了，关闭上拉加载
-                        if (pageOffset >= totalPage){
+                        if (pageOffset >= totalPage) {
                             smartRefreshLayout.setEnableLoadMore(false);
-                        }else{
+                        } else {
                             smartRefreshLayout.setEnableLoadMore(true);
                         }
 
                         recommendDataList.addAll(result.getDatas());
 
-                        if (pageOffset == 1){
+                        if (pageOffset == 1) {
                             recommendAdapter.setNewData(result.getDatas());
-                        }else{
+                        } else {
                             recommendAdapter.addData(result.getDatas());
                         }
 
@@ -289,7 +312,6 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -302,6 +324,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
     @Override
     public void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -324,4 +347,34 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         pageOffset = 1;
         requestData();
     }
+
+    @OnClick(R.id.btn_login)
+    public void onViewClicked() {
+        if (!UserManager.getInstance().isLogin()){
+            EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogin(EventMessage message) {
+        if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
+            //登录成功
+            NewUserBean user = UserManager.getInstance().getUser();
+            if (user != null) {
+                if (!TextUtils.isEmpty(user.getNickName())) {
+                    btnLogin.setText(user.getNickName());
+                    tvGrade.setVisibility(View.VISIBLE);
+                    GlideUtils.loadImage(mContext,ivHeadIcon,user.getHeadImage());
+                    tvGrade.setText(user.getRole().getRoleName());
+                }
+            }
+        } else if (message.getEvent().equals(Event.LOGIN_OUT)) {
+            //退出登录
+            btnLogin.setText("登录/注册");
+            tvGrade.setVisibility(View.GONE);
+            ivHeadIcon.setImageResource(R.drawable.bg_circle_head);
+        }
+    }
+
+
 }

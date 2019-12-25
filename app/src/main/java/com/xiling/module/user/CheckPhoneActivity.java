@@ -65,6 +65,9 @@ public class CheckPhoneActivity extends BaseActivity {
     private void initData() {
         mIUserService = ServiceManager.getInstance().createService(IUserService.class);
         loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
+        if (BuildConfig.DEBUG){
+            mEtPhoneNumber.setText("13475323377");
+        }
     }
 
     private void initView() {
@@ -118,7 +121,7 @@ public class CheckPhoneActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(EventMessage message) {
-        if (message.getEvent().equals(Event.loginSuccess)) {
+        if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
             finish();
         }
     }
