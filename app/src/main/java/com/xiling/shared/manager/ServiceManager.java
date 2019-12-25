@@ -60,7 +60,6 @@ public class ServiceManager {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_API_PREFIX)
                 .addConverterFactory(GsonConverterFactory.create(GsonFactory.make()))
-//                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(getHttpClient())
                 .build();
@@ -103,7 +102,7 @@ public class ServiceManager {
                             request.url(), chain.connection(), request.headers(), sb.toString()));
                 }
             } else {
-                Log.d("Request",String.format("发送请求 %s on %s%n%s",
+                Log.d("RequestUrl",String.format("发送请求 %s on %s%n%s",
                         request.url(), chain.connection(), request.headers()));
             }
             Response response = chain.proceed(request);
@@ -112,7 +111,7 @@ public class ServiceManager {
             //因为response.body().string()之后，response中的流会被关闭，程序会报错，我们需要创建出一
             //个新的response给应用层处理
             ResponseBody responseBody = response.peekBody(1024 * 1024);
-            Log.d("Request",
+            Log.d("RequestBody",
                     String.format("接收响应: [%s] %n返回json:【%s】 %.1fms %n%s",
                             response.request().url(),
                             responseBody.string(),

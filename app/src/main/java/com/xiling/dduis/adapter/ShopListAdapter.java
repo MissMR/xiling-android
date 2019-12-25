@@ -1,0 +1,66 @@
+package com.xiling.dduis.adapter;
+
+import android.graphics.Paint;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.xiling.R;
+import com.xiling.dduis.bean.HomeDataBean;
+import com.xiling.dduis.bean.HomeRecommendDataBean;
+import com.xiling.image.GlideUtils;
+
+import java.util.List;
+
+public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.DatasBean, BaseViewHolder> {
+
+    ShopListTagsAdapter tagsAdapter;
+
+
+    public ShopListAdapter(int layoutResId, @Nullable List<HomeRecommendDataBean.DatasBean> data) {
+        super(layoutResId, data);
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, HomeRecommendDataBean.DatasBean item) {
+        if (!TextUtils.isEmpty(item.getBadgeImg())){
+            GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_bgdge),item.getBadgeImg());
+        }
+
+        if (!TextUtils.isEmpty(item.getThumbUrl())){
+            GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_thumb),item.getThumbUrl());
+        }
+
+        if (!TextUtils.isEmpty(item.getProductName())){
+            helper.setText(R.id.tv_title,item.getProductName());
+        }
+
+        if (item.getProductTags() != null && item.getProductTags().size() > 0){
+            RecyclerView recyclerView = helper.getView(R.id.recycler_tags);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag,item.getProductTags());
+            recyclerView.setAdapter(tagsAdapter);
+        }
+        //优惠价，需要根据用户等级展示不同价格
+        helper.setText(R.id.tv_discount_price,item.getLevel10Price()+"");
+        //售价
+        helper.setText(R.id.tv_minPrice,"¥"+item.getMinPrice()+".00");
+        //划线价
+        TextView minMarketPriceView = helper.getView(R.id.tv_minMarketPrice);
+        minMarketPriceView.setText("¥"+item.getMinMarketPrice()+".00");
+        minMarketPriceView.getPaint().setAntiAlias(true);//抗锯齿
+        minMarketPriceView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+    }
+}

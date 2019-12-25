@@ -6,6 +6,8 @@ import com.xiling.dduis.bean.DDHomeDataBean;
 import com.xiling.dduis.bean.DDHomeRushDataBean;
 import com.xiling.dduis.bean.DDProductPageBean;
 import com.xiling.dduis.bean.DDRushSpuPageBean;
+import com.xiling.dduis.bean.HomeDataBean;
+import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.shared.bean.api.RequestResult;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -24,14 +27,19 @@ public interface DDHomeService {
 
     /**
      * 获取首页数据
-     * <p>
-     * 包含：
-     * 1. 首页样式
-     * 2. 分类数据
-     * 3. 轮播数据
      */
-    @POST("v20/home/getIndexInfo")
-    Observable<RequestResult<DDHomeDataBean>> getHomeData();
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @GET("home/index")
+    Observable<RequestResult<HomeDataBean>> getHomeData();
+
+    /**
+     * 获取首页推荐数据
+     *
+     * @param pageNo   页码数
+     * @param pageSize 每页条目数
+     */
+    @GET("home/getProductRecommend")
+    Observable<RequestResult<HomeRecommendDataBean>> getHomeRecommendData(@Query("pageOffset") int pageNo, @Query("pageSize") int pageSize);
 
     /**
      * 获取首页秒杀数据

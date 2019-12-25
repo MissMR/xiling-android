@@ -2,7 +2,10 @@ package com.xiling.shared.basic;
 
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -29,6 +32,7 @@ public class BaseFragment extends Fragment {
         return this.title;
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -38,6 +42,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("BaseFragment",getClass().getSimpleName());
     }
 
     public void setViewHeight(View view, int height) {

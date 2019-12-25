@@ -1,179 +1,93 @@
 package com.xiling.dduis.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.TimeUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
-import com.xiling.ddui.activity.MessageGroupActivity;
-import com.xiling.ddui.bean.DDHomeBanner;
-import com.xiling.ddui.bean.UnReadMessageCountBean;
-import com.xiling.ddui.manager.OrderToastManager;
-import com.xiling.ddui.tools.DLog;
-import com.xiling.ddui.tools.UITools;
-import com.xiling.ddui.tools.ViewAnimationUtils;
-import com.xiling.dduis.activity.DDCategoryMainActivity;
-import com.xiling.dduis.base.BackgroundMaker;
-import com.xiling.dduis.base.HomeUIManager;
-import com.xiling.dduis.bean.DDHomeCategoryBean;
-import com.xiling.dduis.bean.DDHomeDataBean;
-import com.xiling.dduis.bean.DDHomeStyleBean;
-import com.xiling.module.MainActivity;
-import com.xiling.module.search.SearchActivity;
-import com.xiling.module.user.LoginActivity;
+import com.xiling.dduis.adapter.HomeActivityAdapter;
+import com.xiling.dduis.adapter.HomeBrandAdapter;
+import com.xiling.dduis.adapter.HomeHotAdapter;
+import com.xiling.dduis.adapter.ShopListAdapter;
+import com.xiling.dduis.adapter.HomeTabAdapter;
+import com.xiling.dduis.bean.HomeDataBean;
+import com.xiling.dduis.bean.HomeRecommendDataBean;
+import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+import com.xiling.image.BannerManager;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.MyStatus;
-import com.xiling.shared.bean.PopupOrderList;
-import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.contracts.RequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
-import com.xiling.shared.service.contract.IMessageService;
-import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.FrescoUtil;
-import com.xiling.shared.util.SessionUtil;
-import com.xiling.shared.util.ToastUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
-
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
+import com.youth.banner.Banner;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import butterknife.Unbinder;
 
-import static net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator.MODE_MATCH_EDGE;
+import static com.xiling.shared.Constants.PAGE_SIZE;
 
 
-/**
- * 首页界面的入口类
- * <p>
- * 承载三种Fragment：
- *
- * @see DDHomeRecommendFragment 推荐
- * @see DDHomeCategoryFragment 一级分类
- * @see DDHomeEventFragment 活动
- */
-public class DDHomeMainFragment extends BaseFragment implements HomeUIManager.HomeUIStyleListener {
+public class DDHomeMainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+    Unbinder unbinder;
+    DDHomeService homeService;
 
-    @BindView(R.id.sv_home_top)
-    SimpleDraweeView topView;
+    @BindView(R.id.smart_refresh_layout)
+    SmartRefreshLayout smartRefreshLayout;
 
-    @BindView(R.id.btn_category)
-    SimpleDraweeView btnCategory;
+    @BindView(R.id.recyclerView_hot)
+    RecyclerView recyclerViewHot;
+    HomeHotAdapter hotAdapter;
+    List<HomeDataBean.SecondCategoryListBean> hots = new ArrayList<>();
 
-    @BindView(R.id.titleMsgDotImageView)
-    ImageView titleMsgDotImageView;
+    @BindView(R.id.banner)
+    Banner banner;
+    List<String> bannerList = new ArrayList<>();
 
-    @BindView(R.id.btn_msg)
-    SimpleDraweeView btnMessage;
 
-    @BindView(R.id.btn_event)
-    SimpleDraweeView btnEvent;
+    @BindView(R.id.recyclerView_tab)
+    RecyclerView recyclerViewTab;
+    List<HomeDataBean.TabListBean> tabListBeanList = new ArrayList<>();
+    HomeTabAdapter homeTabAdapter;
 
-    @BindView(R.id.btn_search)
-    Button btnSearch;
+    @BindView(R.id.recyclerView_activity)
+    RecyclerView recyclerViewActivity;
+    List<HomeDataBean.ActivityListBean> activityBeanList = new ArrayList<>();
+    HomeActivityAdapter activityAdapter;
 
-    @BindView(R.id.magicIndicator)
-    MagicIndicator mIndicator;
+    @BindView(R.id.recyclerView_brand)
+    RecyclerView recyclerViewBrand;
+    List<HomeDataBean.BrandHotSaleListBean> brandList = new ArrayList<>();
+    HomeBrandAdapter brandAdapter;
+    int brandPosition = 1, brandSize = 0;
+    @BindView(R.id.tv_brandPosition)
+    TextView tvBrandPosition;
+    @BindView(R.id.tv_brandSize)
+    TextView tvBrandSize;
+    @BindView(R.id.rel_brand_head)
+    RelativeLayout relBrandHead;
 
-    @BindView(R.id.viewPager)
-    ViewPager mViewPager;
-
-    @BindView(R.id.toastPanel)
-    RelativeLayout toastPanel = null;
-
-    @BindView(R.id.avatarImageView)
-    SimpleDraweeView avatarImageView;
-
-    @BindView(R.id.nameTextView)
-    TextView nameTextView;
-
-    @BindView(R.id.timeTextView)
-    TextView timeTextView;
-
-    private OrderToastManager mOrderToastManager;
-
-    ArrayList<BaseFragment> fragments = new ArrayList<>();
-    DDHomeService homeService = null;
-
-    //首页样式
-    DDHomeStyleBean style = DDHomeStyleBean.defaultStyle();
-    //活动按钮
-    DDHomeBanner adEvent = null;
-    //5菜单
-    ArrayList<DDHomeBanner> menus = new ArrayList<>();
-    //3活动
-    ArrayList<DDHomeBanner> events = new ArrayList<>();
-
-    //618通栏图片
-    DDHomeBanner event618 = null;
-
-    //分类数据
-    ArrayList<DDHomeCategoryBean> categorys = new ArrayList<>();
-
-    @OnClick(R.id.btn_msg)
-    void onMessagePressed() {
-        if (!SessionUtil.getInstance().isLogin()) {
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            return;
-        }
-        Intent intent = new Intent(getContext(), MessageGroupActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_category)
-    void onCategoryPressed() {
-        Intent intent = new Intent(getContext(), DDCategoryMainActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_search)
-    void onSearchBarPressed() {
-        Intent intent = new Intent(getContext(), SearchActivity.class);
-//        Intent intent = new Intent(getContext(), RushListActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_event)
-    void onTopEventPressed() {
-        if (adEvent != null) {
-            String event = adEvent.getEvent();
-            String target = adEvent.getTarget();
-            DDHomeBanner.process(getContext(), event, target);
-        } else {
-            DLog.e("adEvent is null.");
-        }
-    }
+    @BindView(R.id.recyclerView_recommend)
+    RecyclerView recyclerViewRecommend;
+    List<HomeRecommendDataBean.DatasBean> recommendDataList = new ArrayList<>();
+    ShopListAdapter recommendAdapter;
+    int pageOffset = 1,pageSize = PAGE_SIZE,totalPage;
 
     @Nullable
     @Override
@@ -181,416 +95,233 @@ public class DDHomeMainFragment extends BaseFragment implements HomeUIManager.Ho
         //初始化协议
         homeService = ServiceManager.getInstance().createService(DDHomeService.class);
 
-        mOrderToastManager = OrderToastManager.share();
-
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
-
         View view = inflater.inflate(R.layout.fragment_s_home, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
+        initView();
+        requestData();
+        return view;
+    }
 
-        //设置样式改变监听
-        HomeUIManager.getInstance().setListener(this);
-        //加载本地存储的样式
-        HomeUIManager.getInstance().load();
+    private void initView() {
+        smartRefreshLayout.setEnableLoadMore(true);
+        smartRefreshLayout.setEnableRefresh(true);
+        smartRefreshLayout.setOnLoadMoreListener(this);
+        smartRefreshLayout.setOnRefreshListener(this);
 
-        mOrderToastManager.setListener(new OrderToastManager.OrderToastListener() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        recyclerViewHot.setLayoutManager(gridLayoutManager);
+        hotAdapter = new HomeHotAdapter(R.layout.item_home_hot, hots);
+        recyclerViewHot.setAdapter(hotAdapter);
+
+        LinearLayoutManager tabLayoutManager = new LinearLayoutManager(getActivity());
+        tabLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewTab.setLayoutManager(tabLayoutManager);
+        homeTabAdapter = new HomeTabAdapter(R.layout.item_home_tab, tabListBeanList);
+        recyclerViewTab.setAdapter(homeTabAdapter);
+
+        LinearLayoutManager activityLayoutManager = new LinearLayoutManager(getActivity());
+        activityLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewActivity.setLayoutManager(activityLayoutManager);
+        activityAdapter = new HomeActivityAdapter(R.layout.item_home_activity, activityBeanList);
+        recyclerViewActivity.setAdapter(activityAdapter);
+
+
+        LinearLayoutManager bannerLayoutManager = new LinearLayoutManager(getActivity());
+        bannerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewBrand.setLayoutManager(bannerLayoutManager);
+        brandAdapter = new HomeBrandAdapter(R.layout.item_home_brand, brandList);
+        recyclerViewBrand.setAdapter(brandAdapter);
+        PagerSnapHelper snapHelper = new PagerSnapHelper() {
             @Override
-            public void onToastOrder(PopupOrderList.DatasEntity item) {
-                String time = TimeUtils.getFitTimeSpan(TimeUtils.string2Millis(item.createDate), TimeUtils.getNowTimeMills(), 4);
-                if (item != null && !TextUtils.isEmpty(time)) {
+            public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
+                int targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
+                //监听滑动到第几个
+                brandPosition = targetPos + 1;
+                tvBrandPosition.setText(brandPosition + "");
+                return targetPos;
+            }
+        };
+        snapHelper.attachToRecyclerView(recyclerViewBrand);
 
-                    //名字为空的时候不显示订单信息
-                    if (TextUtils.isEmpty(item.nickName)) {
-                        ViewAnimationUtils.showAndHiddenAnimation(toastPanel, ViewAnimationUtils.AnimationState.STATE_HIDDEN, 0);
-                        return;
+        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(),2){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
+        recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(),12), ScreenUtils.dip2px(getActivity(),12)));
+        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend,recommendDataList);
+        recyclerViewRecommend.setAdapter(recommendAdapter);
+    }
+
+    /**
+     * 请求数据
+     */
+    private void requestData() {
+        APIManager.startRequest(homeService.getHomeData(), new BaseRequestListener<HomeDataBean>() {
+            @Override
+            public void onSuccess(HomeDataBean result) {
+                super.onSuccess(result);
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
+                if (result != null) {
+                    //热搜
+                    hots = result.getSecondCategoryList();
+                    if (hots == null) {
+                        hots = new ArrayList<>();
+                    }
+                    //如果超过四个，只保留四个
+                    if (hots.size() > 4) {
+                        hots.subList(0, 3);
                     }
 
-                    //设置头像
-                    FrescoUtil.setImageSmall(avatarImageView, item.headImage);
-                    //设置昵称
-                    nameTextView.setText("" + item.nickName);
-                    //设置时间
-                    timeTextView.setText("来自" + time + "之前的订单");
+                    hotAdapter.setNewData(hots);
 
-                    ViewAnimationUtils.showAndHiddenAnimation(toastPanel, ViewAnimationUtils.AnimationState.STATE_SHOW, 1000);
-                } else {
-                    ViewAnimationUtils.showAndHiddenAnimation(toastPanel, ViewAnimationUtils.AnimationState.STATE_HIDDEN, 1000);
+                    //轮播图
+                    bannerList.clear();
+                    if (result.getBannerList() != null) {
+                        for (HomeDataBean.BannerListBean bannerBean : result.getBannerList()) {
+                            if (bannerBean.getImgUrl() != null) {
+                                bannerList.add(bannerBean.getImgUrl());
+                            }
+                        }
+                    }
+                    BannerManager.startBanner(banner, bannerList);
+
+                    //tab
+                    tabListBeanList.clear();
+                    if (result.getTabList() != null) {
+                        tabListBeanList = result.getTabList();
+                    }
+                    homeTabAdapter.setNewData(tabListBeanList);
+
+                    //activity
+                    activityBeanList.clear();
+                    if (result.getActivityList() != null) {
+                        activityBeanList = result.getActivityList();
+                    }
+                    activityAdapter.setNewData(activityBeanList);
+
+                    //brand
+
+                    if (result.getBrandHotSaleList() != null) {
+                        brandList = result.getBrandHotSaleList();
+                    }
+
+                    if (brandList == null) {
+                        brandList = new ArrayList<>();
+                    }
+                    if (brandList.size() > 0) {
+                        recyclerViewBrand.setVisibility(View.VISIBLE);
+                        relBrandHead.setVisibility(View.VISIBLE);
+                        brandAdapter.setNewData(brandList);
+                        brandSize = brandList.size();
+                        tvBrandPosition.setText(brandPosition + "");
+                        tvBrandSize.setText(brandSize + "");
+                    } else {
+                        recyclerViewBrand.setVisibility(View.GONE);
+                        relBrandHead.setVisibility(View.GONE);
+                    }
                 }
             }
 
             @Override
-            public void onToastHide() {
-                ViewAnimationUtils.showAndHiddenAnimation(toastPanel, ViewAnimationUtils.AnimationState.STATE_HIDDEN, 200);
+            public void onError(Throwable e) {
+                super.onError(e);
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
             }
         });
-
-        //加载网页数据
-        loadMainData();
-        return view;
+        requestRecommend();
     }
+
+    /**
+     * 请求推荐数据
+     */
+    private void requestRecommend(){
+        APIManager.startRequest(homeService.getHomeRecommendData(pageOffset,pageSize), new BaseRequestListener<HomeRecommendDataBean>() {
+            @Override
+            public void onSuccess(HomeRecommendDataBean result) {
+                super.onSuccess(result);
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
+                if (result != null){
+                    if (result.getDatas() != null){
+                        if (pageOffset == 1){
+                            recommendDataList.clear();
+                        }
+                        totalPage = result.getTotalPage();
+                        // 如果已经到最后一页了，关闭上拉加载
+                        if (pageOffset >= totalPage){
+                            smartRefreshLayout.setEnableLoadMore(false);
+                        }else{
+                            smartRefreshLayout.setEnableLoadMore(true);
+                        }
+
+                        recommendDataList.addAll(result.getDatas());
+
+                        if (pageOffset == 1){
+                            recommendAdapter.setNewData(result.getDatas());
+                        }else{
+                            recommendAdapter.addData(result.getDatas());
+                        }
+
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                smartRefreshLayout.finishRefresh();
+                smartRefreshLayout.finishLoadMore();
+            }
+        });
+    }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
-        mOrderToastManager.start();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mOrderToastManager.stop();
     }
 
     @Override
     public void onDestroy() {
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
         super.onDestroy();
     }
 
-    private void initViewPager() {
-        UITools.clearViewPagerCache(getChildFragmentManager(), mViewPager);
-        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
-
-            @Override
-            public Fragment getItem(int position) {
-                BaseFragment fragment = fragments.get(position);
-                return fragment;
-            }
-
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return fragments.get(position).getTitle();
-            }
-
-        });
-
-        mViewPager.getAdapter().notifyDataSetChanged();
-
-        if (fragments.size() > 2) {
-            mViewPager.setOffscreenPageLimit(2);
-        }
-
-        mViewPager.setCurrentItem(0);
-    }
-
-    private void initIndicator() {
-        CommonNavigator commonNavigator = new CommonNavigator(getActivity());
-        commonNavigator.setLeftPadding(ConvertUtil.dip2px(10));
-        commonNavigator.setRightPadding(ConvertUtil.dip2px(10));
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-
-            @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
-                SimplePagerTitleView titleView = new SimplePagerTitleView(context);
-                titleView.setText(fragments.get(index).getTitle());
-
-                try {
-                    int labelColor = Color.parseColor(style.getLabelDefaultColour());
-                    titleView.setNormalColor(labelColor);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    titleView.setNormalColor(Color.BLACK);
-                }
-
-                try {
-                    int labelSelectColor = Color.parseColor(style.getLabelSelectionColour());
-                    titleView.setSelectedColor(labelSelectColor);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    titleView.setSelectedColor(Color.RED);
-                }
-
-                titleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mViewPager.setCurrentItem(index);
-                    }
-                });
-                titleView.setPadding(0, 0, 0, 0);
-//                if (mViewPager.getCurrentItem() == index) {
-//                    titleView.setTextSize(16);
-//                } else {
-                titleView.setTextSize(14);
-//                }
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                try {
-                    int labelSelectColor = Color.parseColor(style.getLabelSelectionColour());
-                    indicator.setColors(labelSelectColor);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    indicator.setColors(Color.RED);
-                }
-
-                //控件宽度
-                indicator.setMode(MODE_MATCH_EDGE);
-                indicator.setLineHeight(ConvertUtil.dip2px(2));
-
-                return indicator;
-            }
-        });
-        mIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(mIndicator, mViewPager);
-    }
-
-    /**
-     * 加载分类数据
-     */
-    public void loadMainData() {
-        DLog.i("加载首页分类数据");
-        APIManager.startRequest(homeService.getHomeData(), new RequestListener<DDHomeDataBean>() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(DDHomeDataBean result) {
-                super.onSuccess(result);
-
-                //清理上次的数据
-                categorys.clear();
-
-                DLog.d("更新首页样式");
-                //更新首页样式
-                HomeUIManager.getInstance().update(result.getIndexStyleBean());
-
-                style = result.getIndexStyleBean();
-                //标题栏右侧按钮
-                if (result.getTopRight() != null && result.getTopRight().size() > 0) {
-                    adEvent = result.getTopRight().get(0);
-                } else {
-                    adEvent = null;
-                }
-                renderStyle();
-
-                //商品分类
-                ArrayList<DDHomeCategoryBean> nativeCategorys = result.getIndexCategoryBeanList();
-                //活动分类
-                ArrayList<DDHomeCategoryBean> eventCategorys = result.getCategoryLabel();
-                //检查原生分类是否存在
-                if (nativeCategorys.size() > 0) {
-                    //取出第一个填充到数据源
-                    categorys.add(nativeCategorys.get(0));
-                    nativeCategorys.remove(0);
-                }
-                //增加活动分类
-                categorys.addAll(eventCategorys);
-                if (nativeCategorys.size() > 0) {
-                    //如果还有剩余的二级原生分类就一同加上去
-                    categorys.addAll(nativeCategorys);
-                }
-
-                //Banner底部五菜单
-                menus = result.getBannerBottomFive();
-                for (DDHomeBanner banner : menus) {
-                    DLog.i("menu data :" + banner.getTarget());
-                }
-
-                //菜单下方三活动
-                events = result.getMiddleThree();
-
-                //618通栏图片
-                event618 = result.getIndexConfigFor618();
-
-                render();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                ToastUtil.error("" + e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
-
-    public void render() {
-
-        fragments.clear();
-        //循环填充顶部分类数据
-        for (DDHomeCategoryBean bean : categorys) {
-
-            DLog.i("==>" + bean.getCategoryName());
-
-            if (bean.isWebEvent()) {
-                //网页活动
-                DDHomeEventFragment fgEvent = new DDHomeEventFragment();
-                fgEvent.setTitle("" + bean.getTitle());
-                fgEvent.setUrl("" + bean.getTarget());
-                fragments.add(fgEvent);
-            } else {
-                if (bean.isRecommend()) {
-                    //推荐
-                    DDHomeRecommendFragment fgRecommend = new DDHomeRecommendFragment();
-                    fgRecommend.setTitle("" + bean.getCategoryName());
-                    fgRecommend.setCategoryBean(bean);
-                    fgRecommend.setMenus(menus);
-                    fgRecommend.setEvent618(event618);
-                    fgRecommend.setEvents(events);
-                    fragments.add(fgRecommend);
-                } else {
-                    //原生分类
-                    DDHomeCategoryFragment fgCategory = new DDHomeCategoryFragment();
-                    fgCategory.setTitle("" + bean.getCategoryName());
-                    fgCategory.setCategoryBean(bean);
-                    fragments.add(fgCategory);
-                }
-            }
-        }
-
-        //初始化分类UI
-        initViewPager();
-        initIndicator();
-    }
-
-    public void renderStyle() {
-        try {
-            MainActivity mainActivity = (MainActivity) getActivity();
-
-            String url_top_img = style.getBackgroundImg();
-            if (!TextUtils.isEmpty(url_top_img)) {
-                topView.setImageURI(url_top_img);
-                //清空状态栏样式
-                mainActivity.setStatusTransparent();
-            } else {
-                DLog.w("首页顶部图片URL为空");
-                mainActivity.darkStatusBar();
-                topView.setImageURI(url_top_img);
-                mainActivity.getWindow().setStatusBarColor(Color.TRANSPARENT);
-            }
-
-            String url_category_img = style.getCategoryImg();
-            if (TextUtils.isEmpty(url_category_img)) {
-                btnCategory.setImageResource(R.mipmap.icon_home_category);
-            } else {
-                btnCategory.setImageURI(url_category_img);
-            }
-
-            String url_msg_img = style.getMessageImg();
-            if (TextUtils.isEmpty(url_category_img)) {
-                btnMessage.setImageResource(R.mipmap.icon_home_msg);
-            } else {
-                btnMessage.setImageURI(url_msg_img);
-            }
-
-            if (adEvent != null && !TextUtils.isEmpty(adEvent.getImgUrl())) {
-//                btnEvent.setImageURI(adEvent.getImgUrl());
-                UITools.setGifUrl(btnEvent, adEvent.getImgUrl());
-                btnEvent.setVisibility(View.VISIBLE);
-            } else {
-                btnEvent.setVisibility(View.GONE);
-            }
-
-            int sTC = Color.parseColor("#999999");
-            String sTCValue = style.getSearchTextColour();
-            if (!TextUtils.isEmpty(sTCValue)) {
-                try {
-                    sTC = Color.parseColor(sTCValue);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            btnSearch.setTextColor(sTC);
-
-            Drawable searchBg = new BackgroundMaker(getContext()).getHomeSearchBarBackground(style.getSearchFrameColour(), style.getSearchBackgroundColour());
-            btnSearch.setBackground(searchBg);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        initIndicator();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
-    public void onStyleChanged(DDHomeStyleBean style) {
-        DLog.i("onStyleChanged");
-        DLog.d("背景图片:" + style.getBackgroundImg());
-        DLog.d("消息图标:" + style.getMessageImg());
-        DLog.d("分类图标:" + style.getCategoryImg());
-        DLog.d("搜索框背景颜色:" + style.getSearchBackgroundColour());
-        DLog.d("搜索框线颜色:" + style.getSearchFrameColour());
-        DLog.d("搜索框文本颜色:" + style.getSearchTextColour());
-        DLog.d("分类默认颜色:" + style.getLabelDefaultColour());
-        DLog.d("分类选中颜色:" + style.getLabelSelectionColour());
-        this.style = style;
-        renderStyle();
-
-        if (SessionUtil.getInstance().isLogin()) {
-            loadUnReadMsgCount();
-        }
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        //上拉加载
+        pageOffset++;
+        requestRecommend();
     }
 
-    /**
-     * 获取未读消息数量
-     */
-    void loadUnReadMsgCount() {
-        IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {
-            @Override
-            public void onSuccess(UnReadMessageCountBean result) {
-                super.onSuccess(result);
-                if (result != null) {
-
-                    DLog.i("DDMineFragment.getNum:" + result.getNum());
-
-                    MyStatus status = new MyStatus();
-                    status.messageCount = result.getNum();
-                    EventBus.getDefault().post(status);
-                }
-            }
-        });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onBecomeMasterEvent(EventMessage eventMessage) {
-        DLog.i("onBecomeMasterEvent");
-        switch (eventMessage.getEvent()) {
-            case loginSuccess://登录成功
-            case becomeStoreMaster://成为店主
-            case logout://退出登录
-                //这三种情况下重新加载首页数据
-                loadMainData();
-                break;
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(MyStatus status) {
-        if (status != null) {
-            DLog.i("onEvent+MessageCount:" + status.messageCount);
-            if (SessionUtil.getInstance().isLogin()) {
-                if (status.messageCount > 0) {
-                    titleMsgDotImageView.setVisibility(View.VISIBLE);
-                } else {
-                    titleMsgDotImageView.setVisibility(View.INVISIBLE);
-                }
-            } else {
-                titleMsgDotImageView.setVisibility(View.INVISIBLE);
-            }
-
-        }
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        //下拉刷新
+        pageOffset = 1;
+        requestData();
     }
 }

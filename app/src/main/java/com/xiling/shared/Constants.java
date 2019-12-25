@@ -117,6 +117,7 @@ public class Constants {
         public static final String FLASH_SALE_ID = "flash_sale_id";
         //0 微信登录 1、手机号登录
         public static final String LOGINTYPE = "logintype";
+
     }
 
 }
