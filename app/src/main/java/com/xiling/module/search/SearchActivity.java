@@ -2,10 +2,7 @@ package com.xiling.module.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -16,41 +13,24 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
-import com.xiling.ddui.custom.DDDeleteDialog;
-
-import com.xiling.ddui.manager.DDSearchWordManager;
-import com.xiling.ddui.tools.DLog;
-import com.xiling.dduis.adapter.HomeSpuAdapter;
-import com.xiling.dduis.bean.DDProductPageBean;
-import com.xiling.dduis.custom.FilterLayoutView;
-
-import com.xiling.shared.component.NoData;
-import com.xiling.shared.contracts.RequestListener;
-import com.xiling.shared.service.contract.DDHomeService;
-import com.xiling.shared.util.SessionUtil;
 import com.google.android.flexbox.FlexboxLayout;
+import com.sobot.chat.utils.ToastUtil;
 import com.xiling.R;
+import com.xiling.ddui.custom.DDDeleteDialog;
+import com.xiling.ddui.custom.ScreeningView;
+import com.xiling.ddui.fragment.ShopFragment;
+import com.xiling.ddui.manager.DDSearchWordManager;
 import com.xiling.module.auth.Config;
-
 import com.xiling.shared.basic.BaseActivity;
-import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
-
+import com.xiling.shared.service.contract.DDHomeService;
 import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.ToastUtil;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
 
 import java.util.ArrayList;
 
@@ -58,13 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener, FilterLayoutView.FilterListener {
+public class SearchActivity extends BaseActivity {
 
-    @BindView(R.id.refreshLayout)
-    protected SmartRefreshLayout mSmartRefreshLayout;
-
-    @BindView(R.id.recyclerView)
-    protected RecyclerView mRecyclerView;
 
     @BindView(R.id.keywordsLayout)
     protected ScrollView mKeywordsLayout;
@@ -80,41 +55,25 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
     protected EditText mKeywordEt;
 
     @BindView(R.id.responseView)
-    FrameLayout responseView;
-
-    @BindView(R.id.noDataView)
-    NoData noDataView;
+    LinearLayout responseView;
 
     @BindView(R.id.deleteHistoryButton)
     ImageView deleteHistoryButton;
-
-    private HomeSpuAdapter mAdapter;
+    @BindView(R.id.screenView)
+    ScreeningView screenView;
 
     private String mKeyword = "";
     int mType;
     DDHomeService homeService = null;
 
     DDSearchWordManager searchWordManager = DDSearchWordManager.share();
+    ShopFragment shopFragment;
 
-    /*单页数据量*/
-    static int page_Size = 15;
-    /*默认页码*/
-    static int page_default = 1;
-    /*当前页码*/
-    int page = page_default;
     String s_minPrice;
     String s_maxPrice;
-    int s_orderBy;
+    int s_orderBy = 1;
     int s_orderType;
-    int s_isRush;
     int s_isFreeShip;
-
-    FilterLayoutView filterLayoutView = null;
-
-    @BindView(R.id.layout_filter_and_sort)
-    LinearLayout filterAndSortLayout = null;
-
-    LinearLayoutManager gManager = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,16 +90,24 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
 
         loadHotKeywords();
 
-        mAdapter = new HomeSpuAdapter(this);
-        gManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        screenView.setOnItemClickLisener(new ScreeningView.OnItemClickLisener() {
+            @Override
+            public void onSort(int orderBy, int orderType) {
+                s_orderBy = orderBy;
+                s_orderType = orderType;
 
-        mRecyclerView.setLayoutManager(gManager);
-        mRecyclerView.setAdapter(mAdapter);
+                requestShop();
+            }
 
-        filterLayoutView = new FilterLayoutView(filterAndSortLayout);
-        filterLayoutView.setListener(this);
-        filterLayoutView.setCategoryVisibility(false);
-        filterLayoutView.setVipFlag(SessionUtil.getInstance().isMaster());
+            @Override
+            public void onFilter(int isShippingFree, String minPrice, String maxPrice) {
+                s_isFreeShip = isShippingFree;
+                s_minPrice = minPrice;
+                s_maxPrice = maxPrice;
+
+                requestShop();
+            }
+        });
 
         initLayout();
     }
@@ -149,10 +116,8 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
 
         if (!mKeyword.isEmpty()) {
             mKeywordsLayout.setVisibility(View.GONE);
-            mSmartRefreshLayout.setVisibility(View.VISIBLE);
         } else {
             mKeywordsLayout.setVisibility(View.VISIBLE);
-            mSmartRefreshLayout.setVisibility(View.GONE);
             mKeywordEt.requestFocus();
         }
 
@@ -170,7 +135,6 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
                     mCleanBtn.setVisibility(View.GONE);
                     loadHotKeywords();
                     mKeywordsLayout.setVisibility(View.VISIBLE);
-                    mSmartRefreshLayout.setVisibility(View.GONE);
                 }
             }
 
@@ -184,10 +148,9 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH || (keyEvent != null && keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     String keyword = textView.getText().toString();
-                    if (!TextUtils.isEmpty(keyword)) {
-                        search(keyword);
-                        return true;
-                    }
+                    search(keyword);
+                    return true;
+
                 }
                 return false;
             }
@@ -204,16 +167,6 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
             }
         });
 
-        noDataView.setTextView("哎呀\n这里没有你要的商品哦~");
-
-        mSmartRefreshLayout.setRefreshHeader(new ClassicsHeader(this));
-        mSmartRefreshLayout.setRefreshFooter(new ClassicsFooter(this));
-
-        mSmartRefreshLayout.setOnRefreshListener(this);
-        mSmartRefreshLayout.setOnLoadMoreListener(this);
-
-        //拦住点击事件，不让下层响应
-        noDataView.interceptClick(true);
     }
 
     private void loadHotKeywords() {
@@ -285,130 +238,34 @@ public class SearchActivity extends BaseActivity implements OnRefreshListener, O
         finish();
     }
 
-    public void ctrlMode(boolean isResponse) {
+    public void ctrlMode() {
         responseView.setVisibility(View.VISIBLE);
         mKeywordsLayout.setVisibility(View.GONE);
     }
 
-    protected void search(String keyword) {
-        if (keyword == null) {
-            ToastUtil.error("请输入关键词");
+    private void requestShop() {
+        if (shopFragment == null) {
+            shopFragment = ShopFragment.newInstance("", "", "", s_minPrice, s_maxPrice, s_isFreeShip, s_orderBy, s_orderType, mKeyword);
+            getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, shopFragment).commit();
+        } else {
+            shopFragment.requestShopFill(s_minPrice, s_maxPrice, s_isFreeShip, s_orderBy, s_orderType, mKeyword);
         }
+    }
 
-        ctrlMode(true);
-
+    protected void search(String keyword) {
+        if (TextUtils.isEmpty(keyword)) {
+            ToastUtil.showToast(context,"请输入关键词");
+            return;
+        }
+        ctrlMode();
         mKeyword = keyword;
         mKeywordEt.setText(mKeyword);
 
-        mSmartRefreshLayout.setVisibility(View.VISIBLE);
         mCleanBtn.setVisibility(View.VISIBLE);
         mCancelBtn.setVisibility(View.VISIBLE);
         mKeywordEt.clearFocus();
-
         searchWordManager.addKeyword(keyword);
-
-        mRecyclerView.scrollToPosition(0);
-        //搜索的时候清理上次的数据
-        mAdapter.clear();
-
-        searchSkuByKeyword(keyword);
+        requestShop();
     }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page = page_default;
-        searchSkuByKeyword(mKeyword);
-    }
-
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        page++;
-        searchSkuByKeyword(mKeyword);
-    }
-
-    @Override
-    public void onFilterChanged(String categorysId, boolean isFreeShip, boolean isRush, String minPrice, String maxPrice) {
-        DLog.d("subCategory.onFilterChanged:" + categorysId + "，" + isFreeShip + "," + isFreeShip + "," + minPrice + "，" + maxPrice);
-
-        s_isFreeShip = isFreeShip ? 1 : 0;
-        s_isRush = isRush ? 1 : 0;
-
-        s_minPrice = minPrice;
-        s_maxPrice = maxPrice;
-
-        page = page_default;
-        searchSkuByKeyword(mKeyword);
-    }
-
-    @Override
-    public void onSortChanged(int orderBy, int orderType) {
-        DLog.d("subCategory.onSortChanged:" + orderBy + "，" + orderType);
-        s_orderBy = orderBy;
-        s_orderType = orderType;
-
-        page = page_default;
-        searchSkuByKeyword(mKeyword);
-    }
-
-
-    /**
-     * 以关键字搜索指定排序的商品列表
-     *
-     * @param keyword 关键字
-     */
-    public void searchSkuByKeyword(String keyword) {
-        noDataView.setVisibility(View.GONE);
-
-
-        APIManager.startRequest(homeService.searchProductByKeyword(
-                keyword,
-                page,
-                page_Size,
-                s_isRush,
-                s_isFreeShip,
-                s_minPrice,
-                s_maxPrice,
-                s_orderType,
-                s_orderBy), new RequestListener<DDProductPageBean>() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(DDProductPageBean result) {
-                super.onSuccess(result);
-                if (page > 1) {
-                    mAdapter.appendData(result.getDatas());
-                    mSmartRefreshLayout.finishLoadMore();
-                } else {
-                    if (result.getTotalRecord() > 0) {
-                        mAdapter.setData(result.getDatas());
-                        mSmartRefreshLayout.finishRefresh();
-                        noDataView.setVisibility(View.GONE);
-                    } else {
-                        noDataView.setVisibility(View.VISIBLE);
-                    }
-                }
-                int nowCount = mAdapter.getItemCount();
-                long total = result.getTotalRecord();
-                mSmartRefreshLayout.setNoMoreData(!(nowCount < total));
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                ToastUtil.error(e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-
-
-    }
-
 
 }

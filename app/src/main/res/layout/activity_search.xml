@@ -120,12 +120,27 @@
 
     </ScrollView>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/responseView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:orientation="vertical"
+        >
+
+        <com.xiling.ddui.custom.ScreeningView
+            android:id="@+id/screenView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"/>
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

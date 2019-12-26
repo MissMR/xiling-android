@@ -72,6 +72,7 @@
                     >
 
                     <RelativeLayout
+                        android:id="@+id/rel_search"
                         android:layout_width="@dimen/dp_82"
                         android:layout_height="@dimen/dp_32"
                         android:background="@drawable/bg_round_f2_16"

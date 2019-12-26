@@ -1,5 +1,6 @@
 package com.xiling.dduis.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.BannerManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.search.SearchActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
@@ -108,6 +110,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     @BindView(R.id.iv_headIcon)
     CircleImageView ivHeadIcon;
     private LinearLayoutManager bannerLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -178,7 +181,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
         // 如果有登录信息，视为登录
-        if (UserManager.getInstance().getUser() != null){
+        if (UserManager.getInstance().getUser() != null) {
             UserManager.getInstance().loginSuccess(UserManager.getInstance().getUser());
         }
     }
@@ -245,7 +248,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         relBrandHead.setVisibility(View.VISIBLE);
                         brandAdapter.setNewData(brandList);
                         brandSize = brandList.size();
-                      //  brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
+                        //  brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
                         tvBrandPosition.setText(brandPosition + "");
                         tvBrandSize.setText(brandSize + "");
                     } else {
@@ -349,9 +352,9 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         requestData();
     }
 
-    @OnClick(R.id.btn_login)
+    @OnClick({R.id.btn_login,R.id.rel_search})
     public void onViewClicked() {
-        if (!UserManager.getInstance().isLogin()){
+        if (!UserManager.getInstance().isLogin()) {
             EventBus.getDefault().post(new EventMessage(Event.goToLogin));
         }
     }
@@ -365,7 +368,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 if (!TextUtils.isEmpty(user.getNickName())) {
                     btnLogin.setText(user.getNickName());
                     tvGrade.setVisibility(View.VISIBLE);
-                    GlideUtils.loadImage(mContext,ivHeadIcon,user.getHeadImage());
+                    GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
                     tvGrade.setText(user.getRole().getRoleName());
                 }
             }
@@ -378,4 +381,9 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     }
 
 
+    @OnClick(R.id.rel_search)
+    public void searchClick() {
+        Intent intent = new Intent(mContext, SearchActivity.class);
+        startActivity(intent);
+    }
 }
