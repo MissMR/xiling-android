@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.adapter.CategoryAdapter;
 import com.xiling.ddui.adapter.CategoryBrandAdapter;
 import com.xiling.ddui.adapter.CategoryNavigationAdapter;
@@ -58,6 +59,7 @@ public class DDCategoryFragment extends BaseFragment {
     SmartRefreshLayout mSmartRefreshLayout;
 
     ArrayList<TopCategoryBean> topCategoryList;
+    ArrayList<SecondCategoryBean.SecondCategoryListBean> secondCategoryList;
 
     Unbinder unbinder;
     @BindView(R.id.sdv_category_banner)
@@ -122,6 +124,12 @@ public class DDCategoryFragment extends BaseFragment {
         rvCategory.setAdapter(mCategoryAdapter);
         rvCategory.setLayoutManager(new GridLayoutManager(mContext, 3));
 
+        mCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CategorySecondActivity.jumpCategorySecondActivity(mContext,topCategoryList.get(childPosition).getCategoryName(),topCategoryList.get(childPosition).getCategoryId(),secondCategoryList,position);
+            }
+        });
 
         categoryBrandAdapter = new CategoryBrandAdapter();
         rvCategoryBrand.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
@@ -182,6 +190,7 @@ public class DDCategoryFragment extends BaseFragment {
                         GlideUtils.loadImage(mContext, sdvCategoryBanner, topCategoryList.get(childPosition).getBannerUrl());
                         tvCategory.setText(topCategoryList.get(childPosition).getCategoryName());
                         if (result.getSecondCategoryList() != null) {
+                            secondCategoryList = result.getSecondCategoryList();
                             mCategoryAdapter.setNewData(result.getSecondCategoryList());
                         } else {
                             mCategoryAdapter.setNewData(new ArrayList<SecondCategoryBean.SecondCategoryListBean>());

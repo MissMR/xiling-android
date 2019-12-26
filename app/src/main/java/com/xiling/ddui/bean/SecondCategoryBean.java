@@ -1,29 +1,33 @@
 package com.xiling.ddui.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class SecondCategoryBean {
 
-    private List<SecondCategoryListBean> secondCategoryList;
-    private List<BrandBeanListBean> brandBeanList;
+    private ArrayList<SecondCategoryListBean> secondCategoryList;
+    private ArrayList<BrandBeanListBean> brandBeanList;
 
-    public List<SecondCategoryListBean> getSecondCategoryList() {
+    public ArrayList<SecondCategoryListBean> getSecondCategoryList() {
         return secondCategoryList;
     }
 
-    public void setSecondCategoryList(List<SecondCategoryListBean> secondCategoryList) {
+    public void setSecondCategoryList(ArrayList<SecondCategoryListBean> secondCategoryList) {
         this.secondCategoryList = secondCategoryList;
     }
 
-    public List<BrandBeanListBean> getBrandBeanList() {
+    public ArrayList<BrandBeanListBean> getBrandBeanList() {
         return brandBeanList;
     }
 
-    public void setBrandBeanList(List<BrandBeanListBean> brandBeanList) {
+    public void setBrandBeanList(ArrayList<BrandBeanListBean> brandBeanList) {
         this.brandBeanList = brandBeanList;
     }
 
-    public static class SecondCategoryListBean {
+    public static class SecondCategoryListBean implements Parcelable {
         /**
          * categoryId : 7c2b1136d198413992b3c72bdc4d292d
          * iconUrl : https://oss.dodomall.com/category/2019-04/20190426103449951P9.png
@@ -46,7 +50,7 @@ public class SecondCategoryBean {
         private String remark;
         private String bannerUrl;
         private String secondCategoryAndBrand;
-        private List<?> categoryBeans;
+        private List<String> categoryBeans;
 
         public String getCategoryId() {
             return categoryId;
@@ -120,16 +124,63 @@ public class SecondCategoryBean {
             this.secondCategoryAndBrand = secondCategoryAndBrand;
         }
 
-        public List<?> getCategoryBeans() {
+        public List<String> getCategoryBeans() {
             return categoryBeans;
         }
 
-        public void setCategoryBeans(List<?> categoryBeans) {
+        public void setCategoryBeans(List<String> categoryBeans) {
             this.categoryBeans = categoryBeans;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.categoryId);
+            dest.writeString(this.iconUrl);
+            dest.writeString(this.categoryName);
+            dest.writeString(this.categoryNameShort);
+            dest.writeString(this.pathUrl);
+            dest.writeString(this.parentId);
+            dest.writeString(this.remark);
+            dest.writeString(this.bannerUrl);
+            dest.writeString(this.secondCategoryAndBrand);
+            dest.writeStringList(this.categoryBeans);
+        }
+
+        public SecondCategoryListBean() {
+        }
+
+        protected SecondCategoryListBean(Parcel in) {
+            this.categoryId = in.readString();
+            this.iconUrl = in.readString();
+            this.categoryName = in.readString();
+            this.categoryNameShort = in.readString();
+            this.pathUrl = in.readString();
+            this.parentId = in.readString();
+            this.remark = in.readString();
+            this.bannerUrl = in.readString();
+            this.secondCategoryAndBrand = in.readString();
+            this.categoryBeans = in.createStringArrayList();
+        }
+
+        public static final Parcelable.Creator<SecondCategoryListBean> CREATOR = new Parcelable.Creator<SecondCategoryListBean>() {
+            @Override
+            public SecondCategoryListBean createFromParcel(Parcel source) {
+                return new SecondCategoryListBean(source);
+            }
+
+            @Override
+            public SecondCategoryListBean[] newArray(int size) {
+                return new SecondCategoryListBean[size];
+            }
+        };
     }
 
-    public static class BrandBeanListBean {
+    public static class BrandBeanListBean implements Parcelable {
         /**
          * brandId : 5d3d232efa9b4802a2ce7db0856c4d75
          * categoryId :
@@ -213,5 +264,48 @@ public class SecondCategoryBean {
         public void setDeleteFlag(int deleteFlag) {
             this.deleteFlag = deleteFlag;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.brandId);
+            dest.writeString(this.categoryId);
+            dest.writeString(this.brandName);
+            dest.writeString(this.iconUrl);
+            dest.writeString(this.remark);
+            dest.writeString(this.createDate);
+            dest.writeString(this.updateDate);
+            dest.writeInt(this.deleteFlag);
+        }
+
+        public BrandBeanListBean() {
+        }
+
+        protected BrandBeanListBean(Parcel in) {
+            this.brandId = in.readString();
+            this.categoryId = in.readString();
+            this.brandName = in.readString();
+            this.iconUrl = in.readString();
+            this.remark = in.readString();
+            this.createDate = in.readString();
+            this.updateDate = in.readString();
+            this.deleteFlag = in.readInt();
+        }
+
+        public static final Parcelable.Creator<BrandBeanListBean> CREATOR = new Parcelable.Creator<BrandBeanListBean>() {
+            @Override
+            public BrandBeanListBean createFromParcel(Parcel source) {
+                return new BrandBeanListBean(source);
+            }
+
+            @Override
+            public BrandBeanListBean[] newArray(int size) {
+                return new BrandBeanListBean[size];
+            }
+        };
     }
 }

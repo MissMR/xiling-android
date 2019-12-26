@@ -6,6 +6,7 @@ import com.xiling.ddui.bean.ListResultBean;
 import com.xiling.ddui.bean.SecondCategoryBean;
 import com.xiling.ddui.bean.TopCategoryBean;
 import com.xiling.dduis.bean.DDProductBean;
+import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.module.groupBuy.GroupBuyModel;
 import com.xiling.module.order.body.AddCommentBody;
 import com.xiling.module.push.PushSkuDetailModel;
@@ -21,11 +22,13 @@ import com.xiling.shared.bean.api.PaginationEntity;
 import com.xiling.shared.bean.api.RequestResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -44,6 +47,14 @@ public interface IProductService {
     @FormUrlEncoded
     @POST("secondLevel/getSecondCategory")
     Observable<RequestResult<SecondCategoryBean>> getSecondCategory(@Field("nodeId") String nodeId);
+
+    // 获取商品列表接口
+    @FormUrlEncoded
+    @POST("secondLevel/getProductList")
+    Observable<RequestResult<HomeRecommendDataBean>> getProductList(@FieldMap HashMap<String,String> map);
+
+
+
 
     @Deprecated
     @GET("category/list")

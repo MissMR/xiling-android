@@ -810,4 +810,8 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="AnimationRight">
+        <item name="android:windowEnterAnimation">@anim/right_anim_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/right_anim_dialog_out</item>
+    </style>
 </resources>
