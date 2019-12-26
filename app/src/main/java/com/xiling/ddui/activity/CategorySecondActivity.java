@@ -43,7 +43,7 @@ public class CategorySecondActivity extends BaseActivity {
     ScreeningView screenView;
     @BindView(R.id.parentView)
     LinearLayout parentView;
-    ScreeningPopupWindow screeningPopupWindow;
+
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
@@ -128,61 +128,21 @@ public class CategorySecondActivity extends BaseActivity {
 
         screenView.setOnItemClickLisener(new ScreeningView.OnItemClickLisener() {
             @Override
-            public void onItemClickLisener(int position, int order) {
-                switch (position) {
-                    case 0: //价格
-                        if (orderBy == 0) {
-                            if (orderType == 0) {
-                                orderType = 1;
-                            } else {
-                                orderType = 0;
-                            }
-                        } else {
-                            orderBy = 0;
-                            orderType = 0;
-                        }
+            public void onSort(int orderBy, int orderType) {
+                CategorySecondActivity.this.orderBy = orderBy;
+                CategorySecondActivity.this.orderType = orderType;
+                for (Fragment fragment : fragments) {
+                    ((ShopFragment) fragment).requestShopFill(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
+                }
+            }
 
-                        for (Fragment fragment : fragments) {
-                            ((ShopFragment) fragment).requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
-                        }
-                        break;
-                    case 1: // 销量
-                        if (orderBy == 2) {
-                            if (orderType == 0) {
-                                orderType = 1;
-                            } else {
-                                orderType = 0;
-                            }
-                        } else {
-                            orderBy = 2;
-                            orderType = 0;
-                        }
-
-                        for (Fragment fragment : fragments) {
-                            ((ShopFragment) fragment).requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
-                        }
-                        break;
-                    case 2: // 筛选
-                        if (screeningPopupWindow == null) {
-                            screeningPopupWindow = new ScreeningPopupWindow(context);
-                            screeningPopupWindow.setOnScreenListener(new ScreeningPopupWindow.onScreenListener() {
-                                @Override
-                                public void onScreenListener(int isShippingFree, String minPrice, String maxPrice) {
-                                    CategorySecondActivity.this.isShippingFree = isShippingFree;
-                                    CategorySecondActivity.this.minPrice = minPrice;
-                                    CategorySecondActivity.this.maxPrice = maxPrice;
-                                    for (Fragment fragment : fragments) {
-                                        ((ShopFragment) fragment).requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
-                                    }
-                                }
-                            });
-                        }
-
-                        screeningPopupWindow.showForRight(parentView);
-
-                        break;
-                    default:
-                        break;
+            @Override
+            public void onFilter(int isShippingFree, String minPrice, String maxPrice) {
+                CategorySecondActivity.this.isShippingFree = isShippingFree;
+                CategorySecondActivity.this.minPrice = minPrice;
+                CategorySecondActivity.this.maxPrice = maxPrice;
+                for (Fragment fragment : fragments) {
+                    ((ShopFragment) fragment).requestShopFill(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
                 }
             }
         });

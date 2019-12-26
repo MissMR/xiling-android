@@ -1,5 +1,6 @@
 package com.xiling.shared.service.contract;
 
+import com.xiling.ddui.bean.BrandBean;
 import com.xiling.ddui.bean.CategoryBean;
 import com.xiling.ddui.bean.DDSkuListBean;
 import com.xiling.ddui.bean.ListResultBean;
@@ -52,6 +53,12 @@ public interface IProductService {
     @FormUrlEncoded
     @POST("secondLevel/getProductList")
     Observable<RequestResult<HomeRecommendDataBean>> getProductList(@FieldMap HashMap<String,String> map);
+
+
+    // 获取品牌详情
+    @FormUrlEncoded
+    @POST("secondLevel/getBrandDetail")
+    Observable<RequestResult<BrandBean>> getBrandDetail(@Field("brandId") String brandId);
 
 
 

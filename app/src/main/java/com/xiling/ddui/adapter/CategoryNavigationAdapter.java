@@ -21,6 +21,10 @@ public class CategoryNavigationAdapter extends BaseQuickAdapter<TopCategoryBean,
         notifyDataSetChanged();
     }
 
+    public int getmActiveIndex() {
+        return mActiveIndex;
+    }
+
     private int mActiveIndex = 0;
     public CategoryNavigationAdapter() {
         super(R.layout.item_category_navigation);

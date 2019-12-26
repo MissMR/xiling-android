@@ -245,7 +245,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         relBrandHead.setVisibility(View.VISIBLE);
                         brandAdapter.setNewData(brandList);
                         brandSize = brandList.size();
-                        brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
+                      //  brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
                         tvBrandPosition.setText(brandPosition + "");
                         tvBrandSize.setText(brandSize + "");
                     } else {

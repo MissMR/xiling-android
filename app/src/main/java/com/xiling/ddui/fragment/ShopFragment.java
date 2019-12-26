@@ -131,6 +131,99 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     /**
      * 请求数据
      */
+    public void requestShopFill(String minPrice, String maxPrice, int isShippingFree, int orderBy, int orderType, String keyWord) {
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            arguments.putString("minPrice",minPrice);
+            arguments.putString("maxPrice",maxPrice);
+            arguments.putString("keyWord",keyWord);
+            arguments.putInt("isShippingFree",isShippingFree);
+            arguments.putInt("orderBy",orderBy);
+            arguments.putInt("orderType",orderType);
+        }
+        this.pageOffset = 1;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.isShippingFree = isShippingFree;
+        this.orderBy = orderBy;
+        this.orderType = orderType;
+        this.keyWord = keyWord;
+        requestMap.clear();
+        if (!TextUtils.isEmpty(categoryId)) {
+            requestMap.put("categoryId", categoryId);
+        }
+
+        if (!TextUtils.isEmpty(secondCategoryId)) {
+            requestMap.put("secondCategoryIdList", secondCategoryId+"");
+        }
+
+        if (!TextUtils.isEmpty(brandId)) {
+            requestMap.put("brandId", brandId);
+        }
+
+        if (!TextUtils.isEmpty(minPrice)) {
+            requestMap.put("minPrice", minPrice);
+        }
+
+        if (!TextUtils.isEmpty(maxPrice)) {
+            requestMap.put("maxPrice", maxPrice);
+        }
+        if (!TextUtils.isEmpty(keyWord)) {
+            requestMap.put("keyWord", keyWord);
+        }
+
+        requestMap.put("isShippingFree", isShippingFree + "");
+        requestMap.put("orderBy", orderBy + "");
+        requestMap.put("orderType", orderType + "");
+        requestMap.put("pageOffset", pageOffset + "");
+        requestMap.put("pageSize", pageSize + "");
+        Log.d("requestJSON", "request map = " + requestMap.toString());
+        if (mProductService != null && getActivity() != null){
+            APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>(getActivity()) {
+                @Override
+                public void onSuccess(HomeRecommendDataBean result) {
+                    super.onSuccess(result);
+                    smartRefreshLayout.finishRefresh();
+                    smartRefreshLayout.finishLoadMore();
+
+                    if (result != null) {
+                        if (result.getDatas() != null) {
+                            if (pageOffset == 1) {
+                                shopDataList.clear();
+                            }
+                            totalPage = result.getTotalPage();
+                            // 如果已经到最后一页了，关闭上拉加载
+                            if (pageOffset >= totalPage) {
+                                smartRefreshLayout.setEnableLoadMore(false);
+                            } else {
+                                smartRefreshLayout.setEnableLoadMore(true);
+                            }
+
+                            shopDataList.addAll(result.getDatas());
+
+                            if (pageOffset == 1) {
+                                shopAdapter.setNewData(result.getDatas());
+                            } else {
+                                shopAdapter.addData(result.getDatas());
+                            }
+
+                        }
+
+
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    smartRefreshLayout.finishRefresh();
+                    smartRefreshLayout.finishLoadMore();
+                }
+            });
+        }
+    }
+
     public void requestShop(String minPrice, String maxPrice, int isShippingFree, int orderBy, int orderType, String keyWord) {
         Bundle arguments = getArguments();
         if (arguments != null) {

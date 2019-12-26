@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.BrandActivity;
 import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.adapter.CategoryAdapter;
 import com.xiling.ddui.adapter.CategoryBrandAdapter;
@@ -35,6 +37,7 @@ import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IProductService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +63,7 @@ public class DDCategoryFragment extends BaseFragment {
 
     ArrayList<TopCategoryBean> topCategoryList;
     ArrayList<SecondCategoryBean.SecondCategoryListBean> secondCategoryList;
+    ArrayList<SecondCategoryBean.BrandBeanListBean> brandBeanListBeanList;
 
     Unbinder unbinder;
     @BindView(R.id.sdv_category_banner)
@@ -71,6 +75,7 @@ public class DDCategoryFragment extends BaseFragment {
     @BindView(R.id.rv_category_brand)
     RecyclerView rvCategoryBrand;
 
+    LinearLayoutManager topLayoutMainager;
 
     private IProductService mProductService;
     private CategoryNavigationAdapter mCategoryNavigationAdapter;
@@ -114,8 +119,8 @@ public class DDCategoryFragment extends BaseFragment {
                 }
             }
         });
-
-        mRvCategoryNav.setLayoutManager(new LinearLayoutManager(getContext()));
+        topLayoutMainager = new LinearLayoutManager(getContext());
+        mRvCategoryNav.setLayoutManager(topLayoutMainager);
         mRvCategoryNav.setAdapter(mCategoryNavigationAdapter);
 
 
@@ -127,7 +132,11 @@ public class DDCategoryFragment extends BaseFragment {
         mCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CategorySecondActivity.jumpCategorySecondActivity(mContext,topCategoryList.get(childPosition).getCategoryName(),topCategoryList.get(childPosition).getCategoryId(),secondCategoryList,position);
+                if (topCategoryList != null && secondCategoryList != null) {
+                    CategorySecondActivity.jumpCategorySecondActivity(mContext, topCategoryList.get(childPosition).getCategoryName(),
+                            topCategoryList.get(childPosition).getCategoryId(), secondCategoryList, position);
+                }
+
             }
         });
 
@@ -135,6 +144,20 @@ public class DDCategoryFragment extends BaseFragment {
         rvCategoryBrand.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
         rvCategoryBrand.setAdapter(categoryBrandAdapter);
         rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 2));
+
+        categoryBrandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (topCategoryList != null && brandBeanListBeanList != null) {
+                    Log.d("pangtao","childPosition = " +childPosition);
+                    BrandActivity.jumpBrandActivity(mContext, topCategoryList.get(childPosition).getCategoryId(),
+                            brandBeanListBeanList.get(position).getBrandId(), brandBeanListBeanList.get(position).getBrandName());
+                }
+
+            }
+        });
+
 
         mSmartRefreshLayout.setEnableLoadMore(false);
         mSmartRefreshLayout.setEnableRefresh(true);
@@ -161,7 +184,8 @@ public class DDCategoryFragment extends BaseFragment {
                 super.onSuccess(result);
                 topCategoryList = result;
                 mCategoryNavigationAdapter.setNewData(result);
-                childPosition = 0;
+                childPosition =mCategoryNavigationAdapter.getmActiveIndex();
+
                 if (topCategoryList.size() > childPosition) {
                     getSecondCategory(topCategoryList.get(childPosition).getCategoryId());
                 }
@@ -174,7 +198,11 @@ public class DDCategoryFragment extends BaseFragment {
         });
     }
 
-
+    /**
+     * 获取二级分类和品牌
+     *
+     * @param nodeId
+     */
     private void getSecondCategory(String nodeId) {
         APIManager.startRequest(mProductService.getSecondCategory(nodeId), new BaseRequestListener<SecondCategoryBean>(getActivity()) {
             @Override
@@ -197,8 +225,9 @@ public class DDCategoryFragment extends BaseFragment {
                         }
 
                         if (result.getBrandBeanList() != null && result.getBrandBeanList().size() > 0) {
+                            brandBeanListBeanList = result.getBrandBeanList();
                             llBrand.setVisibility(View.VISIBLE);
-                            categoryBrandAdapter.setNewData(result.getBrandBeanList());
+                            categoryBrandAdapter.setNewData(brandBeanListBeanList);
                         } else {
                             llBrand.setVisibility(View.GONE);
                         }

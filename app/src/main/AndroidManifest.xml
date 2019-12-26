@@ -33,11 +33,11 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".ddui.activity.CategorySecondActivity"
-            android:screenOrientation="portrait"
+        <activity android:name=".ddui.activity.BrandActivity"></activity>
+        <activity
+            android:name=".ddui.activity.CategorySecondActivity"
             android:launchMode="singleTask"
-            />
-
+            android:screenOrientation="portrait" />
         <activity android:name=".ddui.activity.DDCouponIntroActivity" />
         <activity android:name=".ddui.activity.DDCouponActivity" /> <!-- 设置key -->
         <!-- <meta-data -->
