@@ -218,7 +218,7 @@ public class DDProductActionContainer extends LinearLayout {
     }
 
     public void setOnActionListener(ProductDetailUIHelper.OnActionListener listener) {
-        mOnClickListener = new ProductDetailUIHelper.OnClickListener(listener);
+      //  mOnClickListener = new ProductDetailUIHelper.OnClickListener(listener);
         // 底部导航按钮
         mFlCart.setOnClickListener(mOnClickListener);
         mTvCart.setOnClickListener(mOnClickListener);

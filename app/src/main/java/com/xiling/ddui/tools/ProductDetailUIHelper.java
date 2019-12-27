@@ -1,68 +1,38 @@
 package com.xiling.ddui.tools;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.graphics.Paint;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.view.ViewTreeObserver;
-import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.ScreenUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.xiling.MyApplication;
 import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
-import com.xiling.ddui.activity.DDVideoViewActivity;
 import com.xiling.ddui.adapter.DDCommunityDataAdapter;
-import com.xiling.ddui.adapter.MeasurementImageAdapter;
-import com.xiling.ddui.adapter.ProductSuggestAdapter;
-import com.xiling.ddui.bean.CommunityDataBean;
-import com.xiling.ddui.bean.ProductEvaluateBean;
-import com.xiling.ddui.custom.DDAvatarContainerView;
-import com.xiling.ddui.custom.DDExpandTextView;
-import com.xiling.ddui.custom.DDIndicator;
-import com.xiling.ddui.custom.DDProductActionContainer;
-import com.xiling.ddui.custom.DDProductPriceView;
+import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.custom.DDSmartTab;
 import com.xiling.ddui.custom.DDSquareBanner;
-import com.xiling.ddui.custom.DDStarView;
-import com.xiling.ddui.custom.DDTagView;
-import com.xiling.dduis.base.AvatarDemoMaker;
-import com.xiling.shared.bean.Product;
+import com.xiling.ddui.manager.ShopDetailManager;
+import com.xiling.dduis.adapter.ShopListTagsAdapter;
+import com.xiling.dduis.magnager.UserManager;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.SkuPvIds;
-import com.xiling.shared.bean.Tag;
-import com.xiling.shared.decoration.GridSpacingItemDecoration;
+import com.xiling.shared.component.dialog.SkuSelectorDialog;
 import com.xiling.shared.util.CarouselUtil;
-import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.FrescoUtil;
-import com.xiling.shared.util.ImageUtil;
 import com.xiling.shared.util.RvUtils;
 import com.xiling.shared.util.SessionUtil;
-import com.xiling.shared.util.WebViewUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 /**
@@ -105,8 +75,6 @@ public class ProductDetailUIHelper {
     ImageView mIvBackFirst;
     @BindView(R.id.iv_share_first)
     ImageView mIvShareFirst;
-    @BindView(R.id.iv_collect_first)
-    ImageView mIvCollectFirst;
 
     // 上滑后的toolbar区域
     @BindView(R.id.rl_toolbar_second)
@@ -126,47 +94,20 @@ public class ProductDetailUIHelper {
     @BindView(R.id.tv_sold_out)
     TextView mTvSoldOut;
 
-    // 引导成为店主
-    @BindView(R.id.rl_become_master_guide)
-    RelativeLayout mRlBecomeMasterGuide;
 
-    // 立即升级为店主
-    @BindView(R.id.tv_become_master)
-    TextView mTvBecomeMaster;
-    // 成为店主后的佣金
-    @BindView(R.id.tv_reward_guide)
-    TextView mTvRewardGuide;
-
-    // 销量
-    @BindView(R.id.tv_sale_count)
-    TextView mTvSaleCount;
     // 商品标题
     @BindView(R.id.tv_product_title)
     TextView mTvProductTitle;
     // 商品sku 具体商品类别
     @BindView(R.id.tvSkuInfo)
     TextView mTvSkuInfo;
+    @BindView(R.id.relSkuInfo)
+    RelativeLayout relSkuInfo;
 
-    @BindView(R.id.hsv_product_tag_container)
-    HorizontalScrollView mHsvProductTagContainer;
-
-    // 商家承诺区域
-    @BindView(R.id.productAuthLayout)
-    LinearLayout mLlProductAuth;
-    @BindViews({R.id.tvProductAuth1, R.id.tvProductAuth2, R.id.tvProductAuth3})
-    List<TextView> mTvAuthList;
-    @BindViews({R.id.ivProductAuth1, R.id.ivProductAuth2, R.id.ivProductAuth3})
-    List<SimpleDraweeView> mIvAuthList;
 
     @BindView(R.id.tv_material_all)
     TextView mTvMaterialAll;
 
-    // 产品详情
-    @BindView(R.id.web_view)
-    WebView mProductDetailWebView;
-    // 产品标签区域
-    @BindView(R.id.ll_product_tag_container)
-    LinearLayout mLlProductTagContainer;
 
     // 发圈素材总数
     @BindView(R.id.tv_material_count)
@@ -181,36 +122,30 @@ public class ProductDetailUIHelper {
     TextView mTvIndicator;
 
 
-    @BindView(R.id.rl_sale_info)
-    RelativeLayout mRlSaleInfo;
-    @BindView(R.id.tv_sale_info_sale_count)
-    TextView mTvSaleInfoSaleCount;
-    @BindView(R.id.tv_sale_user_count)
-    TextView mTvSaleUserCount;
-    @BindView(R.id.dd_avatar_container)
-    DDAvatarContainerView mDDAvatarContainerView;
+    @BindView(R.id.tv_discount_price)
+    TextView tvDiscountPrice;
 
+    @BindView(R.id.tv_discount_price_decimal)
+    TextView tvDiscountPriceDecimal;
 
-    @BindView(R.id.dd_product_action_container)
-    DDProductActionContainer mDDProductActionContainer;
+    @BindView(R.id.tv_minPrice)
+    TextView tvMinPrice;
 
-    @BindView(R.id.dd_product_price_view)
-    DDProductPriceView mDDProductPriceView;
+    @BindView(R.id.tv_minMarketPrice)
+    TextView tvMinMarketPrice;
 
-    @BindView(R.id.vs_measurement)
-    ViewStub mVsMeasurement;
+    @BindView(R.id.tv_sale_size)
+    TextView tvSaleSize;
 
-    @BindView(R.id.vs_suggest)
-    ViewStub mVsSuggest;
+    @BindView(R.id.recycler_tag)
+    RecyclerView recyclerTag;
+    ShopListTagsAdapter shopListTagsAdapter;
+
 
     private OnActionListener mOnActionListener;
 
     private DDProductDetailActivity mContext;
     private View baseContentView;
-
-    private MeasurementViewHolder mMeasurementViewHolder;
-    private SuggestProductViewHolder mSuggestProductViewHolder;
-
     private OnClickListener mOnClickListener;
 
     // 是否是从上往上滑动 往上滑动时，tab 的 onCheckChanged 不做处理
@@ -234,11 +169,19 @@ public class ProductDetailUIHelper {
     private DDCommunityDataAdapter mProductDetailMaterialAdapter;
 
 
+    ShopDetailManager shopDetailManager;
+    SkuSelectorDialog mSkuSelectorDialog;
+    ProductNewBean mSpuInfo;
+
     public ProductDetailUIHelper(DDProductDetailActivity productDetailActivity) {
         mContext = productDetailActivity;
         mUIUserCategory = SessionUtil.getInstance().isLogin() && SessionUtil.getInstance().getLoginUser().isStoreMaster()
                 ? UI_CATEGORY_USER_MASTER : UI_CATEGORY_USER_NORMAL;
+
+        shopDetailManager = new ShopDetailManager();
+
         initView();
+
         QMUIStatusBarHelper.setStatusBarLightMode(mContext);
     }
 
@@ -258,147 +201,88 @@ public class ProductDetailUIHelper {
 
         initMaterialRecyclerView();
 
-        baseContentView.findViewById(R.id.tv_service).setActivated(true);
     }
 
 
-    public void updateSkuViews(SkuPvIds skuInfo) {
+    public void updateSkuViews(String name) {
 
-        if (skuInfo == null) {
+        if (TextUtils.isEmpty(name)) {
             mTvSkuInfo.setText("请选择规格");
-            return;
+        } else {
+            mTvSkuInfo.setText(name);
         }
 
-        mTvSkuInfo.setText(skuInfo.propertyValues);
-
     }
 
-    public void updateSpuViews(Product spuInfo) {
+    public void updateSpuViews(ProductNewBean spuInfo) {
         if (spuInfo == null) {
             return;
         }
+        mSpuInfo = spuInfo;
 
-        if (!spuInfo.images.isEmpty()) {
-            updateSkuBanner(spuInfo.images);
+        if (spuInfo.getImages() != null && spuInfo.getImages().size() > 0) {
+            updateSkuBanner(spuInfo.getImages());
         }
 
-        updateSpuLikeState(spuInfo.isProductLiked());
+        mTvProductTitle.setText(spuInfo.getProductName());
 
-        mDDProductPriceView.setData(spuInfo);
+        if (spuInfo.getStatus() == 1) {
+            mTvSoldOut.setVisibility(View.VISIBLE);
+        } else {
+            mTvSoldOut.setVisibility(View.GONE);
+        }
 
-        // 店主佣金
-
-        String rewardPrice = String.valueOf(ConvertUtil.cent2yuanNoZero(spuInfo.getRewardPrice()));
-        mDDProductActionContainer.setRewardPrice(rewardPrice);
-        mTvRewardGuide.setText(String.format(STRING_BECOME_GUIDE, ConvertUtil.cent2yuanNoZero(spuInfo.rewardPrice)));
-
-        mTvProductTitle.setText(spuInfo.name);
-
-        clearProductTagView();
-        if (!spuInfo.tags.isEmpty()) {
-            for (Tag t : spuInfo.tags) {
-                addItemProductTagView(t.name);
+        //优惠价，需要根据用户等级展示不同价格
+        NewUserBean userBean = UserManager.getInstance().getUser();
+        if (userBean != null) {
+            switch (userBean.getRole().getRoleLevel()) {
+                case 10:
+                    NumberHandler.setPriceText(spuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
+                    break;
+                case 20:
+                    NumberHandler.setPriceText(spuInfo.getLevel20Price(), tvDiscountPrice, tvDiscountPriceDecimal);
+                    break;
+                case 30:
+                    NumberHandler.setPriceText(spuInfo.getLevel30Price(), tvDiscountPrice, tvDiscountPriceDecimal);
+                    break;
             }
         } else {
-            mHsvProductTagContainer.setVisibility(View.GONE);
+            NumberHandler.setPriceText(spuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
         }
 
-        mTvSkuInfo.setText("请选择规格");
+        //售价
+        tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinPrice()));
+        //划线价
+        tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinMarketPrice()));
+        tvMinMarketPrice.getPaint().setAntiAlias(true);//抗锯齿
+        tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tvSaleSize.setText("已售" + spuInfo.getSaleCount());
 
-        if (spuInfo.skus.size() == 1) {
-            mTvSkuInfo.setText(spuInfo.skus.get(0).propertyValues);
-        }
-
-        mTvSaleCount.setText("销量" + spuInfo.getFormatSaleCount() + "件");
-
-        updateAuthViews(spuInfo);
-
-        // 购买人信息相关
-        mRlSaleInfo.setVisibility(spuInfo.saleIncCount > 2 ? View.VISIBLE : View.GONE);
-        mTvSaleUserCount.setText(String.format("%s人已购买", spuInfo.saleIncCount));
-        mTvSaleInfoSaleCount.setText(String.format("共售出%s件", spuInfo.getFormatSaleCount()));
-        mDDAvatarContainerView.setData(AvatarDemoMaker.randomAvatarWithFirstMoreImage(spuInfo.saleIncCount, 8));
-
-        // 测评相关
-        if (spuInfo.hasProductEvaluate()) {
-            getMeasurementViewHolder().render(spuInfo.productEvaluate);
-            getMeasurementViewHolder().setOnClickListener(mOnClickListener);
-        }
-
-        if (spuInfo.hasSuggestProduct()) {
-            String tag = spuInfo.hasSetRelationProduct() ? "相关推荐"
-                    : (SessionUtil.getInstance().isMaster() ? "大家都在推" : "大家都在抢");
-            getSuggestViewHolder().setSuggestTag(tag);
-            getSuggestViewHolder().render(spuInfo.relationProducts);
-        }
-
-        mDDProductActionContainer.setBuyButtonEnable(spuInfo.checkProductEnable());
-
-        loadDetailWebView(spuInfo.content);
-
-        if (mIsShowProductMaterial) {
-            mTvMaterialCount.setText("· " + spuInfo.roundMaterialCount);
-            updateMaterialViews(spuInfo.roundMaterials);
-        }
-
-        renderViewByProductType(spuInfo);
-
-        renderUnBuyableHintView(spuInfo.getUnBuyableHintText());
-
-    }
-
-    private void renderViewByProductType(final Product spuInfo) {
-        if (spuInfo.isStoreGift()) {
-            // 店主礼包
-            setStoreGiftView();
-        } else if (spuInfo.isProductFree()) {
-            // 0元购
-            setProductFreeView();
-        } else if (spuInfo.isTomorrowGrounding()) {
-            // 明日上新
-            showShareButton(false);
-            mDDProductActionContainer.setBuyButtonEnable(false);
-        } else if (spuInfo.isFlashSale() && spuInfo.flashSaleDetail.isBeforeFlashSale24()) {
-            // 秒杀预售
-            mDDProductActionContainer.showPreFlashSale(true);
-            mDDProductActionContainer.setNotifyActive(!spuInfo.flashSaleDetail.hasNotified());
-            mDDProductPriceView.setOnFlashSaleListener(new DDProductPriceView.OnFlashSaleListener() {
-                @Override
-                public void onFlashSaleStart() {
-                    mDDProductActionContainer.showPreFlashSale(false);
-                }
-            });
+        LinearLayoutManager tagManager = new LinearLayoutManager(mContext) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        tagManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerTag.setLayoutManager(tagManager);
+        shopListTagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_detail_tag, spuInfo.getProductTags());
+        recyclerTag.setAdapter(shopListTagsAdapter);
+        if (spuInfo.getSkus() != null && spuInfo.getSkus().size() > 0) {
+            updateSkuViews(spuInfo.getSkus().get(0).getPropertyValues());
+        } else {
+            updateSkuViews("");
         }
     }
 
-    private void renderUnBuyableHintView(String hint) {
-        if (TextUtils.isEmpty(hint)) {
-            return;
-        }
-        mTvSoldOut.setVisibility(View.VISIBLE);
-        mDDProductActionContainer.setProductUnBuyableHint(hint);
-    }
-
-    public void showBecomeMasterGuide(boolean isShow) {
-        mRlBecomeMasterGuide.setVisibility(isShow ? View.VISIBLE : View.GONE);
-    }
 
     public void updateSkuBanner(List<String> URLList) {
         CarouselUtil.initCarousel(mDDSquareBanner, URLList, mTvIndicator);
     }
 
-    public void updateCartBadge(String count) {
-        mDDProductActionContainer.updateCartBadge(count);
-    }
-
-    public void updateSpuLikeState(boolean isLike) {
-        mIvCollectFirst.setSelected(isLike);
-        mIvCollectSecond.setSelected(isLike);
-    }
 
     public void setOnActionListener(OnActionListener onActionListener) {
         mOnActionListener = onActionListener;
-        mDDProductActionContainer.setOnActionListener(onActionListener);
         mOnClickListener = new OnClickListener(mOnActionListener);
 
         // toolbar返回 分享按钮
@@ -406,25 +290,18 @@ public class ProductDetailUIHelper {
         mIvBackSecond.setOnClickListener(mOnClickListener);
         mIvShareFirst.setOnClickListener(mOnClickListener);
         mIvShareSecond.setOnClickListener(mOnClickListener);
-        mIvCollectFirst.setOnClickListener(mOnClickListener);
         mIvCollectSecond.setOnClickListener(mOnClickListener);
 
         // 商品相关点击事件
         mTvSkuInfo.setOnClickListener(mOnClickListener);
-        mLlProductAuth.setOnClickListener(mOnClickListener);
+        relSkuInfo.setOnClickListener(mOnClickListener);
 
         // 全部素材
         mTvMaterialAll.setOnClickListener(mOnClickListener);
-        // 引导成为店主
-        mRlBecomeMasterGuide.setOnClickListener(mOnClickListener);
 
-        mDDProductPriceView.setOnClickListener(mOnClickListener);
 
     }
 
-    public void recyclerWebView() {
-        WebViewUtil.clearWebViewResource(mProductDetailWebView);
-    }
 
     private void initBaseViewByUIUserCategory() {
 
@@ -442,9 +319,6 @@ public class ProductDetailUIHelper {
         // 发圈素材
         showProductMaterial(isShowMasterUI);
 
-        // 底部按钮
-        mDDProductActionContainer.renderViewByUserCategory(isShowMasterUI);
-
     }
 
     private void showProductMaterial(boolean isShow) {
@@ -456,59 +330,10 @@ public class ProductDetailUIHelper {
         mIvShareSecond.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
     }
 
-    private void setStoreGiftView() {
-        mDDProductActionContainer.showSingleBuyContainer();
-        showBecomeMasterGuide(false);
-    }
-
     private void setViewVisibility(View view, boolean isShow) {
         view.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
-    private void setProductFreeView() {
-
-        mIsShowProductMaterial = false;
-        // 隐藏分享
-        showShareButton(false);
-
-        mDDProductActionContainer.showSingleBuyButton("0元免费领");
-
-        mDDSmartTab.setTabTexts(Arrays.asList("商品", "详情"));
-
-        showProductMaterial(false);
-    }
-
-    private void loadDetailWebView(String htmlString) {
-        mProductDetailWebView.setFocusable(false);
-        WebViewUtil.loadDataToWebView(mProductDetailWebView, htmlString);
-    }
-
-    private void updateMaterialViews(List<CommunityDataBean> materials) {
-        if (materials == null || materials.isEmpty()) {
-            return;
-        }
-        mProductDetailMaterialAdapter.getItems().clear();
-        mProductDetailMaterialAdapter.addItems(materials);
-
-    }
-
-    // 正品保证  7天无理由退货 等
-    private void updateAuthViews(Product spuInfo) {
-        if (spuInfo.auths == null || spuInfo.auths.size() < 1) {
-            mLlProductAuth.setVisibility(View.GONE);
-        } else {
-            mLlProductAuth.setVisibility(View.VISIBLE);
-            for (int i = 0; i < spuInfo.auths.size(); i++) {
-                if (i > 2) {
-                    break;
-                }
-                mIvAuthList.get(i).setVisibility(View.VISIBLE);
-                FrescoUtil.setImageSmall(mIvAuthList.get(i), spuInfo.auths.get(i).icon);
-                mTvAuthList.get(i).setVisibility(View.VISIBLE);
-                mTvAuthList.get(i).setText(spuInfo.auths.get(i).title);
-            }
-        }
-    }
 
     private void initAnimateListener() {
 
@@ -597,7 +422,6 @@ public class ProductDetailUIHelper {
 
     }
 
-
     private void initScrollThreshold() {
         mDDSquareBanner.post(new Runnable() {
             @Override
@@ -616,236 +440,7 @@ public class ProductDetailUIHelper {
         });
     }
 
-    private void clearProductTagView() {
-        mLlProductTagContainer.removeAllViews();
-    }
-
-    private void addItemProductTagView(String category) {
-        if (TextUtils.isEmpty(category)) {
-            return;
-        }
-        DDTagView ddTagView = (DDTagView) LayoutInflater.from(mContext)
-                .inflate(R.layout.item_product_category_tag, mLlProductTagContainer, false);
-
-        if (category.contains("#")) {
-            ddTagView.setText(category.split("#")[0]);
-            ddTagView.setTagBackground("#" + category.split("#")[1]);
-        } else {
-            ddTagView.setText(category);
-        }
-
-        mLlProductTagContainer.addView(ddTagView);
-
-    }
-
-    public void toggleNotifyStyle() {
-        mDDProductActionContainer.toggleNotify();
-    }
-
-    private MeasurementViewHolder getMeasurementViewHolder() {
-        if (mMeasurementViewHolder == null) {
-            mMeasurementViewHolder = new MeasurementViewHolder(mVsMeasurement.inflate());
-        }
-        return mMeasurementViewHolder;
-    }
-
-    private SuggestProductViewHolder getSuggestViewHolder() {
-        if (mSuggestProductViewHolder == null) {
-            mSuggestProductViewHolder = new SuggestProductViewHolder(mVsSuggest.inflate());
-        }
-        return mSuggestProductViewHolder;
-    }
-
-    public static class SuggestProductViewHolder implements BaseQuickAdapter.OnItemClickListener {
-
-        // 大家都在买
-        @BindView(R.id.ll_product_suggest)
-        LinearLayout mLlProductSuggest;
-        @BindView(R.id.dd_indicator)
-        DDIndicator mDDIndicator;
-
-        @BindView(R.id.tv_suggest_tag)
-        TextView mTvSuggestTag;
-
-        @BindView(R.id.vp_suggest)
-        ViewPager mVpSuggest;
-
-        private ProductSuggestAdapter mProductSuggestAdapter;
-
-        public SuggestProductViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-
-        public void setSuggestTag(String tag) {
-            mTvSuggestTag.setText(tag);
-        }
-
-        private void render(List<Product.RelationProduct> list) {
-
-            mLlProductSuggest.setVisibility(View.VISIBLE);
-            int pageCount = list.size() / 3;
-            mDDIndicator.setIndicatorCount(pageCount);
-            mDDIndicator.setVisibility(pageCount > 1 ? View.VISIBLE : View.GONE);
-
-            initViewPager(list);
-
-        }
-
-        private void initViewPager(final List<Product.RelationProduct> list) {
-            mVpSuggest.setOffscreenPageLimit(3);
-            ViewGroup.LayoutParams layoutParams = mVpSuggest.getLayoutParams();
-            layoutParams.height = ScreenUtils.getScreenWidth() / 3 + ConvertUtil.dip2px(40);
-            mVpSuggest.setLayoutParams(layoutParams);
-            mVpSuggest.setAdapter(new PagerAdapter() {
-
-                @Override
-                public int getCount() {
-                    if (list.size() > 6) {
-                        return 3;
-                    } else if (list.size() > 3) {
-                        return 2;
-                    }
-                    return 1;
-                }
-
-                @Override
-                public boolean isViewFromObject(View view, Object object) {
-                    return view == object;
-                }
-
-                @Override
-                public Object instantiateItem(ViewGroup container, int position) {
-                    RecyclerView recyclerView = new RecyclerView(container.getContext());
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyApplication.getInstance());
-                    linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setFocusable(false);
-                    ProductSuggestAdapter adapter = new ProductSuggestAdapter();
-                    recyclerView.setAdapter(adapter);
-
-                    List<Product.RelationProduct> l = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++) {
-                        if (i / 3 == position) {
-                            l.add(list.get(i));
-                        }
-                        if (l.size() >= 3) {
-                            break;
-                        }
-                    }
-                    adapter.replaceData(l);
-                    container.addView(recyclerView);
-                    return recyclerView;
-                }
-            });
-
-
-            mVpSuggest.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    mDDIndicator.setIndexActive(position);
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-
-        }
-
-        @Override
-        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        }
-    }
-
-    public static class MeasurementViewHolder {
-        @BindView(R.id.sdv_avatar)
-        SimpleDraweeView mSdvAvatar;
-        @BindView(R.id.tv_measurement_nickname)
-        TextView mTvMeasurementNickname;
-        @BindView(R.id.tv_measurement_desc)
-        TextView mTvMeasurementDesc;
-        @BindView(R.id.dd_star_view)
-        DDStarView mDDStarView;
-        @BindView(R.id.tv_measurement_content)
-        DDExpandTextView mTvMeasurementContent;
-        @BindView(R.id.rv_measurement_image)
-        RecyclerView mRvMeasurementImage;
-        @BindView(R.id.rl_measurement)
-        RelativeLayout mRlMeasurement;
-        @BindView(R.id.fl_video)
-        FrameLayout mFlVideo;
-        @BindView(R.id.sdv_video)
-        SimpleDraweeView mSdvVideo;
-
-        public MeasurementViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-
-        public void render(ProductEvaluateBean productEvaluateBean) {
-
-            FrescoUtil.setImage(mSdvAvatar, productEvaluateBean.getHeadImage());
-            mTvMeasurementNickname.setText(productEvaluateBean.getNikeName());
-            mTvMeasurementDesc.setText(String.format("已甄选%s件好货", productEvaluateBean.getSpuNum()));
-
-            mDDStarView.setValue(productEvaluateBean.getScore());
-            mTvMeasurementContent.initWidth(ScreenUtils.getScreenWidth());
-            mTvMeasurementContent.setCloseText(productEvaluateBean.getContent());
-
-            if (productEvaluateBean.hasVideo()) {
-                renderVideoModel(productEvaluateBean);
-            } else if (productEvaluateBean.hasImages()) {
-                renderImageModel(productEvaluateBean);
-            }
-
-        }
-
-        private void renderImageModel(final ProductEvaluateBean productEvaluateBean) {
-            mFlVideo.setVisibility(View.GONE);
-            mRvMeasurementImage.setFocusable(false);
-            mRvMeasurementImage.setVisibility(View.VISIBLE);
-
-            mRvMeasurementImage.setLayoutManager(new GridLayoutManager(MyApplication.getInstance(), 4));
-            mRvMeasurementImage.addItemDecoration(new GridSpacingItemDecoration(4, ConvertUtil.dip2px(12), false));
-            MeasurementImageAdapter adapter = new MeasurementImageAdapter();
-            adapter.addData(productEvaluateBean.getImageList());
-            mRvMeasurementImage.setAdapter(adapter);
-
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ImageUtil.previewImage(view.getContext(), (ArrayList<String>) productEvaluateBean.getImageList(), position);
-                }
-            });
-
-        }
-
-        private void renderVideoModel(final ProductEvaluateBean productEvaluateBean) {
-            mRvMeasurementImage.setVisibility(View.GONE);
-            mFlVideo.setVisibility(View.VISIBLE);
-            mSdvVideo.setImageURI(productEvaluateBean.getVideoImageUrl());
-            mFlVideo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    DDVideoViewActivity.startWithTransition((Activity) context, mSdvVideo,
-                            productEvaluateBean.getVideoPlayUrl(), productEvaluateBean.getVideoImageUrl());
-                }
-            });
-        }
-
-        public void setOnClickListener(View.OnClickListener onClickListener) {
-            mRlMeasurement.setOnClickListener(onClickListener);
-            mTvMeasurementContent.setOnClickListener(onClickListener);
-        }
-    }
-
-    public static class OnClickListener implements View.OnClickListener {
+    public class OnClickListener implements View.OnClickListener {
         private OnActionListener mActionListener;
 
         public OnClickListener(OnActionListener actionListener) {
@@ -869,12 +464,36 @@ public class ProductDetailUIHelper {
                     mActionListener.onClickShare();
                     break;
                 case R.id.ll_collect:
-                case R.id.iv_collect_first:
                 case R.id.iv_collect_second:
                     mActionListener.onClickProductLike(!v.isSelected());
                     break;
+                case R.id.relSkuInfo:
                 case R.id.tvSkuInfo:
-                    mActionListener.onSelectSkuInfo();
+                    //选择规格
+                    if (mSpuInfo != null && mSpuInfo.getSkus() != null && mSpuInfo.getSkus().size() > 0) {
+                        if (mSkuSelectorDialog == null) {
+                            mSkuSelectorDialog = new SkuSelectorDialog(mContext, mSpuInfo, 0);
+                        }
+                        mSkuSelectorDialog.setSelectListener(new SkuSelectorDialog.OnSelectListener() {
+
+                            @Override
+                            public void onClose(String propertyValue) {
+                                updateSkuViews(propertyValue);
+                            }
+
+                            @Override
+                            public void joinShopCart(String propertyIds, String propertyValue, int selectCount) {
+                                updateSkuViews(propertyValue);
+                            }
+
+                            @Override
+                            public void buyItNow(String propertyIds, String propertyValue, int selectCount) {
+                                updateSkuViews(propertyValue);
+                            }
+                        });
+                        mSkuSelectorDialog.show();
+                    }
+
                     break;
                 case R.id.productAuthLayout:
                     mActionListener.onClickAuthInfo();
@@ -911,9 +530,6 @@ public class ProductDetailUIHelper {
                 case R.id.tv_btn_master_notify:
                 case R.id.tv_btn_normal_notify:
                     mActionListener.onClickNotify();
-                    break;
-                case R.id.dd_product_price_view:
-                    mActionListener.onClickFlashSale();
                     break;
                 default:
             }

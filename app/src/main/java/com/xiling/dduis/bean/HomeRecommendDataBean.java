@@ -92,15 +92,15 @@ public class HomeRecommendDataBean {
         private String badgeImg;
         private String thumbUrl;
         private String productName;
-        private int minMarketPrice;
-        private int minPrice;
+        private float minMarketPrice;
+        private float minPrice;
         private int stock;
         private String sellOut;
         private String status;
         private String tagsStr;
-        private int level10Price;
-        private int level20Price;
-        private int level30Price;
+        private float level10Price;
+        private float level20Price;
+        private float level30Price;
         private List<String> productTags;
 
         public String getProductId() {
@@ -135,19 +135,19 @@ public class HomeRecommendDataBean {
             this.productName = productName;
         }
 
-        public int getMinMarketPrice() {
+        public float getMinMarketPrice() {
             return minMarketPrice;
         }
 
-        public void setMinMarketPrice(int minMarketPrice) {
+        public void setMinMarketPrice(float minMarketPrice) {
             this.minMarketPrice = minMarketPrice;
         }
 
-        public int getMinPrice() {
+        public float getMinPrice() {
             return minPrice;
         }
 
-        public void setMinPrice(int minPrice) {
+        public void setMinPrice(float minPrice) {
             this.minPrice = minPrice;
         }
 
@@ -183,27 +183,27 @@ public class HomeRecommendDataBean {
             this.tagsStr = tagsStr;
         }
 
-        public int getLevel10Price() {
+        public float getLevel10Price() {
             return level10Price;
         }
 
-        public void setLevel10Price(int level10Price) {
+        public void setLevel10Price(float level10Price) {
             this.level10Price = level10Price;
         }
 
-        public int getLevel20Price() {
+        public float getLevel20Price() {
             return level20Price;
         }
 
-        public void setLevel20Price(int level20Price) {
+        public void setLevel20Price(float level20Price) {
             this.level20Price = level20Price;
         }
 
-        public int getLevel30Price() {
+        public float getLevel30Price() {
             return level30Price;
         }
 
-        public void setLevel30Price(int level30Price) {
+        public void setLevel30Price(float level30Price) {
             this.level30Price = level30Price;
         }
 

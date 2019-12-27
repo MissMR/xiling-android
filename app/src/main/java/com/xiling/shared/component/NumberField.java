@@ -28,6 +28,11 @@ public class NumberField extends LinearLayout {
 
     private int mMin = 1;
     private int mMax = 999;
+
+    public int getmValue() {
+        return mValue;
+    }
+
     private int mValue = 1;
     private OnValueChangeLister mListener;
 

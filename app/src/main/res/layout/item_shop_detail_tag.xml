@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textColor="#ffdcb982"
         android:textSize="9sp"
-        android:background="@drawable/bg_shop_tag"
+        android:background="@drawable/bg_shop_detail_tag"
         android:layout_marginLeft="@dimen/dp_4"
         />
 

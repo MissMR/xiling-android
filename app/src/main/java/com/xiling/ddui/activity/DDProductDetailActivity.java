@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.R;
+import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.bean.UIEvent;
 import com.xiling.ddui.custom.DDDeleteDialog;
 import com.xiling.ddui.manager.CSManager;
@@ -59,7 +61,7 @@ import butterknife.ButterKnife;
  * @date 2018/10/31
  * 商品详情
  */
-public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener, SkuSelectorDialog.OnSelectListener {
+public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener {
 
     public static final int ACTION_BUY = 0;
     public static final int ACTION_CART = 1;
@@ -68,10 +70,8 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     private String mSpuId;
     private IProductService mProductService;
-    private ICollectService mCollectService;
 
-    private SkuInfo mSkuInfo;
-    private Product mSpuInfo;
+    private ProductNewBean mSpuInfo;
     private SkuSelectorDialog mSkuSelectorDialog;
 
     private boolean isDoingLike = false;
@@ -94,9 +94,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     protected void onResume() {
         super.onResume();
-        if (mSpuInfo != null) {
-            ToastUtil.hideLoading();
-        }
+
     }
 
     @Override
@@ -110,7 +108,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Override
     protected void onDestroy() {
-        mProductDetailUIHelper.recyclerWebView();
         super.onDestroy();
     }
 
@@ -127,18 +124,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         getIntentData();
 
         mProductService = ServiceManager.getInstance().createService(IProductService.class);
-        mCollectService = ServiceManager.getInstance().createService(ICollectService.class);
-
         getProductInfo(mSpuId);
-
-        if (SessionUtil.getInstance().isLogin()) {
-            CartManager.getAmount();
-            mProductDetailUIHelper.showBecomeMasterGuide(!SessionUtil.getInstance().getLoginUser().isStoreMaster());
-        } else {
-            mProductDetailUIHelper.showBecomeMasterGuide(true);
-        }
-
-        mProductDetailUIHelper.updateCartBadge(String.valueOf(CartAmountManager.share().getAmount()));
 
     }
 
@@ -161,15 +147,22 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     private void getProductInfo(String spuId) {
-        APIManager.startRequest(mProductService.getDetailById(spuId), new BaseRequestListener<Product>(this) {
+        APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(this) {
             @Override
-            public void onSuccess(Product product) {
+            public void onSuccess(ProductNewBean product) {
                 super.onSuccess(product);
                 mSpuInfo = product;
                 mProductDetailUIHelper.updateSpuViews(mSpuInfo);
                 checkAddProductRecord();
             }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+
+            }
         });
+
     }
 
     private void checkAddProductRecord() {
@@ -178,7 +171,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         }
     }
 
-    private void updateSkuLikeState(final boolean isActionLike) {
+  /*  private void updateSkuLikeState(final boolean isActionLike) {
 
         if (checkNull(mSpuInfo)) {
             return;
@@ -199,7 +192,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
             }
         });
 
-    }
+    }*/
 
     @Override
     public void onClickFinish() {
@@ -218,11 +211,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Override
     public void onClickProductLike(boolean isLikeProduct) {
-        if (UiUtils.checkUserLogin(this)) {
-            updateSkuLikeState(isLikeProduct);
-        } else {
-            isDoingLike = true;
-        }
+
     }
 
 
@@ -237,9 +226,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Override
     public void onClickAuthInfo() {
-        if (mSpuInfo != null && mSpuInfo.auths != null && !isFinishing() && !isFinished()) {
-            new ProductVerifyDialog(this, mSpuInfo.auths).show();
-        }
+
     }
 
     @Override
@@ -308,12 +295,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Override
     public void onClickMeasurement() {
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        String engineerId = mSpuInfo.productEvaluate.getEngineerId();
 
-        MeasurementActivity.start(this, engineerId, mSpuInfo.productEvaluate.getNikeName());
 
     }
 
@@ -357,25 +339,11 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Override
     public void onClickFlashSale() {
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        if (mSpuInfo.isFlashSaleActive()) {
-            RushListActivity.jumpToFullList(this, mSpuInfo.flashSaleDetail.getFlashSaleId());
-        }
+
     }
 
     private void notifyFlashSale() {
-        APIManager.startRequest(mProductService.noticeFlashSale(mSpuInfo.flashSaleDetail.getFlashSpuId(),
-                mSpuInfo.flashSaleDetail.getFlashSaleId()),
-                new BaseRequestListener<Object>(this) {
-                    @Override
-                    public void onSuccess(Object result, String message) {
-                        super.onSuccess(result, message);
-                        ToastUtil.success(message);
-                        mProductDetailUIHelper.toggleNotifyStyle();
-                    }
-                });
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -386,60 +354,35 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
                     mSkuSelectorDialog.dismiss();
                 }
                 String total = (int) message.getData() > 99 ? "99+" : String.valueOf(message.getData());
-                mProductDetailUIHelper.updateCartBadge(total);
                 break;
             default:
         }
     }
 
     public void showSelectorDialog(int action) {
-        if (mSpuInfo == null) {
+       /* if (mSpuInfo == null) {
             return;
         }
         if (action < 0 || action > 1) {
             return;
         }
 
-        int tag;
+        int tag = 0;
         if (action == ACTION_CART) {
             tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_CART;
         } else if (action == ACTION_BUY) {
-            if (mSpuInfo.isProductFree()) {
-                // 0元购
-                tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_ACTIVITY_FREE;
-            } else if (mSpuInfo.isStoreGift()) {
-                // 店主礼包
-                tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_SINGLE;
-            } else if (SessionUtil.getInstance().isMaster()) {
-                // 是店主两个按钮
-                tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_DEFAULT;
-            } else {
-                // 普通会员 立即购买
-                tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_BUY;
-            }
+
         } else {
             return;
         }
         mSkuSelectorDialog = new SkuSelectorDialog(this, mSpuInfo, tag);
         mSkuSelectorDialog.setSelectListener(this);
-        mSkuSelectorDialog.show();
-    }
-
-    @Override
-    public void onSelectSku(SkuPvIds skuInfo) {
-        mSpuInfo.setSelectedSkuPvIds(skuInfo);
-        mProductDetailUIHelper.updateSkuViews(mSpuInfo.getSelectedSkuPvIds());
-    }
-
-    @Override
-    public void onSelectCancel() {
-        mSpuInfo.setSelectedSkuPvIds(null);
-        mProductDetailUIHelper.updateSkuViews(null);
+        mSkuSelectorDialog.show();*/
     }
 
     private void showShareDialog() {
         ToastUtil.hideLoading();
-        DDMProductQrCodeDialog dialog = new DDMProductQrCodeDialog((Activity) context, mSpuInfo, new UMShareListener() {
+      /*  DDMProductQrCodeDialog dialog = new DDMProductQrCodeDialog((Activity) context, mSpuInfo, new UMShareListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
                 DLog.i("onStart");
@@ -460,7 +403,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
                 DLog.i("onCancel");
             }
         });
-        dialog.show();
+        dialog.show();*/
     }
 
 

@@ -4,6 +4,7 @@ import com.xiling.ddui.bean.BrandBean;
 import com.xiling.ddui.bean.CategoryBean;
 import com.xiling.ddui.bean.DDSkuListBean;
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.bean.SecondCategoryBean;
 import com.xiling.ddui.bean.TopCategoryBean;
 import com.xiling.dduis.bean.DDProductBean;
@@ -60,7 +61,14 @@ public interface IProductService {
     @POST("secondLevel/getBrandDetail")
     Observable<RequestResult<BrandBean>> getBrandDetail(@Field("brandId") String brandId);
 
+    //  获取商品详情（新）
+    @GET("product/spuDetail")
+    Observable<RequestResult<ProductNewBean>> getProductDetail(@Query("spuId") String productId);
 
+
+    //  获取商品详情（旧）
+    @GET("product/spuDetail")
+    Observable<RequestResult<Product>> getDetailById(@Query("spuId") String productId);
 
 
     @Deprecated
@@ -76,8 +84,7 @@ public interface IProductService {
     @GET("product/skuDetail")
     Observable<RequestResult<SkuInfo>> getSkuById(@Query("skuId") String skuId);
 
-    @GET("product/spuDetail")
-    Observable<RequestResult<Product>> getDetailById(@Query("spuId") String productId);
+
 
     @GET("product/skuDetailByProperty")
     Observable<RequestResult<SkuInfo>> getSkuByPropertyValueIds(@Query("productId") String productId, @Query("propertyValueIds") String propertyValueIds);

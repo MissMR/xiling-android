@@ -12,12 +12,34 @@
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_8" />
 
-    <ImageView
-        android:id="@+id/iv_thumb"
+    <RelativeLayout
         android:layout_width="@dimen/dp_137"
         android:layout_height="@dimen/dp_100"
+        android:layout_marginTop="@dimen/dp_14"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_14" />
+        >
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp_16"
+            android:textColor="#ffffffff"
+            android:gravity="center"
+            android:background="#50202020"
+            android:visibility="gone"
+            android:text="已下架"
+            />
+
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tv_title"
@@ -60,9 +82,9 @@
             android:textSize="@dimen/sp_18" />
 
         <TextView
+            android:id="@+id/tv_discount_price_decimal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=".00"
             android:textColor="#ffa6251a"
             android:textSize="@dimen/sp_12" />
 
