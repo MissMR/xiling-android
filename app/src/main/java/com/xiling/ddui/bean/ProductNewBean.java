@@ -32,8 +32,8 @@ public class ProductNewBean {
     private String badgeImg;
     private String thumbUrl;
     private String productName;
-    private int minMarketPrice;
-    private int minPrice;
+    private float minMarketPrice;
+    private float minPrice;
     private String content;
     private String saleCount;
     private int stock;
@@ -83,19 +83,19 @@ public class ProductNewBean {
         this.productName = productName;
     }
 
-    public int getMinMarketPrice() {
+    public float getMinMarketPrice() {
         return minMarketPrice;
     }
 
-    public void setMinMarketPrice(int minMarketPrice) {
+    public void setMinMarketPrice(float minMarketPrice) {
         this.minMarketPrice = minMarketPrice;
     }
 
-    public int getMinPrice() {
+    public float getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(int minPrice) {
+    public void setMinPrice(float minPrice) {
         this.minPrice = minPrice;
     }
 

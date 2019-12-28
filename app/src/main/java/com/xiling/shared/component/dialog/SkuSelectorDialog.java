@@ -20,6 +20,7 @@ import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.dduis.magnager.UserManager;
+import com.xiling.image.GlideUtils;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.component.NumberField;
 import com.xiling.shared.contracts.OnValueChangeLister;
@@ -66,6 +67,22 @@ public class SkuSelectorDialog extends Dialog {
 
     private TagFlowAdapter mTagFlowAdapter;
 
+    public void setmAction(int mAction) {
+        this.mAction = mAction;
+        selectAction();
+    }
+
+    /**
+     * 用来判断是 加入购物车还是立即购买，如果是0，则进入选择规格流程
+     * 0 - 选择规格
+     * 1 - 加入购物车
+     * 2 - 立即购买
+     */
+    private int mAction;
+    public static final int ACTION_SELECT = 0;
+    public static final int ACTION_CARD = 1;
+    public static final int ACTION_SHOPPING = 2;
+
     public SkuSelectorDialog(Context context, ProductNewBean product) {
         this(context, 0);
         this.mSpuInfo = product;
@@ -106,11 +123,29 @@ public class SkuSelectorDialog extends Dialog {
 
     }
 
+    /**
+     * 判断状态，如果是选择规格，隐藏确认按钮，否则显示确认按钮
+     */
+    private void selectAction() {
+        if (mAction == ACTION_SELECT) {
+            mConfirmBtn.setVisibility(View.GONE);
+            mAddToCartBtn.setVisibility(View.VISIBLE);
+            mBuyNowBtn.setVisibility(View.VISIBLE);
+        } else {
+            mConfirmBtn.setVisibility(View.VISIBLE);
+            mAddToCartBtn.setVisibility(View.GONE);
+            mBuyNowBtn.setVisibility(View.GONE);
+        }
+    }
+
     private void initViews() {
+        selectAction();
         skusBeanList = mSpuInfo.getSkus();
 
         skuBean = skusBeanList.get(0);
         setSkuName(skuBean.getPropertyValues());
+
+        GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
 
         //优惠价，需要根据用户等级展示不同价格
         NewUserBean userBean = UserManager.getInstance().getUser();
@@ -153,7 +188,7 @@ public class SkuSelectorDialog extends Dialog {
                 if (mNumberField.getmValue() > skuBean.getStock()) {
                     mNumberField.setValue(skuBean.getStock());
                 }
-
+                GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
             }
         });
 
@@ -192,6 +227,14 @@ public class SkuSelectorDialog extends Dialog {
                 break;
             case R.id.buyNowBtn:
                 if (mSelectListener != null) {
+                    mSelectListener.buyItNow(skuBean.getPropertyIds(), skuBean.getPropertyValues(), selectCount);
+                }
+                dismiss();
+                break;
+            case R.id.confirmBtn:
+                if (mAction == ACTION_CARD) {
+                    mSelectListener.joinShopCart(skuBean.getPropertyIds(), skuBean.getPropertyValues(), selectCount);
+                } else if (mAction == ACTION_SHOPPING) {
                     mSelectListener.buyItNow(skuBean.getPropertyIds(), skuBean.getPropertyValues(), selectCount);
                 }
                 dismiss();

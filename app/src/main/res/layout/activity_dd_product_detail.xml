@@ -6,10 +6,99 @@
     android:background="@color/white"
     tools:context="com.xiling.ddui.activity.DDProductDetailActivity">
 
+    <RelativeLayout
+        android:id="@+id/rel_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_58"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/fl_cart"
+                android:layout_width="@dimen/dp_62"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/ic_product_cart_red"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_cart_badge"
+                    android:layout_width="@dimen/dp_14"
+                    android:layout_height="@dimen/dp_14"
+                    android:layout_marginLeft="@dimen/dp_35"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:background="@drawable/order_badge"
+                    android:gravity="center"
+                    android:text="9"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/sp_11" />
+
+
+            </FrameLayout>
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_29"
+                android:layout_gravity="center_vertical"
+                android:background="#F5F5F5" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_29"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_60"
+                android:background="#F5F5F5" />
+
+            <TextView
+                android:id="@+id/tv_btn_add_cart"
+                android:layout_width="@dimen/dp_125"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="加入购物车"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tv_btn_buy_normal"
+                android:layout_width="@dimen/dp_125"
+                android:layout_height="match_parent"
+                android:background="#DCB982"
+                android:gravity="center"
+                android:text="立即购买"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="#F5F5F5" />
+
+
+    </RelativeLayout>
+
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/rel_bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,10 +107,7 @@
 
             <include layout="@layout/include_product_detail_product" />
 
-            <include layout="@layout/include_product_detail_material" />
-
             <include layout="@layout/include_product_detail_detail" />
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -90,7 +176,8 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@id/iv_share_second"
                 android:paddingLeft="8dp"
-                android:src="@drawable/collect_selector" />
+                android:src="@drawable/collect_selector"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_anchor"

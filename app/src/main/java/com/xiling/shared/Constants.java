@@ -13,14 +13,6 @@ public class Constants {
 
     public static final String API_VERSION = "1.0";
 
-    /*
-    iOS(0, "IOS"),
-    Android(1, "Android"),
-    WeChat(2, "微信"),
-    MiniProgram(3, "小程序"),
-    PC(4, "PC"),
-    NO(5, "未知");
-    */
     public static final String PLATFORM = "1";
 
     public static final String URL_API_PREFIX = BuildConfig.BASE_URL + "xl-api/";

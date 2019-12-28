@@ -10,47 +10,27 @@ import android.view.View;
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.R;
 import com.xiling.ddui.bean.ProductNewBean;
-import com.xiling.ddui.bean.UIEvent;
-import com.xiling.ddui.custom.DDDeleteDialog;
-import com.xiling.ddui.manager.CSManager;
-import com.xiling.ddui.manager.CartAmountManager;
 import com.xiling.ddui.service.HtmlService;
-import com.xiling.ddui.tools.AppTools;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
-import com.xiling.dduis.activity.RushListActivity;
-import com.xiling.module.address.AddressListActivity;
-import com.xiling.module.cart.CartActivity;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.page.WebViewActivity;
-import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.Product;
 import com.xiling.shared.bean.SkuInfo;
-import com.xiling.shared.bean.SkuPvIds;
-import com.xiling.shared.bean.User;
-import com.xiling.shared.bean.api.PaginationEntity;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.dialog.DDMProductQrCodeDialog;
-import com.xiling.shared.component.dialog.ProductVerifyDialog;
 import com.xiling.shared.component.dialog.SkuSelectorDialog;
-import com.xiling.shared.constant.Action;
-import com.xiling.shared.constant.AppTypes;
+import com.xiling.shared.component.dialog.XLProductQrCodeDialog;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
-import com.xiling.shared.manager.CartManager;
 import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.service.ProductService;
-import com.xiling.shared.service.contract.ICollectService;
 import com.xiling.shared.service.contract.IProductService;
-import com.xiling.shared.util.SessionUtil;
 import com.xiling.shared.util.ToastUtil;
-import com.xiling.shared.util.UiUtils;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -109,6 +89,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mProductDetailUIHelper.recyclerWebView();
     }
 
     @Override
@@ -136,16 +117,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         }
     }
 
-    /**
-     * 添加足迹的浏览记录
-     */
-    private void addProductViewRecord() {
-        User user = SessionUtil.getInstance().getLoginUser();
-        if (user != null) {
-            ProductService.addViewRecord(user.id, mSpuId);
-        }
-    }
-
     private void getProductInfo(String spuId) {
         APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(this) {
             @Override
@@ -153,7 +124,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
                 super.onSuccess(product);
                 mSpuInfo = product;
                 mProductDetailUIHelper.updateSpuViews(mSpuInfo);
-                checkAddProductRecord();
             }
 
             @Override
@@ -162,37 +132,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
             }
         });
-
     }
-
-    private void checkAddProductRecord() {
-        if (SessionUtil.getInstance().isLogin()) {
-            addProductViewRecord();
-        }
-    }
-
-  /*  private void updateSkuLikeState(final boolean isActionLike) {
-
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        String url = isActionLike ? ICollectService.URL_COLLECT : ICollectService.URL_UNCOLLECT;
-        APIManager.startRequest(mCollectService.changeCollect(url, mSpuInfo.productId), new BaseRequestListener<PaginationEntity<SkuInfo, Object>>(this) {
-            @Override
-            public void onSuccess(PaginationEntity<SkuInfo, Object> result) {
-                mProductDetailUIHelper.updateSpuLikeState(isActionLike);
-                UIEvent event = new UIEvent();
-                event.setType(UIEvent.Type.UnLikeProduct);
-                EventBus.getDefault().post(event);
-
-                if (isActionLike) {
-                    ToastUtil.success("喜欢成功，您可以在“我的喜欢”中查看");
-                }
-
-            }
-        });
-
-    }*/
 
     @Override
     public void onClickFinish() {
@@ -204,65 +144,27 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         if (checkNull(mSpuInfo)) {
             return;
         }
-        if (UiUtils.checkUserLogin(this)) {
+        if (UserManager.getInstance().isLogin(context)) {
             showShareDialog();
         }
     }
 
     @Override
-    public void onClickProductLike(boolean isLikeProduct) {
-
-    }
-
-
-    @Override
-    public void onSelectAddress() {
-        if (UiUtils.checkUserLogin(this)) {
-            Intent intent = new Intent(this, AddressListActivity.class);
-            intent.putExtra("action", Key.SELECT_ADDRESS);
-            startActivityForResult(intent, Action.SELECT_ADDRESS);
-        }
-    }
-
-    @Override
-    public void onClickAuthInfo() {
-
-    }
-
-    @Override
     public void onClickCart() {
-        // 去购物车
-        if (UiUtils.checkUserLogin(this)) {
-            Intent intent = new Intent(this, CartActivity.class);
-            intent.putExtra("tab", "cart");
-            intent.putExtra("from", "mSpuInfo");
-            startActivity(intent);
-        }
+        // 去购物车 业务逻辑
+
     }
 
     @Override
     public void onAddCart() {
-        // 加入购物车
-        if (UiUtils.checkUserLogin(this)) {
-            showSelectorDialog(ACTION_CART);
-        }
-    }
-
-    @Override
-    public void onSelectSkuInfo() {
-        showSelectorDialog(ACTION_BUY);
+        // 加入购物车 业务逻辑
+        com.sobot.chat.utils.ToastUtil.showToast(context, "加入购物车");
     }
 
     @Override
     public void onClickBuy() {
-
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-
-        if (UiUtils.checkUserLogin(this)) {
-            showSelectorDialog(ACTION_BUY);
-        }
+        //立即购买 业务逻辑
+        com.sobot.chat.utils.ToastUtil.showToast(context, "立即购买");
     }
 
     private boolean checkNull(Object o) {
@@ -270,80 +172,8 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     @Override
-    public void onClickCustomService() {
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        if (UiUtils.checkUserLogin(this)) {
-            CSManager.share().jumpToChat(context, mSpuId);
-        }
-    }
-
-    @Override
-    public void onClickMaterialAll() {
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        startActivity(new Intent(this, ProductMaterialActivity.class)
-                .putExtra(Constants.Extras.SPU_ID, mSpuId));
-    }
-
-    @Override
     public void onClickBecomeMaster() {
         WebViewActivity.jumpService(this, HtmlService.BESHOPKEPPER);
-    }
-
-    @Override
-    public void onClickMeasurement() {
-
-
-    }
-
-    @Override
-    public void onClickMeasurementDetail() {
-        startActivity(new Intent(this, MeasurementDetailActivity.class)
-                .putExtra(Constants.Extras.SPU_ID, mSpuId));
-    }
-
-    @Override
-    public void onClickNotify() {
-        if (checkNull(mSpuInfo)) {
-            return;
-        }
-        if (UiUtils.checkUserLogin(this)) {
-            if (AppTools.isEnableNotification(context)) {
-                //开启推送后直接显示一个间隔
-                notifyFlashSale();
-            } else {
-                //未开启推送提示用户开启
-                DDDeleteDialog dialog = new DDDeleteDialog(context);
-                dialog.setContent("打开推送通知才能设置提醒哦");
-                dialog.setButtonName("去开启", "取消");
-                dialog.setListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        AppTools.jumpToAppSettings(context);
-                    }
-                });
-
-                dialog.setOnNegativeClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtil.success("提醒开启失败，您将无法收到商品开抢提醒");
-                    }
-                });
-                dialog.show();
-            }
-        }
-    }
-
-    @Override
-    public void onClickFlashSale() {
-
-    }
-
-    private void notifyFlashSale() {
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -359,51 +189,10 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         }
     }
 
-    public void showSelectorDialog(int action) {
-       /* if (mSpuInfo == null) {
-            return;
-        }
-        if (action < 0 || action > 1) {
-            return;
-        }
-
-        int tag = 0;
-        if (action == ACTION_CART) {
-            tag = AppTypes.SKU_SELECTOR_DIALOG.ACTION_CART;
-        } else if (action == ACTION_BUY) {
-
-        } else {
-            return;
-        }
-        mSkuSelectorDialog = new SkuSelectorDialog(this, mSpuInfo, tag);
-        mSkuSelectorDialog.setSelectListener(this);
-        mSkuSelectorDialog.show();*/
-    }
-
     private void showShareDialog() {
         ToastUtil.hideLoading();
-      /*  DDMProductQrCodeDialog dialog = new DDMProductQrCodeDialog((Activity) context, mSpuInfo, new UMShareListener() {
-            @Override
-            public void onStart(SHARE_MEDIA share_media) {
-                DLog.i("onStart");
-            }
-
-            @Override
-            public void onResult(SHARE_MEDIA share_media) {
-                DLog.i("onResult");
-            }
-
-            @Override
-            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                DLog.i("onError");
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA share_media) {
-                DLog.i("onCancel");
-            }
-        });
-        dialog.show();*/
+        XLProductQrCodeDialog dialog = new XLProductQrCodeDialog(this, mSpuInfo);
+        dialog.show();
     }
 
 

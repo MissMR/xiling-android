@@ -1,10 +1,13 @@
 package com.xiling.dduis.magnager;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.utils.SPUtils;
 import com.google.gson.Gson;
+import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.event.EventMessage;
@@ -66,6 +69,15 @@ public class UserManager {
     }
 
     public boolean isLogin(){
+        return  getUser() != null;
+    }
+
+    public boolean isLogin(Context context){
+
+        if (getUser() == null){
+            context.startActivity(new Intent(context, LoginActivity.class));
+        }
+
         return  getUser() != null;
     }
 

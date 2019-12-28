@@ -245,8 +245,8 @@ android {
             //H5的附加版本号
             buildConfigField("String", "H5_FUNC", "\"5\"")
 
-            buildConfigField("String", "WX_APP_ID", "\"wx4d7aac8dbecd638f\"")
-            buildConfigField("String", "WXAPP_SECRET", "\"a4296a0b6e388c944bef661bb3814114\"")
+            buildConfigField("String", "WX_APP_ID", "\"wx1fa673166a365d6b\"")
+            buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
 
             buildConfigField("String", "WX_MCH_ID", "\"1512666651\"")
             buildConfigField("String", "WX_PAY_NOTIFY_URL", "\"wxnotify/gzhwxpay\"")
@@ -291,7 +291,7 @@ android {
             buildConfigField("String", "H5_FUNC", "\"5\"")
 
             // 测试key
-            buildConfigField("String", "WX_APP_ID", "\"wx686bef05a40ad630\"")
+            buildConfigField("String", "WX_APP_ID", "\"wx1fa673166a365d6b\"")
             buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
 
             buildConfigField("String", "WX_MCH_ID", "\"1514718991\"")

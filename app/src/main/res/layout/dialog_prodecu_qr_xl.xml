@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_share_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/white_top_radius8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_26"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llShareWechat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:src="@mipmap/ic_share_wechat" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="微信好友"
+                    android:textColor="#ff202020"
+                    android:textSize="@dimen/sp_11" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llShareWechatCircle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:src="@mipmap/ic_share_wechat_circle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="微信朋友圈"
+                    android:textColor="#ff202020"
+                    android:textSize="@dimen/sp_11" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llShareDisk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_48"
+                    android:layout_height="@dimen/dp_48"
+                    android:src="@mipmap/ic_share_save" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="保存图片"
+                    android:textColor="#ff202020"
+                    android:textSize="@dimen/sp_11" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="#F2F2F2" />
+
+
+        <TextView
+            android:id="@+id/tv_btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginBottom="@dimen/dp_20"
+            />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_334"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_80"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/img_thumb"
+            android:layout_width="@dimen/dp_314"
+            android:layout_height="@dimen/dp_314"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#f7f7f7"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="@dimen/dp_189"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_thumb"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_13" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_thumb"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toRightOf="@id/tv_title">
+
+            <ImageView
+                android:id="@+id/iv_qr"
+                android:layout_width="@dimen/dp_106"
+                android:layout_height="@dimen/dp_106"
+                android:background="#AAAAAA" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_qr"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_9"
+                android:text="微信识别二维码"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_12" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_63"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_16" />
+
+
+        <TextView
+            android:id="@+id/tv_market_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginLeft="@dimen/dp_88"
+            android:layout_marginTop="@dimen/dp_63"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_16" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
