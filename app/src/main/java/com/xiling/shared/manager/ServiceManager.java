@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -12,6 +13,7 @@ import com.blankj.utilcode.utils.AppUtils;
 import com.xiling.BuildConfig;
 import com.xiling.MyApplication;
 import com.xiling.ddui.tools.DLog;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.Constants;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.factory.GsonFactory;
@@ -156,7 +158,7 @@ public class ServiceManager {
                         if (null != cookies && cookies.size() > 0) {
                             for (Cookie cookie : cookies) {
                                 if (cookie.name().equalsIgnoreCase(Key.OAUTH)) {
-                                    SessionUtil.getInstance().setOAuthToken(cookie.value());
+                                    UserManager.getInstance().setOAuthToken(cookie.value());
                                     //共享认证的Cookie
                                     shareCookies(cookie);
                                     break;
@@ -168,8 +170,8 @@ public class ServiceManager {
                     @Override
                     public List<Cookie> loadForRequest(HttpUrl url) {
                         List<Cookie> cookies = new ArrayList<>();
-                        String oAuthToken = SessionUtil.getInstance().getOAuthToken();
-                        if (!oAuthToken.isEmpty()) {
+                        String oAuthToken = UserManager.getInstance().getOAuthToken();
+                        if (!TextUtils.isEmpty(oAuthToken)) {
                             Cookie cookie = new Cookie.Builder()
                                     .name(Key.OAUTH).value(oAuthToken)
                                     .path(Constants.COOKIE_PATH)

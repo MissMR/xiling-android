@@ -61,23 +61,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
             recyclerView.setAdapter(tagsAdapter);
         }
         //优惠价，需要根据用户等级展示不同价格
-        NewUserBean userBean = UserManager.getInstance().getUser();
-        if (userBean != null) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
-                    NumberHandler.setPriceText(item.getLevel10Price(), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-                    break;
-                case 20:
-                    NumberHandler.setPriceText(item.getLevel20Price(), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-                    break;
-                case 30:
-                    NumberHandler.setPriceText(item.getLevel30Price(), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-                    break;
-            }
-        } else {
-            NumberHandler.setPriceText(item.getLevel10Price(), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-        }
-
+        NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(item), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
         if (!TextUtils.isEmpty(item.getStatus()) && item.getStatus().equals("1")) {
             helper.setVisible(R.id.tv_status, true);
         } else {

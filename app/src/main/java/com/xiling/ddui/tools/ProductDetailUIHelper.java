@@ -217,22 +217,7 @@ public class ProductDetailUIHelper {
         }
 
         //优惠价，需要根据用户等级展示不同价格
-        NewUserBean userBean = UserManager.getInstance().getUser();
-        if (userBean != null) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
-                    NumberHandler.setPriceText(spuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-                case 20:
-                    NumberHandler.setPriceText(spuInfo.getLevel20Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-                case 30:
-                    NumberHandler.setPriceText(spuInfo.getLevel30Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-            }
-        } else {
-            NumberHandler.setPriceText(spuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-        }
+        NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(spuInfo), tvDiscountPrice, tvDiscountPriceDecimal);
 
         //售价
         tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinPrice()));

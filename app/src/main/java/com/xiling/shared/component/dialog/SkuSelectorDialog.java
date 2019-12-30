@@ -148,22 +148,8 @@ public class SkuSelectorDialog extends Dialog {
         GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
 
         //优惠价，需要根据用户等级展示不同价格
-        NewUserBean userBean = UserManager.getInstance().getUser();
-        if (userBean != null) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
-                    NumberHandler.setPriceText(mSpuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-                case 20:
-                    NumberHandler.setPriceText(mSpuInfo.getLevel20Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-                case 30:
-                    NumberHandler.setPriceText(mSpuInfo.getLevel30Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-                    break;
-            }
-        } else {
-            NumberHandler.setPriceText(mSpuInfo.getLevel10Price(), tvDiscountPrice, tvDiscountPriceDecimal);
-        }
+        NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(mSpuInfo), tvDiscountPrice, tvDiscountPriceDecimal);
+
         //售价
         tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinPrice()));
         //划线价

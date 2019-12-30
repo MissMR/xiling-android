@@ -28,6 +28,35 @@ public interface ICaptchaService {
     int TYPE_MESSAGE = 0;
     int TYPE_VOICE = 1;
 
+
+    /**
+     * 发送登录验证码
+     *
+     * @param sendType 验证码类型
+     * @param phone    手机号
+     */
+    @GET("user/sms-code")
+    Observable<RequestResult<Object>> getLoginCode(
+            @Query("type") int sendType,
+            @Query("phone") String phone);
+
+    /**
+     * 手机号登录，校验验证码
+     *
+     * @param body
+     * @return
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
+    @POST("user/login-or-registry/phone-code")
+    Observable<RequestResult<NewUserBean>> checkCaptcha(@Body RequestBody body);
+
+    /**
+     * 根据邀请码获取用户基本信息
+     */
+    @GET("user/getRealUserInfo")
+    Observable<RequestResult<NewUserBean>> getUserInfo();
+
+
     @GET("captcha/getRegisterMsg")
     Observable<RequestResult<Object>> getCaptchaForRegister(@Query("token") String token, @Query("phone") String phone);
 
@@ -38,21 +67,6 @@ public interface ICaptchaService {
     // 发送换绑手机号时旧手机短信验证码+带语音(保持以前的协议)
     @GET("captcha/getMemberInfoChangeMsg")
     Observable<RequestResult<Object>> getUserCaptcha(@Query("token") String token, @Query("phone") String phone, @Query("sendType") int type);
-
-    //手机号登录--手机号 验证码
-    @FormUrlEncoded
-    @POST("user/login-or-registry/phone-code")
-    Observable<RequestResult<HashMap<String, Integer>>> checkCaptcha(@Field("phone") String phone,
-                                                                     @Field("code") String code);
-
-    /**
-     * 手机号登录，校验验证码
-     * @param body
-     * @return
-     */
-    @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
-    @POST("user/login-or-registry/phone-code")
-    Observable<RequestResult<NewUserBean>> checkCaptcha(@Body RequestBody body);
 
     //微信登录绑定手机号
     @Headers({"Content-Type: application/json", "Accept: application/json"})
@@ -102,16 +116,6 @@ public interface ICaptchaService {
     // 单纯的校验验证码
     int CODE_TYPE_DEFAULT = 3;
 
-    /**
-     * 发送登录验证码
-     *
-     * @param sendType 验证码类型
-     * @param phone    手机号
-     */
-    @GET("user/sms-code")
-    Observable<RequestResult<Object>> getLoginCode(
-            @Query("type") int sendType,
-            @Query("phone") String phone);
 
     @GET("user/sendLoginPhoneCode")
     Observable<RequestResult<Object>> getLoginCode(

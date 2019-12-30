@@ -41,6 +41,7 @@ import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
+import com.xiling.shared.service.contract.ICaptchaService;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +63,7 @@ import static com.xiling.shared.Constants.PAGE_SIZE;
 public class DDHomeMainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
     Unbinder unbinder;
     DDHomeService homeService;
+
 
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
@@ -116,11 +118,12 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //初始化协议
         homeService = ServiceManager.getInstance().createService(DDHomeService.class);
+
         EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_s_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
-        requestData();
+        checkUserInfo();
         return view;
     }
 
@@ -181,15 +184,15 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
         // 如果有登录信息，视为登录
-        if (UserManager.getInstance().getUser() != null) {
-            UserManager.getInstance().loginSuccess(UserManager.getInstance().getUser());
-        }
+        updateUserInfo();
     }
+
 
     /**
      * 请求数据
      */
     private void requestData() {
+
         APIManager.startRequest(homeService.getHomeData(), new BaseRequestListener<HomeDataBean>() {
             @Override
             public void onSuccess(HomeDataBean result) {
@@ -266,6 +269,22 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             }
         });
         requestRecommend();
+    }
+
+    private void checkUserInfo() {
+        //先进行用户信息校验，保证用户信息准确性
+        UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
+            @Override
+            public void onCheckUserInfoSucess(NewUserBean newUserBean) {
+                updateUserInfo();
+                requestData();
+            }
+
+            @Override
+            public void onCheckUserInfoFail() {
+                requestData();
+            }
+        });
     }
 
     /**
@@ -349,10 +368,10 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         //下拉刷新
         pageOffset = 1;
-        requestData();
+        checkUserInfo();
     }
 
-    @OnClick({R.id.btn_login,R.id.rel_search})
+    @OnClick({R.id.btn_login, R.id.rel_search})
     public void onViewClicked() {
         if (!UserManager.getInstance().isLogin()) {
             EventBus.getDefault().post(new EventMessage(Event.goToLogin));
@@ -362,17 +381,25 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLogin(EventMessage message) {
         if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
-            //登录成功
-            NewUserBean user = UserManager.getInstance().getUser();
-            if (user != null) {
-                if (!TextUtils.isEmpty(user.getNickName())) {
-                    btnLogin.setText(user.getNickName());
-                    tvGrade.setVisibility(View.VISIBLE);
-                    GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
+            updateUserInfo();
+        } else if (message.getEvent().equals(Event.LOGIN_OUT)) {
+            updateUserInfo();
+        }
+    }
+
+    private void updateUserInfo() {
+        //登录成功
+        NewUserBean user = UserManager.getInstance().getUser();
+        if (user != null) {
+            if (!TextUtils.isEmpty(user.getNickName())) {
+                btnLogin.setText(user.getNickName());
+                tvGrade.setVisibility(View.VISIBLE);
+                GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
+                if (user.getRole() != null && !TextUtils.isEmpty(user.getRole().getRoleName())) {
                     tvGrade.setText(user.getRole().getRoleName());
                 }
             }
-        } else if (message.getEvent().equals(Event.LOGIN_OUT)) {
+        } else {
             //退出登录
             btnLogin.setText("登录/注册");
             tvGrade.setVisibility(View.GONE);
