@@ -51,7 +51,7 @@ public class ToastUtil {
         Logger.i("Toast Success Message: " + message);
     }
 
-    private static void show(String message, @ColorRes int textColor, @DrawableRes int backgroundRes) {
+    public static void show(String message, @ColorRes int textColor, @DrawableRes int backgroundRes) {
         Context context = MyApplication.getInstance().getApplicationContext();
 //        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.toast_layout, null);
 //        layout.setBackgroundResource(backgroundRes);

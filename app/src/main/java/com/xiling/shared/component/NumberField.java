@@ -12,6 +12,7 @@ import com.xiling.R;
 import com.xiling.shared.component.dialog.EditNumberDialog;
 import com.xiling.shared.contracts.OnValueChangeLister;
 import com.xiling.shared.util.ConvertUtil;
+import com.xiling.shared.util.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,10 +82,20 @@ public class NumberField extends LinearLayout {
     public void setLimit(int min, int max) {
         mMin = min;
         mMax = max;
+        if (mValue > mMax) {
+            mValue = mMax;
+        } else if (mValue < mMin) {
+            mValue = mMin;
+        }
+        setValue(mValue);
         setButtonsEnabled();
     }
 
     public void setValue(int value) {
+        if (value > mMax) {
+            ToastUtil.error("数量超出范围");
+        }
+
         value = value < mMin ? mMin : value;
         this.mValue = value <= mMax ? value : mMax;
 
@@ -128,14 +139,17 @@ public class NumberField extends LinearLayout {
 
     @OnClick(R.id.valueTv)
     protected void showEditTextDialog() {
-        EditNumberDialog dialog = new EditNumberDialog(getContext(), this.mValue, this.mMin, this.mMax);
-        dialog.setOnChangeListener(new OnValueChangeLister() {
-            @Override
-            public void changed(int value) {
-                setValue(value);
-            }
-        });
-        dialog.show();
+        if (mMax > 1) {
+            EditNumberDialog dialog = new EditNumberDialog(getContext(), this.mValue, this.mMin, this.mMax);
+            dialog.setOnChangeListener(new OnValueChangeLister() {
+                @Override
+                public void changed(int value) {
+                    setValue(value);
+                }
+            });
+            dialog.show();
+        }
+
     }
 
 }

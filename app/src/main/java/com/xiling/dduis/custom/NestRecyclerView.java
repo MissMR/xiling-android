@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+/**
+ * 充满屏幕的recycler
+ */
 public class NestRecyclerView extends RecyclerView {
     public NestRecyclerView(Context context) {
         super(context);

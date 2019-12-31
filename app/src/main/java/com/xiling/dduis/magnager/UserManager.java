@@ -152,7 +152,6 @@ public class UserManager {
         return mPrice;
     }
 
-
     //校验用户信息，保证用户信息的正确性
     public void checkUserInfo(final OnCheckUserInfoLisense onCheckUserInfoLisense) {
         if (UserManager.getInstance().isLogin()) {

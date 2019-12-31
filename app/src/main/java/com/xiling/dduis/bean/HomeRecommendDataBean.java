@@ -92,11 +92,11 @@ public class HomeRecommendDataBean {
         private String badgeImg;
         private String thumbUrl;
         private String productName;
-        private float minMarketPrice;
-        private float minPrice;
+        private double minMarketPrice;
+        private double minPrice;
         private int stock;
         private String sellOut;
-        private String status;
+        private int status;
         private String tagsStr;
         private float level10Price;
         private float level20Price;
@@ -135,19 +135,19 @@ public class HomeRecommendDataBean {
             this.productName = productName;
         }
 
-        public float getMinMarketPrice() {
+        public double getMinMarketPrice() {
             return minMarketPrice;
         }
 
-        public void setMinMarketPrice(float minMarketPrice) {
+        public void setMinMarketPrice(double minMarketPrice) {
             this.minMarketPrice = minMarketPrice;
         }
 
-        public float getMinPrice() {
+        public double getMinPrice() {
             return minPrice;
         }
 
-        public void setMinPrice(float minPrice) {
+        public void setMinPrice(double minPrice) {
             this.minPrice = minPrice;
         }
 
@@ -167,11 +167,11 @@ public class HomeRecommendDataBean {
             this.sellOut = sellOut;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 

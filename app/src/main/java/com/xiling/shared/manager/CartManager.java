@@ -74,76 +74,11 @@ public class CartManager {
             return;
         }
 
-        getQuantity(skuInfo, new BaseCallback<Integer>() {
-            @Override
-            public void callback(Integer data) {
-                if (skuInfo.stock < amount + data) {
-                    ToastUtil.error("库存不足");
-                    return;
-                }
-                ICartService service = ServiceManager.getInstance().createService(ICartService.class);
-                APIManager.startRequest(service.addToCart(skuInfo.skuId, amount), new BaseRequestListener<CartAmount>() {
-
-                    @Override
-                    public void onSuccess(CartAmount result) {
-                        ToastUtil.success("添加购物车成功");
-                        CartAmountManager.share().setAmount(result.amount);
-                        EventBus.getDefault().post(new EventMessage(Event.AddToCart));
-                    }
-                });
-            }
-        });
     }
 
     private static void getQuantity(final SkuInfo skuInfo, final BaseCallback<Integer> callback) {
         ICartService cartService = ServiceManager.getInstance().createService(ICartService.class);
-        APIManager.startRequest(cartService.getAllList(), new BaseRequestListener<List<CartStore>>() {
-            @Override
-            public void onSuccess(List<CartStore> result) {
-                for (CartStore cartStore : result) {
-                    for (CartItem product : cartStore.products) {
-                        if (product.skuId.equals(skuInfo.skuId)) {
-                            int amount = Math.min(product.amount, product.stock);
-                            callback.callback(amount);
-                            return;
-                        }
-                    }
-                }
-                callback.callback(0);
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-
-            }
-        });
-
-    }
-
-    private static void getQuantity(final SkuPvIds skuInfo, final BaseCallback<Integer> callback) {
-        ICartService cartService = ServiceManager.getInstance().createService(ICartService.class);
-        APIManager.startRequest(cartService.getAllList(), new BaseRequestListener<List<CartStore>>() {
-            @Override
-            public void onSuccess(List<CartStore> result) {
-                for (CartStore cartStore : result) {
-                    for (CartItem product : cartStore.products) {
-                        if (product.skuId.equals(skuInfo.skuId)) {
-                            int amount = Math.min(product.amount, product.stock);
-                            callback.callback(amount);
-                            return;
-                        }
-                    }
-                }
-                callback.callback(0);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-
-            }
-        });
 
     }
 

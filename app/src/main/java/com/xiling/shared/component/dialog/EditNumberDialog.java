@@ -64,8 +64,8 @@ public class EditNumberDialog extends Dialog {
                 if (!StringUtils.isEmpty(mValueEt.getText().toString())) {
                     value = Integer.valueOf(mValueEt.getText().toString());
                 }
-                value = value < mMin ? mMin : value;
-                mValue = value <= mMax ? value : mMax;
+
+                mValue = value;
                 setButtonsEnabled();
             }
 
@@ -83,9 +83,7 @@ public class EditNumberDialog extends Dialog {
     }
 
     public void setValue(int value) {
-        value = value < mMin ? mMin : value;
-        this.mValue = value <= mMax ? value : mMax;
-
+        this.mValue = value;
         mValueEt.setText(String.valueOf(this.mValue));
         setButtonsEnabled();
     }

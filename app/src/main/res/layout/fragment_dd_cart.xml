@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     android:orientation="vertical">
+
 
     <com.xiling.shared.component.HeaderLayout
         android:id="@+id/headerLayout"
@@ -12,19 +14,57 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_weight="1">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.xiling.dduis.custom.NestRecyclerView
+                    android:id="@+id/recycler_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="为你推荐"
+                        android:textColor="#ff202020"
+                        android:textSize="@dimen/sp_16" />
+
+                </RelativeLayout>
+
+                <com.xiling.dduis.custom.NestRecyclerView
+                    android:id="@+id/recycler_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_12"
+                  />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/border_top"
         android:orientation="horizontal">
 
@@ -35,11 +75,11 @@
             android:drawableLeft="@drawable/icon_selector"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
             android:text="全选"
             android:textColor="@color/default_text_color"
-            android:textSize="12sp" />
+            android:textSize="@dimen/sp_13" />
 
         <View
             android:layout_width="0dp"
@@ -53,7 +93,7 @@
             android:layout_weight="99999"
             android:gravity="right|center_vertical"
             android:orientation="vertical"
-            android:paddingRight="10dp">
+            android:paddingRight="@dimen/dp_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,7 +107,7 @@
                     android:includeFontPadding="false"
                     android:text="合计："
                     android:textColor="@color/default_text_color"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp_13" />
 
                 <com.xiling.dduis.custom.DDNumberTextView
                     android:id="@+id/totalTv"
@@ -75,47 +115,36 @@
                     android:layout_height="wrap_content"
                     android:lines="1"
                     android:text="￥0.00"
-                    android:textColor="@color/mainColor"
-                    android:textSize="16sp" />
+                    android:textColor="#DCB982"
+                    android:textSize="@dimen/sp_13" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvRatio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:includeFontPadding="false"
-                android:text="暂无折扣"
-                android:textColor="@color/gray"
-                android:textSize="12sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/nextBtn"
-            style="@style/MyButton.DDMRed"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:minHeight="34dp"
+            android:background="#DCB982"
+            android:minHeight="@dimen/dp_60"
             android:text="结算"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/deleteBtn"
-            style="@style/MyButton.StrokeRed"
+            android:background="#AAAAAA"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:minHeight="34dp"
-            android:text="删 除"
-            android:textColor="@color/mainColor"
-            android:textSize="16sp"
+            android:minHeight="@dimen/dp_60"
+            android:text="删除所选"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:visibility="gone" />
     </LinearLayout>
-
 </LinearLayout>

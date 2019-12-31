@@ -1,52 +1,39 @@
 package com.xiling.ddui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
-
-import com.xiling.ddui.adapter.DDCartAdapter;
-import com.xiling.ddui.bean.DDCartRowBean;
-
-import com.xiling.ddui.bean.DDSuggestListBean;
-import com.xiling.ddui.custom.DDFooterView;
-import com.xiling.ddui.manager.CartAmountManager;
-import com.xiling.ddui.tools.DLog;
-import com.xiling.module.auth.Config;
-import com.xiling.module.pay.PayActivity;
+import com.xiling.ddui.adapter.CardExpandableAdapter;
+import com.xiling.ddui.bean.CardExpandableBean;
+import com.xiling.ddui.bean.XLCardListBean;
+import com.xiling.dduis.adapter.ShopListAdapter;
+import com.xiling.dduis.bean.HomeRecommendDataBean;
+import com.xiling.dduis.custom.DDNumberTextView;
+import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.CartItem;
-import com.xiling.shared.bean.CartStore;
-import com.xiling.shared.bean.MemberRatio;
-import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.HeaderLayout;
 import com.xiling.shared.constant.Event;
-import com.xiling.shared.contracts.RequestListener;
 import com.xiling.shared.manager.APIManager;
-import com.xiling.shared.manager.CartManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.DDHomeService;
 import com.xiling.shared.service.contract.ICartService;
-import com.xiling.shared.service.contract.IUserService;
-import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.SessionUtil;
-import com.xiling.shared.util.ToastUtil;
-import com.google.common.base.Joiner;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,71 +45,46 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
+import butterknife.Unbinder;
 
-public class DDCartFragment extends BaseFragment implements View.OnClickListener, OnLoadMoreListener, OnRefreshListener {
+import static com.xiling.shared.Constants.PAGE_SIZE;
 
-    public final static String kType = "TYPE";
-    public final static int TYPE_FRAGMENT = 0x01;
-    public final static int TYPE_ACTIVITY = 0x02;
-    int type = TYPE_FRAGMENT;
-
-    boolean mInEditMode = false;
+public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, OnRefreshListener {
 
     public final static String TITLE_TEXT = "购物车";
-    public final static String TITLE_TEXT_EDIT = "管理";
-    public final static String TITLE_TEXT_FINISH = "完成";
-
-    public final static String BOTTOM_TEXT_PAY = "结算";
-
     //获取购物车数据
     ICartService mCartService;
-
-    //获取会员打折率
-    List<MemberRatio> mMemberRatio;
-    IUserService mMemberRatioService;
-
+    DDHomeService homeService;
+    @BindView(R.id.recycler_card)
+    RecyclerView recyclerCard;
+    @BindView(R.id.recycler_recommend)
+    RecyclerView recyclerRecommend;
     @BindView(R.id.refreshLayout)
-    SmartRefreshLayout mSmartRefreshLayout;
-
-    @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
-
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.headerLayout)
-    HeaderLayout mHeaderLayout;
+    HeaderLayout headerLayout;
 
-    @BindView(R.id.layoutBottom)
-    LinearLayout mLayoutBottom;
-
-    @BindView(R.id.tvRatio)
-    TextView mTvRatio;
-
-    @BindView(R.id.totalLayout)
-    LinearLayout mTotalLayout;
-
-    @BindView(R.id.totalTv)
-    TextView mTotalTv;
-
-    @BindView(R.id.nextBtn)
-    TextView mNextBtn;
-
-    @BindView(R.id.deleteBtn)
-    TextView mDeleteBtn;
-
+    Unbinder unbinder;
     @BindView(R.id.checkAll)
-    TextView mCheckAllBtn;
+    TextView checkAll;
+    @BindView(R.id.totalTv)
+    DDNumberTextView totalTv;
+    @BindView(R.id.nextBtn)
+    TextView nextBtn;
+    @BindView(R.id.deleteBtn)
+    TextView deleteBtn;
+    private int pageOffset = 1;
+    private int pageSize = PAGE_SIZE;
+    private int totalPage = 0;
+    List<HomeRecommendDataBean.DatasBean> recommendDataList = new ArrayList<>();
+    ShopListAdapter recommendAdapter;
+    CardExpandableAdapter cardExpandableAdapter;
 
-    //数据源显示适配器
-    DDCartAdapter mCartAdapter = null;
+    private boolean isEdit = false;
 
-    GridLayoutManager gManager = null;
 
-    protected int mPage = 1;
-    protected int mSize = 10;
-
-    public static DDCartFragment newInstance(int type) {
+    public static DDCartFragment newInstance() {
         Bundle args = new Bundle();
-        args.putInt(kType, type);
         DDCartFragment fragment = new DDCartFragment();
         fragment.setArguments(args);
         return fragment;
@@ -131,19 +93,15 @@ public class DDCartFragment extends BaseFragment implements View.OnClickListener
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dd_cart, container, false);
-        ButterKnife.bind(this, view);
-
-        getIntentData();
-
         initService();
-
-        initTitleView();
-        initView();
-
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        View view = inflater.inflate(R.layout.fragment_dd_cart, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        initView();
+        requestData();
+
 
         return view;
     }
@@ -151,18 +109,103 @@ public class DDCartFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isAdded() && getContext() != null && isReload) {
-            loadNetData();
+        if (isVisibleToUser && isAdded() && getContext() != null) {
+            pageOffset = 1;
+            requestCardData();
         }
     }
 
-    public void initService() {
-        if (mMemberRatioService == null) {
-            mMemberRatioService = ServiceManager.getInstance().createService(IUserService.class);
+    private void initHeadLayout() {
+        headerLayout.setTitle(TITLE_TEXT);
+        headerLayout.setRightText("编辑");
+        headerLayout.hideRightItem();
+        headerLayout.setOnRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO 编辑
+                if (cardExpandableAdapter != null) {
+                    cardExpandableAdapter.setEdit(!isEdit);
+                    if (!isEdit) {
+                        headerLayout.setRightText("完成");
+                        nextBtn.setVisibility(View.GONE);
+                        deleteBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        headerLayout.setRightText("编辑");
+                        nextBtn.setVisibility(View.VISIBLE);
+                        deleteBtn.setVisibility(View.GONE);
+                    }
+                    isEdit = !isEdit;
+                }
+            }
+        });
+    }
 
-        }
+    private void initView() {
+        initHeadLayout();
+        refreshLayout.setEnableLoadMore(true);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnLoadMoreListener(this);
+        refreshLayout.setOnRefreshListener(this);
+
+        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recyclerRecommend.setLayoutManager(recommendLayoutManager);
+        recyclerRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
+        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
+        recyclerRecommend.setAdapter(recommendAdapter);
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerCard.setLayoutManager(linearLayoutManager);
+        cardExpandableAdapter = new CardExpandableAdapter(new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>());
+        recyclerCard.setAdapter(cardExpandableAdapter);
+        cardExpandableAdapter.bindToRecyclerView(recyclerCard);
+        cardExpandableAdapter.setEmptyView(R.layout.layout_no_data_cart);
+        cardExpandableAdapter.setOnSelectChangeListener(new CardExpandableAdapter.OnSelectChangeListener() {
+            @Override
+            public void onPriceChange(double price) {
+                totalTv.setText("¥" + price);
+            }
+
+            @Override
+            public void onSelectChage(int selectSize) {
+                if (selectSize != 0) {
+                    nextBtn.setText("结算(" + selectSize + ")");
+                } else {
+                    nextBtn.setText("结算");
+                }
+
+                if (cardExpandableAdapter.isAllSelect()) {
+                    checkAll.setSelected(true);
+                    checkAll.setText("全不选");
+                } else {
+                    checkAll.setSelected(false);
+                    checkAll.setText("全选");
+                }
+
+            }
+        });
+
+    }
+
+
+    private void initService() {
         if (mCartService == null) {
             mCartService = ServiceManager.getInstance().createService(ICartService.class);
+        }
+
+        if (homeService == null) {
+            homeService = ServiceManager.getInstance().createService(DDHomeService.class);
         }
     }
 
@@ -171,16 +214,150 @@ public class DDCartFragment extends BaseFragment implements View.OnClickListener
         return true;
     }
 
-    boolean isReload = true;
-
     @Override
-    public void onResume() {
-        super.onResume();
-        DLog.d("DDCart.onResume");
-        if (isReload) {
-            loadNetData();
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        if (pageOffset < totalPage) {
+            pageOffset++;
+            requestRecommend();
         }
     }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        pageOffset = 1;
+        requestData();
+    }
+
+    private void requestData() {
+        requestCardData();
+        requestRecommend();
+    }
+
+    private void requestCardData() {
+        APIManager.startRequest(mCartService.getAllList(), new BaseRequestListener<List<XLCardListBean>>() {
+            @Override
+            public void onSuccess(List<XLCardListBean> result) {
+                super.onSuccess(result);
+                if (result != null && result.size() > 0) {
+                    headerLayout.showRightItem();
+                } else {
+                    headerLayout.hideRightItem();
+                }
+                List<CardExpandableBean<XLCardListBean.SkuProductListBean>> cardExpandableBeanList = buildAdapterData(result);
+                cardExpandableAdapter.setNewData(cardExpandableBeanList);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
+    /**
+     * 根据服务器返回数据，构造购物车UI所需要的数据
+     */
+    private List<CardExpandableBean<XLCardListBean.SkuProductListBean>> buildAdapterData(List<XLCardListBean> xlCardListBeanList) {
+        List<CardExpandableBean<XLCardListBean.SkuProductListBean>> cardExpandableBeanList = new ArrayList<>();
+        int mPosition = 0;
+        for (int parentPosition = 0; parentPosition < xlCardListBeanList.size(); parentPosition++) {
+            XLCardListBean xlCardListBean = xlCardListBeanList.get(parentPosition);
+            List<XLCardListBean.SkuProductListBean> skuProductListBeanList = xlCardListBean.getSkuProductList();
+            if (skuProductListBeanList != null && skuProductListBeanList.size() > 0) {
+                CardExpandableBean<XLCardListBean.SkuProductListBean> parentBean = new CardExpandableBean(true);
+                parentBean.setParentId(xlCardListBean.getStoreId());
+                parentBean.setParentName(xlCardListBean.getStoreName());
+                List<Integer> childPos = new ArrayList<>();
+                parentBean.setChildPositions(childPos);
+                parentBean.setPosition(mPosition);
+                mPosition++;
+                for (int childPosition = mPosition; childPosition < skuProductListBeanList.size() + 1; childPosition++) {
+                    childPos.add(childPosition);
+                }
+                cardExpandableBeanList.add(parentBean);
+                for (int childPosition = 0; childPosition < skuProductListBeanList.size(); childPosition++) {
+                    XLCardListBean.SkuProductListBean skuProductListBean = skuProductListBeanList.get(childPosition);
+                    CardExpandableBean<XLCardListBean.SkuProductListBean> childBean = new CardExpandableBean(false);
+                    childBean.setBean(skuProductListBean);
+                    childBean.setParentId(parentBean.getParentId());
+                    childBean.setParentPosition(parentBean.getPosition());
+                    childBean.setPosition(mPosition);
+                    mPosition++;
+                    cardExpandableBeanList.add(childBean);
+                }
+
+            }
+
+        }
+
+        // 同步选中状态
+        if (cardExpandableAdapter != null && cardExpandableAdapter.getData() != null && cardExpandableAdapter.getData().size() > 0) {
+            for (CardExpandableBean<XLCardListBean.SkuProductListBean> newBean : cardExpandableBeanList) {
+                for (CardExpandableBean<XLCardListBean.SkuProductListBean> oldBean : cardExpandableAdapter.getData()) {
+                    if (newBean.isParent()) {
+                        if (oldBean.isParent()) {
+                            if (newBean.getParentId().equals(oldBean.getParentId())) {
+                                newBean.setSelect(oldBean.isSelect());
+                            }
+                        }
+
+                    } else {
+                        if (!oldBean.isParent()) {
+                            if (newBean.getBean().getSkuId().equals(oldBean.getBean().getSkuId())) {
+                                newBean.setSelect(oldBean.isSelect());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return cardExpandableBeanList;
+    }
+
+
+    private void requestRecommend() {
+        APIManager.startRequest(homeService.getHomeRecommendData(pageOffset, pageSize), new BaseRequestListener<HomeRecommendDataBean>() {
+            @Override
+            public void onSuccess(HomeRecommendDataBean result) {
+                super.onSuccess(result);
+                refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
+                if (result != null) {
+                    if (result.getDatas() != null) {
+                        if (pageOffset == 1) {
+                            recommendDataList.clear();
+                        }
+                        totalPage = result.getTotalPage();
+                        // 如果已经到最后一页了，关闭上拉加载
+                        if (pageOffset >= totalPage) {
+                            refreshLayout.setEnableLoadMore(false);
+                        } else {
+                            refreshLayout.setEnableLoadMore(true);
+                        }
+
+                        recommendDataList.addAll(result.getDatas());
+
+                        if (pageOffset == 1) {
+                            recommendAdapter.setNewData(recommendDataList);
+                        } else {
+                            recommendAdapter.setNewData(recommendDataList);
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
+            }
+        });
+    }
+
 
     @Override
     public void onDestroy() {
@@ -190,375 +367,54 @@ public class DDCartFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private void getIntentData() {
-        type = getArguments().getInt(kType);
-    }
-
-    /**
-     * 初始化标题栏
-     */
-    void initTitleView() {
-        switch (type) {
-            case TYPE_FRAGMENT:
-                mHeaderLayout.setTitle(TITLE_TEXT);
-                mHeaderLayout.setRightText(TITLE_TEXT_EDIT);
-                mHeaderLayout.setRightTextColor(R.color.mainColor);
-                mHeaderLayout.setOnRightClickListener(this);
-                break;
-            case TYPE_ACTIVITY:
-                mHeaderLayout.setTitle(TITLE_TEXT);
-                mHeaderLayout.setRightTextColor(R.color.mainColor);
-                mHeaderLayout.setRightText(TITLE_TEXT_EDIT);
-                mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
-                mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().finish();
-                    }
-                });
-                mHeaderLayout.setOnRightClickListener(this);
-                break;
-            default:
-                break;
-        }
-    }
-
-    /**
-     * 初始化界面
-     */
-    void initView() {
-
-        mCartAdapter = new DDCartAdapter(getContext());
-
-        gManager = new GridLayoutManager(getContext(), 2);
-        gManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                //获取这个位置的View类型
-                int type = mCartAdapter.getItemViewType(position);
-                if (type == DDCartRowBean.CartType.SuggestData.ordinal()) {
-//                    DLog.i("猜你喜欢:2列");
-                    //猜你喜欢为2列数据 返回值是1/2的意思
-
-                    //2.0需求变更为1列
-                    return 2;
-                } else {
-                    //其他数据为1列数据,返回值是2/2的意思
-//                    DLog.i(type + ":1列");
-                    return 2;
-                }
-            }
-        });
-        mRecyclerView.setLayoutManager(gManager);
-
-        mSmartRefreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
-        DDFooterView footer = new DDFooterView(getContext());
-        mSmartRefreshLayout.setRefreshFooter(footer);
-
-        mSmartRefreshLayout.setOnRefreshListener(this);
-        mSmartRefreshLayout.setOnLoadMoreListener(this);
-
-        mSmartRefreshLayout.setEnableRefresh(true);
-        mSmartRefreshLayout.setEnableLoadMore(true);
-
-        mCartAdapter.setHasStableIds(false);
-        mRecyclerView.setAdapter(mCartAdapter);
-        mCartAdapter.notifyDataSetChanged();
-
-        //Activity主动刷新数据
-        if (type == TYPE_ACTIVITY) {
-            loadNetData();
-        }
-    }
-
-    /**
-     * 初始化价格
-     */
-    void initPrice() {
-        List<CartItem> data = mCartAdapter.getSelectCartItem();
-        long totalPrice = CartManager.getSelectTotalMoney(data);
-        if (!Config.IS_DISCOUNT) {
-            mTvRatio.setText("不含运费");
-            mTotalTv.setText(ConvertUtil.centToCurrency(getContext(), totalPrice));
-            return;
-        }
-//        long orderRadioMoney = CartManager.getOrderRadioMoney(mDatas, mMemberRatio);
-//        if (orderRadioMoney <= 0) {
-        mTvRatio.setText("暂无折扣");
-        mTotalTv.setText(ConvertUtil.centToCurrency(getContext(), totalPrice));
-//        } else {
-//            mTvRatio.setText(
-//                    String.format("会员折扣(-%s)",
-//                            ConvertUtil.centToCurrency(getContext(), orderRadioMoney))
-//            );
-//            mTotalTv.setText(ConvertUtil.centToCurrency(getContext(), totalPrice - orderRadioMoney));
-//        }
-    }
-
-    /**
-     * 初始化购买按钮
-     */
-    void initPayButton() {
-        List<CartItem> data = mCartAdapter.getSelectCartItem();
-        int selectedQuantity = CartManager.getSelectedItemQuantity(data);
-        if (selectedQuantity > 0) {
-            mNextBtn.setEnabled(true);
-            mNextBtn.setText(BOTTOM_TEXT_PAY + "(" + selectedQuantity + ")");
-        } else {
-            mNextBtn.setEnabled(false);
-            mNextBtn.setText(BOTTOM_TEXT_PAY + "");
-        }
-    }
-
-    void loadButtonStatus() {
-        mTotalLayout.setVisibility(mInEditMode ? View.GONE : View.VISIBLE);
-        mNextBtn.setVisibility(mTotalLayout.getVisibility());
-        mDeleteBtn.setVisibility(mInEditMode ? View.VISIBLE : View.GONE);
-        mCheckAllBtn.setSelected(false);
-    }
-
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        mPage = 1;
-        loadNetData();
-    }
-
-    @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        mPage++;
-        getSuggestData();
-    }
-
-    protected void finishRefresh() {
-        if (mPage == 1) {
-            mSmartRefreshLayout.finishRefresh();
-        } else {
-            mSmartRefreshLayout.finishLoadMore(0);
-        }
-    }
-
-    public void loadNetData() {
-        //检查用户是否登录
-        if (!SessionUtil.getInstance().isLogin()) {
-            //如果是Activity模式的时候跳登录
-            if (type == TYPE_ACTIVITY) {
-                EventBus.getDefault().post(new EventMessage(Event.goToLogin));
-            }
-            //中断网络请求
-            return;
-        }
-
-        //去掉获取积分的逻辑 at 2018/10/25 by hanQ
-//        APIManager.startRequest(mMemberRatioService.getMemberRatio(), new BaseRequestListener<List<MemberRatio>>() {
-//            @Override
-//            public void onSuccess(List<MemberRatio> memberRatio) {
-//                mMemberRatio = memberRatio;
-//                initPrice();
-//            }
-//        });
-
-        initService();
-        try {
-            Observable<RequestResult<List<CartStore>>> request = mCartService.getAllList();
-            APIManager.startRequest(request, new BaseRequestListener<List<CartStore>>() {
-                @Override
-                public void onSuccess(List<CartStore> result) {
-
-                    isReload = false;
-
-                    mCheckAllBtn.setSelected(false);
-
-                    int amount = 0;
-                    for (CartStore cartStore : result) {
-                        for (CartItem product : cartStore.products) {
-                            if (product.status != 0 && product.stock > 0 && product.amount <= product.stock) {
-                                amount += product.amount;
-                            }
-                        }
-                    }
-                    CartAmountManager.share().setAmount(amount);
-
-                    mInEditMode = false;
-                    mCartAdapter.setEditMode(mInEditMode);
-                    loadButtonStatus();
-                    initTitleView();
-
-
-                    if (result.size() == 0) {
-                        DLog.d("隐藏右侧按钮");
-                        mHeaderLayout.hideRightItem();
-                    } else {
-                        DLog.d("显示右侧按钮");
-                        mHeaderLayout.showRightItem();
-                    }
-
-                    //设置购物车数据
-                    //mCartAdapter.setCartData(new ArrayList<CartStore>());//测试空数据代码
-                    mCartAdapter.setCartData(result);
-
-                    //显示购物车数据
-//                mCartAdapter.showData();
-
-                    initPrice();
-                    initPayButton();
-                    mLayoutBottom.setVisibility(result.size() > 0 ? View.VISIBLE : View.GONE);
-                    mPage = 1;
-                    getSuggestData();
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    super.onError(e);
-                    finishRefresh();
-                }
-
-                @Override
-                public void onComplete() {
-                    super.onComplete();
-                    finishRefresh();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 获取猜你喜欢的数据
-     */
-    public void getSuggestData() {
-        initService();
-        APIManager.startRequest(mCartService.getSuggestProduct(mPage, mSize), new RequestListener<DDSuggestListBean>() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onSuccess(DDSuggestListBean result) {
-                super.onSuccess(result);
-//                mCartAdapter.setSuggestData(new ArrayList<ProductBean>());//测试空数据代码
-                if (mPage > 1) {
-                    mCartAdapter.appendSuggestData(result.getDatas());
-                    mSmartRefreshLayout.finishLoadMore();
-                } else {
-                    mCartAdapter.setSuggestData(result.getDatas());
-                }
-
-                mCartAdapter.showData();
-
-                int total = result.getTotalRecord();
-                boolean hasMore = (mCartAdapter.getSuggestCount() < total);
-                //设置是否还有更多数据
-                mSmartRefreshLayout.setNoMoreData(!hasMore).finishLoadMore();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                finishRefresh();
-            }
-
-            @Override
-            public void onComplete() {
-            }
-        });
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        if (TITLE_TEXT_EDIT.equals(mHeaderLayout.getRightText())) {
-            mHeaderLayout.setRightText(TITLE_TEXT_FINISH);
-            mInEditMode = true;
-        } else {
-            mHeaderLayout.setRightText(TITLE_TEXT_EDIT);
-            mInEditMode = false;
-        }
-        mCartAdapter.setEditMode(mInEditMode);
-        mCartAdapter.notifyDataSetChanged();
-
-        initPrice();
-        initPayButton();
-        loadButtonStatus();
-    }
-
-    @OnClick(R.id.checkAll)
-    public void onCheckAll(View view) {
-        view.setSelected(!view.isSelected());
-        mCartAdapter.checkAll(view.isSelected());
-        initPrice();
-        initPayButton();
-    }
-
-    @OnClick(R.id.nextBtn)
-    public void onNext() {
-        if (!mNextBtn.isEnabled()) {
-            return;
-        }
-
-        List<CartItem> selects = mCartAdapter.getSelectCartItem();
-        DLog.i("购物车选中过来的有效商品数量");
-
-        ArrayList<String> selectedIds = CartManager.getSelectedItemIds(selects);
-        if (selectedIds.size() == 0) {
-            ToastUtil.error("请选择商品");
-            return;
-        }
-
-        Intent intent = new Intent(getContext(), PayActivity.class);
-        intent.putExtra("from", "cart");
-        intent.putStringArrayListExtra("skuIds", selectedIds);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.deleteBtn)
-    public void deleteSelectedItems() {
-        final List<CartItem> data = mCartAdapter.getSelectCartItem();
-        ArrayList<String> ids = CartManager.getSelectedItemIds(data);
-        if (ids.size() == 0) {
-            ToastUtil.error("请选择商品");
-            return;
-        }
-        initService();
-        APIManager.startRequest(mCartService.removeItem(Joiner.on(",").join(ids)), new BaseRequestListener<Object>() {
-
-            @Override
-            public void onSuccess(Object result) {
-                ToastUtil.success("删除成功");
-                CartManager.removeSelectedItem(data);
-                mCartAdapter.notifyDataSetChanged();
-                loadNetData();
-            }
-        });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateCartItem(EventMessage message) {
-        Event event = message.getEvent();
-        if (event == Event.selectCartItem) {
-            DLog.d("updateCartItem");
-            //设置全选状态
-            boolean isSelectAll = mCartAdapter.isSelectAll();
-            mCheckAllBtn.setSelected(isSelectAll);
-            if (!mInEditMode) {
-                initPrice();
-                initPayButton();
-            }
-        } else if (event == Event.AddToCart) {
-            DLog.d("isReload = true");
-            isReload = true;
-        }
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateData(EventMessage message) {
         if (message.getEvent().equals(Event.createOrderSuccess) || message.getEvent().equals(Event.loginSuccess)) {
             //订单支付成功后刷新购物车 //登录成功
-            loadNetData();
+
         } else if (message.getEvent().equals(Event.logout)) {
             //用户退出后清空购物车
-            mCartAdapter.clearCart();
+
         }
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+
+    }
+
+    @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.checkAll:
+                if (cardExpandableAdapter != null) {
+                    if (!cardExpandableAdapter.isAllSelect()) {
+                        checkAll.setSelected(true);
+                        cardExpandableAdapter.selectAll();
+                        checkAll.setText("全不选");
+                    } else {
+                        checkAll.setSelected(false);
+                        cardExpandableAdapter.cancleSelectAll();
+                        checkAll.setText("全选");
+                    }
+                }
+                break;
+            case R.id.nextBtn:
+                //结算
+                if (cardExpandableAdapter != null) {
+                    Log.d("pangtao", "结算 ：" + cardExpandableAdapter.getSelectList());
+                }
+                break;
+            case R.id.deleteBtn:
+                //删除所选
+                if (cardExpandableAdapter != null) {
+                    Log.d("pangtao", "删除所选 ：" + cardExpandableAdapter.getSelectList());
+                }
+                break;
+        }
+    }
 }

@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity {
         mFragments.add(homeFragment);
 //        mFragments.add(new DDStoreFragment());
         mFragments.add(new DDCategoryFragment());
-        mFragments.add(DDCartFragment.newInstance(DDCartFragment.TYPE_FRAGMENT));
+        mFragments.add(new DDCartFragment());
         mFragments.add(new DDMineFragment());
         mFragments.add(DDWebViewFragment.newInstance(HtmlService.BESHOPKEPPER + "?func=" + BuildConfig.H5_FUNC));
 
@@ -225,7 +225,7 @@ public class MainActivity extends BaseActivity {
 //        new AppUpgradeManager(context).check(false);
 
         //获取消息条数
-        loadUserStatus();
+      //  loadUserStatus();
 
         //加载本地缓存的购物车数量
         CartAmountManager.share().reload();
@@ -365,9 +365,9 @@ public class MainActivity extends BaseActivity {
         //获取当前界面的缓存坐标
         int index = mTabs.indexOf(view);
 
-        if (index > 1 && !UserManager.getInstance().isLogin()){
+        if (index > 1 && !UserManager.getInstance().isLogin()) {
             EventBus.getDefault().post(new EventMessage(Event.goToLogin));
-        }else{
+        } else {
             mViewPager.setCurrentItem(index, false);
             setTabActive(index);
             //获取当前界面的tabName

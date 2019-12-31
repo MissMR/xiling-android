@@ -225,41 +225,7 @@ public class CartFragment extends BaseFragment implements View.OnClickListener, 
 //                initTotalPrice();
 //            }
 //        });
-        APIManager.startRequest(mCartService.getAllList(), new BaseRequestListener<List<CartStore>>(mRefreshLayout) {
-            @Override
-            public void onSuccess(List<CartStore> result) {
-                mCheckAllBtn.setSelected(false);
-                int amount = 0;
-                for (CartStore cartStore : result) {
-                    for (CartItem product : cartStore.products) {
-                        amount += product.amount;
-                    }
-                }
-                EventBus.getDefault().post(new EventMessage(Event.cartAmountUpdate, amount));
 
-                mDatas.clear();
-                mDatas.addAll(result);
-                mCartAdapter.notifyDataSetChanged();
-
-                initTotalPrice();
-                initNextBtn();
-                mLayoutBottom.setVisibility(mDatas.size() > 0 ? View.VISIBLE : View.GONE);
-
-                setCoupen();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                mRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onComplete() {
-                super.onComplete();
-                mRefreshLayout.setRefreshing(false);
-            }
-        });
     }
 
     private void setCoupen() {

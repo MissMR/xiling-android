@@ -157,10 +157,6 @@ public class ProductDetailUIHelper {
     // 解决快速上滑到顶 toolbar不隐藏
     private int mCurrentScrollY = 0;
 
-
-
-    private DDCommunityDataAdapter mProductDetailMaterialAdapter;
-
     SkuSelectorDialog mSkuSelectorDialog;
     ProductNewBean mSpuInfo;
 
@@ -210,7 +206,9 @@ public class ProductDetailUIHelper {
 
         mTvProductTitle.setText(spuInfo.getProductName());
 
-        if (spuInfo.getStatus() == 1) {
+        String mStatus = ShopUtils.checkShopStatus(spuInfo.getStatus(),spuInfo.getStock());
+        if (!TextUtils.isEmpty(mStatus)) {
+            mTvSoldOut.setText(mStatus);
             mTvSoldOut.setVisibility(View.VISIBLE);
         } else {
             mTvSoldOut.setVisibility(View.GONE);
@@ -245,7 +243,7 @@ public class ProductDetailUIHelper {
 
         loadDetailWebView(spuInfo.getContent());
 
-        GlideUtils.loadImage(mContext,ivBottom,"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1922673126,3860003593&fm=26&gp=0.jpg");
+        GlideUtils.loadImage(mContext, ivBottom, "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1922673126,3860003593&fm=26&gp=0.jpg");
 
 
     }
@@ -258,8 +256,6 @@ public class ProductDetailUIHelper {
         mProductDetailWebView.setFocusable(false);
         WebViewUtil.loadDataToWebView(mProductDetailWebView, htmlString);
     }
-
-
 
 
     public void updateSkuBanner(List<String> URLList) {
@@ -374,7 +370,7 @@ public class ProductDetailUIHelper {
         });
     }
 
-    private void initDetailThreshold(){
+    private void initDetailThreshold() {
         mAnchorDetail.post(new Runnable() {
             @Override
             public void run() {
@@ -416,7 +412,6 @@ public class ProductDetailUIHelper {
                 case R.id.tv_btn_add_cart:
                     //加入购物车
                     showSkuDialog(ACTION_CARD);
-                    mActionListener.onAddCart();
                     break;
                 case R.id.tv_btn_buy_normal:
                     //立即购买
@@ -436,11 +431,11 @@ public class ProductDetailUIHelper {
         }
     }
 
-    private void showSkuDialog(int action){
+    private void showSkuDialog(int action) {
         if (mSpuInfo != null && mSpuInfo.getSkus() != null && mSpuInfo.getSkus().size() > 0) {
             if (mSkuSelectorDialog == null) {
                 mSkuSelectorDialog = new SkuSelectorDialog(mContext, mSpuInfo, action);
-            }else{
+            } else {
                 mSkuSelectorDialog.setmAction(action);
             }
 
@@ -452,9 +447,9 @@ public class ProductDetailUIHelper {
                 }
 
                 @Override
-                public void joinShopCart(String propertyIds, String propertyValue, int selectCount) {
+                public void joinShopCart(String skuId, String propertyValue, int selectCount) {
                     updateSkuViews(propertyValue);
-                    mOnActionListener.onAddCart();
+                    mOnActionListener.onAddCart(skuId,selectCount);
                 }
 
                 @Override
@@ -480,7 +475,7 @@ public class ProductDetailUIHelper {
         void onClickCart();
 
         // 加入购物车
-        void onAddCart();
+        void onAddCart(String skuId,int selectCount);
 
         // 立即购买
         void onClickBuy();

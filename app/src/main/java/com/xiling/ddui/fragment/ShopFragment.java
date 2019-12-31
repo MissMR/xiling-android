@@ -319,8 +319,11 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         //上拉加载
-        pageOffset++;
-        requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
+        if (pageOffset < totalPage){
+            pageOffset++;
+            requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
+        }
+
     }
 
     @Override

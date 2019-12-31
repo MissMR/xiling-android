@@ -319,8 +319,6 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         }
 
                     }
-
-
                 }
 
             }

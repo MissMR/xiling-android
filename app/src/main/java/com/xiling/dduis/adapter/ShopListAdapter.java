@@ -15,11 +15,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.tools.NumberHandler;
-import com.xiling.dduis.bean.HomeDataBean;
+import com.xiling.ddui.tools.ShopUtils;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
-import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.constant.Key;
 
 import java.util.List;
@@ -62,7 +61,9 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         }
         //优惠价，需要根据用户等级展示不同价格
         NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(item), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-        if (!TextUtils.isEmpty(item.getStatus()) && item.getStatus().equals("1")) {
+        String mStatus = ShopUtils.checkShopStatus(item.getStatus(), item.getStock());
+        if (!TextUtils.isEmpty(mStatus)) {
+            helper.setText(R.id.tv_status, mStatus);
             helper.setVisible(R.id.tv_status, true);
         } else {
             helper.setVisible(R.id.tv_status, false);

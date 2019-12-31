@@ -12,14 +12,14 @@ public class NumberHandler {
      * @param number
      * @return
      */
-    public static String reservedDecimalFor2(float number){
+    public static String reservedDecimalFor2(double number){
        return String.format("%.2f", number);
     }
 
     /**
      * 将整数和小数部分，分别赋值给不同的textView
      */
-    public static void  setPriceText(float number, TextView integerText,TextView decimalView){
+    public static void  setPriceText(double number, TextView integerText,TextView decimalView){
         String numStr = reservedDecimalFor2(number);
         float fNum = Float.parseFloat(numStr);
         integerText.setText(((int)fNum)+".");

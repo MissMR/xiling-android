@@ -171,7 +171,7 @@ public class SkuSelectorDialog extends Dialog {
                 setSkuName(skusBeanList.get(position).getPropertyValues());
                 skuBean = skusBeanList.get(position);
                 mNumberField.setLimit(1, skuBean.getStock());
-                if (mNumberField.getmValue() > skuBean.getStock()) {
+                if (mNumberField.getmValue() >= skuBean.getStock()) {
                     mNumberField.setValue(skuBean.getStock());
                 }
                 GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
@@ -202,12 +202,12 @@ public class SkuSelectorDialog extends Dialog {
         mSelectListener = selectListener;
     }
 
-    @OnClick({R.id.addToCartBtn, R.id.buyNowBtn})
+    @OnClick({R.id.addToCartBtn, R.id.buyNowBtn,R.id.confirmBtn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.addToCartBtn:
                 if (mSelectListener != null) {
-                    mSelectListener.joinShopCart(skuBean.getPropertyIds(), skuBean.getPropertyValues(), selectCount);
+                    mSelectListener.joinShopCart(skuBean.getSkuId(), skuBean.getPropertyValues(), selectCount);
                 }
                 dismiss();
                 break;
@@ -233,7 +233,7 @@ public class SkuSelectorDialog extends Dialog {
         void onClose(String propertyValue);
 
         //加入购物车
-        void joinShopCart(String propertyIds, String propertyValue, int selectCount);
+        void joinShopCart(String skuId, String propertyValue, int selectCount);
 
         //立即购买
         void buyItNow(String propertyIds, String propertyValue, int selectCount);

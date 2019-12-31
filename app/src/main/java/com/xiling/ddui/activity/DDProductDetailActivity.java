@@ -10,6 +10,7 @@ import android.view.View;
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.R;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
@@ -25,6 +26,7 @@ import com.xiling.shared.component.dialog.XLProductQrCodeDialog;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.ICartService;
 import com.xiling.shared.service.contract.IProductService;
 import com.xiling.shared.util.ToastUtil;
 import com.umeng.socialize.UMShareAPI;
@@ -33,6 +35,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -50,6 +54,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     private String mSpuId;
     private IProductService mProductService;
+    private ICartService mCartService;
 
     private ProductNewBean mSpuInfo;
     private SkuSelectorDialog mSkuSelectorDialog;
@@ -105,6 +110,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         getIntentData();
 
         mProductService = ServiceManager.getInstance().createService(IProductService.class);
+        mCartService = ServiceManager.getInstance().createService(ICartService.class);
         getProductInfo(mSpuId);
 
     }
@@ -156,9 +162,9 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     @Override
-    public void onAddCart() {
+    public void onAddCart(String skuId,int size) {
         // 加入购物车 业务逻辑
-        com.sobot.chat.utils.ToastUtil.showToast(context, "加入购物车");
+        requestAddCart(skuId,size);
     }
 
     @Override
@@ -166,6 +172,20 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         //立即购买 业务逻辑
         com.sobot.chat.utils.ToastUtil.showToast(context, "立即购买");
     }
+
+    /**
+     * 添加购物车
+     */
+    private void requestAddCart(String skuId, int quantity) {
+        APIManager.startRequest(mCartService.addShopCart(skuId, quantity), new BaseRequestListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                ToastUtil.success("添加成功");
+            }
+        });
+    }
+
 
     private boolean checkNull(Object o) {
         return null == o;

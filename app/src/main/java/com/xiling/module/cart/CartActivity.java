@@ -10,9 +10,6 @@ import android.view.View;
 import com.xiling.R;
 import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.shared.constant.AppTypes;
-
-import static com.xiling.ddui.fragment.DDCartFragment.TYPE_ACTIVITY;
-
 /**
  * @author JayChan <voidea@foxmail.com>
  * @version 1.0
@@ -21,7 +18,7 @@ import static com.xiling.ddui.fragment.DDCartFragment.TYPE_ACTIVITY;
  */
 public class CartActivity extends FragmentActivity {
 
-    DDCartFragment cartFragment = DDCartFragment.newInstance(TYPE_ACTIVITY);
+    DDCartFragment cartFragment = DDCartFragment.newInstance();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
