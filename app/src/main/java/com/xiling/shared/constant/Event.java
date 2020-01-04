@@ -8,6 +8,7 @@ public enum Event {
     wxLoginSuccess,
     loginSuccess,
     goToLogin,
+    UPDATE_CARD_COUNT,
 
     hideLoading,
     toastErrorMessage,

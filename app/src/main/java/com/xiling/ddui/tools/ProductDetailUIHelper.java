@@ -1,5 +1,6 @@
 package com.xiling.ddui.tools;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -130,9 +131,9 @@ public class ProductDetailUIHelper {
     @BindView(R.id.fl_cart)
     View flCard;
     @BindView(R.id.tv_btn_add_cart)
-    View tvBtnAddCart;
+    TextView tvBtnAddCart;
     @BindView(R.id.tv_btn_buy_normal)
-    View tvBtnBuyNormal;
+    TextView tvBtnBuyNormal;
     // 产品详情
     @BindView(R.id.web_view)
     WebView mProductDetailWebView;
@@ -206,12 +207,26 @@ public class ProductDetailUIHelper {
 
         mTvProductTitle.setText(spuInfo.getProductName());
 
-        String mStatus = ShopUtils.checkShopStatus(spuInfo.getStatus(),spuInfo.getStock());
+        String mStatus = ShopUtils.checkShopStatus(spuInfo.getStatus(), spuInfo.getStock());
         if (!TextUtils.isEmpty(mStatus)) {
             mTvSoldOut.setText(mStatus);
             mTvSoldOut.setVisibility(View.VISIBLE);
+            tvBtnAddCart.setTextColor(Color.parseColor("#AAAAAA"));
+            tvBtnBuyNormal.setBackgroundColor(Color.parseColor("#AAAAAA"));
+            mTvSkuInfo.setTextColor(Color.parseColor("#AAAAAA"));
+            tvBtnAddCart.setClickable(false);
+            tvBtnBuyNormal.setClickable(false);
+            mTvSkuInfo.setClickable(false);
+            relSkuInfo.setClickable(false);
         } else {
             mTvSoldOut.setVisibility(View.GONE);
+            tvBtnAddCart.setTextColor(Color.parseColor("#202020"));
+            tvBtnBuyNormal.setBackgroundColor(Color.parseColor("#DCB982"));
+            tvBtnAddCart.setClickable(true);
+            tvBtnBuyNormal.setClickable(true);
+            mTvSkuInfo.setTextColor(Color.parseColor("#202020"));
+            mTvSkuInfo.setClickable(true);
+            relSkuInfo.setClickable(true);
         }
 
         //优惠价，需要根据用户等级展示不同价格
@@ -235,11 +250,8 @@ public class ProductDetailUIHelper {
         recyclerTag.setLayoutManager(tagManager);
         shopListTagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_detail_tag, spuInfo.getProductTags());
         recyclerTag.setAdapter(shopListTagsAdapter);
-        if (spuInfo.getSkus() != null && spuInfo.getSkus().size() > 0) {
-            updateSkuViews(spuInfo.getSkus().get(0).getPropertyValues());
-        } else {
-            updateSkuViews("");
-        }
+        updateSkuViews("");
+
 
         loadDetailWebView(spuInfo.getContent());
 
@@ -449,7 +461,7 @@ public class ProductDetailUIHelper {
                 @Override
                 public void joinShopCart(String skuId, String propertyValue, int selectCount) {
                     updateSkuViews(propertyValue);
-                    mOnActionListener.onAddCart(skuId,selectCount);
+                    mOnActionListener.onAddCart(skuId, selectCount);
                 }
 
                 @Override
@@ -475,7 +487,7 @@ public class ProductDetailUIHelper {
         void onClickCart();
 
         // 加入购物车
-        void onAddCart(String skuId,int selectCount);
+        void onAddCart(String skuId, int selectCount);
 
         // 立即购买
         void onClickBuy();

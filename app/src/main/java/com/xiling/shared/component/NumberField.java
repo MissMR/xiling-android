@@ -92,18 +92,18 @@ public class NumberField extends LinearLayout {
     }
 
     public void setValue(int value) {
-        if (value > mMax) {
-            ToastUtil.error("数量超出范围");
-        }
+            if (value > mMax) {
+                ToastUtil.error("数量超出范围");
+            }
 
-        value = value < mMin ? mMin : value;
-        this.mValue = value <= mMax ? value : mMax;
+            value = value < mMin ? mMin : value;
+            this.mValue = value <= mMax ? value : mMax;
 
-        mValueTv.setText("" + this.mValue);
-        if (this.mListener != null) {
-            this.mListener.changed(this.mValue);
-        }
-        setButtonsEnabled();
+            mValueTv.setText("" + this.mValue);
+            if (this.mListener != null) {
+                this.mListener.changed(this.mValue);
+            }
+            setButtonsEnabled();
     }
 
     private void setButtonsEnabled() {

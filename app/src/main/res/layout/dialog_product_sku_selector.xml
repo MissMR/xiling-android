@@ -10,9 +10,9 @@
         android:id="@+id/layoutBotttom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_82"
+        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center_vertical"
-        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingTop="18dp"
@@ -31,196 +31,191 @@
 
         <TextView
             android:id="@+id/addToCartBtn"
-            android:layout_height="match_parent"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:background="#F5F5F5"
+            android:gravity="center"
             android:text="加入购物车"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/buyNowBtn"
-              android:layout_height="match_parent"
             android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
             android:background="#DCB982"
-            android:textColor="@color/white"
+            android:gravity="center"
             android:text="立即购买"
+            android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>
 
-    <LinearLayout
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="510dp"
-        android:orientation="vertical"
-        android:background="@color/white"
+        android:layout_height="match_parent"
         android:layout_above="@id/layoutBotttom"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dialog_share_bg"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/tv_close"
-                android:layout_width="@dimen/dp_22"
-                android:layout_height="@dimen/dp_22"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_16"
-                android:gravity="center_vertical"
-                android:padding="4dp"
-                android:src="@mipmap/ic_login_close" />
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/thumbIv"
-                android:layout_width="@dimen/dp_91"
-                android:layout_height="@dimen/dp_91"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_17"
-                android:background="@mipmap/qr_code_bg"
-                fresco:actualImageScaleType="centerCrop"
-                fresco:placeholderImage="@drawable/default_image"
-                fresco:placeholderImageScaleType="centerCrop"
-                fresco:viewAspectRatio="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_12"
-                android:layout_marginTop="@dimen/dp_15"
-                android:layout_toRightOf="@id/thumbIv"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="¥"
-                        android:textColor="#ffa6251a"
-                        android:textSize="@dimen/sp_20" />
-
-                    <TextView
-                        android:id="@+id/tv_discount_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#ffa6251a"
-                        android:textSize="@dimen/sp_30" />
-
-                    <TextView
-                        android:id="@+id/tv_discount_price_decimal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#ffa6251a"
-                        android:textSize="@dimen/sp_20" />
-
-                    <TextView
-                        android:layout_width="@dimen/dp_46"
-                        android:layout_height="@dimen/dp_15"
-                        android:layout_marginLeft="@dimen/dp_8"
-                        android:gravity="center"
-                        android:text="优惠价"
-                        android:textColor="#fffdddab"
-                        android:textSize="@dimen/sp_12" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_minPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#ff202020"
-                        android:textSize="@dimen/sp_16" />
-
-
-                    <TextView
-                        android:id="@+id/tv_minMarketPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_6"
-                        android:textColor="#ffaaaaaa"
-                        android:textSize="@dimen/sp_16" />
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/tvSkuName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginTop="@dimen/dp_13"
-                    android:textColor="#aaaaaa"
-                    android:textSize="@dimen/sp_13" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/dp_14"
-           >
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="请选择商品规格"
-                android:textColor="#ff202020"
-                android:textSize="@dimen/sp_12"
-                android:layout_marginLeft="@dimen/dp_11"
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_12"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:nestedScrollingEnabled="false"
-                 />
+                android:background="@drawable/dialog_share_bg"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/tv_close"
+                    android:layout_width="@dimen/dp_22"
+                    android:layout_height="@dimen/dp_22"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:gravity="center_vertical"
+                    android:padding="4dp"
+                    android:src="@mipmap/ic_login_close" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/thumbIv"
+                    android:layout_width="@dimen/dp_91"
+                    android:layout_height="@dimen/dp_91"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_17"
+                    android:background="@mipmap/qr_code_bg"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:placeholderImage="@drawable/default_image"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:viewAspectRatio="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_toRightOf="@id/thumbIv"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="¥"
+                            android:textColor="#ffa6251a"
+                            android:textSize="@dimen/sp_20" />
+
+                        <TextView
+                            android:id="@+id/tv_discount_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffa6251a"
+                            android:textSize="@dimen/sp_30" />
+
+                        <TextView
+                            android:id="@+id/tv_discount_price_decimal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffa6251a"
+                            android:textSize="@dimen/sp_20" />
+
+                        <TextView
+                            android:layout_width="@dimen/dp_46"
+                            android:layout_height="@dimen/dp_15"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:gravity="center"
+                            android:text="优惠价"
+                            android:textColor="#fffdddab"
+                            android:textSize="@dimen/sp_12" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_minPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ff202020"
+                            android:textSize="@dimen/sp_16" />
+
+
+                        <TextView
+                            android:id="@+id/tv_minMarketPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:textColor="#ffaaaaaa"
+                            android:textSize="@dimen/sp_16" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvSkuName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="#aaaaaa"
+                        android:textSize="@dimen/sp_13" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:textSize="@dimen/sp_12"
-                android:layout_marginTop="@dimen/dp_54"
-                android:text="请确定购买数量" />
+                android:layout_marginTop="@dimen/dp_14"
+                android:orientation="vertical">
+
+                <com.xiling.dduis.custom.NestRecyclerView
+                    android:id="@+id/recycler_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_12" />
 
 
-            <com.xiling.shared.component.NumberField
-                android:id="@+id/numberField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="@dimen/dp_14" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_54"
+                    android:text="请确定购买数量"
+                    android:textSize="@dimen/sp_12" />
 
+
+                <com.xiling.shared.component.NumberField
+                    android:id="@+id/numberField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_14" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-
-
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>

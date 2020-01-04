@@ -7,7 +7,7 @@
     >
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="@dimen/dp_104"
+        android:layout_width="@dimen/dp_94"
         android:layout_height="@dimen/dp_40"
         android:textColor="#202020"
         android:lines="1"

@@ -272,6 +272,17 @@ public class ProductNewBean {
             private String propertyValueId;
             private String propertyValue;
             private int noSelectFlag;
+            private boolean needSelect = true;
+
+
+            public boolean isNeedSelect() {
+                return needSelect;
+            }
+
+            public void setNeedSelect(boolean needSelect) {
+                this.needSelect = needSelect;
+            }
+
 
             public String getPropertyValueId() {
                 return propertyValueId;
@@ -323,8 +334,8 @@ public class ProductNewBean {
         private String propertyValueIds;
         private int stock;
         private int status;
-        private int retailPrice;
-        private int marketPrice;
+        private double retailPrice;
+        private double marketPrice;
         private String skuName;
         private String intro;
         private int saleCount;
@@ -368,19 +379,19 @@ public class ProductNewBean {
             this.status = status;
         }
 
-        public int getRetailPrice() {
+        public double getRetailPrice() {
             return retailPrice;
         }
 
-        public void setRetailPrice(int retailPrice) {
+        public void setRetailPrice(double retailPrice) {
             this.retailPrice = retailPrice;
         }
 
-        public int getMarketPrice() {
+        public double getMarketPrice() {
             return marketPrice;
         }
 
-        public void setMarketPrice(int marketPrice) {
+        public void setMarketPrice(double marketPrice) {
             this.marketPrice = marketPrice;
         }
 

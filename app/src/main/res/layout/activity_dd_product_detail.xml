@@ -42,7 +42,6 @@
                     android:layout_marginTop="@dimen/dp_4"
                     android:background="@drawable/order_badge"
                     android:gravity="center"
-                    android:text="9"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/sp_11" />
 

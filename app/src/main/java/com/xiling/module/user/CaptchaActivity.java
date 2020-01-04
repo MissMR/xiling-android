@@ -47,8 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author Jigsaw
- * @date 2018/8/24
+ * @author 逄涛
  * 输入验证码界面
  * 若不传 wechatuser 则为登录操作
  */

@@ -451,7 +451,9 @@
         <activity android:name=".ddui.activity.DDVideoViewActivity" />
         <activity android:name=".ddui.activity.DDPhonePreviewActivity" />
         <activity android:name=".ddui.activity.SelectAddressMapActivity" />
-        <activity android:name=".ddui.activity.DDProductDetailActivity" />
+        <activity
+            android:name=".ddui.activity.DDProductDetailActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ddui.activity.ProductMaterialActivity" />
         <activity
             android:name=".ddui.activity.EditWechatAccountActivity"

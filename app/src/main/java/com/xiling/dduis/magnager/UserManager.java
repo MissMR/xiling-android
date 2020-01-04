@@ -109,8 +109,8 @@ public class UserManager {
      *
      * @return
      */
-    public float getPriceForUser(ProductNewBean item) {
-        float mPrice = item.getLevel10Price();
+    public double getPriceForUser(ProductNewBean item) {
+        double mPrice = item.getLevel10Price();
         NewUserBean userBean = getUser();
         if (userBean != null) {
             switch (userBean.getRole().getRoleLevel()) {
@@ -133,8 +133,8 @@ public class UserManager {
      *
      * @return
      */
-    public float getPriceForUser(HomeRecommendDataBean.DatasBean item) {
-        float mPrice = item.getLevel10Price();
+    public double getPriceForUser(HomeRecommendDataBean.DatasBean item) {
+        double mPrice = item.getLevel10Price();
         NewUserBean userBean = getUser();
         if (userBean != null) {
             switch (userBean.getRole().getRoleLevel()) {
@@ -151,6 +151,31 @@ public class UserManager {
         }
         return mPrice;
     }
+    /**
+     * 根据用户等级，获取商品价格
+     *
+     * @return
+     */
+    public double getPriceForUser( ProductNewBean.SkusBean item) {
+        double mPrice = item.getLevel10Price();
+        NewUserBean userBean = getUser();
+        if (userBean != null) {
+            switch (userBean.getRole().getRoleLevel()) {
+                case 10:
+                    mPrice = item.getLevel10Price();
+                    break;
+                case 20:
+                    mPrice = item.getLevel20Price();
+                    break;
+                case 30:
+                    mPrice = item.getLevel30Price();
+                    break;
+            }
+        }
+        return mPrice;
+    }
+
+
 
     //校验用户信息，保证用户信息的正确性
     public void checkUserInfo(final OnCheckUserInfoLisense onCheckUserInfoLisense) {

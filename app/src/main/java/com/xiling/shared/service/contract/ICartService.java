@@ -9,11 +9,14 @@ import com.xiling.shared.bean.api.RequestResult;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 /**
@@ -30,10 +33,27 @@ public interface ICartService {
     @GET("shopping-cart/list")
     Observable<RequestResult<List<XLCardListBean>>> getAllList();
 
+    /**
+     * 添加购物车
+     * @param requestBody
+     * @return
+     */
     @Headers("Content-Type: application/json;charset=UTF-8")
-    @FormUrlEncoded
     @POST("shopping-cart/add")
-    Observable<RequestResult<Boolean>> addShopCart(@Field("skuId") String skuId, @Field("quantity") int amount);
+    Observable<RequestResult<Boolean>> addShopCart(@Body RequestBody requestBody);
+
+    /**
+     * 删除购物车商品
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PUT("shopping-cart/delete")
+    Observable<RequestResult<Boolean>>deleteShopCart(@Body RequestBody requestBody);
+
+
+    @GET("shopping-cart/count")
+    Observable<RequestResult<Integer>> getCardCount();
+
 
 
     @GET("cart/getAccountList")

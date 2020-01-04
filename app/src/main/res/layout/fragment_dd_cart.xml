@@ -26,12 +26,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <com.xiling.dduis.custom.NestRecyclerView
-                    android:id="@+id/recycler_card"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                   />
+                    android:layout_height="wrap_content">
+                    <include layout="@layout/layout_no_data_cart"
+                        />
+                    <com.xiling.dduis.custom.NestRecyclerView
+                        android:id="@+id/recycler_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </RelativeLayout>
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -68,6 +68,7 @@ import butterknife.OnClick;
 import static net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator.MODE_MATCH_EDGE;
 
 /**
+ * @author 逄涛
  * 首页Fragment
  */
 public class DDHomeFragment extends BaseFragment implements DDTodayFragment.DDHomeTitleBarListener {

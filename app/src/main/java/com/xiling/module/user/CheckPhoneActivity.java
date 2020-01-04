@@ -34,8 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author Jigsaw
- * @date 2018/8/24
+ * @author 逄涛
  * 绑定手机号
  */
 public class CheckPhoneActivity extends BaseActivity {
@@ -66,7 +65,7 @@ public class CheckPhoneActivity extends BaseActivity {
         mIUserService = ServiceManager.getInstance().createService(IUserService.class);
         loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
         if (BuildConfig.DEBUG){
-            mEtPhoneNumber.setText("13475323377");
+            mEtPhoneNumber.setText("13608965786");
         }
     }
 

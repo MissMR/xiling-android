@@ -41,8 +41,8 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
     public void setNewData(@Nullable List<CardExpandableBean<XLCardListBean.SkuProductListBean>> data) {
         super.setNewData(data);
         parentList.clear();
-        for (CardExpandableBean<XLCardListBean.SkuProductListBean> mData : data){
-            if (mData.isParent()){
+        for (CardExpandableBean<XLCardListBean.SkuProductListBean> mData : data) {
+            if (mData.isParent()) {
                 parentList.add(mData);
             }
         }
@@ -87,10 +87,13 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#AAAAAA"));
                     helper.setTextColor(R.id.tv_rmb, Color.parseColor("#AAAAAA"));
                     mNumberField.setLimit(1, skuProductListBean.getStock());
+                    mNumberField.setValue(item.getBean().getQuantity());
                     mNumberField.setOnChangeListener(new OnValueChangeLister() {
                         @Override
                         public void changed(int value) {
-                            item.setSize(value);
+                            if (value != item.getBean().getQuantity() && onSelectChangeListener != null) {
+                                onSelectChangeListener.onShopChange(item, value);
+                            }
                             getSelectPrice();
                         }
                     });
@@ -143,7 +146,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
             inspectParentSelect(cardExpandableBean.getParentPosition());
         }
         if (onSelectChangeListener != null) {
-            onSelectChangeListener.onSelectChage(getSelectList().size());
+            onSelectChangeListener.onSelectChange(getSelectList().size());
         }
         getSelectPrice();
         notifyDataSetChanged();
@@ -197,7 +200,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
             inspectParentSelect(cardExpandableBean.getParentPosition());
         }
         if (onSelectChangeListener != null) {
-            onSelectChangeListener.onSelectChage(getSelectList().size());
+            onSelectChangeListener.onSelectChange(getSelectList().size());
         }
         getSelectPrice();
         notifyDataSetChanged();
@@ -212,7 +215,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
             cardExpandableBean.setEditSelect(true);
         }
         if (onSelectChangeListener != null) {
-            onSelectChangeListener.onSelectChage(getSelectList().size());
+            onSelectChangeListener.onSelectChange(getSelectList().size());
         }
         getSelectPrice();
         notifyDataSetChanged();
@@ -227,7 +230,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
         }
 
         if (onSelectChangeListener != null) {
-            onSelectChangeListener.onSelectChage(getSelectList().size());
+            onSelectChangeListener.onSelectChange(getSelectList().size());
         }
         getSelectPrice();
         notifyDataSetChanged();
@@ -248,7 +251,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 if (cardBean.getBean() != null) {
                     if (cardBean.isSelect() && inspectStatus(cardBean)) {
                         // 确保是选中且没下架的
-                        price += cardBean.getBean().getPrice() * cardBean.getSize();
+                        price += cardBean.getBean().getPrice() * cardBean.getBean().getQuantity();
                     }
                 }
             }
@@ -312,11 +315,11 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
     public void setEdit(boolean edit) {
         isEdit = edit;
 
-        for (CardExpandableBean<XLCardListBean.SkuProductListBean> parentData:parentList){
+        for (CardExpandableBean<XLCardListBean.SkuProductListBean> parentData : parentList) {
             inspectParentSelect(parentData.getPosition());
         }
         if (onSelectChangeListener != null) {
-            onSelectChangeListener.onSelectChage(getSelectList().size());
+            onSelectChangeListener.onSelectChange(getSelectList().size());
         }
         notifyDataSetChanged();
     }
@@ -336,7 +339,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
     public interface OnSelectChangeListener {
         void onPriceChange(double price);
 
-        void onSelectChage(int selectSize);
+        void onSelectChange(int selectSize);
+
+        void onShopChange(CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean, int quantity);
     }
 
 }

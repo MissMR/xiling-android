@@ -1,5 +1,10 @@
 package com.xiling.ddui.tools;
 
+import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.manager.APIManager;
+
+import java.util.HashMap;
+
 public class ShopUtils {
 
     /**
@@ -20,4 +25,5 @@ public class ShopUtils {
         }
         return  result;
     }
+
 }

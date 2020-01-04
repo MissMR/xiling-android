@@ -16,7 +16,6 @@ public class CardExpandableBean<T> implements MultiItemEntity {
     private boolean isParent;
     private String parentName;
     private String parentId;
-    private int size = 1;
     private int parentPosition;
     List<Integer> childPositions = new ArrayList<>();
     private int position;
@@ -37,15 +36,6 @@ public class CardExpandableBean<T> implements MultiItemEntity {
 
     public void setSelect(boolean select) {
         isSelect = select;
-    }
-
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public int getParentPosition() {

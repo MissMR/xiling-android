@@ -82,7 +82,8 @@ import rx.functions.Action1;
 import static com.xiling.ddui.config.UIConfig.isUseNewUI;
 
 /**
- * 待优化 根据 tab 索引来跳转对应的tab页
+ * @author 逄涛
+ * 主页Activity，viewpager+fragment
  */
 public class MainActivity extends BaseActivity {
 
@@ -228,7 +229,7 @@ public class MainActivity extends BaseActivity {
       //  loadUserStatus();
 
         //加载本地缓存的购物车数量
-        CartAmountManager.share().reload();
+       // CartAmountManager.share().reload();
 
         if (UIConfig.isProtocolTest) {
             startActivity(new Intent(context, MApiActivity.class));
@@ -446,12 +447,9 @@ public class MainActivity extends BaseActivity {
             case viewCommunity:
                 onClickTabItems(mTabs.get(1));
                 break;
-            case viewNearStore:
-                onClickTabItems(mTabs.get(2));
-                break;
             case viewCart:
-                if (SessionUtil.getInstance().isLogin()) {
-                    onClickTabItems(mTabs.get(3));
+                if (UserManager.getInstance().isLogin()) {
+                    onClickTabItems(mTabs.get(2));
                 } else {
                     EventBus.getDefault().post(new EventMessage(Event.goToLogin));
                 }
@@ -519,12 +517,12 @@ public class MainActivity extends BaseActivity {
      * 用来读取未读消息条数
      */
     public void loadUserStatus() {
-        if (!SessionUtil.getInstance().isLogin()) {
+       /* if (!SessionUtil.getInstance().isLogin()) {
             return;
-        }
+        }*/
 
         IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {
+       /* APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {
             @Override
             public void onSuccess(UnReadMessageCountBean result) {
                 super.onSuccess(result);
@@ -537,7 +535,7 @@ public class MainActivity extends BaseActivity {
                     EventBus.getDefault().post(status);
                 }
             }
-        });
+        });*/
     }
 
     private void toLogin() {

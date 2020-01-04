@@ -40,8 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author Jigsaw
- * @date 2018/9/25
+ * @author 逄涛
  * 登录页面
  */
 public class LoginActivity extends BaseActivity {
@@ -170,7 +169,6 @@ public class LoginActivity extends BaseActivity {
                     checkMessage(result.getMessage());
                     finish();
                 }
-                // TODO:Jigsaw 2019/3/20 等小程序准备就绪 用户已注册没有绑定手机号业务处理
             }
 
             @Override

@@ -45,7 +45,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 首页分类
+ * @author 逄涛
+ * 首页-分类
  */
 public class DDCategoryFragment extends BaseFragment {
 

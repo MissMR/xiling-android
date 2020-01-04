@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -40,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,7 +50,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
+import static com.xiling.shared.constant.Event.cartAmountUpdate;
+import static com.xiling.shared.constant.Event.viewHome;
 
+/**
+ * @author 逄涛
+ * 首页--购物车
+ */
 public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, OnRefreshListener {
 
     public final static String TITLE_TEXT = "购物车";
@@ -73,6 +81,8 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     TextView nextBtn;
     @BindView(R.id.deleteBtn)
     TextView deleteBtn;
+    @BindView(R.id.layoutNodata)
+    LinearLayout layoutNodata;
     private int pageOffset = 1;
     private int pageSize = PAGE_SIZE;
     private int totalPage = 0;
@@ -94,11 +104,12 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initService();
+        View view = inflater.inflate(R.layout.fragment_dd_cart, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        //注册EventBus
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        View view = inflater.inflate(R.layout.fragment_dd_cart, container, false);
-        unbinder = ButterKnife.bind(this, view);
         initView();
         requestData();
 
@@ -169,8 +180,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         recyclerCard.setLayoutManager(linearLayoutManager);
         cardExpandableAdapter = new CardExpandableAdapter(new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>());
         recyclerCard.setAdapter(cardExpandableAdapter);
-        cardExpandableAdapter.bindToRecyclerView(recyclerCard);
-        cardExpandableAdapter.setEmptyView(R.layout.layout_no_data_cart);
         cardExpandableAdapter.setOnSelectChangeListener(new CardExpandableAdapter.OnSelectChangeListener() {
             @Override
             public void onPriceChange(double price) {
@@ -178,7 +187,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             }
 
             @Override
-            public void onSelectChage(int selectSize) {
+            public void onSelectChange(int selectSize) {
                 if (selectSize != 0) {
                     nextBtn.setText("结算(" + selectSize + ")");
                 } else {
@@ -193,6 +202,11 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     checkAll.setText("全选");
                 }
 
+            }
+
+            @Override
+            public void onShopChange(CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean, int quantity) {
+                requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity, cardExpandableBean);
             }
         });
 
@@ -229,6 +243,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     }
 
     private void requestData() {
+        requestUpDataShopCardCount();
         requestCardData();
         requestRecommend();
     }
@@ -244,6 +259,11 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     headerLayout.hideRightItem();
                 }
                 List<CardExpandableBean<XLCardListBean.SkuProductListBean>> cardExpandableBeanList = buildAdapterData(result);
+                if (cardExpandableBeanList.size() > 0) {
+                    layoutNodata.setVisibility(View.GONE);
+                } else {
+                    layoutNodata.setVisibility(View.VISIBLE);
+                }
                 cardExpandableAdapter.setNewData(cardExpandableBeanList);
 
             }
@@ -251,6 +271,9 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+
+                layoutNodata.setVisibility(View.VISIBLE);
+                cardExpandableAdapter.setNewData(new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>());
             }
         });
     }
@@ -316,7 +339,9 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         return cardExpandableBeanList;
     }
 
-
+    /**
+     * 推荐数据
+     */
     private void requestRecommend() {
         APIManager.startRequest(homeService.getHomeRecommendData(pageOffset, pageSize), new BaseRequestListener<HomeRecommendDataBean>() {
             @Override
@@ -370,13 +395,68 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateData(EventMessage message) {
-        if (message.getEvent().equals(Event.createOrderSuccess) || message.getEvent().equals(Event.loginSuccess)) {
-            //订单支付成功后刷新购物车 //登录成功
-
-        } else if (message.getEvent().equals(Event.logout)) {
-            //用户退出后清空购物车
-
+        switch (message.getEvent()) {
+            case cartAmountUpdate:
+                requestCardData();
+                break;
         }
+    }
+
+
+    /**
+     * 添加购物车
+     */
+    private void requestAddCart(String skuId, final int quantity, final CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuId", skuId);
+        params.put("quantity", quantity);
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(getActivity()) {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                if (result) {
+                    requestUpDataShopCardCount();
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 删除商品
+     */
+    private void requestDeleteCart(List<String> skuIds) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuIds", skuIds);
+        APIManager.startRequest(mCartService.deleteShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(getActivity()) {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                // requestCardData();
+                requestUpDataShopCardCount();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
+
+    private void requestUpDataShopCardCount() {
+        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+            @Override
+            public void onSuccess(Integer result) {
+                super.onSuccess(result);
+                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
     }
 
 
@@ -387,7 +467,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     }
 
-    @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn})
+    @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn, R.id.tvGoMain})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.checkAll:
@@ -412,9 +492,19 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             case R.id.deleteBtn:
                 //删除所选
                 if (cardExpandableAdapter != null) {
-                    Log.d("pangtao", "删除所选 ：" + cardExpandableAdapter.getSelectList());
+                    List<CardExpandableBean<XLCardListBean.SkuProductListBean>> delectList = cardExpandableAdapter.getSelectList();
+                    List<String> skuIdList = new ArrayList<>();
+                    for (CardExpandableBean<XLCardListBean.SkuProductListBean> bean : delectList) {
+                        skuIdList.add(bean.getBean().getSkuId());
+                    }
+                    requestDeleteCart(skuIdList);
                 }
+                break;
+            case R.id.tvGoMain:
+                EventBus.getDefault().post(new EventMessage(viewHome));
                 break;
         }
     }
+
+
 }

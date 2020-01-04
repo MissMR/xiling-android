@@ -223,9 +223,9 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="20dp"
-
                 android:ellipsize="end"
                 android:gravity="center_vertical"
+                android:textColor="#202020"
                 android:maxLines="1"
                 android:orientation="horizontal"
                 android:paddingRight="15dp"

@@ -4,41 +4,41 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.blankj.utilcode.utils.StringUtils;
+import com.umeng.socialize.UMShareAPI;
 import com.xiling.R;
 import com.xiling.ddui.bean.ProductNewBean;
-import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.service.HtmlService;
-import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
 import com.xiling.dduis.magnager.UserManager;
+import com.xiling.module.MainActivity;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.SkuInfo;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.component.dialog.DDMProductQrCodeDialog;
-import com.xiling.shared.component.dialog.SkuSelectorDialog;
 import com.xiling.shared.component.dialog.XLProductQrCodeDialog;
+import com.xiling.shared.constant.Event;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.ICartService;
 import com.xiling.shared.service.contract.IProductService;
 import com.xiling.shared.util.ToastUtil;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
+import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.xiling.shared.constant.Event.cartAmountUpdate;
+import static com.xiling.shared.constant.Event.viewCart;
 
 /**
  * @author Jigsaw
@@ -47,17 +47,14 @@ import butterknife.ButterKnife;
  */
 public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener {
 
-    public static final int ACTION_BUY = 0;
-    public static final int ACTION_CART = 1;
-
+    @BindView(R.id.tv_cart_badge)
+    TextView tvCartBadge;
     private ProductDetailUIHelper mProductDetailUIHelper;
-
     private String mSpuId;
     private IProductService mProductService;
     private ICartService mCartService;
 
     private ProductNewBean mSpuInfo;
-    private SkuSelectorDialog mSkuSelectorDialog;
 
     private boolean isDoingLike = false;
 
@@ -70,6 +67,10 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dd_product_detail);
         ButterKnife.bind(this);
+        //注册EventBus
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         mProductDetailUIHelper = new ProductDetailUIHelper(this);
         mProductDetailUIHelper.setOnActionListener(this);
 
@@ -95,6 +96,9 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     protected void onDestroy() {
         super.onDestroy();
         mProductDetailUIHelper.recyclerWebView();
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 
     @Override
@@ -112,6 +116,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         mProductService = ServiceManager.getInstance().createService(IProductService.class);
         mCartService = ServiceManager.getInstance().createService(ICartService.class);
         getProductInfo(mSpuId);
+        requestUpDataShopCardCount();
 
     }
 
@@ -158,13 +163,14 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     public void onClickCart() {
         // 去购物车 业务逻辑
-
+        startActivity(new Intent(this, MainActivity.class));
+        EventBus.getDefault().post(new EventMessage(viewCart));
     }
 
     @Override
-    public void onAddCart(String skuId,int size) {
+    public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
-        requestAddCart(skuId,size);
+        requestAddCart(skuId, size);
     }
 
     @Override
@@ -177,11 +183,31 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
      * 添加购物车
      */
     private void requestAddCart(String skuId, int quantity) {
-        APIManager.startRequest(mCartService.addShopCart(skuId, quantity), new BaseRequestListener<Boolean>() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuId", skuId);
+        params.put("quantity", quantity);
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
                 ToastUtil.success("添加成功");
+                requestUpDataShopCardCount();
+            }
+        });
+    }
+
+
+    private void requestUpDataShopCardCount() {
+        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+            @Override
+            public void onSuccess(Integer result) {
+                super.onSuccess(result);
+                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
             }
         });
     }
@@ -200,9 +226,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onEvent(EventMessage message) {
         switch (message.getEvent()) {
             case cartAmountUpdate:
-                if (mSkuSelectorDialog != null) {
-                    mSkuSelectorDialog.dismiss();
-                }
                 String total = (int) message.getData() > 99 ? "99+" : String.valueOf(message.getData());
                 break;
             default:
@@ -215,5 +238,12 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         dialog.show();
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void imageUploadHandler(EventMessage message) {
+        if (message.getEvent().equals(cartAmountUpdate)) {
+            int total = (int) message.getData();
+            tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
+            tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+        }
+    }
 }
