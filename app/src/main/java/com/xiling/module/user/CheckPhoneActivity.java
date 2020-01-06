@@ -48,7 +48,6 @@ public class CheckPhoneActivity extends BaseActivity {
     @BindView(R.id.tv_agreement)
     TextView mTvAgreement;
 
-    private IUserService mIUserService;
     private String loginType;
 
     // 根据前一页面传入的参数判断是什么操作 未传参数的话 是登录操作
@@ -62,7 +61,6 @@ public class CheckPhoneActivity extends BaseActivity {
     }
 
     private void initData() {
-        mIUserService = ServiceManager.getInstance().createService(IUserService.class);
         loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
         if (BuildConfig.DEBUG){
             mEtPhoneNumber.setText("13608965786");
@@ -72,7 +70,6 @@ public class CheckPhoneActivity extends BaseActivity {
     private void initView() {
         showHeader("", true);
         setTitleNoLine();
-        initAgreement();
         mIbNext.setEnabled(false);
         mEtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,21 +99,6 @@ public class CheckPhoneActivity extends BaseActivity {
         });
     }
 
-    private void initAgreement() {
-//        mTvAgreement.setText(SpannableStringUtils.getBuilder("我已阅读并同意")
-////                .append("《店多多用户协议》")
-//                .setClickSpan(new ClickableSpan() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(CheckPhoneActivity.this, WebViewActivity.class);
-//                        intent.putExtra("url", HtmlService.REGISTER_PROTOCOL);
-//                        startActivity(intent);
-//                    }
-//
-//                }).create());
-//        mTvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
-
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(EventMessage message) {
@@ -135,46 +117,6 @@ public class CheckPhoneActivity extends BaseActivity {
         goNextStep();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onWechatAuth(EventMessage message) {
-        if (message.getEvent().equals(Event.wxLoginSuccess)) {
-            getAccessToken((String) message.getData());
-        } else if (message.getEvent().equals(Event.wxLoginCancel)) {
-            ToastUtil.hideLoading();
-            ToastUtil.error("登录取消");
-        }
-    }
-
-    private void getAccessToken(String code) {
-        APIManager.startRequest(mIUserService.getAccessToken(code), new BaseRequestListener<WeChatLoginModel>() {
-            @Override
-            public void onSuccess(WeChatLoginModel result) {
-                super.onSuccess(result);
-                ToastUtil.hideLoading();
-                if (result.registerStatus == 1) {
-                    // 注册过且已经完善信息了
-                    ToastUtil.error("该微信已经注册过，请直接用微信登录！");
-                } else {
-                    // 未注册过
-                    goNextStep();
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.hideLoading();
-            }
-        });
-    }
-
-    private void sendWechatAuth() {
-        final SendAuth.Req req = new SendAuth.Req();
-        req.scope = "snsapi_userinfo";
-        req.state = "" + System.currentTimeMillis();
-        IWXAPI api = WXAPIFactory.createWXAPI(this, BuildConfig.WX_APP_ID);
-        api.sendReq(req);
-    }
 
     private void goNextStep() {
         Intent intent = new Intent(CheckPhoneActivity.this, CaptchaActivity.class);

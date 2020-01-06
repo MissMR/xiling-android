@@ -29,26 +29,8 @@ public interface ICaptchaService {
     int TYPE_VOICE = 1;
 
 
-    /**
-     * 发送登录验证码
-     *
-     * @param sendType 验证码类型
-     * @param phone    手机号
-     */
-    @GET("user/sms-code")
-    Observable<RequestResult<Object>> getLoginCode(
-            @Query("type") int sendType,
-            @Query("phone") String phone);
 
-    /**
-     * 手机号登录，校验验证码
-     *
-     * @param body
-     * @return
-     */
-    @Headers({"Content-Type: application/json", "Accept: application/json"})//添加header表明参数是json格式的
-    @POST("user/login-or-registry/phone-code")
-    Observable<RequestResult<NewUserBean>> checkCaptcha(@Body RequestBody body);
+
 
     /**
      * 根据邀请码获取用户基本信息
@@ -70,7 +52,7 @@ public interface ICaptchaService {
 
     //微信登录绑定手机号
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    @POST("user/bind-phone")
+    @POST("user/login-or-registry/phone-code")
     Observable<RequestResult<BaseBean<User>>> bindPhone(@Body RequestBody body);
 
     // 需要登录

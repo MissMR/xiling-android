@@ -163,6 +163,7 @@ public class SkuSelectorDialog extends Dialog {
             setSkuName("");
         }*/
         if (skuBean != null) {
+            setSkuName(skuBean.getPropertyValues());
             GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
             //优惠价，需要根据用户等级展示不同价格
             NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(skuBean) * selectCount, tvDiscountPrice, tvDiscountPriceDecimal);
@@ -172,6 +173,7 @@ public class SkuSelectorDialog extends Dialog {
             tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getMarketPrice() * selectCount));
             mNumberField.setLimit(1, skuBean.getStock());
         } else {
+            setSkuName("");
             GlideUtils.loadImage(getContext(), mThumbIv, mSpuInfo.getThumbUrl());
             //优惠价，需要根据用户等级展示不同价格
             NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(mSpuInfo), tvDiscountPrice, tvDiscountPriceDecimal);

@@ -26,6 +26,7 @@ import com.xiling.shared.component.CaptchaBtn;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.UserService;
 import com.xiling.shared.service.contract.ICaptchaService;
 import com.xiling.shared.service.contract.IUserService;
@@ -68,8 +69,8 @@ public class CaptchaActivity extends BaseActivity {
     @BindView(R.id.cb_agreement)
     CheckBox mCbAgreement;
 
-    private ICaptchaService mCaptchaService;
-    private IUserService mUserService;
+    private INewUserService iNewUserService;
+    // private IUserService mUserService;
     private String mPhoneNumber;
     private String loginType;
     // 是否处理wechat回调  手机号登录 不处理回调
@@ -83,14 +84,11 @@ public class CaptchaActivity extends BaseActivity {
         initData();
         initView();
         getphoneCode(0);
-//        getCaptcha(ICaptchaService.TYPE_MESSAGE);
     }
 
     private void initData() {
         mPhoneNumber = getIntent().getStringExtra(Constants.Extras.PHONE_NUMBER);
-//        toLogin = null == getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER);
-        mCaptchaService = ServiceManager.getInstance().createService(ICaptchaService.class);
-        mUserService = ServiceManager.getInstance().createService(IUserService.class);
+        iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
     }
 
@@ -163,7 +161,7 @@ public class CaptchaActivity extends BaseActivity {
             ToastUtil.error("手机号为空");
             return;
         }
-        APIManager.startRequest(mCaptchaService.getLoginCode(type, mPhoneNumber), new BaseRequestListener<Object>(this) {
+        APIManager.startRequest(iNewUserService.getLoginCode(type, mPhoneNumber), new BaseRequestListener<Object>(this) {
             @Override
             public void onSuccess(Object result, String msg) {
                 super.onSuccess(result, msg);
@@ -217,7 +215,7 @@ public class CaptchaActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        APIManager.startRequest(mCaptchaService.checkCaptcha(APIManager.getRequestBody(jsonObject.toString())),
+        APIManager.startRequest(iNewUserService.checkCaptcha(APIManager.getRequestBody(jsonObject.toString())),
                 new BaseRequestListener<NewUserBean>(this) {
                     @Override
                     public void onSuccess(NewUserBean result) {
@@ -236,7 +234,7 @@ public class CaptchaActivity extends BaseActivity {
     }
 
     /**
-     * 微信绑定电话
+     * 微信绑定手机号
      */
     private void bindPhone() {
         JSONObject jsonObject = new JSONObject();
@@ -246,21 +244,26 @@ public class CaptchaActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        APIManager.startRequest(mCaptchaService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
-                new BaseRequestListener<BaseBean<User>>(this) {
+        APIManager.startRequest(iNewUserService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
+                new BaseRequestListener<Boolean>(this) {
                     @Override
-                    public void onSuccess(BaseBean<User> result) {
+                    public void onSuccess(Boolean result) {
                         super.onSuccess(result);
-                        switch (result.getCode()) {
-                            case 0:
-                                //登录成功
-                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
-                                break;
-                            default:
-                                //登录失败
-                                checkMessage(result.getMessage());
-                                break;
+                        //微信绑定手机号成功，跳转绑定邀请码
+                        if (result) {
+                            Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
+                            intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
+                            intent.putExtra(Constants.Extras.PHONE_NUMBER, mPhoneNumber);
+                            intent.putExtra(Constants.Extras.REGISTER_CAPTCHA, mPeEditText.getText().toString());
+                            startActivity(intent);
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        //登录失败
+                        checkMessage(e.getMessage());
                     }
                 });
     }
@@ -291,9 +294,6 @@ public class CaptchaActivity extends BaseActivity {
             case "unbind-invite-code":
                 //跳转到绑定邀请码页面
                 Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
-                intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
-                intent.putExtra(Constants.Extras.PHONE_NUMBER, mPhoneNumber);
-                intent.putExtra(Constants.Extras.REGISTER_CAPTCHA, mPeEditText.getText().toString());
                 startActivity(intent);
                 break;
             default:
@@ -335,36 +335,23 @@ public class CaptchaActivity extends BaseActivity {
      * @param code
      */
     private void bindWXCode(String code) {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("code", code);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        APIManager.startRequest(mUserService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
-                new BaseRequestListener<BaseBean<User>>() {
-                    @Override
-                    public void onSuccess(BaseBean<User> result) {
-                        super.onSuccess(result);
-                        ToastUtil.hideLoading();
-                        //ToDo:
-                        switch (result.getCode()) {
-                            case 0:
-                                //绑定成功
-                                UserService.loginSuccess(CaptchaActivity.this, result.getData());
-                                break;
-                            default:
-                                //绑定失败
-                                checkMessage(result.getMessage());
-                                break;
-                        }
-                    }
+        APIManager.startRequest(iNewUserService.bindWXCode(code, "ANDROID"), new BaseRequestListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                ToastUtil.hideLoading();
+                //手机号绑定微信，跳转绑定邀请码
+                if (result) {
+                    Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
+                    startActivity(intent);
+                }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        ToastUtil.hideLoading();
-                    }
-                });
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                checkMessage(e.getMessage());
+            }
+        });
     }
 }

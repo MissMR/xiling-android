@@ -289,7 +289,7 @@ public interface IUserService {
      * @return
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
-    @Post("user/login-or-registry/we-chat-code")
+    @POST("user/login-or-registry/we-chat-code")
     Observable<RequestResult<BaseBean<User>>> wxLogin(@Body RequestBody body);
 
     //微信登录---绑定手机号

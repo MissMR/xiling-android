@@ -28,6 +28,7 @@ import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDMineFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
+import com.xiling.ddui.fragment.XLMineFragment;
 import com.xiling.ddui.manager.CartAmountManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.AppTools;
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity {
 //        mFragments.add(new DDStoreFragment());
         mFragments.add(new DDCategoryFragment());
         mFragments.add(new DDCartFragment());
-        mFragments.add(new DDMineFragment());
+        mFragments.add(new XLMineFragment());
         mFragments.add(DDWebViewFragment.newInstance(HtmlService.BESHOPKEPPER + "?func=" + BuildConfig.H5_FUNC));
 
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

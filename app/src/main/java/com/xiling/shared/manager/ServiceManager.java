@@ -26,6 +26,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.just.library.AgentWebConfig;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,12 +37,14 @@ import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -78,19 +81,36 @@ public class ServiceManager {
         return mInstance;
     }
 
-    private LoggingInterceptor getLoggingInterceptor() {
-
-        return new LoggingInterceptor();
+    private Interceptor getLoggingInterceptor() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return httpLoggingInterceptor;
     }
 
 
     private class LoggingInterceptor implements Interceptor {
+        private final Charset UTF8 = Charset.forName("UTF-8");
         @Override
         public Response intercept(Chain chain) throws IOException {
             //这个chain里面包含了request和response，所以你要什么都可以从这里拿
             Request request = chain.request();
             long t1 = System.nanoTime();//请求发起的时间
 
+            /*RequestBody requestBody = request.body();
+            String body = null;
+            if(requestBody != null) {
+                Buffer buffer = new Buffer();
+                requestBody.writeTo(buffer);
+
+                Charset charset = UTF8;
+                MediaType contentType = requestBody.contentType();
+                if (contentType != null) {
+                    charset = contentType.charset(UTF8);
+                }
+                body = buffer.readString(charset);
+                Log.d("request","url = "+ request.url() + "requestData = " +  body);
+            }
+*/
             String method = request.method();
             if ("POST".equals(method)) {
                 StringBuilder sb = new StringBuilder();
@@ -102,11 +122,17 @@ public class ServiceManager {
                     sb.delete(sb.length() - 1, sb.length());
                     Log.d("Request",String.format("发送请求 %s on %s %n%s %nRequestParams:{%s}",
                             request.url(), chain.connection(), request.headers(), sb.toString()));
+                }else{
+                    Log.d("pangtao",String.format("发送请求 %s on %s %n%s %nRequestParams:{%s}",
+                            request.url(), chain.connection(), request.headers(), request.toString()));
                 }
             } else {
                 Log.d("RequestUrl",String.format("发送请求 %s on %s%n%s",
                         request.url(), chain.connection(), request.headers()));
             }
+
+
+
             Response response = chain.proceed(request);
             long t2 = System.nanoTime();//收到响应的时间
             //这里不能直接使用response.body().string()的方式输出日志

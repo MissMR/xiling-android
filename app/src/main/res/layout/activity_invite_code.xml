@@ -36,107 +36,24 @@
 
         <com.alimuzaffar.lib.pin.PinEntryEditText
             android:id="@+id/et_pin_captcha"
-            style="@style/PinEntryEditText"
             android:layout_width="260dp"
+            app:pinLineColors="@color/pin_line_color"
+            android:textColor="@color/ddm_black_dark"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:maxLength="8"
+            android:maxLength="6"
             app:pinCharacterSpacing="5dp" />
 
-        <ImageView
-            android:id="@+id/iv_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/et_pin_captcha"
-            android:layout_marginBottom="14dp"
-            android:layout_marginLeft="2dp"
-            android:layout_toRightOf="@id/et_pin_captcha"
-            android:src="@mipmap/ic_login_scan" />
-
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_invitor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/login_invitor_bg"
-        android:visibility="gone"
-        tools:visibility="visible">
-
-        <TextView
-            android:id="@+id/tv_invitor_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="未能查找到正确推荐人"
-            android:textColor="@color/ddm_gray"
-            android:textSize="@dimen/textSize_12" />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/iv_avatar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:src="@drawable/logo"
-            app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@mipmap/default_avatar"
-            app:placeholderImageScaleType="centerCrop"
-            app:roundAsCircle="true" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="4dp"
-            android:layout_toRightOf="@id/iv_avatar"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/iv_avatar"
-                    android:text="f安条玩" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_phone_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="18222222222"
-                android:textColor="@color/ddm_gray_dark" />
-
-            <TextView
-                android:id="@+id/tv_identity"
-                style="@style/TextView.Tag"
-                android:layout_marginTop="4dp"
-                android:text="优享会员"
-                android:visibility="gone" />
-
-
-        </LinearLayout>
-    </RelativeLayout>
-
 
     <TextView
         android:id="@+id/tv_confirm"
         style="@style/MyButton.DDMRed"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/bt_login_yellow_bg"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/bt_getcode_selector"
         android:enabled="false"
         android:text="完 成" />
 

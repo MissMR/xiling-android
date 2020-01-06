@@ -12,16 +12,19 @@ import com.xiling.R;
 import com.xiling.ddui.config.AppConfig;
 import com.xiling.ddui.tools.TextTools;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseBean;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.LoginSwitchBean;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.UserService;
 import com.xiling.shared.service.contract.IUserService;
 import com.xiling.shared.util.StringUtil;
@@ -34,6 +37,8 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +59,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.ll_btn_login_wechat)
     LinearLayout mLlBtnLoginWechat;
 
-    private IUserService mUserService;
+    private INewUserService mNewUserService;
 
     // 是否有手机号登录
     private boolean isShowPhoneLogin = false;
@@ -82,8 +87,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initData() {
-        mUserService = ServiceManager.getInstance().createService(IUserService.class);
-//        getLoginSwitch();
+        mNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
     }
 
     private void initView() {
@@ -91,28 +95,9 @@ public class LoginActivity extends BaseActivity {
         QMUIStatusBarHelper.setStatusBarLightMode(this);
         hideHeader();
         mLlBtnLoginPhone.setVisibility(View.VISIBLE);
-//        mTvVersion.setText("v " + AppUtils.getAppVersionName(this));
     }
 
-    private void getLoginSwitch() {
-        APIManager.startRequest(mUserService.getLoginFlag(BuildConfig.VERSION_CODE, TextTools.getChannelName(this),
-                TextTools.getChannelId(this)), new BaseRequestListener<LoginSwitchBean>(this) {
-            @Override
-            public void onSuccess(LoginSwitchBean result) {
-                super.onSuccess(result);
-                if (null == result) {
-                    return;
-                }
-                if (StringUtil.md5(String.valueOf(result.getTimestamp() + result.getFlag())).equals(result.getToken())) {
-                    if (AppConfig.DEBUG) {
-                        mLlBtnLoginPhone.setVisibility(View.VISIBLE);
-                    } else {
-                        mLlBtnLoginPhone.setVisibility(result.isOpen() ? View.VISIBLE : View.INVISIBLE);
-                    }
-                }
-            }
-        });
-    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onWechatAuth(EventMessage message) {
@@ -134,21 +119,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void loginByPassword(String phone, String password) {
-        password = StringUtil.md5(password);
-        APIManager.startRequest(mUserService.login(phone, password), new BaseRequestListener<User>(this) {
-            @Override
-            public void onSuccess(User user) {
-                super.onSuccess(user);
-                UserService.loginSuccess(LoginActivity.this, user);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
-        });
-    }
 
     /**
      * 微信登录
@@ -156,25 +126,20 @@ public class LoginActivity extends BaseActivity {
      * @param code
      */
     private void wxLogin(String code) {
-        APIManager.startRequest(mUserService.wxLogin(APIManager.getRequestBody(code)), new BaseRequestListener<BaseBean<User>>() {
+        APIManager.startRequest(mNewUserService.wxLogin(code,"ANDROID"), new BaseRequestListener<NewUserBean>() {
             @Override
-            public void onSuccess(BaseBean<User> result) {
+            public void onSuccess(NewUserBean result) {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
-                if (result.getCode() == 0) {
-                    // 登录成功
-                    UserService.loginSuccess(LoginActivity.this, result.getData());
-                } else {
-                    //
-                    checkMessage(result.getMessage());
-                    finish();
-                }
+               //登录成功
+                UserManager.getInstance().loginSuccess(result);
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                ToastUtil.hideLoading();
+                checkMessage(e.getMessage());
+                finish();
             }
         });
     }

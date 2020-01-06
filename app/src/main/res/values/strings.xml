@@ -15,7 +15,7 @@
     <string name="s_detail_title">详情</string>
     <string name="s_search_order_hint">搜索</string>
     <string name="comment">评论(%s)</string>
-    <string name="tip_invite_code">1.邀请码为平台店主用户的专属码，请和您的推荐人确认邀请码\n2.店主用户可以登录APP，在我-邀请有奖页面查看\n3.一个用户只可以绑定一个邀请码</string>
+    <string name="tip_invite_code">1. 邀请码为平台用户的专属码，请输入您的推荐 人邀请码时确认无误，一旦绑定无法修改。\n2. 平台用户可以登录APP，在个人中心-邀请好友 页面查看本人邀请码\n3. 一个用户只可以绑定一个邀请码</string>
     <string name="share_friend">分享好友</string>
     <string name="title_activity_info_detail">InfoDetailActivity</string>
 

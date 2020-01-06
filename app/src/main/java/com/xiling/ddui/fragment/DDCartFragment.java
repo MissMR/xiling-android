@@ -35,6 +35,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
 import com.xiling.shared.service.contract.ICartService;
+import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -266,6 +267,24 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 }
                 cardExpandableAdapter.setNewData(cardExpandableBeanList);
 
+                /**
+                 * 每次刷新，重新计算购物车数量与价格
+                 */
+                int selectSize = cardExpandableAdapter.getSelectList().size();
+                if (selectSize != 0) {
+                    nextBtn.setText("结算(" + selectSize + ")");
+                } else {
+                    nextBtn.setText("结算");
+                }
+
+                if (cardExpandableAdapter.isAllSelect()) {
+                    checkAll.setSelected(true);
+                    checkAll.setText("全不选");
+                } else {
+                    checkAll.setSelected(false);
+                    checkAll.setText("全选");
+                }
+                cardExpandableAdapter.getSelectPrice();
             }
 
             @Override
@@ -322,6 +341,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                         if (oldBean.isParent()) {
                             if (newBean.getParentId().equals(oldBean.getParentId())) {
                                 newBean.setSelect(oldBean.isSelect());
+                                newBean.setEditSelect(oldBean.isEditSelect());
                             }
                         }
 
@@ -329,6 +349,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                         if (!oldBean.isParent()) {
                             if (newBean.getBean().getSkuId().equals(oldBean.getBean().getSkuId())) {
                                 newBean.setSelect(oldBean.isSelect());
+                                newBean.setEditSelect(oldBean.isEditSelect());
                             }
                         }
                     }
@@ -398,6 +419,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         switch (message.getEvent()) {
             case cartAmountUpdate:
                 requestCardData();
+
                 break;
         }
     }
@@ -410,7 +432,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuId", skuId);
         params.put("quantity", quantity);
-        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(getActivity()) {
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
@@ -428,11 +450,17 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     private void requestDeleteCart(List<String> skuIds) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuIds", skuIds);
-        APIManager.startRequest(mCartService.deleteShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(getActivity()) {
+        APIManager.startRequest(mCartService.deleteShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
                 // requestCardData();
+                isEdit = false;
+                cardExpandableAdapter.setEdit(false);
+                nextBtn.setVisibility(View.VISIBLE);
+                deleteBtn.setVisibility(View.GONE);
+                headerLayout.setRightText("编辑");
+
                 requestUpDataShopCardCount();
             }
 
@@ -497,7 +525,14 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     for (CardExpandableBean<XLCardListBean.SkuProductListBean> bean : delectList) {
                         skuIdList.add(bean.getBean().getSkuId());
                     }
-                    requestDeleteCart(skuIdList);
+
+                    if (skuIdList.size() > 0){
+                        requestDeleteCart(skuIdList);
+                    }else{
+                        ToastUtil.error("您还没有选中商品");
+                    }
+
+
                 }
                 break;
             case R.id.tvGoMain:

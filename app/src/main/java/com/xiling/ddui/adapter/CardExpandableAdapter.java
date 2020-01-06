@@ -244,7 +244,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
         return true;
     }
 
-    private String getSelectPrice() {
+    public String getSelectPrice() {
         double price = 0;
         for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardBean : mData) {
             if (!cardBean.isParent()) {
