@@ -295,7 +295,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     allData.add(cardBean);
                 }
             }
-            isAllSelect = getSelectList().size() == allData.size();
+            if (getSelectList().size() > 0){
+                isAllSelect = getSelectList().size() == allData.size();
+            }
         } else {
             for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardBean : mData) {
                 if (!cardBean.isParent()) {
@@ -305,7 +307,10 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 }
             }
             int slectSize = getSelectList().size();
-            isAllSelect = slectSize == allData.size();
+            if (slectSize > 0){
+                isAllSelect = slectSize == allData.size();
+            }
+
         }
 
 

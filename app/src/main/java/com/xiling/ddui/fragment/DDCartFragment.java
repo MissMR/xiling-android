@@ -136,21 +136,26 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             public void onClick(View view) {
                 //TODO 编辑
                 if (cardExpandableAdapter != null) {
-                    cardExpandableAdapter.setEdit(!isEdit);
-                    if (!isEdit) {
-                        headerLayout.setRightText("完成");
-                        nextBtn.setVisibility(View.GONE);
-                        deleteBtn.setVisibility(View.VISIBLE);
-                    } else {
-                        headerLayout.setRightText("编辑");
-                        nextBtn.setVisibility(View.VISIBLE);
-                        deleteBtn.setVisibility(View.GONE);
-                    }
                     isEdit = !isEdit;
+                    setEdit();
                 }
             }
         });
     }
+
+    private void setEdit(){
+        cardExpandableAdapter.setEdit(isEdit);
+        if (!isEdit){
+            headerLayout.setRightText("编辑");
+            nextBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setVisibility(View.GONE);
+        }else{
+            headerLayout.setRightText("完成");
+            nextBtn.setVisibility(View.GONE);
+            deleteBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     private void initView() {
         initHeadLayout();
@@ -285,6 +290,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     checkAll.setText("全选");
                 }
                 cardExpandableAdapter.getSelectPrice();
+                setEdit();
             }
 
             @Override
@@ -456,11 +462,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 super.onSuccess(result);
                 // requestCardData();
                 isEdit = false;
-                cardExpandableAdapter.setEdit(false);
-                nextBtn.setVisibility(View.VISIBLE);
-                deleteBtn.setVisibility(View.GONE);
-                headerLayout.setRightText("编辑");
-
                 requestUpDataShopCardCount();
             }
 
