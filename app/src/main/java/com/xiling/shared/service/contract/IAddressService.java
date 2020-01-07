@@ -1,5 +1,6 @@
 package com.xiling.shared.service.contract;
 
+import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.shared.bean.Address;
 import com.xiling.shared.bean.ServiceCity;
 import com.xiling.shared.bean.api.PaginationEntity;
@@ -25,12 +26,38 @@ import retrofit2.http.Query;
  * @since 2017-06-11
  */
 public interface IAddressService {
-
+    /**
+     * 收货列表
+     * @param page
+     * @param pageSize
+     * @return
+     */
     @GET("address/list")
-    Observable<RequestResult<PaginationEntity<Address, Object>>> getAddressList(@Query("pageOffset") int page);
+    Observable<RequestResult<AddressListBean>> getAddressList(@Query("pageOffset") int page, @Query("pageSize") int pageSize);
 
-    @GET("address/get/{id}")
-    Observable<RequestResult<Address>> getAddressDetail(@Path("id") String addressId);
+    /**
+     * 编辑收货地址
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/edit")
+    Observable<RequestResult<Object>> editAddress(@FieldMap HashMap<String, Object> params);
+
+    /**
+     * 添加收货地址
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/add")
+    Observable<RequestResult<Object>> createAddress(@FieldMap HashMap<String, Object> params);
+
+
+    @GET("address/get")
+    Observable<RequestResult<AddressListBean.DatasBean>> getAddressDetail(@Query("addressId") String addressId);
+
+
 
     @GET("address/getdefault")
     Observable<RequestResult<Address>> getDefaultAddress();
@@ -38,13 +65,7 @@ public interface IAddressService {
     @DELETE("address/del/{id}")
     Observable<RequestResult<Object>> deleteAddress(@Path("id") String addressId);
 
-    @FormUrlEncoded
-    @POST("address/edit/{id}")
-    Observable<RequestResult<Object>> editAddress(@Path("id") String addressId, @FieldMap HashMap<String, Object> params);
 
-    @FormUrlEncoded
-    @POST("address/add")
-    Observable<RequestResult<Object>> createAddress(@FieldMap HashMap<String, Object> params);
 
     @POST("address/saveIdentityCard")
     Observable<RequestResult<Object>> saveIdentityCard(

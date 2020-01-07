@@ -1,21 +1,16 @@
 package com.xiling.module.address;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiling.R;
+import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.shared.basic.BaseAdapter;
-import com.xiling.shared.bean.Address;
-import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.component.dialog.WJDialog;
-import com.xiling.shared.constant.Event;
-import com.xiling.shared.constant.Key;
-
-import org.greenrobot.eventbus.EventBus;
+import com.xiling.shared.bean.api.PaginationEntity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,15 +21,15 @@ import butterknife.ButterKnife;
  * @package com.tengchi.zxyjsc.module.address
  * @since 2017-06-10
  */
-public class AddressAdapter extends BaseAdapter<Address, AddressAdapter.ViewHolder> {
+public class AddressAdapter extends BaseAdapter<AddressListBean.DatasBean, AddressAdapter.ViewHolder> {
+    public void setOnEditListener(OnEditListener onEditListener) {
+        this.onEditListener = onEditListener;
+    }
 
-    private boolean isSelectAddress = false;
-    private boolean mIsLottery;
+    OnEditListener onEditListener;
 
-    AddressAdapter(Context context, boolean isSelectAddress, boolean isLottery) {
+    AddressAdapter(Context context) {
         super(context);
-        this.isSelectAddress = isSelectAddress;
-        mIsLottery = isLottery;
     }
 
     @Override
@@ -48,93 +43,42 @@ public class AddressAdapter extends BaseAdapter<Address, AddressAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.contactsTv)
-        protected TextView mContactsTv;
-
-        @BindView(R.id.phoneTv)
-        protected TextView mPhoneTv;
-
-        @BindView(R.id.detailTv)
-        protected TextView mDetailTv;
-
+        @BindView(R.id.tv_address)
+        TextView tvAddress;
+        @BindView(R.id.tv_address_detail)
+        TextView tvAddressDetail;
+        @BindView(R.id.tv_name)
+        TextView tvName;
         @BindView(R.id.editBtn)
-        protected TextView mEditBtn;
+        View editBtn;
+        @BindView(R.id.iv_default)
+        ImageView ivDefault;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        protected void setAddress(final Address address) {
-            mContactsTv.setText(address.getFormatName());
-            mPhoneTv.setText(address.phone);
+        protected void setAddress(final AddressListBean.DatasBean address) {
+            ivDefault.setVisibility(address.getIsDefault() == 1 ? View.VISIBLE : View.GONE);
+            tvAddress.setText(address.getProvinceName() + " " + address.getCityName() + " " + address.getDistrictName());
+            tvAddressDetail.setText(address.getDetail());
+            tvName.setText(address.getContact() + "  " + address.getPhone());
 
-            if (address.isDefault) {
-//                String addressText = "默认 " + address.getFullAddress();
-//                SpannableStringBuilder styleText = new SpannableStringBuilder(addressText);
-//                styleText.setSpan(new BackgroundColorSpan(Color.parseColor("#FDEDE5")), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                styleText.setSpan(new ForegroundColorSpan(Color.parseColor("#FF4646")), 0, 2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-//                mDetailTv.setText(styleText);
-
-                mDetailTv.setCompoundDrawablesWithIntrinsicBounds(
-                        context.getResources().getDrawable(R.mipmap.icon_address_adapter_default, null), null, null, null);
-                mDetailTv.setText(address.getFullAddress());
-
-            } else {
-                mDetailTv.setCompoundDrawables(null, null, null, null);
-                mDetailTv.setText(address.getFullAddress());
-            }
-
-//            if (isSelectAddress) {
-//                mEditBtn.setVisibility(View.GONE);
-//                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mPhoneTv.getLayoutParams();
-//                layoutParams.rightMargin = SizeUtils.dp2px(15);
-//            } else {
-//                mEditBtn.setVisibility(View.VISIBLE);
-//                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mPhoneTv.getLayoutParams();
-//                layoutParams.rightMargin = SizeUtils.dp2px(0);
-//            }
-
-            mEditBtn.setOnClickListener(new View.OnClickListener() {
+            editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, AddressFormActivity.class);
-                    intent.putExtra("action", Key.EDIT_ADDRESS);
-                    intent.putExtra("addressId", address.addressId);
-                    context.startActivity(intent);
-                }
-            });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!isSelectAddress) {
-                        Intent intent = new Intent(context, AddressFormActivity.class);
-                        intent.putExtra("action", Key.EDIT_ADDRESS);
-                        intent.putExtra("addressId", address.addressId);
-                        context.startActivity(intent);
-                    } else {
-                        if (mIsLottery) {
-                            final WJDialog dialog = new WJDialog(context);
-                            dialog.show();
-                            dialog.setTitle("选择该收货地址？");
-                            dialog.setContentText("选择后将不可更改");
-                            dialog.setConfirmText("确定");
-                            dialog.setCancelText("取消");
-                            dialog.setOnConfirmListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                    EventBus.getDefault().post(new EventMessage(Event.selectLotteryAddress, address));
-                                }
-                            });
-                        } else {
-                            EventBus.getDefault().post(new EventMessage(Event.selectAddress, address));
-                        }
+                    if (onEditListener != null){
+                        onEditListener.onEdit(address);
                     }
                 }
             });
         }
     }
+
+    public interface OnEditListener{
+        void onEdit(AddressListBean.DatasBean address);
+    }
+
+
 }

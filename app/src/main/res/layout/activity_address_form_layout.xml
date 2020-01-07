@@ -3,39 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/contactPanel"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/contactInfoPanel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:background="@color/white">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@mipmap/icon_button_contact" />
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/vLine"
-        android:layout_width="0.5dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/contactInfoPanel"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@id/contactPanel"
-        android:background="@drawable/activity_divider" />
-
     <LinearLayout
         android:id="@+id/contactInfoPanel"
         style="@style/Form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@id/vLine"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="15dp">
@@ -44,14 +17,14 @@
 
             <TextView
                 style="@style/Form.Field.Label"
-                android:text="联系人"
+                android:text="收货人"
                 android:textColor="#262626" />
 
 
             <EditText
                 android:id="@+id/contactsEt"
                 style="@style/Form.Field.Input"
-                android:hint="请填写联系人姓名"
+                android:hint="请输入收货人姓名"
                 android:maxLength="20" />
         </LinearLayout>
 
@@ -59,14 +32,14 @@
 
             <TextView
                 style="@style/Form.Field.Label"
-                android:text="电话"
+                android:text="联系方式"
                 android:textColor="#262626" />
 
             <EditText
                 android:id="@+id/phoneEt"
                 style="@style/Form.Field.Input"
                 android:digits="0123456789-+*"
-                android:hint="请填写有效联系电话"
+                android:hint="请输入手机号码"
                 android:inputType="phone"
                 android:maxLength="11" />
         </LinearLayout>
@@ -87,7 +60,7 @@
 
                 <TextView
                     style="@style/Form.FieldText.Label"
-                    android:text="所在地区"
+                    android:text="收货地区"
                     android:textColor="#262626" />
 
                 <RelativeLayout
@@ -100,7 +73,9 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        >
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -125,7 +100,7 @@
                         android:layout_height="42dp"
                         android:layout_toLeftOf="@id/selectNowAddress"
                         android:gravity="center_vertical"
-                        android:hint="请选择地球上具体位置"
+                        android:hint="请选择收货地区"
                         android:textColor="@color/grayDark"
                         android:textSize="16sp" />
 
@@ -177,11 +152,18 @@
 
         <TextView
             android:id="@+id/saveBtn"
-            style="@style/MyButton.DDMRed"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
-            android:text="保存" />
+            android:textColor="@color/white"
+            android:background="@drawable/bg_round_dcb982_3"
+            android:text="保 存"
+            android:textSize="@dimen/sp_16"
+            />
     </LinearLayout>
 
 

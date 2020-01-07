@@ -239,6 +239,8 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         if (pageOffset < totalPage) {
             pageOffset++;
             requestRecommend();
+        }else{
+            refreshLayout.finishLoadMore();
         }
     }
 
@@ -501,7 +503,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         switch (view.getId()) {
             case R.id.checkAll:
                 if (cardExpandableAdapter != null) {
-                    if (!cardExpandableAdapter.isAllSelect()) {
+                    if (cardExpandableAdapter.isAllSelect()) {
                         checkAll.setSelected(true);
                         cardExpandableAdapter.selectAll();
                         checkAll.setText("全不选");
