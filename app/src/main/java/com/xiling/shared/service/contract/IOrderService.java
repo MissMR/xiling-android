@@ -1,6 +1,7 @@
 package com.xiling.shared.service.contract;
 
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.OrderPayStatusBean;
 import com.xiling.shared.bean.GetOrderStatusCount;
 import com.xiling.shared.bean.Order;
@@ -27,6 +28,13 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface IOrderService {
+
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("order/confirm-order-show")
+    Observable<RequestResult<OrderDetailBean>> getConfirmOrder(@Body RequestBody requestBody);
+
+
 
     @GET("order/getOrderStatusCount")
     Observable<RequestResult<OrderCount>> getOrderCount();

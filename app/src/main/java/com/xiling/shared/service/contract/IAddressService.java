@@ -53,14 +53,22 @@ public interface IAddressService {
     @POST("address/add")
     Observable<RequestResult<Object>> createAddress(@FieldMap HashMap<String, Object> params);
 
-
+    /**
+     * 地址详情
+     * @param addressId
+     * @return
+     */
     @GET("address/get")
     Observable<RequestResult<AddressListBean.DatasBean>> getAddressDetail(@Query("addressId") String addressId);
 
-
-
+    /**
+     * 获取默认地址
+     * @return
+     */
     @GET("address/getdefault")
-    Observable<RequestResult<Address>> getDefaultAddress();
+    Observable<RequestResult<AddressListBean.DatasBean>> getDefaultAddress();
+
+
 
     @DELETE("address/del/{id}")
     Observable<RequestResult<Object>> deleteAddress(@Path("id") String addressId);

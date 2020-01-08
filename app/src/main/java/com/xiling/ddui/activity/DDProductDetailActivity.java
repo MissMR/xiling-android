@@ -41,8 +41,7 @@ import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewCart;
 
 /**
- * @author Jigsaw
- * @date 2018/10/31
+ * @author 逄涛
  * 商品详情
  */
 public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener {

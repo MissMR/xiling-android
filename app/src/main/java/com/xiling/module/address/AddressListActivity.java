@@ -69,7 +69,7 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
         requestAddress();
     }
 
-    private void initView(){
+    private void initView() {
         mRefreshLayout.setEnableLoadMore(true);
         mRefreshLayout.setEnableRefresh(true);
         mRefreshLayout.setOnLoadMoreListener(this);
@@ -87,7 +87,17 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
             }
         });
 
-
+        if (isSelectAddress) {
+            mAddressAdapter.setOnItemListener(new AddressAdapter.OnItemListener() {
+                @Override
+                public void onItemListener(AddressListBean.DatasBean address) {
+                    Intent intent = new Intent();
+                    intent.putExtra("address", address);
+                    setResult(0, intent);
+                    finish();
+                }
+            });
+        }
         mRecyclerView.setAdapter(mAddressAdapter);
         mNoDataLayout.setImgRes(R.mipmap.no_data_order);
         mNoDataLayout.setTextView("您还没有添加收货地址哦～");
@@ -98,8 +108,6 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
             }
         });
     }
-
-
 
 
     private void initAction() {
@@ -145,8 +153,8 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
         }
     }
 
-    private void requestAddress(){
-        APIManager.startRequest(mAddressService.getAddressList(page,PAGE_SIZE), new BaseRequestListener<AddressListBean>() {
+    private void requestAddress() {
+        APIManager.startRequest(mAddressService.getAddressList(page, PAGE_SIZE), new BaseRequestListener<AddressListBean>() {
             @Override
             public void onSuccess(AddressListBean result) {
 
@@ -167,7 +175,7 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
 
                 mAddressAdapter.addItems(result.getDatas());
                 mNoDataLayout.setVisibility(result.getDatas().size() > 0 ? View.GONE : View.VISIBLE);
-                mRefreshLayout.setVisibility(result.getDatas().size()  > 0 ? View.VISIBLE : View.GONE);
+                mRefreshLayout.setVisibility(result.getDatas().size() > 0 ? View.VISIBLE : View.GONE);
             }
 
             @Override
@@ -189,10 +197,10 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        if (page < total){
+        if (page < total) {
             page++;
             requestAddress();
-        }else{
+        } else {
             refreshLayout.finishLoadMore();
         }
     }

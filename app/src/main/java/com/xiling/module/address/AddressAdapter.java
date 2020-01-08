@@ -28,6 +28,12 @@ public class AddressAdapter extends BaseAdapter<AddressListBean.DatasBean, Addre
 
     OnEditListener onEditListener;
 
+    public void setOnItemListener(OnItemListener onItemListener) {
+        this.onItemListener = onItemListener;
+    }
+
+    OnItemListener onItemListener;
+
     AddressAdapter(Context context) {
         super(context);
     }
@@ -63,7 +69,7 @@ public class AddressAdapter extends BaseAdapter<AddressListBean.DatasBean, Addre
             ivDefault.setVisibility(address.getIsDefault() == 1 ? View.VISIBLE : View.GONE);
             tvAddress.setText(address.getProvinceName() + " " + address.getCityName() + " " + address.getDistrictName());
             tvAddressDetail.setText(address.getDetail());
-            tvName.setText(address.getContact() + "  " + address.getPhone());
+            tvName.setText(address.getContactAndPhone());
 
             editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,6 +79,16 @@ public class AddressAdapter extends BaseAdapter<AddressListBean.DatasBean, Addre
                     }
                 }
             });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onItemListener != null){
+                        onItemListener.onItemListener(address);
+                    }
+                }
+            });
+
         }
     }
 
@@ -80,5 +96,8 @@ public class AddressAdapter extends BaseAdapter<AddressListBean.DatasBean, Addre
         void onEdit(AddressListBean.DatasBean address);
     }
 
+    public interface OnItemListener{
+        void onItemListener(AddressListBean.DatasBean address);
+    }
 
 }

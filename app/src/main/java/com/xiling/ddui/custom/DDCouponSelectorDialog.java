@@ -15,8 +15,16 @@ import android.view.WindowManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
+import com.xiling.ddui.bean.AddressListBean;
+import com.xiling.ddui.bean.CouponBean;
 import com.xiling.ddui.bean.DDCouponBean;
+import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.manager.APIManager;
+import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.ICouponService;
+import com.xiling.shared.service.contract.IOrderService;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +63,8 @@ public class DDCouponSelectorDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_coupon_selector);
         ButterKnife.bind(this);
+
+
         initView();
     }
 
@@ -68,7 +78,7 @@ public class DDCouponSelectorDialog extends Dialog {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new Adapter();
         recyclerView.setAdapter(mAdapter);
-        mAdapter.replaceData(mDDCouponBeanList);
+       // mAdapter.replaceData(mDDCouponBeanList);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -84,6 +94,9 @@ public class DDCouponSelectorDialog extends Dialog {
         });
     }
 
+
+
+
     private void initWindow() {
         Window window = this.getWindow();
         if (window != null) {
@@ -96,10 +109,7 @@ public class DDCouponSelectorDialog extends Dialog {
         }
     }
 
-    @OnClick(R.id.iv_close)
-    public void onViewClicked() {
-        dismiss();
-    }
+
 
     public static class Adapter extends BaseQuickAdapter<DDCouponBean, BaseViewHolder> {
 

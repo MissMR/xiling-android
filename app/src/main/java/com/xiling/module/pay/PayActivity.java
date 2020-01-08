@@ -296,24 +296,7 @@ public class PayActivity extends BaseActivity {
     }
 
     private void loadDefaultAddress() {
-        APIManager.startRequest(mAddressService.getDefaultAddress(), new BaseRequestListener<Address>(this) {
-            @Override
-            public void onSuccess(Address result) {
-                if (result != null) {
-                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mRecyclerView.getLayoutParams();
-                    layoutParams.setMargins(0, 0, 0, 0);
-                    mRecyclerView.setLayoutParams(layoutParams);
-                }
-                mAddress = result;
-                loadFreight();
-                initAddressView();
-            }
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
     }
 
     private void loadFreight() {

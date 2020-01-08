@@ -1,14 +1,10 @@
 package com.xiling.shared.service;
 
+import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
-import com.xiling.shared.basic.BaseBean;
 import com.xiling.shared.bean.NewUserBean;
-import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.api.RequestResult;
-
-import org.androidannotations.annotations.rest.Post;
-
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -94,5 +90,10 @@ public interface INewUserService {
     @GET("client/my-client")
     Observable<RequestResult<UserCostomBean>> getMyCostom();
 
+    /**
+     * 获取账户信息
+     */
+    @GET("account/getInfo")
+    Observable<RequestResult<AccountInfo>> getAccountInfo();
 
 }

@@ -587,6 +587,9 @@
         <activity
             android:name=".dduis.activity.DDCategoryMainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ddui.activity.ConfirmationOrderActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

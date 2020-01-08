@@ -14,6 +14,44 @@ import java.util.Locale;
  */
 
 public class DateUtils {
+
+    /**
+     * 日期格式字符串转换成时间戳
+     * @param format 如：yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String date2TimeStamp(String date, String format) {
+        try {
+            if(format == null || format.isEmpty()){
+                format = "yyyy-MM-dd HH:mm:ss";
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return String.valueOf(sdf.parse(date).getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     * 时间戳转换日期格式字符串
+     * @param time
+     * @param format
+     * @return
+     */
+    public static String timeStamp2Date(long time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(time));
+    }
+
+
+
+
     public static String getYM(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);

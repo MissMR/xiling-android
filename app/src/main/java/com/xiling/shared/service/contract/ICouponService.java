@@ -1,5 +1,6 @@
 package com.xiling.shared.service.contract;
 
+import com.xiling.ddui.bean.CouponBean;
 import com.xiling.shared.bean.Coupon;
 import com.xiling.shared.bean.api.PaginationEntity;
 import com.xiling.shared.bean.api.RequestResult;
@@ -22,6 +23,13 @@ import retrofit2.http.Query;
  * @since 2017-06-20
  */
 public interface ICouponService {
+    /**
+     * 可用优惠券列表
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("order/effective-coupon")
+    Observable<RequestResult<List<CouponBean>>> getCouponList(@Body RequestBody requestBody);
 
     @GET("coupon/getMemberCouponList")
     Observable<RequestResult<PaginationEntity<Coupon, Object>>> getMyCouponList(@Query("pageOffset") int page);

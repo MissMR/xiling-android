@@ -1,6 +1,7 @@
 package com.xiling.shared.basic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.xiling.R;
@@ -15,14 +16,14 @@ import com.xiling.shared.util.ToastUtil;
  */
 abstract public class BaseRequestListener<T> extends RequestListener<T> {
 
-    private Activity mContext;
+    private Context mContext;
     private SwipeRefreshLayout mRefreshLayout;
 
     public BaseRequestListener() {
 
     }
 
-    public BaseRequestListener(Activity context) {
+    public BaseRequestListener(Context context) {
         mContext = context;
     }
 
@@ -90,7 +91,7 @@ abstract public class BaseRequestListener<T> extends RequestListener<T> {
     }
 
     private boolean checkActivityFinished() {
-        return mContext != null && (mContext.isFinishing() || mContext.isDestroyed());
+        return false;
     }
 
 }

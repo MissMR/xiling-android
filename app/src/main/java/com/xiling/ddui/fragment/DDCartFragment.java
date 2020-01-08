@@ -1,5 +1,6 @@
 package com.xiling.ddui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,8 +20,10 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.ConfirmationOrderActivity;
 import com.xiling.ddui.adapter.CardExpandableAdapter;
 import com.xiling.ddui.bean.CardExpandableBean;
+import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -41,6 +44,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.xiling.ddui.activity.ConfirmationOrderActivity.SKULIST;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewHome;
@@ -143,13 +148,13 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         });
     }
 
-    private void setEdit(){
+    private void setEdit() {
         cardExpandableAdapter.setEdit(isEdit);
-        if (!isEdit){
+        if (!isEdit) {
             headerLayout.setRightText("编辑");
             nextBtn.setVisibility(View.VISIBLE);
             deleteBtn.setVisibility(View.GONE);
-        }else{
+        } else {
             headerLayout.setRightText("完成");
             nextBtn.setVisibility(View.GONE);
             deleteBtn.setVisibility(View.VISIBLE);
@@ -239,7 +244,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         if (pageOffset < totalPage) {
             pageOffset++;
             requestRecommend();
-        }else{
+        } else {
             refreshLayout.finishLoadMore();
         }
     }
@@ -517,7 +522,21 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             case R.id.nextBtn:
                 //结算
                 if (cardExpandableAdapter != null) {
-                    Log.d("pangtao", "结算 ：" + cardExpandableAdapter.getSelectList());
+                    List<CardExpandableBean<XLCardListBean.SkuProductListBean>> list = cardExpandableAdapter.getSelectList();
+                    ArrayList<SkuListBean> skuList = new ArrayList<>();
+                    if (list.size() > 0) {
+
+                        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : list){
+                            SkuListBean skuListBean = new SkuListBean(cardExpandableBean.getBean().getSkuId(),cardExpandableBean.getBean().getQuantity());
+                            skuList.add(skuListBean);
+                        }
+
+                        Intent intent = new Intent(mContext, ConfirmationOrderActivity.class);
+                        intent.putExtra(SKULIST,skuList);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.error("您还没有选中商品");
+                    }
                 }
                 break;
             case R.id.deleteBtn:
@@ -529,9 +548,9 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                         skuIdList.add(bean.getBean().getSkuId());
                     }
 
-                    if (skuIdList.size() > 0){
+                    if (skuIdList.size() > 0) {
                         requestDeleteCart(skuIdList);
-                    }else{
+                    } else {
                         ToastUtil.error("您还没有选中商品");
                     }
 
