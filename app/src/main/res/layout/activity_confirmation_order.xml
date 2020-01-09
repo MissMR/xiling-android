@@ -45,6 +45,7 @@
 
 
         <TextView
+            android:id="@+id/btn_send"
             android:layout_width="@dimen/dp_130"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

@@ -1,5 +1,6 @@
 package com.xiling.ddui.custom;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +55,18 @@ public class D3ialogTools {
                 .setPositiveButton(positiveText, ocl);
         dialog.show();
     }
+
+
+    public static void showAlertDialog(Context context, String message, String posBtn, View.OnClickListener posClickListener,String negBtn,View.OnClickListener negListener){
+        Dialog dialog = new DDMDialog(context)
+                .setContent(message)
+                .setPositiveButton(posBtn, posClickListener)
+                .setNegativeButton(negBtn,negListener);
+
+        dialog.show();
+
+    }
+
 
     /**
      * 显示成功对话框

@@ -13,9 +13,10 @@
         >
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="可用优惠卷(3)"
+            android:text="可用优惠券"
             android:textColor="#ff202020"
             android:textSize="@dimen/dp_16"
             android:layout_centerInParent="true"

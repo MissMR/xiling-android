@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="452dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="输入数字支付密码"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/dp_16" />
+
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_12"
+                android:padding="4dp"
+                android:src="@mipmap/ic_login_close" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="#F5F5F5" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_19"
+            android:layout_marginRight="@dimen/dp_20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_20"
+            android:text="忘记密码？"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_key"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_258"
+        android:layout_alignParentBottom="true"
+        android:background="#D3D2D7" />
+
+
+</RelativeLayout>

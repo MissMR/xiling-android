@@ -21,6 +21,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
+import com.xiling.ddui.activity.XLSettingActivity;
 import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
@@ -40,6 +41,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -114,7 +116,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position){
+                switch (position) {
                     case 0: // 管理地址
                         Intent intent = new Intent(mContext, AddressListActivity.class);
                         startActivity(intent);
@@ -128,7 +130,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser) {
             requestUserInfo();
         }
     }
@@ -225,5 +227,14 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         requestUserInfo();
+    }
+
+    @OnClick(R.id.iv_setting)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_setting:
+                startActivity(new Intent(mContext, XLSettingActivity.class));
+                break;
+        }
     }
 }

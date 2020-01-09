@@ -11,7 +11,7 @@
         android:id="@+id/noDataIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/no_data_normal" />
+        android:src="@drawable/no_data_normal" />
 
     <TextView
         android:id="@+id/noDataLabel"
@@ -28,7 +28,7 @@
         style="@style/MyButton.DDMRed"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_marginTop="@dimen/padingLeftRight"
+        android:layout_marginTop="@dimen/dp_50"
         android:text="重新定位"
         android:visibility="gone" />
 </LinearLayout>

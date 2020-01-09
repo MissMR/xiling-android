@@ -272,19 +272,25 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     }
 
     private void checkUserInfo() {
-        //先进行用户信息校验，保证用户信息准确性
-        UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
-            @Override
-            public void onCheckUserInfoSucess(NewUserBean newUserBean) {
-                updateUserInfo();
-                requestData();
-            }
 
-            @Override
-            public void onCheckUserInfoFail() {
-                requestData();
-            }
-        });
+        if (UserManager.getInstance().isLogin()) {
+            //如果登录过，先进行用户信息校验，保证用户信息准确性
+            UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
+                @Override
+                public void onCheckUserInfoSucess(NewUserBean newUserBean) {
+                    updateUserInfo();
+                    requestData();
+                }
+
+                @Override
+                public void onCheckUserInfoFail() {
+                    requestData();
+                }
+            });
+        } else {
+            requestData();
+        }
+
     }
 
     /**

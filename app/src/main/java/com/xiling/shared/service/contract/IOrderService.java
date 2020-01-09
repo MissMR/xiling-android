@@ -29,11 +29,19 @@ import retrofit2.http.Url;
 
 public interface IOrderService {
 
-
+    /**
+     * 获取确认订单数据
+     */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("order/confirm-order-show")
     Observable<RequestResult<OrderDetailBean>> getConfirmOrder(@Body RequestBody requestBody);
 
+    /**
+     * 提交订单
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("order/add")
+    Observable<RequestResult<OrderDetailBean>> addOrder(@Body RequestBody requestBody);
 
 
     @GET("order/getOrderStatusCount")

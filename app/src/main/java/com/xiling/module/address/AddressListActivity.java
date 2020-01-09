@@ -99,7 +99,6 @@ public class AddressListActivity extends BaseActivity implements OnRefreshListen
             });
         }
         mRecyclerView.setAdapter(mAddressAdapter);
-        mNoDataLayout.setImgRes(R.mipmap.no_data_order);
         mNoDataLayout.setTextView("您还没有添加收货地址哦～");
         mNoDataLayout.setReload("新增收货地址", new View.OnClickListener() {
             @Override

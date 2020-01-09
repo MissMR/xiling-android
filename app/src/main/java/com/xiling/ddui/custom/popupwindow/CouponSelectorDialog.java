@@ -8,20 +8,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.adapter.CouponAdapter;
 import com.xiling.ddui.bean.CouponBean;
-import com.xiling.ddui.bean.DDCouponBean;
 import com.xiling.ddui.bean.SkuListBean;
-import com.xiling.ddui.custom.DDCouponView;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -43,6 +40,8 @@ public class CouponSelectorDialog extends Dialog {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private CouponAdapter mAdapter;
 
@@ -148,6 +147,12 @@ public class CouponSelectorDialog extends Dialog {
             @Override
             public void onSuccess(List<CouponBean> result) {
                 mCouponBeanList = result;
+                if (result.size() > 0){
+                    tvTitle.setText("可用优惠券("+result.size()+")");
+                }else{
+                    tvTitle.setText("可用优惠券");
+                }
+
                 mAdapter.replaceData(mCouponBeanList);
             }
 

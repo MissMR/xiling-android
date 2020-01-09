@@ -5,6 +5,7 @@ import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.api.RequestResult;
+
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -16,11 +17,12 @@ import retrofit2.http.Query;
 public interface INewUserService {
     /**
      * 微信注册--登录
+     *
      * @return
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("user/login-or-registry/we-chat-code?")
-    Observable<RequestResult<NewUserBean>> wxLogin(@Query("code") String code, @Query("device") String device );
+    Observable<RequestResult<NewUserBean>> wxLogin(@Query("code") String code, @Query("device") String device);
 
 
     /**
@@ -32,13 +34,13 @@ public interface INewUserService {
 
     /**
      * 微信登录，绑定邀请码
+     *
      * @param inviteCode 邀请码
      * @return
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("user/bind-invite-code")
     Observable<RequestResult<NewUserBean>> bindInviteCode(@Query("inviteCode") String inviteCode);
-
 
 
     /**
@@ -65,11 +67,12 @@ public interface INewUserService {
 
     /**
      * 手机号登录，绑定微信
+     *
      * @return
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("user/bind-we-chat")
-    Observable<RequestResult<Boolean>> bindWXCode(@Query("code") String code, @Query("device") String device );
+    Observable<RequestResult<Boolean>> bindWXCode(@Query("code") String code, @Query("device") String device);
 
 
     /**
@@ -96,4 +99,36 @@ public interface INewUserService {
     @GET("account/getInfo")
     Observable<RequestResult<AccountInfo>> getAccountInfo();
 
+
+    /**
+     * 校验是否设置余额密码
+     */
+    @GET("account/hasPassword")
+    Observable<RequestResult<Boolean>> hasPassword();
+
+    /**
+     * 校验余额支付密码
+     */
+    @POST("account/check-balance-password")
+    Observable<RequestResult<Boolean>> checkBalancePassword(@Query("password") String password);
+
+
+    /**
+     * 设置余额支付密码
+     */
+    @POST("account/setAccountPassword")
+    Observable<RequestResult<Object>> setAccountPassword(@Query("password") String password);
+
+
+    /**
+     * 获取验证码（更新手机号，设置交易密码，绑定银行卡使用）
+     */
+    @GET("captcha/getMemberInfoChangeMsg")
+    Observable<RequestResult<Object>> getMemberMsg(@Query("phone") String phone, @Query("token") String token, @Query("sendType") String sendType);
+
+    /**
+     * 校验验证码（更新手机号，设置交易密码）
+     */
+    @GET("captcha/checkOldPhone")
+    Observable<RequestResult<Object>> checkMember(@Query("checkNumber") String checkNumber);
 }

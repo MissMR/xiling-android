@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".ddui.activity.XLSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rel_personal_data"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="个人资料" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+                <ImageView
+                    android:id="@+id/iv_head"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_36"
+                    />
+
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+            <RelativeLayout
+                android:id="@+id/rel_real_name"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="实名认证" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+
+            <RelativeLayout
+                android:id="@+id/rel_account"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="账户管理" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+
+            <RelativeLayout
+                android:id="@+id/rel_password"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="交易密码" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+            <RelativeLayout
+                android:id="@+id/rel_bank_card"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="我的银行卡" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/rel_about_us"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="关于我们" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+            <RelativeLayout
+                android:id="@+id/rel_clear_cache"
+                style="@style/settings_row">
+
+                <TextView
+                    style="@style/settings_row_title"
+                    android:text="清除缓存" />
+
+                <ImageView style="@style/settings_row_arrow" />
+
+            </RelativeLayout>
+
+            <View style="@style/settings_row_line" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

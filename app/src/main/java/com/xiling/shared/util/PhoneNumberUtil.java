@@ -6,6 +6,15 @@ import android.text.TextUtils;
  * created by Jigsaw at 2018/8/27
  */
 public class PhoneNumberUtil {
+
+    public static Boolean checkPhoneNumber(String phoneNumber) {
+        if (TextUtils.isEmpty(phoneNumber) || phoneNumber.length() != 11 || !phoneNumber.startsWith("1")) {
+            return false;
+        }
+        return true;
+    }
+
+
     public static String getLast4Number(String phoneNumber) {
         if (TextUtils.isEmpty(phoneNumber) || phoneNumber.length() != 11) {
             return "";

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_50">
+
+    <TextView
+        android:id="@+id/tv_key"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_margin="@dimen/dp_4"
+        android:textSize="@dimen/sp_30"
+        android:gravity="center"
+        android:clickable="true"
+        android:background="@drawable/bg_keyboard" />
+
+    <ImageView
+        android:id="@+id/key_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/key_delete"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

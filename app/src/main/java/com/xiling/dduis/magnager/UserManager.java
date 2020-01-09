@@ -93,6 +93,10 @@ public class UserManager {
         return null;
     }
 
+
+
+
+
     public boolean isLogin() {
         return getUser() != null;
     }

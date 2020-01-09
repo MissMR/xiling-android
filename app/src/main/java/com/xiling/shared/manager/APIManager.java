@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.xiling.MyApplication;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.Config;
 import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.bean.event.EventMessage;
@@ -58,7 +59,7 @@ public class APIManager {
                         MyApplication.isShowNoLogin = true;
                         listener.onError(new Exception(Config.NET_MESSAGE.NO_LOGIN));
                         EventBus.getDefault().post(new EventMessage(Event.goToLogin));
-                        SessionUtil.getInstance().logout();
+                        UserManager.getInstance().loginOut();
                     }
                 } else {
                     listener.onError(new Exception(message));

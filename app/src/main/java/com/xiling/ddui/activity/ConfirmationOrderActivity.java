@@ -17,12 +17,13 @@ import com.xiling.ddui.adapter.OrderSkuAdapter;
 import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.ddui.bean.CouponBean;
-import com.xiling.ddui.bean.DDCouponBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.SkuListBean;
-import com.xiling.ddui.custom.DDCouponSelectorDialog;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.CouponSelectorDialog;
+import com.xiling.ddui.custom.popupwindow.PayPopWindow;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -47,6 +48,7 @@ import butterknife.OnClick;
  */
 public class ConfirmationOrderActivity extends BaseActivity {
     public static final String SKULIST = "skuList";
+    public static final String ORDER_SOURCE = "orderSource";
     @BindView(R.id.tv_balance)
     TextView tvBalance;
     @BindView(R.id.tv_balance_use)
@@ -100,11 +102,14 @@ public class ConfirmationOrderActivity extends BaseActivity {
     @BindView(R.id.recycler_sku)
     RecyclerView recyclerSku;
 
+    private AddressListBean.DatasBean mAddress;
     private boolean isBalance = false;
-    private final String DEFULT_BALANCE = "使用 ¥0";
-    private String useBalance = DEFULT_BALANCE;
+    private String balancePassword = "";
+    private double useBalance = 0;
     private double totlaPrice = 0;
     private AccountInfo accountInfo = null;
+    private int orderSource = 1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,7 +123,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         if (getIntent() != null) {
             skuList = getIntent().getParcelableArrayListExtra(SKULIST);
+            orderSource = getIntent().getIntExtra(ORDER_SOURCE,1);
         }
+
 
         if (skuList == null) {
             ToastUtil.error("商品列表为空");
@@ -136,6 +143,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
     }
 
     private void setAddress(AddressListBean.DatasBean address) {
+        mAddress = address;
         if (address == null) {
             llAddress.setVisibility(View.GONE);
             tvContacts.setVisibility(View.GONE);
@@ -168,6 +176,17 @@ public class ConfirmationOrderActivity extends BaseActivity {
     }
 
 
+    private void upDataBalance() {
+        if (isBalance) {
+            tvBalanceUse.setText("使用 ¥" + useBalance);
+            NumberHandler.setPriceText(totlaPrice - useBalance, tvNeedPrice, tvNeedPriceDecimal);
+        } else {
+            tvBalanceUse.setText("使用 ¥" + 0);
+            NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
+        }
+    }
+
+
     /**
      * 获取确认订单数据
      */
@@ -184,16 +203,14 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 orderSkuAdapter.setNewData(result.getStores());
 
                 if (result != null) {
-                    useBalance = "使用 ¥" + result.getTotalPrice();
+                    useBalance = result.getTotalPrice();
                     totlaPrice = result.getTotalPrice();
                     if (accountInfo != null) {
-                        if (isBalance) {
-                            tvBalanceUse.setText(useBalance);
-                            NumberHandler.setPriceText(0, tvNeedPrice, tvNeedPriceDecimal);
-                        } else {
-                            tvBalanceUse.setText(DEFULT_BALANCE);
-                            NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
+                        //如果余额小于商品总价，使用金额为余额
+                        if (useBalance > accountInfo.getBalance()) {
+                            useBalance = accountInfo.getBalance();
                         }
+                        upDataBalance();
                     } else {
                         NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
                     }
@@ -239,8 +256,49 @@ public class ConfirmationOrderActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_address, R.id.switch_balance, R.id.btn_coupon})
+    private void switchBalance(View view) {
+        isBalance = !isBalance;
+        view.setSelected(isBalance);
+        upDataBalance();
+    }
+
+
+    /**
+     * 校验是否设置余额密码
+     */
+    private void hasPassword(final View view) {
+        APIManager.startRequest(mUserService.hasPassword(), new BaseRequestListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                if (result) {
+                    PayPopWindow payPopWindow = new PayPopWindow(context);
+                    payPopWindow.setOnPasswordEditListener(new PayPopWindow.OnPasswordEditListener() {
+                        @Override
+                        public void onEditFinish(String password) {
+                            //在此校验输入的密码
+                            checkPassword(password, view);
+                        }
+                    });
+                    payPopWindow.show();
+                } else {
+                    startActivity(new Intent(context, TransactionPasswordActivity.class));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+
+
+            }
+        });
+    }
+
+
+    @OnClick({R.id.btn_address, R.id.switch_balance, R.id.btn_coupon, R.id.btn_send})
     public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view, 500);
         switch (view.getId()) {
             case R.id.btn_address://更换地址
                 Intent intent = new Intent(this, AddressListActivity.class);
@@ -248,20 +306,21 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 startActivityForResult(intent, 0);
                 break;
             case R.id.switch_balance: // 使用账户余额
-                isBalance = !isBalance;
-                view.setSelected(isBalance);
-                if (isBalance) {
-                    tvBalanceUse.setText(useBalance);
-                    NumberHandler.setPriceText(0, tvNeedPrice, tvNeedPriceDecimal);
+
+                if (!isBalance) {
+                    //打开
+                    //先校验是否有支付密码，如果没有跳转设置密码的界面
+                    hasPassword(view);
                 } else {
-                    tvBalanceUse.setText(DEFULT_BALANCE);
-                    NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
+                    //关闭
+                    switchBalance(view);
+                    balancePassword = "";
                 }
 
                 break;
             case R.id.btn_coupon:// 选择优惠券
                 CouponSelectorDialog dialog = new CouponSelectorDialog(this, skuList);
-                if (!TextUtils.isEmpty(mCouponId)){
+                if (!TextUtils.isEmpty(mCouponId)) {
                     dialog.setSelectId(mCouponId);
                 }
 
@@ -276,9 +335,58 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 dialog.show();
 
                 break;
+            case R.id.btn_send:
+                //提交订单
+                subOrder();
+                break;
+
         }
 
     }
+
+    /**
+     * 提交订单
+     */
+    private void subOrder(){
+
+        if (mAddress == null){
+            ToastUtil.error("请选择收货地址");
+            return;
+        }
+
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("useBalance",isBalance);
+        params.put("balance",isBalance?useBalance:0);
+        if (isBalance){
+            params.put("balancePassword",balancePassword);
+        }
+        params.put("products",skuList);
+        params.put("device",1);
+        params.put("addressId",mAddress.getAddressId());
+        if (!TextUtils.isEmpty(mCouponId)){
+            params.put("couponId",mCouponId);
+        }
+        params.put("orderSource",orderSource);
+
+        APIManager.startRequest(mOrderService.addOrder(APIManager.buildJsonBody(params)), new BaseRequestListener<OrderDetailBean>(this) {
+            @Override
+            public void onSuccess(OrderDetailBean result) {
+                super.onSuccess(result);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+
+
+
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -290,6 +398,52 @@ public class ConfirmationOrderActivity extends BaseActivity {
             }
         }
 
+    }
+
+    /**
+     * 校验余额密码
+     *
+     * @param password
+     */
+    private void checkPassword(final String password, final View switchView) {
+        APIManager.startRequest(mUserService.checkBalancePassword(password), new BaseRequestListener<Boolean>(context) {
+            @Override
+            public void onSuccess(Boolean result, String message) {
+                super.onSuccess(result);
+                if (result) {
+                    switchBalance(switchView);
+                    balancePassword = password;
+                } else {
+                    balancePassword = "";
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                balancePassword = "";
+                D3ialogTools.showAlertDialog(context, e.getMessage(), "忘记密码", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(context, TransactionPasswordActivity.class));
+                    }
+                }, "重新输入", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PayPopWindow payPopWindow = new PayPopWindow(context);
+                        payPopWindow.setOnPasswordEditListener(new PayPopWindow.OnPasswordEditListener() {
+                            @Override
+                            public void onEditFinish(String password) {
+                                //在此校验输入的密码
+                                checkPassword(password, switchView);
+                            }
+                        });
+                        payPopWindow.show();
+                    }
+                });
+
+            }
+        });
     }
 
 

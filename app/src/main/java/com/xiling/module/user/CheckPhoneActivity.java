@@ -62,9 +62,6 @@ public class CheckPhoneActivity extends BaseActivity {
 
     private void initData() {
         loginType = getIntent().getStringExtra(Constants.Extras.LOGINTYPE);
-        if (BuildConfig.DEBUG){
-            mEtPhoneNumber.setText("13608965786");
-        }
     }
 
     private void initView() {

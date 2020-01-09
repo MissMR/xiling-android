@@ -25,10 +25,12 @@ import com.xiling.ddui.adapter.CardExpandableAdapter;
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.custom.DDNumberTextView;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
@@ -54,6 +56,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.xiling.ddui.activity.ConfirmationOrderActivity.ORDER_SOURCE;
 import static com.xiling.ddui.activity.ConfirmationOrderActivity.SKULIST;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.cartAmountUpdate;
@@ -256,9 +259,11 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     }
 
     private void requestData() {
-        requestUpDataShopCardCount();
-        requestCardData();
-        requestRecommend();
+        if (UserManager.getInstance().isLogin()) {
+            requestUpDataShopCardCount();
+            requestCardData();
+            requestRecommend();
+        }
     }
 
     private void requestCardData() {
@@ -505,6 +510,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn, R.id.tvGoMain})
     public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view, 500);
         switch (view.getId()) {
             case R.id.checkAll:
                 if (cardExpandableAdapter != null) {
@@ -526,13 +532,14 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     ArrayList<SkuListBean> skuList = new ArrayList<>();
                     if (list.size() > 0) {
 
-                        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : list){
-                            SkuListBean skuListBean = new SkuListBean(cardExpandableBean.getBean().getSkuId(),cardExpandableBean.getBean().getQuantity());
+                        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : list) {
+                            SkuListBean skuListBean = new SkuListBean(cardExpandableBean.getBean().getSkuId(), cardExpandableBean.getBean().getQuantity());
                             skuList.add(skuListBean);
                         }
 
                         Intent intent = new Intent(mContext, ConfirmationOrderActivity.class);
-                        intent.putExtra(SKULIST,skuList);
+                        intent.putExtra(SKULIST, skuList);
+                        intent.putExtra(ORDER_SOURCE,2);
                         startActivity(intent);
                     } else {
                         ToastUtil.error("您还没有选中商品");

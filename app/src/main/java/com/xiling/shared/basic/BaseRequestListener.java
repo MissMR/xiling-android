@@ -48,7 +48,7 @@ abstract public class BaseRequestListener<T> extends RequestListener<T> {
 
     @Override
     public void onError(Throwable e) {
-        ToastUtil.error(e.getMessage());
+       // ToastUtil.error(e.getMessage());
         if (checkActivityFinished()) {
             return;
         }

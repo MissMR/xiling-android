@@ -77,8 +77,8 @@
     </style>
 
     <style name="TabBarItemIcon">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/dp_25</item>
+        <item name="android:layout_height">@dimen/dp_25</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:layout_marginBottom">1dp</item>
         <item name="android:scaleType">centerCrop</item>
@@ -521,7 +521,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_marginLeft">@dimen/settings_row_space</item>
+        <item name="android:layout_marginLeft">@dimen/dp_20</item>
         <item name="android:textColor">@color/settings_key_text</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:layout_centerVertical">true</item>
@@ -539,7 +539,7 @@
         <item name="android:layout_width">6dp</item>
         <item name="android:layout_height">16dp</item>
         <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_marginRight">@dimen/settings_row_space</item>
+        <item name="android:layout_marginRight">@dimen/dp_20</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:src">@mipmap/icon_arrow_next</item>
     </style>

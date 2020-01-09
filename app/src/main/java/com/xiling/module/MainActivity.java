@@ -460,9 +460,10 @@ public class MainActivity extends BaseActivity {
                 mCartBadgeTv.setText(total > 99 ? "99+" : String.valueOf(total));
                 mCartBadgeTv.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
                 break;
-            case logout:
+            case LOGIN_OUT:
                 mCartBadgeTv.setText("");
                 mCartBadgeTv.setVisibility(View.GONE);
+                onClickTabItems(mTabs.get(0));
                 break;
             case goToLogin:
                 Logger.e("跳登录");

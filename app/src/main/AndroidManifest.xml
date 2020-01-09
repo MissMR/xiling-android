@@ -33,7 +33,11 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".ddui.activity.BrandActivity"></activity>
+        <activity android:name=".ddui.activity.PassWordInputActivity"></activity>
+        <activity android:name=".ddui.activity.PasswordMobilePhoneActivity" />
+        <activity android:name=".ddui.activity.TransactionPasswordActivity" />
+        <activity android:name=".ddui.activity.XLSettingActivity" />
+        <activity android:name=".ddui.activity.BrandActivity" />
         <activity
             android:name=".ddui.activity.CategorySecondActivity"
             android:launchMode="singleTask"
@@ -587,9 +591,9 @@
         <activity
             android:name=".dduis.activity.DDCategoryMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ddui.activity.ConfirmationOrderActivity"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".ddui.activity.ConfirmationOrderActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
