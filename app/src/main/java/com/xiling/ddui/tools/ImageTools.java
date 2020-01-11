@@ -99,7 +99,7 @@ public class ImageTools {
         canvas.drawText(text, 0, y, paint);
 
         //保存
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         canvas.restore();
 
         return result;
@@ -325,7 +325,7 @@ public class ImageTools {
             }
 
             //保存
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
 
             File outputFile = new File(thumbFilePath);
@@ -417,7 +417,7 @@ public class ImageTools {
             }
 
             //保存
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
 
             File outputFile = new File(backgroundFilePath);
@@ -524,7 +524,7 @@ public class ImageTools {
             canvas.drawText(nickName, 180 + 10, 342 + (headerSize / 2) + (textHeight / 3), p);
 
             //保存
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
 
             File outputFile = new File(backgroundFilePath);
@@ -603,7 +603,7 @@ public class ImageTools {
             }
 
             //保存
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
 
             File outputFile = new File(backgroundFilePath);
@@ -835,7 +835,7 @@ public class ImageTools {
             //写水印
             canvas.drawText(text, bmpWidth - textWidth - 100, bmpHeight - textHeight, p);
             //保存
-            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.save();
             canvas.restore();
 
             File outputFile = new File(filePath);

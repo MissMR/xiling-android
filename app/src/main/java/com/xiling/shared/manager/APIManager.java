@@ -1,6 +1,7 @@
 package com.xiling.shared.manager;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
@@ -50,10 +51,10 @@ public class APIManager {
 
             @Override
             public void onNext(RequestResult<T> result) {
-                String message = result.message;
+                String message = result.getMessage();
                 if (result.isSuccess()) {
-                    listener.onSuccess(result.data);
-                    listener.onSuccess(result.data, result.message);
+                    listener.onSuccess(result.getData());
+                    listener.onSuccess(result.getData(), result.getMessage());
                 } else if (result.isNotLogin()) {
                     if (!MyApplication.isShowNoLogin) {
                         MyApplication.isShowNoLogin = true;
@@ -63,6 +64,7 @@ public class APIManager {
                     }
                 } else {
                     listener.onError(new Exception(message));
+                    listener.onError(new Exception(message),result.getBusinessCode());
                 }
             }
 

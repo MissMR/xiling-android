@@ -5,11 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.callback.SelectCallback;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
+import com.xiling.ddui.tools.GlideEngine;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.util.ToastUtil;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,11 +56,12 @@ public class XLSettingActivity extends BaseActivity {
             case R.id.rel_personal_data://个人资料
                 break;
             case R.id.rel_real_name://实名认证
+                startActivity(new Intent(context, RealAuthActivity.class));
                 break;
             case R.id.rel_account://账户管理
                 break;
             case R.id.rel_password://交易密码
-                startActivity(new Intent(context,TransactionPasswordActivity.class));
+                startActivity(new Intent(context, TransactionPasswordActivity.class));
                 break;
             case R.id.rel_bank_card://我的银行卡
                 break;

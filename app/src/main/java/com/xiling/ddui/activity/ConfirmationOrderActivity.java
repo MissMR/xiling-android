@@ -17,6 +17,7 @@ import com.xiling.ddui.adapter.OrderSkuAdapter;
 import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.ddui.bean.CouponBean;
+import com.xiling.ddui.bean.OrderAddBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.custom.D3ialogTools;
@@ -123,7 +124,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         if (getIntent() != null) {
             skuList = getIntent().getParcelableArrayListExtra(SKULIST);
-            orderSource = getIntent().getIntExtra(ORDER_SOURCE,1);
+            orderSource = getIntent().getIntExtra(ORDER_SOURCE, 1);
         }
 
 
@@ -289,8 +290,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-
-
             }
         });
     }
@@ -347,45 +346,62 @@ public class ConfirmationOrderActivity extends BaseActivity {
     /**
      * 提交订单
      */
-    private void subOrder(){
+    private void subOrder() {
 
-        if (mAddress == null){
+        if (mAddress == null) {
             ToastUtil.error("请选择收货地址");
             return;
         }
 
-
         HashMap<String, Object> params = new HashMap<>();
-        params.put("useBalance",isBalance);
-        params.put("balance",isBalance?useBalance:0);
-        if (isBalance){
-            params.put("balancePassword",balancePassword);
+        params.put("useBalance", isBalance);
+        params.put("balance", isBalance ? useBalance : 0);
+        if (isBalance) {
+            params.put("balancePassword", balancePassword);
         }
-        params.put("products",skuList);
-        params.put("device",1);
-        params.put("addressId",mAddress.getAddressId());
-        if (!TextUtils.isEmpty(mCouponId)){
-            params.put("couponId",mCouponId);
+        params.put("products", skuList);
+        params.put("device", 1);
+        params.put("addressId", mAddress.getAddressId());
+        if (!TextUtils.isEmpty(mCouponId)) {
+            params.put("couponId", mCouponId);
         }
-        params.put("orderSource",orderSource);
+        params.put("orderSource", orderSource);
 
-        APIManager.startRequest(mOrderService.addOrder(APIManager.buildJsonBody(params)), new BaseRequestListener<OrderDetailBean>(this) {
+        APIManager.startRequest(mOrderService.addOrder(APIManager.buildJsonBody(params)), new BaseRequestListener<OrderAddBean>(this) {
             @Override
-            public void onSuccess(OrderDetailBean result) {
+            public void onSuccess(OrderAddBean result) {
                 super.onSuccess(result);
 
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable e, String businessCode) {
                 super.onError(e);
+
+                if (!TextUtils.isEmpty(businessCode)) {
+                    if (businessCode.equals("un-auth")) {
+                        D3ialogTools.showAlertDialog(context, e.getMessage(), "实名认证", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                 startActivity(new Intent(context, RealAuthActivity.class));
+                            }
+                        }, "取消下单", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+                    }
+                } else {
+                    ToastUtil.error(e.getMessage());
+                }
+
+
             }
         });
 
 
-
     }
-
 
 
     @Override

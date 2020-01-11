@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        android:digits="0123456789xX"
         android:gravity="center_vertical"
         android:hint="请输入身份证号"
+        android:digits="0123456789xX"
         android:maxLength="18"
         android:paddingLeft="16dp" />
 

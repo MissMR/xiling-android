@@ -183,8 +183,6 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
         recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
-        // 如果有登录信息，视为登录
-        updateUserInfo();
     }
 
 

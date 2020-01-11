@@ -3,9 +3,10 @@ package com.xiling.shared.util;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.support.v4.BuildConfig;
+
 
 import com.blankj.utilcode.utils.DeviceUtils;
+import com.xiling.BuildConfig;
 
 /**
  * When I wrote this, only God and I understood what I was doing

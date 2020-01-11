@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:background="#DCB982"
+        android:gravity="center"
+        android:text="提 交"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_submit"
+        android:background="#F5F5F5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_11"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="填写证件照信息"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_14" />
+
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_18"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="left|center_vertical"
+                android:hint="输入本人真实姓名"
+                android:lines="1"
+                android:paddingLeft="@dimen/dp_17"
+                android:textColor="@color/settings_key_text"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/et_identity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/login_edittext_bg"
+                android:digits="0123456789xX"
+                android:gravity="left|center_vertical"
+                android:hint="输入本人真实身份证号码"
+                android:maxLength="18"
+                android:paddingLeft="@dimen/dp_17"
+                android:textColor="@color/settings_key_text"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_11"
+                android:layout_marginTop="@dimen/dp_18"
+                android:text="店铺信息"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_14" />
+
+
+            <RelativeLayout
+                android:id="@+id/btn_choice_identity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_18"
+                android:background="@drawable/login_edittext_bg">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_23"
+                    android:background="@drawable/icon_arrow_right" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_50"
+                    android:background="#D2D2D2" />
+
+                <TextView
+                    android:id="@+id/tv_platform"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_toLeftOf="@id/line"
+                    android:background="@drawable/login_edittext_bg"
+                    android:gravity="left|center_vertical"
+                    android:hint="请选择店铺平台/身份"
+                    android:lines="1"
+                    android:paddingLeft="@dimen/dp_17"
+                    android:textColor="@color/settings_key_text"
+                    android:textColorHint="@color/color_99"
+                    android:textSize="@dimen/sp_16" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/et_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="left|center_vertical"
+                android:hint="请填写店铺名称"
+                android:lines="1"
+                android:paddingLeft="@dimen/dp_17"
+                android:textColor="@color/settings_key_text"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/sp_16" />
+
+            <EditText
+                android:id="@+id/et_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="left|center_vertical"
+                android:hint="请填写公司名称 "
+                android:lines="1"
+                android:paddingLeft="@dimen/dp_17"
+                android:textColor="@color/settings_key_text"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/sp_16" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:text="上传营业执照"
+                    android:textColor="#ff202020"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <TextView
+                    android:id="@+id/btn_upload"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_26"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/btn_strok_password"
+                    android:gravity="center"
+                    android:text="点击上传"
+                    android:textColor="#ffdcb982"
+                    android:textSize="@dimen/sp_11" />
+
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_business"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_188"
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginBottom="@dimen/dp_50"
+                android:background="#F5F5F5" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

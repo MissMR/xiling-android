@@ -63,11 +63,17 @@ public class UploadManager {
     public static final int IDENTITY_CARD_FRONT = 1;
     public static final int IDENTITY_CARD_BEHIND = 0;
 
+    /**
+     * 图片上传，返回url
+     * @param file
+     * @param responseRequestListener
+     */
     public static void uploadImage(File file, RequestListener<UploadResponse> responseRequestListener) {
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image"), file);
         MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+        RequestBody ossModule = RequestBody.create(MediaType.parse("multipart/form-data"), "app");
         IUploadService uploadService = ServiceManager.getInstance().createService(IUploadService.class);
-        APIManager.startRequest(uploadService.uploadImage(fileBody), responseRequestListener);
+        APIManager.startRequest(uploadService.uploadImage(fileBody,ossModule), responseRequestListener);
     }
 
     public static MultipartBody.Part createMultipartBody(File file) {
@@ -89,9 +95,9 @@ public class UploadManager {
         RequestBody fileRequestBody = RequestBody.create(MediaType.parse("image"), file);
         MultipartBody.Part fileBody = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
         // 模块名
-        RequestBody ossModule = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(type));
+        RequestBody typeBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(type));
         IUploadService uploadService = ServiceManager.getInstance().createService(IUploadService.class);
-        APIManager.startRequest(uploadService.uploadIdCard(fileBody, ossModule), responseRequestListener);
+        APIManager.startRequest(uploadService.uploadIdCard(fileBody, typeBody), responseRequestListener);
     }
 
     /**
@@ -208,6 +214,47 @@ public class UploadManager {
                 }).launch();
     }
 
+
+    /**
+     * 带压缩功能的上传图片
+     *
+     * @param activity
+     * @param responseRequestListener
+     */
+    public static void uploadImage(Activity activity, String path, final RequestListener<UploadResponse> responseRequestListener) {
+        File file = uri2File(path, activity);
+        if (file == null) {
+            return;
+        }
+        if (!file.canRead()) {
+            ToastUtil.error("选择的图片存在权限问题，请换一张");
+            return;
+        }
+        Luban.with(activity)
+                .load(file)                     //传人要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        responseRequestListener.onStart();
+                        // 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // 压缩成功后调用，返回压缩后的图片文件
+                        uploadImage(file, responseRequestListener);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // 当压缩过程出现问题时调用
+                        responseRequestListener.onError(e);
+                    }
+                }).launch();
+    }
+
+
+
     private static Flowable<File> getLubanObservable(final Context context, File file) {
         return Flowable.just(file)
                 .observeOn(Schedulers.io())
@@ -302,6 +349,14 @@ public class UploadManager {
         }
         return file;
     }
+
+    public static File uri2File(String filePath, Activity activity) {
+        File file = null;
+        file = new File(filePath);
+        return file;
+    }
+
+
 
     /**
      * Try to return the absolute file path from the given Uri

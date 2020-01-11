@@ -335,16 +335,16 @@ public class CaptchaActivity extends BaseActivity {
      * @param code
      */
     private void bindWXCode(String code) {
-        APIManager.startRequest(iNewUserService.bindWXCode(code, "ANDROID"), new BaseRequestListener<Boolean>() {
+        APIManager.startRequest(iNewUserService.bindWXCode(code, "ANDROID"), new BaseRequestListener<Object>() {
             @Override
-            public void onSuccess(Boolean result) {
+            public void onSuccess(Object result) {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
                 //手机号绑定微信，跳转绑定邀请码
-                if (result) {
+             //  if (result) {
                     Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
                     startActivity(intent);
-                }
+               // }
             }
 
             @Override

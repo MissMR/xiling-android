@@ -1,37 +1,36 @@
 package com.xiling.shared.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 public class NewUserBean {
 
+
     /**
-     * incId : 1
-     * memberId : 123qweasdzxc
-     * inviteCode : 88888888
-     * headImage : http://xiling-test.oss-cn-qingdao.aliyuncs.com/app/2019-12/20191216090234327MP.jpg
-     * phone : 13475323377
-     * nickName : 一位路过的美食家
+     * incId : 10042
+     * memberId : 704b039ddec242858fc557454834191f
+     * inviteCode : LB4977
+     * headImage : http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132
+     * phone : 18553293503
+     * nickName : 逄涛
      * wechat :
-     * wechatCode : http://oss.xiling.com/cabbage.jpg
-     * wechatUnionId :
-     * xdsWechatOpenId :
-     * userName : 用户名
+     * wechatCode :
+     * wechatUnionId : ouVUoxDkqZHvvtU8m-BtB0sUHLzo
+     * xdsWechatOpenId : o8Dx5uN7js4KU3mFs7LuIdF7Gyzc
+     * userName :
      * memberType : 0
      * memberTypeStr : 会员
-     * authStatus : 2
+     * authStatus : 0
      * authStatusStr :
      * roleId : 1
-     * superiorIncId : 0
-     * referrerMemberId :
+     * superiorIncId : 10025
+     * referrerMemberId : 650d2323a5c642d89da1eacc7556ced6
      * createDate :
-     * role : {"id":1,"roleName":"普通用户","roleLevel":10,"roleDiscount":100,"growValue":0,"weekCardPrice":""}
+     * role : {"id":1,"roleName":"普通用户","roleLevel":10,"roleDiscount":85,"growValue":0,"weekCardPrice":0}
      * weekRoleId :
+     * lastChangeTime :
      */
 
     private int incId;
     private String memberId;
-    private int inviteCode;
+    private String inviteCode;
     private String headImage;
     private String phone;
     private String nickName;
@@ -50,6 +49,7 @@ public class NewUserBean {
     private String createDate;
     private RoleBean role;
     private String weekRoleId;
+    private String lastChangeTime;
 
     public int getIncId() {
         return incId;
@@ -67,11 +67,11 @@ public class NewUserBean {
         this.memberId = memberId;
     }
 
-    public int getInviteCode() {
+    public String getInviteCode() {
         return inviteCode;
     }
 
-    public void setInviteCode(int inviteCode) {
+    public void setInviteCode(String inviteCode) {
         this.inviteCode = inviteCode;
     }
 
@@ -219,14 +219,22 @@ public class NewUserBean {
         this.weekRoleId = weekRoleId;
     }
 
+    public String getLastChangeTime() {
+        return lastChangeTime;
+    }
+
+    public void setLastChangeTime(String lastChangeTime) {
+        this.lastChangeTime = lastChangeTime;
+    }
+
     public static class RoleBean {
         /**
          * id : 1
          * roleName : 普通用户
          * roleLevel : 10
-         * roleDiscount : 100
+         * roleDiscount : 85
          * growValue : 0.0
-         * weekCardPrice :
+         * weekCardPrice : 0
          */
 
         private int id;
@@ -234,7 +242,7 @@ public class NewUserBean {
         private int roleLevel;
         private int roleDiscount;
         private double growValue;
-        private String weekCardPrice;
+        private int weekCardPrice;
 
         public int getId() {
             return id;
@@ -276,14 +284,12 @@ public class NewUserBean {
             this.growValue = growValue;
         }
 
-        public String getWeekCardPrice() {
+        public int getWeekCardPrice() {
             return weekCardPrice;
         }
 
-        public void setWeekCardPrice(String weekCardPrice) {
+        public void setWeekCardPrice(int weekCardPrice) {
             this.weekCardPrice = weekCardPrice;
         }
-
     }
-
 }

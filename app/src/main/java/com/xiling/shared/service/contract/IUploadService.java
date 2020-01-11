@@ -20,15 +20,28 @@ public interface IUploadService {
 
     @Multipart
     @POST("upload/uploadImage")
-    Observable<RequestResult<UploadResponse>> uploadImage(@Part MultipartBody.Part body);
+    Observable<RequestResult<UploadResponse>> uploadImage(@Part MultipartBody.Part body, @Part("ossModuleCode") RequestBody ossModuleCode);
 
     /*身份证正面*/
     int IDCard_Front = 1;
     /*身份证反面*/
-    int IDCard_Back = 2;
+    int IDCard_Back = 0;
+
 
     /**
-     * 上传身份证照片数据
+     * 上传身份证照片
+     * @param body
+     * @param type
+     * @return
+     */
+    @Multipart
+    @POST("auth/uploadImageForAuth")
+    Observable<RequestResult<UploadResponse>> uploadIdCard(@Part MultipartBody.Part body,
+                                                           @Part("type") RequestBody type);
+
+
+    /**
+     * 上传身份证照片数据（废弃）
      *
      * @param body  文件流
      * @param type  身份证类型
@@ -40,8 +53,4 @@ public interface IUploadService {
                                                                    @Part("type") RequestBody type,
                                                                    @Part("token ") RequestBody token);
 
-    @Multipart
-    @POST("auth/uploadImageForAuth")
-    Observable<RequestResult<UploadResponse>> uploadIdCard(@Part MultipartBody.Part body,
-                                                           @Part("type") RequestBody type);
 }

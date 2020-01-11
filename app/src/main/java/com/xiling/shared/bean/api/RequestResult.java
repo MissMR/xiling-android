@@ -1,6 +1,5 @@
 package com.xiling.shared.bean.api;
 
-import com.google.gson.annotations.SerializedName;
 import com.xiling.shared.Constants;
 
 import java.io.Serializable;
@@ -9,13 +8,44 @@ import java.io.Serializable;
  * API请求结果
  * Created by JayChan on 2016/12/13.
  */
-public class RequestResult<T> implements Serializable {
-    @SerializedName("code")
+public class RequestResult<T> implements Serializable{
+
     public int code;
-    @SerializedName("message")
+    public String businessCode;
     public String message;
-    @SerializedName("data")
     public T data;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getBusinessCode() {
+        return businessCode;
+    }
+
+    public void setBusinessCode(String businessCode) {
+        this.businessCode = businessCode;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 
     public boolean isNotLogin() {
         return code == Constants.NOT_LOGIN_CODE;

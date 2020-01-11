@@ -1,6 +1,7 @@
 package com.xiling.shared.service.contract;
 
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.OrderAddBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.OrderPayStatusBean;
 import com.xiling.shared.bean.GetOrderStatusCount;
@@ -41,7 +42,14 @@ public interface IOrderService {
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("order/add")
-    Observable<RequestResult<OrderDetailBean>> addOrder(@Body RequestBody requestBody);
+    Observable<RequestResult<OrderAddBean>> addOrder(@Body RequestBody requestBody);
+
+    /**
+     * 提交订单
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("order/one")
+    Observable<RequestResult<OrderAddBean>> getOrderDetails(@Query("orderId") String orderId);
 
 
     @GET("order/getOrderStatusCount")

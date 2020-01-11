@@ -44,5 +44,6 @@ public enum Event {
     ,LOGIN_SUCCESS
     ,LOGIN_OUT
     ,UPDE_PASSWORD
+    ,REAL_AUTH_SUCCESS
 
 }

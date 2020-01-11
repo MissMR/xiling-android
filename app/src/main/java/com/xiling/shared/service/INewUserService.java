@@ -1,14 +1,22 @@
 package com.xiling.shared.service;
 
 import com.xiling.ddui.bean.AccountInfo;
+import com.xiling.ddui.bean.PlatformBean;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.api.RequestResult;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -72,7 +80,7 @@ public interface INewUserService {
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("user/bind-we-chat")
-    Observable<RequestResult<Boolean>> bindWXCode(@Query("code") String code, @Query("device") String device);
+    Observable<RequestResult<Object>> bindWXCode(@Query("code") String code, @Query("device") String device);
 
 
     /**
@@ -131,4 +139,27 @@ public interface INewUserService {
      */
     @GET("captcha/checkOldPhone")
     Observable<RequestResult<Object>> checkMember(@Query("checkNumber") String checkNumber);
+
+
+    /**
+     * 获取实名认证信息
+     */
+    @GET("auth/get")
+    Observable<RequestResult<RealAuthBean>> getAuth();
+
+    /**
+     * 获取店铺平台列表
+     */
+    @GET("store/getAllStore")
+    Observable<RequestResult<List<PlatformBean>>> getAllStore();
+
+
+    /**
+     * 提交实名认证信息
+     */
+    @FormUrlEncoded
+    @POST("auth/edit")
+    Observable<RequestResult<Object>> editAuth(@FieldMap HashMap<String,String> body);
+
+
 }
