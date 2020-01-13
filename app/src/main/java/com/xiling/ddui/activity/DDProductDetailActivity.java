@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.StringUtils;
 import com.umeng.socialize.UMShareAPI;
 import com.xiling.R;
+import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.SkuListBean;
+import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
 import com.xiling.dduis.magnager.UserManager;
@@ -32,11 +35,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.xiling.ddui.activity.ConfirmationOrderActivity.ORDER_SOURCE;
+import static com.xiling.ddui.activity.ConfirmationOrderActivity.SKULIST;
 import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewCart;
 
@@ -173,9 +179,14 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     @Override
-    public void onClickBuy() {
+    public void onClickBuy(SkuListBean skuListBean) {
         //立即购买 业务逻辑
-        com.sobot.chat.utils.ToastUtil.showToast(context, "立即购买");
+        ArrayList<SkuListBean> skuList = new ArrayList<>();
+        skuList.add(skuListBean);
+        Intent intent = new Intent(context, ConfirmationOrderActivity.class);
+        intent.putExtra(SKULIST, skuList);
+        intent.putExtra(ORDER_SOURCE, 1);
+        startActivity(intent);
     }
 
     /**

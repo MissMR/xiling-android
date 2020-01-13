@@ -21,6 +21,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
+import com.xiling.ddui.activity.OrderListActivit;
 import com.xiling.ddui.activity.XLSettingActivity;
 import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -32,9 +33,12 @@ import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.OrderCount;
+import com.xiling.shared.component.ItemWithIcon;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
+import com.xiling.shared.service.contract.IOrderService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +48,23 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.xiling.ddui.fragment.OrderFragment.ORDER_STATUS;
+import static com.xiling.shared.Constants.ORDER_IS_RECEIVED;
+import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
+import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
+import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
+    INewUserService iNewUserService;
+    IOrderService mOrderService;
 
     Unbinder unbinder;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout refreshLayout;
-
-    INewUserService iNewUserService;
     @BindView(R.id.avatarIv)
     ImageView avatarIv;
     @BindView(R.id.tv_name)
@@ -81,6 +91,14 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     TextView tvCustom;
     @BindView(R.id.tv_custom_order)
     TextView tvCustomOrder;
+    @BindView(R.id.orider_wait_pay)
+    ItemWithIcon oriderWaitPay;
+    @BindView(R.id.orider_wait_ship)
+    ItemWithIcon oriderWaitShip;
+    @BindView(R.id.orider_wait_received)
+    ItemWithIcon oriderWaitReceived;
+    @BindView(R.id.orider_closed)
+    ItemWithIcon oriderClosed;
 
     @Nullable
     @Override
@@ -88,6 +106,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         View view = inflater.inflate(R.layout.fragment_xl_mine, null, false);
         unbinder = ButterKnife.bind(this, view);
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
+        mOrderService = ServiceManager.getInstance().createService(IOrderService.class);
         initView();
         requestUserInfo();
         return view;
@@ -139,6 +158,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
      * 获取用户信息
      */
     private void requestUserInfo() {
+        getOrderCount();
         UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
             @Override
             public void onCheckUserInfoSucess(NewUserBean newUserBean) {
@@ -171,6 +191,42 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         });
     }
 
+    /**
+     * 获取订单状态数量
+     */
+    private void getOrderCount() {
+        APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<List<OrderCount>>() {
+
+            @Override
+            public void onSuccess(List<OrderCount> result) {
+                super.onSuccess(result);
+
+                for (OrderCount orderCount : result) {
+                    switch (orderCount.getOrderStatus()) {
+                        case 10:
+                            oriderWaitPay.setBadge(orderCount.getOrderCount());
+                            break;
+                        case 20:
+                            oriderWaitShip.setBadge(orderCount.getOrderCount());
+                            break;
+                        case 30:
+                            oriderWaitReceived.setBadge(orderCount.getOrderCount());
+                            break;
+                    }
+                }
+
+
+            }
+
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+
+
+        });
+    }
 
     private void requestVipData() {
         APIManager.startRequest(iNewUserService.getUserIncome(), new BaseRequestListener<UserInComeBean>() {
@@ -229,12 +285,32 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick(R.id.iv_setting)
+    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
                 startActivity(new Intent(mContext, XLSettingActivity.class));
                 break;
+            case R.id.orider_wait_pay:
+                jumpOrderList(ORDER_WAIT_PAY);
+                break;
+            case R.id.orider_wait_ship:
+                jumpOrderList(ORDER_WAIT_SHIP);
+                break;
+            case R.id.orider_wait_received:
+                jumpOrderList(ORDER_WAIT_RECEIVED);
+                break;
+            case R.id.orider_closed:
+                jumpOrderList(ORDER_IS_RECEIVED);
+                break;
         }
     }
+
+    private void jumpOrderList(String status) {
+        Intent intent = new Intent(mContext, OrderListActivit.class);
+        intent.putExtra(ORDER_STATUS, status);
+        startActivity(intent);
+    }
+
+
 }

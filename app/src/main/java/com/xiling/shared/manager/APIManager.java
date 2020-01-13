@@ -8,6 +8,8 @@ import com.orhanobut.logger.Logger;
 import com.xiling.MyApplication;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.Config;
+import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.OrderCount;
 import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
@@ -19,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -98,4 +101,5 @@ public class APIManager {
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
         return body;
     }
+
 }

@@ -4,24 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class OrderCount implements Serializable {
+public class OrderCount {
 
-    @SerializedName("waitPay")
-    public int waitPay;
+    private int orderStatus;
+    private int orderCount;
 
-    @SerializedName("waitShip")
-    public int waitShip;
+    public int getOrderStatus() {
+        return orderStatus;
+    }
 
-    @SerializedName("hasShip")
-    public int hasShip;
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-    @SerializedName("hasComplete")
-    public int hasComplete;
+    public int getOrderCount() {
+        return orderCount;
+    }
 
-    @SerializedName("afterSales")
-    public int afterSales;
-
-    @SerializedName("waitComment")
-    public int waitComment;
-
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
 }

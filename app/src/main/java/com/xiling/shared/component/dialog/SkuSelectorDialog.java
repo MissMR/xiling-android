@@ -106,7 +106,7 @@ public class SkuSelectorDialog extends Dialog {
 
     public SkuSelectorDialog(Context context, ProductNewBean mProduct, int action) {
         this(context, mProduct);
-
+        this.mAction = action;
     }
 
     @Override

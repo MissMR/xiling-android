@@ -1,6 +1,7 @@
 package com.xiling.module.community;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -50,6 +51,21 @@ public class DateUtils {
     }
 
 
+    /**
+     * 倒计时专用
+     */
+    public static void setCountDownTimeStrng(long time, TextView tvHour,TextView tvMinute,TextView tvSecond){
+       String timeStr =  timeStamp2Date(time,"HH:mm:ss");
+       if (!TextUtils.isEmpty(timeStr)){
+           String[] times= timeStr.split(":");
+           tvHour.setText(times[0]);
+           tvMinute.setText(times[1]);
+           tvSecond.setText(times[2]);
+       }
+
+
+
+    }
 
 
     public static String getYM(Date date) {

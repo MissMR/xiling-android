@@ -382,6 +382,11 @@ abstract public class BaseActivity extends AppCompatActivity implements SensorEv
     }
 
 
+    public void setLeftBlack(View.OnClickListener backListener) {
+        mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
+        mHeaderLayout.setOnLeftClickListener(backListener);
+    }
+
     public void setLeftBlack() {
         mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
         mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
@@ -391,6 +396,7 @@ abstract public class BaseActivity extends AppCompatActivity implements SensorEv
             }
         });
     }
+
 
     public void setLeftWhite() {
         mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_white);

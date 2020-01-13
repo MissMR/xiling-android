@@ -19,6 +19,7 @@ import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.adapter.DDCommunityDataAdapter;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.custom.DDSmartTab;
 import com.xiling.ddui.custom.DDSquareBanner;
 import com.xiling.ddui.manager.ShopDetailManager;
@@ -465,9 +466,10 @@ public class ProductDetailUIHelper {
                 }
 
                 @Override
-                public void buyItNow(String propertyIds, String propertyValue, int selectCount) {
+                public void buyItNow(String skuId, String propertyValue, int selectCount) {
                     updateSkuViews(propertyValue);
-                    mOnActionListener.onClickBuy();
+                    SkuListBean skuListBean = new SkuListBean(skuId,selectCount);
+                    mOnActionListener.onClickBuy(skuListBean);
                 }
             });
             mSkuSelectorDialog.show();
@@ -490,7 +492,7 @@ public class ProductDetailUIHelper {
         void onAddCart(String skuId, int selectCount);
 
         // 立即购买
-        void onClickBuy();
+        void onClickBuy(SkuListBean skuListBean);
 
         // 立即升级
         void onClickBecomeMaster();

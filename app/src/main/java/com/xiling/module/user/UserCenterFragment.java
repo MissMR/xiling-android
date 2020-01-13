@@ -374,7 +374,7 @@ public class UserCenterFragment extends BaseFragment implements SwipeRefreshLayo
     }
 
     private void reloadOrderStats() {
-        APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<OrderCount>(mRefreshLayout) {
+       /* APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<OrderCount>(mRefreshLayout) {
 
             @Override
             public void onSuccess(OrderCount orderCount) {
@@ -384,7 +384,7 @@ public class UserCenterFragment extends BaseFragment implements SwipeRefreshLayo
                 mOrderUnpayCmp.setBadge(orderCount.waitPay);
                 mOrderServiceCmp.setBadge(orderCount.afterSales);
             }
-        });
+        });*/
     }
 
     /**

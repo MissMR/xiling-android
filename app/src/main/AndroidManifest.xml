@@ -33,7 +33,12 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
-        <activity android:name=".ddui.activity.IdentificationInputActivity"></activity>
+        <activity android:name=".ddui.activity.MyBankCardActivity"></activity>
+        <activity android:name=".ddui.activity.XLAddBankActivity" />
+        <activity android:name=".ddui.activity.XLCashierActivity" />
+        <activity android:name=".ddui.activity.XLOrderDetailsActivity" />
+        <activity android:name=".ddui.activity.OrderListActivit" />
+        <activity android:name=".ddui.activity.IdentificationInputActivity" />
         <activity android:name=".ddui.activity.IdentificationUploadActivity" />
         <activity
             android:name=".ddui.activity.CategorySecondActivity"
@@ -609,10 +614,6 @@
         <activity
             android:name=".ddui.activity.BrandActivity"
             android:screenOrientation="portrait" />
-
-
-
-
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package com.xiling.shared.service.contract;
 
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.MyOrderDetailBean;
 import com.xiling.ddui.bean.OrderAddBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.OrderPayStatusBean;
+import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.shared.bean.GetOrderStatusCount;
 import com.xiling.shared.bean.Order;
 import com.xiling.shared.bean.OrderComment;
@@ -25,6 +27,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -45,15 +48,57 @@ public interface IOrderService {
     Observable<RequestResult<OrderAddBean>> addOrder(@Body RequestBody requestBody);
 
     /**
-     * 提交订单
+     * 获取订单状态数量
+     *
+     * @return
+     */
+    @GET("order/status-count")
+    Observable<RequestResult<List<OrderCount>>> getOrderCount();
+
+    /**
+     * 获取订单列表(根据订单状态)
+     *
+     * @return
+     */
+    @GET("order/page")
+    Observable<RequestResult<MyOrderDetailBean>> getOrderPage(@Query("pageOffset") int pageOffset, @Query("pageSize") int pageSize, @Query("status") String status);
+
+    /**
+     * 取消订单
+     *
+     * @return
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
-    @POST("order/one")
-    Observable<RequestResult<OrderAddBean>> getOrderDetails(@Query("orderId") String orderId);
+    @PUT("order/cancel")
+    Observable<RequestResult<Object>> cancelOrder(@Body RequestBody requestBody);
+
+    /**
+     * 订单-提醒发货
+     *
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PUT("order/remind-delivery")
+    Observable<RequestResult<Object>> remindDelivery(@Body RequestBody requestBody);
+
+    /**
+     * 订单-确认收货
+     *
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PUT("order/confirm-received")
+    Observable<RequestResult<Object>> confirmReceived(@Body RequestBody requestBody);
 
 
-    @GET("order/getOrderStatusCount")
-    Observable<RequestResult<OrderCount>> getOrderCount();
+    /**
+     * 获取订单详情
+     *
+     * @return
+     */
+    @GET("order/one")
+    Observable<RequestResult<XLOrderDetailsBean>> getOrderDetails(@Query("orderId") String orderId);
+
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST()

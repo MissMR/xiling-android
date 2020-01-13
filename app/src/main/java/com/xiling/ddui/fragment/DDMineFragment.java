@@ -371,7 +371,7 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
     }
 
     void loadOrderStats() {
-        APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<OrderCount>() {
+      /*  APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<OrderCount>() {
 
             @Override
             public void onSuccess(OrderCount orderCount) {
@@ -392,7 +392,7 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
                 super.onComplete();
                 mPullRefresh.refreshComplete();
             }
-        });
+        });*/
     }
 
     /**

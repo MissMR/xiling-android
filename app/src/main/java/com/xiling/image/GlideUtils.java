@@ -30,6 +30,12 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+    public static void loadImage(Context context, ImageView imageView, int url) {
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView);
+    }
+
     public static void loadImageOpenDisk(Context context, ImageView imageView, String url) {
         Glide.with(context)
                 .load(url)

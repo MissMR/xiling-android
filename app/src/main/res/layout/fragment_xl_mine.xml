@@ -295,6 +295,7 @@
                     android:orientation="horizontal">
 
                     <com.xiling.shared.component.ItemWithIcon
+                        android:id="@+id/orider_wait_pay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.0"
@@ -306,6 +307,7 @@
                         app:item_label="待付款" />
 
                     <com.xiling.shared.component.ItemWithIcon
+                        android:id="@+id/orider_wait_ship"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.0"
@@ -317,6 +319,7 @@
                         app:item_label="待发货" />
 
                     <com.xiling.shared.component.ItemWithIcon
+                        android:id="@+id/orider_wait_received"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.0"
@@ -328,6 +331,7 @@
                         app:item_label="待收货" />
 
                     <com.xiling.shared.component.ItemWithIcon
+                        android:id="@+id/orider_closed"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.0"

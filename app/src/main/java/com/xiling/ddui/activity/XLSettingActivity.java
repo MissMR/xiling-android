@@ -64,6 +64,7 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, TransactionPasswordActivity.class));
                 break;
             case R.id.rel_bank_card://我的银行卡
+                startActivity(new Intent(context,MyBankCardActivity.class));
                 break;
             case R.id.rel_about_us: //关于我们
                 break;

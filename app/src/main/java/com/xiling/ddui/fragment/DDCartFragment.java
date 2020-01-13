@@ -436,6 +436,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     public void updateData(EventMessage message) {
         switch (message.getEvent()) {
             case cartAmountUpdate:
+            case FINISH_ORDER:
                 requestCardData();
 
                 break;
@@ -539,7 +540,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
                         Intent intent = new Intent(mContext, ConfirmationOrderActivity.class);
                         intent.putExtra(SKULIST, skuList);
-                        intent.putExtra(ORDER_SOURCE,2);
+                        intent.putExtra(ORDER_SOURCE, 2);
                         startActivity(intent);
                     } else {
                         ToastUtil.error("您还没有选中商品");

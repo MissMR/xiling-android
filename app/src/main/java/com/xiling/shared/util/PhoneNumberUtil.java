@@ -10,6 +10,7 @@ import com.blankj.utilcode.utils.RegexUtils;
 public class PhoneNumberUtil {
     /**
      * 校验手机号
+     *
      * @param phoneNumber
      * @return
      */
@@ -22,10 +23,11 @@ public class PhoneNumberUtil {
 
     /**
      * 校验身份证号
+     *
      * @param identityCard
      * @return
      */
-    public static String checkIDNumber(String identityCard){
+    public static String checkIDNumber(String identityCard) {
         if (TextUtils.isEmpty(identityCard)) {
             return "请输入身份证号";
         } else {
@@ -41,6 +43,17 @@ public class PhoneNumberUtil {
             }
         }
 
+        return "";
+    }
+
+    public static String checkBankNumber(String cardNumber) {
+        if (TextUtils.isEmpty(cardNumber)) {
+            return "请输入银行卡号";
+        } else {
+            if (cardNumber.length() != 19) {
+                return "卡号输入不正确";
+            }
+        }
         return "";
     }
 

@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.adapter.OrderSkuAdapter;
+import com.xiling.ddui.adapter.SkuOrderAdapter;
 import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.ddui.bean.CouponBean;
 import com.xiling.ddui.bean.OrderAddBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.SkuListBean;
+import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.CouponSelectorDialog;
 import com.xiling.ddui.custom.popupwindow.PayPopWindow;
@@ -28,6 +30,7 @@ import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -36,12 +39,17 @@ import com.xiling.shared.service.contract.IAddressService;
 import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
+import static com.xiling.shared.constant.Event.FINISH_ORDER;
 
 /**
  * @author 逄涛
@@ -371,7 +379,10 @@ public class ConfirmationOrderActivity extends BaseActivity {
             @Override
             public void onSuccess(OrderAddBean result) {
                 super.onSuccess(result);
-
+                //通知购物车，刷新
+                EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
+                //订单生成后，根据订单编号查询订单信息
+                getOrderDetails(result.getOrderId());
             }
 
             @Override
@@ -383,7 +394,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                         D3ialogTools.showAlertDialog(context, e.getMessage(), "实名认证", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                 startActivity(new Intent(context, RealAuthActivity.class));
+                                startActivity(new Intent(context, RealAuthActivity.class));
                             }
                         }, "取消下单", new View.OnClickListener() {
                             @Override
@@ -401,6 +412,28 @@ public class ConfirmationOrderActivity extends BaseActivity {
         });
 
 
+    }
+
+    private void getOrderDetails(final String orderId) {
+        APIManager.startRequest(mOrderService.getOrderDetails(orderId), new BaseRequestListener<XLOrderDetailsBean>() {
+            @Override
+            public void onSuccess(XLOrderDetailsBean result) {
+                super.onSuccess(result);
+                if (result.getOrderStatusUs().equals(ORDER_WAIT_PAY)) {
+                    //如果是待支付，跳转收银台
+                    XLCashierActivity.jumpCashierActivity(context,result);
+                } else {
+                    //已支付，跳转订单详情
+                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
     }
 
 

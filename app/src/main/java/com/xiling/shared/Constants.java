@@ -46,6 +46,17 @@ public class Constants {
     public static final String KEY_LIBRARY_ID = "key_library";
     public static final String KEY_MEDIAURL = "key_mdiaurl";
 
+    //待支付
+    public static final String ORDER_WAIT_PAY = "WAIT_PAY";
+    //待发货
+    public static final String ORDER_WAIT_SHIP = "WAIT_SHIP";
+    //待收货
+    public static final String ORDER_WAIT_RECEIVED = "WAIT_RECEIVED";
+    //已收货
+    public static final String ORDER_IS_RECEIVED = "IS_RECEIVED";
+    //全部
+    public static final String ORDER_ALL = "ALL";
+
     public static class Extras {
         public static final String PUSH_MESSAGE = "PUSH_MESSAGE";
         public static final String PRODUCT = "DATA_PRODUCT";

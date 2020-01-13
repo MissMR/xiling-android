@@ -24,331 +24,144 @@
             android:paddingRight="15dp">
 
             <TextView
-                android:id="@+id/itemStoreNameTv"
+                android:id="@+id/order_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="@dimen/dp_10"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:text="店铺名称"
-                android:textColor="#222222"
-                android:textSize="14sp" />
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_12" />
 
             <TextView
                 android:id="@+id/itemStatusTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="状态"
-                android:textColor="@color/red"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvCS"
-                style="@style/tvCommonMainGray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_cs"
-                android:drawablePadding="4dp"
-                android:text="商家客服"
-                android:visibility="gone" />
+                android:textColor="#DCB982"
+                android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false" />
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/marginTop"
-            android:paddingLeft="15dp"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingTop="@dimen/marginTop"
             android:paddingRight="15dp"
-            android:paddingTop="@dimen/marginTop">
+            android:paddingBottom="@dimen/marginTop">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|right">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/itemDescTv"
+                    android:id="@+id/tv_total_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="共2件商品，合计："
-                    android:textColor="@color/grayDark"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
+                    android:textColor="#ff333333"
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
-                    android:id="@+id/tvPriceTag1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品总价："
-                    android:textColor="@color/text_gray"
-                    android:textSize="14sp" />
-
-                <com.xiling.dduis.custom.DDNumberTextView
-                    android:id="@+id/itemPriceTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="￥123.00"
-                    android:textColor="@color/text_gray"
-                    android:textSize="14sp" />
-
-                <com.xiling.dduis.custom.DDNumberTextView
-                    android:id="@+id/tvPriceTag2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/marginTop"
-                    android:text="实付款："
-                    android:textColor="@color/text_gray"
-                    android:textSize="14sp" />
+                    android:text="  合计："
+                    android:textColor="#ff333333"
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
-                    android:id="@+id/itemPayMoney"
+                    android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥123.00"
-                    android:textColor="#222222"
-                    android:textSize="14sp" />
+                    android:textColor="#ff333333"
+                    android:textSize="@dimen/sp_12" />
+
+
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bottomLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_4"
             android:gravity="center_vertical|right"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <TextView
-                android:id="@+id/itemCsBtn"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="商家客服"
-                android:textSize="14sp"
-                android:visibility="gone"
-                tools:visibility="visible" />
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12">
 
 
             <TextView
-                android:id="@+id/itemCancelBtn"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="取消订单"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemApplyRefundMoneyBtn"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="申请退款"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-
-            <TextView
-                android:id="@+id/itemViewExpressBtn"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
+                android:id="@+id/btn_see"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/btn_shape_stroke_gray"
+                android:gravity="center"
                 android:text="查看物流"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemDetailBtn"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="查看详情"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemPayBtn"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="去支付"
-                android:textSize="14sp"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_12"
                 android:visibility="gone" />
 
 
             <TextView
-                android:id="@+id/itemRefundMony"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="同意退款"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemRefundGoods"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="同意退货"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemCancelRefundMoney"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="取消退款"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemCancelRefundGoods"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="取消退货"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemEditRefund"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="修改申请"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/itemCancelRefund"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="撤回申请"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/orderFinishBtn"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
+                android:id="@+id/btn_confirm"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/btn_strok_password"
+                android:gravity="center"
                 android:text="确认收货"
-                android:textSize="14sp"
+                android:textColor="#DCB982"
+                android:textSize="@dimen/sp_12"
                 android:visibility="gone" />
 
+
             <TextView
-                android:id="@+id/itemShit"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:text="去发货"
-                android:textColor="@color/btn_color_selector"
-                android:textSize="14sp"
+                android:id="@+id/btn_remind"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/btn_shape_stroke_gray"
+                android:gravity="center"
+                android:text="提醒发货"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_12"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/itemCheckGroupBuy"
-                style="@style/MyButton.Stroke"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:paddingLeft="@dimen/padingLeftRight"
-                android:paddingRight="@dimen/padingLeftRight"
-                android:text="查看团购详情"
-                android:textSize="13sp"
-                android:visibility="invisible" />
 
             <TextView
-                android:id="@+id/itemGoGroupBuy"
-                style="@style/OrderBtnRed"
-                android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:minWidth="75dp"
-                android:paddingLeft="@dimen/padingLeftRight"
-                android:paddingRight="@dimen/padingLeftRight"
-                android:text="邀请好友拼团"
-                android:textColor="@color/btn_color_selector"
-                android:textSize="14sp"
-                android:visibility="invisible" />
+                android:id="@+id/btm_cancel"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/btn_shape_stroke_gray"
+                android:gravity="center"
+                android:text="取消订单"
+                android:textColor="#333333"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+
 
             <TextView
-                android:id="@+id/itemComment"
-                style="@style/OrderBtnRed"
-                android:text="评价" />
-
+                android:id="@+id/btn_payment"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/bg_round_dcb982_3"
+                android:gravity="center"
+                android:text="立即付款"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
         </LinearLayout>
+
+
     </LinearLayout>
 </RelativeLayout>
