@@ -497,11 +497,12 @@ public class PayActivity extends BaseActivity {
 
     @OnClick(R.id.confirmBtn)
     protected void onClickConfirm() {
+        ViewUtil.setViewClickedDelay(mConfirmBtn);
         if (mAddress == null || mAddress.addressId == null || mAddress.addressId.isEmpty()) {
             ToastUtil.error("请选择收货地址");
             return;
         }
-        ViewUtil.setViewClickedDelay(mConfirmBtn, 500);
+
         ToastUtil.showLoading(this);
         addOrder();
     }

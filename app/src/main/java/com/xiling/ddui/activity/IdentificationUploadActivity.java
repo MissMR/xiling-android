@@ -66,7 +66,7 @@ public class IdentificationUploadActivity extends BaseActivity {
 
     @OnClick({R.id.btn_upload_just, R.id.btn_upload_back, R.id.btn_next})
     public void onViewClicked(View view) {
-        ViewUtil.setViewClickedDelay(view, 500);
+        ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_upload_just:
                 mType = UploadManager.IDENTITY_CARD_FRONT;

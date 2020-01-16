@@ -14,19 +14,24 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.activity.OrderListActivit;
+import com.xiling.ddui.activity.XLCashierActivity;
 import com.xiling.ddui.activity.XLOrderDetailsActivity;
 import com.xiling.ddui.adapter.MyOrderAdapter;
 import com.xiling.ddui.bean.MyOrderDetailBean;
+import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.NoData;
 import com.xiling.shared.contracts.RequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +42,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
+import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 
 /**
  * 我的订单
@@ -63,7 +69,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
     private int totalPage = 0;
 
     MyOrderAdapter orderAdapter;
-    List<MyOrderDetailBean.RecordsBean> recordsBeanList = new ArrayList<>();
+    List<XLOrderDetailsBean> recordsBeanList = new ArrayList<>();
 
     public static OrderFragment newInstance(String orderStatus) {
         OrderFragment fragment = new OrderFragment();
@@ -100,37 +106,38 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
         noDataLayout.setTextView("还没有订单");
         orderAdapter.setOnButtomItemClickListener(new MyOrderAdapter.OnButtomItemClickListener() {
             @Override
-            public void onSeeClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onSeeClickListerer(XLOrderDetailsBean recordsBean) {
                 //查看物流
             }
 
             @Override
-            public void onConfirmClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onConfirmClickListerer(XLOrderDetailsBean recordsBean) {
                 //确认收货
                 confirmReceived(recordsBean.getOrderCode());
             }
 
             @Override
-            public void onRemindClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onRemindClickListerer(XLOrderDetailsBean recordsBean) {
                 //提醒发货
                 remindDelivery(recordsBean.getOrderCode());
             }
 
             @Override
-            public void onCancelClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onCancelClickListerer(XLOrderDetailsBean recordsBean) {
                 //取消订单
                 cancelOrder(recordsBean.getOrderCode());
             }
 
             @Override
-            public void onPaymentClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onPaymentClickListerer(XLOrderDetailsBean recordsBean) {
                 //立即付款
+                XLCashierActivity.jumpCashierActivity(mContext, recordsBean);
             }
 
             @Override
-            public void onItemClickListerer(MyOrderDetailBean.RecordsBean recordsBean) {
+            public void onItemClickListerer(XLOrderDetailsBean recordsBean) {
                 //item点击事件
-                XLOrderDetailsActivity.jumpOrderDetailsActivity(mContext,recordsBean.getOrderId());
+                XLOrderDetailsActivity.jumpOrderDetailsActivity(mContext, recordsBean.getOrderId());
             }
         });
         getOrderList();
@@ -240,6 +247,12 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
 
     }
 
+    /**
+     * 取消订单请求
+     *
+     * @param orderCode
+     * @param reason
+     */
     private void requestCancelOrder(String orderCode, String reason) {
         HashMap<String, String> params = new HashMap<>();
         params.put("orderCode", orderCode);
@@ -248,7 +261,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
-                ((OrderListActivit) getActivity()).refreshAllData();
+                EventBus.getDefault().post(new EventMessage(CANCEL_ORDER));
                 getOrderList();
             }
 

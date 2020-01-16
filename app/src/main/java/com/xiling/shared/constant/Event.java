@@ -46,5 +46,7 @@ public enum Event {
     ,UPDE_PASSWORD
     ,REAL_AUTH_SUCCESS
     ,FINISH_ORDER
+    ,CANCEL_ORDER
+    ,ORDER_OVERTIME
 
 }

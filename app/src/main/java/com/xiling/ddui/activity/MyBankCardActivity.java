@@ -11,9 +11,12 @@ import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.bean.BankListBean;
 import com.xiling.ddui.service.IBankService;
+import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -62,6 +65,7 @@ public class MyBankCardActivity extends BaseActivity {
         });
 
         recyclerBank.setLayoutManager(new LinearLayoutManager(this));
+        recyclerBank.addItemDecoration(new SpacesItemDecoration(0, ScreenUtils.dip2px(this, 12)));
         bankListAdapter = new BankListAdapter();
         recyclerBank.setAdapter(bankListAdapter);
         getBankList();
@@ -88,8 +92,27 @@ public class MyBankCardActivity extends BaseActivity {
         });
     }
 
+
+    private void deleteBank(String cardId) {
+        APIManager.startRequest(iBankService.deleteBank(cardId), new BaseRequestListener<Object>(this) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                getBankList();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
+
     @OnClick(R.id.btn_add)
-    public void onViewClicked() {
+    public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view);
         startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
     }
 
@@ -101,7 +124,7 @@ public class MyBankCardActivity extends BaseActivity {
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, BankListBean item) {
+        protected void convert(BaseViewHolder helper, final BankListBean item) {
             GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_bg), item.getBankBackground());
             GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon), item.getBankLogo());
             helper.setText(R.id.tv_bank_name, item.getBankName());
@@ -111,7 +134,7 @@ public class MyBankCardActivity extends BaseActivity {
             helper.setOnClickListener(R.id.btn_untying, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtil.error("解绑");
+                    deleteBank(item.getId());
                 }
             });
         }

@@ -28,10 +28,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface IOrderService {
+
 
     /**
      * 获取确认订单数据
@@ -39,6 +41,7 @@ public interface IOrderService {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("order/confirm-order-show")
     Observable<RequestResult<OrderDetailBean>> getConfirmOrder(@Body RequestBody requestBody);
+
 
     /**
      * 提交订单

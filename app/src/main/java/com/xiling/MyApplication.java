@@ -37,6 +37,9 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 import butterknife.ButterKnife;
 import rx.functions.Action1;
 
@@ -87,7 +90,7 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
         MultiDex.install(this);
         instance = this;
-
+        disableAPIDialog();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
@@ -191,5 +194,24 @@ public class MyApplication extends MultiDexApplication {
     public static MyApplication getInstance() {
         return instance;
     }
+
+    /**
+     * 禁止Android9 弹框
+     */
+    private void disableAPIDialog() {
+        if (Build.VERSION.SDK_INT < 28) return;
+        try {
+            Class clazz = Class.forName("android.app.ActivityThread");
+            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+            currentActivityThread.setAccessible(true);
+            Object activityThread = currentActivityThread.invoke(null);
+            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

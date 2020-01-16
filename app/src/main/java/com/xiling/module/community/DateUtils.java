@@ -18,12 +18,13 @@ public class DateUtils {
 
     /**
      * 日期格式字符串转换成时间戳
+     *
      * @param format 如：yyyy-MM-dd HH:mm:ss
      * @return
      */
     public static String date2TimeStamp(String date, String format) {
         try {
-            if(format == null || format.isEmpty()){
+            if (format == null || format.isEmpty()) {
                 format = "yyyy-MM-dd HH:mm:ss";
             }
 
@@ -35,9 +36,29 @@ public class DateUtils {
         return "";
     }
 
+    /**
+     * 日期格式字符串转换成时间戳
+     *
+     * @param format 如：yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static long date2TimeStampLong(String date, String format) {
+        try {
+            if (format == null || format.isEmpty()) {
+                format = "yyyy-MM-dd HH:mm:ss";
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            return sdf.parse(date).getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 
     /**
      * 时间戳转换日期格式字符串
+     *
      * @param time
      * @param format
      * @return
@@ -54,17 +75,37 @@ public class DateUtils {
     /**
      * 倒计时专用
      */
-    public static void setCountDownTimeStrng(long time, TextView tvHour,TextView tvMinute,TextView tvSecond){
-       String timeStr =  timeStamp2Date(time,"HH:mm:ss");
-       if (!TextUtils.isEmpty(timeStr)){
-           String[] times= timeStr.split(":");
-           tvHour.setText(times[0]);
-           tvMinute.setText(times[1]);
-           tvSecond.setText(times[2]);
-       }
+    public static void setCountDownTimeStrng(long time, TextView tvHour, TextView tvMinute, TextView tvSecond) {
+        String timeStr = timeStamp2Date(time, "HH:mm:ss");
+        if (!TextUtils.isEmpty(timeStr)) {
+            String[] times = timeStr.split(":");
+            tvHour.setText(times[0]);
+            tvMinute.setText(times[1]);
+            tvSecond.setText(times[2]);
+        }
+    }
 
+    /**
+     * 计算订单完成时间
+     *
+     * @return
+     */
+    public static long getOrderFinishTime(String shipDate) {
+        long shipStamp = date2TimeStampLong(shipDate, "");
+        long curTime = System.currentTimeMillis();
+        return shipStamp + 3600 * 24 * 10*1000 -curTime;
+    }
 
-
+    /**
+     * 计算当前时间戳是几天几小时
+     *
+     * @param countDownTimne
+     * @return
+     */
+    public static String getOrderFinishTimeString(long countDownTimne) {
+        int day = (int) (countDownTimne / (1000 * 60 * 60 * 24));
+        int hour = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+        return "订单将在" + day + "天" + hour + "小时后自动完成";
     }
 
 

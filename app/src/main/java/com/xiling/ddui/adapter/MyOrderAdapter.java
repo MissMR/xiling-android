@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.bean.DetailsBean;
 import com.xiling.ddui.bean.MyOrderDetailBean;
+import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.tools.NumberHandler;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 /**
  * 我的订单
  */
-public class MyOrderAdapter extends BaseQuickAdapter<MyOrderDetailBean.RecordsBean, BaseViewHolder> {
+public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseViewHolder> {
 
     public MyOrderAdapter() {
         super(R.layout.item_order);
@@ -35,7 +36,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<MyOrderDetailBean.RecordsBe
 
 
     @Override
-    protected void convert(BaseViewHolder helper, final MyOrderDetailBean.RecordsBean item) {
+    protected void convert(BaseViewHolder helper, final XLOrderDetailsBean item) {
         helper.setText(R.id.order_number, "订单号: " + item.getOrderCode());
         helper.setText(R.id.tv_total_size, "共" + item.getTotalQuantity() + "件");
         helper.setText(R.id.tv_price, "¥ " + NumberHandler.reservedDecimalFor2(item.getTotalPrice()));
@@ -151,17 +152,17 @@ public class MyOrderAdapter extends BaseQuickAdapter<MyOrderDetailBean.RecordsBe
 
 
     public interface OnButtomItemClickListener {
-        void onSeeClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onSeeClickListerer(XLOrderDetailsBean recordsBean);
 
-        void onConfirmClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onConfirmClickListerer(XLOrderDetailsBean recordsBean);
 
-        void onRemindClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onRemindClickListerer(XLOrderDetailsBean recordsBean);
 
-        void onCancelClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onCancelClickListerer(XLOrderDetailsBean recordsBean);
 
-        void onPaymentClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onPaymentClickListerer(XLOrderDetailsBean recordsBean);
 
-        void onItemClickListerer(MyOrderDetailBean.RecordsBean recordsBean);
+        void onItemClickListerer(XLOrderDetailsBean recordsBean);
 
     }
 

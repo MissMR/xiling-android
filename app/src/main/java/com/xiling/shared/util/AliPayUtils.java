@@ -71,6 +71,33 @@ public class AliPayUtils {
     }
 
     /**
+     * 支付宝支付，直接传入orderInfo
+     * @param context
+     * @param orderInfo
+     */
+    public static void pay(final Activity context,final String orderInfo){
+        Runnable payRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                PayTask alipay = new PayTask(context);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
+                Log.i("msp", result.toString());
+
+                Message msg = new Message();
+                msg.what = SDK_PAY_FLAG;
+                msg.obj = result;
+
+                checkPayResult(result);
+            }
+        };
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+
+
+    /**
      * 检查支付结果，用 eventBus 将支付结果发送出去
      *
      * @param result
@@ -177,11 +204,6 @@ public class AliPayUtils {
 
     /**
      * 构造支付订单参数列表
-     *
-     * @param pid
-     * @param app_id
-     * @param target_id
-     * @return
      */
     public static Map<String, String> buildOrderParamMap(String app_id, boolean rsa2, String totalAmount, String orderNo, String notifyUrl) {
         Map<String, String> keyValues = new HashMap<>();

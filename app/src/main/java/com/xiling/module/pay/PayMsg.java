@@ -16,7 +16,8 @@ public class PayMsg extends BaseMsg {
     public final static int ACTION_WXPAY_FAIL = 0x5;
     public final static int ACTION_WXPAY_SUCCEED = 0x6;
     public final static int ACTION_BALANCE_SUCCEED = 0x7;
-
+    public final static int ACTION_BANK_SUCCEED = 0x8;
+    public final static int ACTION_BANK_FAIL  = 0x9;
     public String message = "支付失败";
 
     public PayMsg(int action) {

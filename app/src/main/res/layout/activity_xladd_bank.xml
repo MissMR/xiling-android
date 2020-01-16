@@ -34,13 +34,12 @@
 
             <TextView
                 android:id="@+id/tv_bank"
+                style="@style/DDMEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_73"
-                android:text="请选择发卡银行"
-                android:textColor="#ffd2d2d2"
-                android:textSize="@dimen/sp_14" />
+                android:hint="请选择发卡银行" />
 
 
             <ImageView
@@ -71,18 +70,16 @@
 
             <EditText
                 android:id="@+id/et_card_number"
+                style="@style/DDMEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_73"
-                android:background="@null"
                 android:ellipsize="end"
                 android:hint="请输入银行卡号（仅支持储蓄卡）"
                 android:inputType="number"
                 android:lines="1"
-                android:maxLength="19"
-                android:textColor="#ffd2d2d2"
-                android:textSize="@dimen/sp_14" />
+                android:maxLength="19" />
         </RelativeLayout>
 
         <LinearLayout
@@ -127,16 +124,14 @@
 
             <EditText
                 android:id="@+id/et_name"
+                style="@style/DDMEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_73"
-                android:background="@null"
                 android:ellipsize="end"
                 android:hint="请输入持卡人姓名"
-                android:lines="1"
-                android:textColor="#ffd2d2d2"
-                android:textSize="@dimen/sp_14" />
+                android:lines="1" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -159,18 +154,16 @@
 
             <EditText
                 android:id="@+id/et_identity"
+                style="@style/DDMEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_73"
-                android:background="@null"
                 android:digits="0123456789xX"
                 android:ellipsize="end"
                 android:hint="请输入持卡人对应身份证号"
                 android:lines="1"
-                android:maxLength="18"
-                android:textColor="#ffd2d2d2"
-                android:textSize="@dimen/sp_14" />
+                android:maxLength="18" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -193,28 +186,25 @@
 
             <EditText
                 android:id="@+id/etPhone"
+                style="@style/DDMEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_73"
-                android:background="@null"
                 android:digits="0123456789xX"
                 android:ellipsize="end"
                 android:hint="请输入银行预留手机号"
                 android:inputType="number"
                 android:lines="1"
-                android:maxLength="11"
-                android:textColor="#ffd2d2d2"
-                android:textSize="@dimen/sp_14" />
+                android:maxLength="11" />
 
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/icon_tips"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                />
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_tips" />
 
 
         </RelativeLayout>

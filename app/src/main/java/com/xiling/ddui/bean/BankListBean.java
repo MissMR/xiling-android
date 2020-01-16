@@ -1,7 +1,8 @@
 package com.xiling.ddui.bean;
 
 public class BankListBean {
-    String bankId;
+    String id; //银行卡列表使用id
+    String bankId;//添加、删除银行卡使用bankId
     String bankLogo;
     int bankLogoGround;
     String bankName;
@@ -17,14 +18,6 @@ public class BankListBean {
         this.bankLogoGround = bankLogoGround;
     }
 
-
-    public String getId() {
-        return bankId;
-    }
-
-    public void setId(String id) {
-        this.bankId = id;
-    }
 
     public String getBankLogo() {
         return bankLogo;
@@ -64,5 +57,21 @@ public class BankListBean {
 
     public void setCardUser(String cardUser) {
         this.cardUser = cardUser;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
     }
 }

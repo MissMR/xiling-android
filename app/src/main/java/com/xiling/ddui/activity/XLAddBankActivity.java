@@ -11,6 +11,7 @@ import com.xiling.ddui.bean.BankListBean;
 import com.xiling.ddui.custom.popupwindow.BankSelectDialog;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.manager.APIManager;
@@ -59,6 +60,7 @@ public class XLAddBankActivity extends BaseActivity {
 
     @OnClick({R.id.btn_bank, R.id.btn_submit})
     public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_bank:
                 if (bankSelectDialog == null) {
@@ -117,14 +119,14 @@ public class XLAddBankActivity extends BaseActivity {
 
 
     private void addBank() {
-        HashMap<String,String> params = new HashMap();
-        params.put("bankId", mBankBean.getId());
+        HashMap<String, String> params = new HashMap();
+        params.put("bankId", mBankBean.getBankId());
         params.put("bankCardNumber", cardNumber);
         params.put("cardUser", cardHolderName);
         params.put("cardIdentity", identity);
         params.put("cardPhone", phone);
 
-        APIManager.startRequest(iBankService.addBank(params), new BaseRequestListener<Object>() {
+        APIManager.startRequest(iBankService.addBank(params), new BaseRequestListener<Object>(context) {
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);

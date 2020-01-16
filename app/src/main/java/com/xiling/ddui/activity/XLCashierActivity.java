@@ -10,36 +10,60 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.unionpay.UPPayAssistEx;
 import com.xiling.R;
 import com.xiling.ddui.adapter.XLBankPayAdapter;
 import com.xiling.ddui.bean.BankListBean;
+import com.xiling.ddui.bean.WXPayBean;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.D3ialogTools;
+import com.xiling.ddui.custom.popupwindow.LargePayDialog;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.module.community.DateUtils;
+import com.xiling.module.pay.PayMsg;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.IPayService;
+import com.xiling.shared.util.AliPayUtils;
+import com.xiling.shared.util.ConvertUtil;
 import com.xiling.shared.util.ToastUtil;
+import com.xiling.shared.util.WePayUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
+import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
+import static com.xiling.shared.service.contract.IPayService.CHANNEL_WE_CHAT_PAY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
+
 /**
  * 收银台
  */
 public class XLCashierActivity extends BaseActivity {
-    public static final int ADD_BAND_CODE =1000;
+    public static final int ADD_BAND_CODE = 1000;
     public static final String ORDER_DETAILS = "orderDetails";
     private IBankService mBankService;
-
+    private IPayService mPayService;
 
     @BindView(R.id.tv_hour)
     TextView tvHour;
@@ -59,7 +83,8 @@ public class XLCashierActivity extends BaseActivity {
     List<BankListBean> bankListBeans = new ArrayList<>();
     @BindView(R.id.btn_pay)
     TextView btnPay;
-    boolean isAdd = false;
+    BankListBean mBankBean;
+    LargePayDialog largePayDialog;
 
     public static void jumpCashierActivity(Context context, XLOrderDetailsBean orderDetailsBean) {
         Intent intent = new Intent(context, XLCashierActivity.class);
@@ -91,7 +116,7 @@ public class XLCashierActivity extends BaseActivity {
             }
         });
         mBankService = ServiceManager.getInstance().createService(IBankService.class);
-
+        mPayService = ServiceManager.getInstance().createService(IPayService.class);
 
         if (getIntent() != null) {
             orderDetailsBean = getIntent().getParcelableExtra(ORDER_DETAILS);
@@ -101,7 +126,7 @@ public class XLCashierActivity extends BaseActivity {
             NumberHandler.setPriceText(orderDetailsBean.getPayMoney(), tvPrice, tvPriceDecimal);
             startCountDown();
         }
-
+        WePayUtils.initWePay();
         initBank();
         getBankList();
     }
@@ -144,6 +169,7 @@ public class XLCashierActivity extends BaseActivity {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     bankAdapter.setSelectPosition(position);
+                    mBankBean = bankListBeans.get(position);
                     btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
                 }
             });
@@ -157,19 +183,16 @@ public class XLCashierActivity extends BaseActivity {
             @Override
             public void onSuccess(List<BankListBean> result) {
                 super.onSuccess(result);
-
                 if (result.size() > 0) {
                     initBank();
                     int position = bankListBeans.size();
                     bankListBeans.addAll(result);
-                    if (!isAdd) {
-                        bankAdapter.setSelectPosition(position);
-                        btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
-                    } else {
-                        bankAdapter.setNewData(bankListBeans);
-                    }
+                    bankAdapter.setSelectPosition(position);
+                    mBankBean = bankListBeans.get(position);
+                    btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
                 } else {
                     btnPay.setText(bankListBeans.get(0).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
+                    mBankBean = bankListBeans.get(0);
                 }
             }
 
@@ -181,26 +204,158 @@ public class XLCashierActivity extends BaseActivity {
         });
     }
 
-
     @OnClick({R.id.btn_pay, R.id.btn_add_bank, R.id.btn_pay_type})
     public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_pay:
+                if (mBankBean.getBankName().equals("微信支付")) {
+                    addPay(orderDetailsBean.getOrderId(), CHANNEL_WE_CHAT_PAY);
+                } else if (mBankBean.getBankName().equals("支付宝")) {
+                    addPay(orderDetailsBean.getOrderId(), CHANNEL_A_LI_PAY);
+                } else {
+                    addPay(orderDetailsBean.getOrderId(), CHANNEL_UNION_PAY);
+                }
                 break;
             case R.id.btn_add_bank:
                 startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
                 break;
             case R.id.btn_pay_type:
+                largePayDialog = new LargePayDialog(context, orderDetailsBean.getOrderId());
+                largePayDialog.show();
                 break;
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == ADD_BAND_CODE) {
+            //添加银行卡
             getBankList();
+        } else {
+            //银联支付返回
+            if (data == null) {
+                return;
+            }
+
+            String msg = "";
+            /*
+             * 支付控件返回字符串:success、fail、cancel 分别代表支付成功，支付失败，支付取消
+             */
+            String str = data.getExtras().getString("pay_result");
+            if (str.equalsIgnoreCase("success")) {
+                msg = "支付成功！";
+                EventBus.getDefault().post(new PayMsg(PayMsg.ACTION_BANK_SUCCEED));
+            } else if (str.equalsIgnoreCase("fail")) {
+                msg = "支付失败！";
+                EventBus.getDefault().post(new PayMsg(PayMsg.ACTION_BANK_FAIL, msg));
+            } else if (str.equalsIgnoreCase("cancel")) {
+                msg = "用户取消了支付";
+                EventBus.getDefault().post(new PayMsg(PayMsg.ACTION_BANK_FAIL, msg));
+            }
         }
     }
+
+
+    class EXT {
+        private String UNION_PAY_CARD_ID = "";
+    }
+
+
+    /**
+     * 创建流水单号
+     */
+    private void addPay(String orderId, final String channel) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("key", orderId);
+        params.put("type", PAY_TYPE_ORDER);
+        params.put("channel", channel);
+        params.put("device", "ANDROID");
+        if (channel.equals(CHANNEL_UNION_PAY)) {
+            if (mBankBean != null) {
+                EXT ext = new EXT();
+                ext.UNION_PAY_CARD_ID = mBankBean.getId();
+                params.put("ext", ext);
+            }
+        }
+
+        APIManager.startRequest(mPayService.addPay(APIManager.buildJsonBody(params)), new BaseRequestListener<String>() {
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+                //获取流水单号进行支付
+                pay(result, channel);
+
+            }
+
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+
+        });
+    }
+
+
+    private void pay(String orderCode, final String channel) {
+        APIManager.startRequest(mPayService.pay(orderCode), new BaseRequestListener<String>() {
+
+            @Override
+            public void onSuccess(String result) {
+                super.onSuccess(result);
+
+                switch (channel) {
+                    case CHANNEL_A_LI_PAY:
+                        AliPayUtils.pay(XLCashierActivity.this, result);
+                        break;
+                    case CHANNEL_WE_CHAT_PAY:
+                        WXPayBean wxPayBean = new Gson().fromJson(result, WXPayBean.class);
+                        WePayUtils.startPay(wxPayBean);
+                        break;
+                    case CHANNEL_UNION_PAY:
+                        //银联支付
+                        UPPayAssistEx.startPay(context, null, null, result, "01");
+                        break;
+                }
+
+            }
+
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getStatus(PayMsg msgStatus) {
+        switch (msgStatus.getAction()) {
+            case PayMsg.ACTION_WXPAY_SUCCEED:
+            case PayMsg.ACTION_ALIPAY_SUCCEED:
+                ToastUtil.success("支付成功");
+                finish();
+                break;
+            case PayMsg.ACTION_WXPAY_FAIL:
+            case PayMsg.ACTION_ALIPAY_FAIL:
+                ToastUtils.showShortToast(msgStatus.message);
+                break;
+            default:
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(EventMessage message) {
+        switch (message.getEvent()) {
+            case FINISH_ORDER:
+                finish();
+                break;
+        }
+    }
+
 }

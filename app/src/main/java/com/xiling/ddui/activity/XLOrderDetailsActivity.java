@@ -3,23 +3,32 @@ package com.xiling.ddui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.adapter.SkuOrderAdapter;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
+import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.module.community.DateUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +37,8 @@ import butterknife.OnClick;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
+import static com.xiling.shared.constant.Event.CANCEL_ORDER;
+import static com.xiling.shared.constant.Event.ORDER_OVERTIME;
 
 public class XLOrderDetailsActivity extends BaseActivity {
     public static final String ORDER_ID = "order_id";
@@ -75,8 +86,17 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView btmCancel;
     @BindView(R.id.btn_payment)
     TextView btnPayment;
+    @BindView(R.id.tv_hour)
+    TextView tvHour;
+    @BindView(R.id.tv_minute)
+    TextView tvMinute;
+    @BindView(R.id.tv_second)
+    TextView tvSecond;
+    @BindView(R.id.ll_count_down)
+    LinearLayout llCountDown;
     private String orderId;
     IOrderService mOrderService;
+    XLOrderDetailsBean orderDetailsBean;
 
     public static void jumpOrderDetailsActivity(Context context, String orderId) {
         Intent intent = new Intent(context, XLOrderDetailsActivity.class);
@@ -112,6 +132,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(XLOrderDetailsBean result) {
                 super.onSuccess(result);
+                orderDetailsBean = result;
                 setStatus(result.getOrderStatusUs(), result);
                 tvContactName.setText(result.getContactUsername());
                 tvContactAddress.setText(result.getAddress());
@@ -126,8 +147,6 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountPrice()));
                 tvPriceCoupon.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));
-
-
             }
 
             @Override
@@ -137,10 +156,34 @@ public class XLOrderDetailsActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 订单超时
+     */
+    private void orderOverTime() {
+        finish();
+        EventBus.getDefault().post(new EventMessage(ORDER_OVERTIME));
+    }
 
     private void setStatus(String status, XLOrderDetailsBean orderDetailsBean) {
+
+      /*  if (orderDetailsBean.getPayType().equals("未支付")) {
+            if (orderDetailsBean.getOrderStatus().equals("已关闭")) {
+                //这种状态代表支付已超时
+                orderOverTime();
+            }
+        }*/
+
         switch (status) {
             case ORDER_WAIT_PAY:
+                tvStatusTime.setVisibility(View.GONE);
+                llCountDown.setVisibility(View.VISIBLE);
+                startCountDown(orderDetailsBean.getWaitPayTimeMilli(), 1000, new OnCountDownListener() {
+                    @Override
+                    public void onTick(long l) {
+                        DateUtils.setCountDownTimeStrng(l, tvHour, tvMinute, tvSecond);
+                    }
+                });
+
                 relStatus.setBackgroundResource(R.drawable.bg_order_pay);
                 tvStatusTitle.setText("等待买家付款");
 
@@ -155,6 +198,10 @@ public class XLOrderDetailsActivity extends BaseActivity {
 
                 break;
             case ORDER_WAIT_SHIP:
+                tvStatusTime.setText("该商品预计于" + 5 + "个工作日内发货");
+                tvStatusTime.setVisibility(View.VISIBLE);
+                llCountDown.setVisibility(View.GONE);
+
                 relStatus.setBackgroundResource(R.drawable.bg_order_ship);
                 tvStatusTitle.setText("等待平台发货");
 
@@ -169,6 +216,23 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btmCancel.setVisibility(View.GONE);
                 break;
             case ORDER_WAIT_RECEIVED:
+
+                String shipDate = orderDetailsBean.getShipDate();
+                if (!TextUtils.isEmpty(shipDate)) {
+                    long countDownTimne = DateUtils.getOrderFinishTime(shipDate);
+                    String statusTime = DateUtils.getOrderFinishTimeString(countDownTimne);
+                    tvStatusTime.setText(statusTime);
+                    startCountDown(countDownTimne, 1000 * 60 * 60, new OnCountDownListener() {
+                        @Override
+                        public void onTick(long l) {
+                            String statusTime = DateUtils.getOrderFinishTimeString(l);
+                            tvStatusTime.setText(statusTime);
+                        }
+                    });
+                }
+                tvStatusTime.setVisibility(View.VISIBLE);
+                llCountDown.setVisibility(View.GONE);
+
                 relStatus.setBackgroundResource(R.drawable.bg_order_ship);
                 tvStatusTitle.setText("等待买家验收");
 
@@ -182,11 +246,13 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnRemind.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
-
-
                 break;
 
             default:
+                tvStatusTime.setText("感谢您的支持");
+                tvStatusTime.setVisibility(View.VISIBLE);
+
+                llCountDown.setVisibility(View.GONE);
                 relStatus.setBackgroundResource(R.drawable.bg_order_complete);
                 tvStatusTitle.setText("订单已完成");
 
@@ -197,7 +263,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
                 tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressId());
-                tvOrderCompleteTime.setText("完成时间："+orderDetailsBean.getDoneTime());
+                tvOrderCompleteTime.setText("完成时间：" + orderDetailsBean.getDoneTime());
 
                 btnSee.setVisibility(View.VISIBLE);
                 btnConfirm.setVisibility(View.GONE);
@@ -209,6 +275,31 @@ public class XLOrderDetailsActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 启动倒计时
+     */
+    CountDownTimer countDownTimer;
+
+    private void startCountDown(long millisInFuture, long countDownInterval, final OnCountDownListener onCountDownListener) {
+        countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
+            @Override
+            public void onTick(long l) {
+                if (onCountDownListener != null) {
+                    onCountDownListener.onTick(l);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                orderOverTime();
+            }
+        };
+        countDownTimer.start();
+    }
+
+    interface OnCountDownListener {
+        void onTick(long l);
+    }
 
     @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment})
     public void onViewClicked(View view) {
@@ -216,13 +307,113 @@ public class XLOrderDetailsActivity extends BaseActivity {
             case R.id.btn_see:
                 break;
             case R.id.btn_confirm:
+                confirmReceived(orderId);
                 break;
             case R.id.btn_remind:
+                remindDelivery(orderId);
                 break;
             case R.id.btm_cancel:
+                cancelOrder(orderId);
                 break;
             case R.id.btn_payment:
+                XLCashierActivity.jumpCashierActivity(context, orderDetailsBean);
                 break;
+        }
+    }
+
+    /**
+     * 订单-确认收货
+     */
+    private void confirmReceived(String orderCode) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("orderCode", orderCode);
+        APIManager.startRequest(mOrderService.confirmReceived(APIManager.buildJsonBody(params)), new BaseRequestListener<Object>(this) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                ToastUtil.success("已提醒");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 提醒发货
+     */
+    private void remindDelivery(String orderCode) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("orderCode", orderCode);
+        APIManager.startRequest(mOrderService.remindDelivery(APIManager.buildJsonBody(params)), new BaseRequestListener<Object>(this) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                ToastUtil.success("已提醒");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 取消订单
+     */
+    CancelOrderDialog cancelOrderDialog;
+
+    private void cancelOrder(final String orderCode) {
+        if (cancelOrderDialog == null) {
+            cancelOrderDialog = new CancelOrderDialog(context);
+            cancelOrderDialog.setOnReasonSelectListener(new CancelOrderDialog.OnReasonSelectListener() {
+                @Override
+                public void onReasonSelected(String reason) {
+                    ToastUtil.success(reason);
+                    requestCancelOrder(orderCode, reason);
+                }
+            });
+        }
+        cancelOrderDialog.show();
+
+    }
+
+    /**
+     * 取消订单请求
+     *
+     * @param orderCode
+     * @param reason
+     */
+    private void requestCancelOrder(String orderCode, String reason) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("orderCode", orderCode);
+        params.put("reason", reason);
+        APIManager.startRequest(mOrderService.cancelOrder(APIManager.buildJsonBody(params)), new BaseRequestListener<Object>(context) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                EventBus.getDefault().post(new EventMessage(CANCEL_ORDER));
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
         }
     }
 }

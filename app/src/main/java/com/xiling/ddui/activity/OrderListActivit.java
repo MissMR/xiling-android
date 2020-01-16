@@ -8,6 +8,10 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.xiling.R;
 import com.xiling.ddui.fragment.OrderFragment;
 import com.xiling.shared.basic.BaseActivity;
+import com.xiling.shared.bean.event.EventMessage;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,5 +97,17 @@ public class OrderListActivit extends BaseActivity {
         }
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(EventMessage message) {
+        switch (message.getEvent()) {
+            case CANCEL_ORDER: //订单关闭，刷新UI
+            case ORDER_OVERTIME:  //订单超时，刷新UI
+                refreshAllData();
+                break;
+
+        }
+    }
+
 
 }

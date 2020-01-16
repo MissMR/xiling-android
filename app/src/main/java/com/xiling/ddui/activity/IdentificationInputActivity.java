@@ -1,5 +1,6 @@
 package com.xiling.ddui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.callback.SelectCallback;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
 import com.xiling.ddui.bean.PlatformBean;
@@ -128,7 +128,7 @@ public class IdentificationInputActivity extends BaseActivity {
         params.put("storeType", storeType);
         params.put("storeName", storeName);
         params.put("companyName", companyName);
-        params.put("businessLicense",businessLicense);
+        params.put("businessLicense", businessLicense);
 
         String storeIds = "";
         for (int i = 0; i < storeIdList.size(); i++) {
@@ -144,7 +144,7 @@ public class IdentificationInputActivity extends BaseActivity {
 
         APIManager.startRequest(mUserService.editAuth(params), new BaseRequestListener<Object>() {
             @Override
-            public void onSuccess(Object result,String message) {
+            public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
                 ToastUtil.error(message);
                 EventBus.getDefault().post(new EventMessage(Event.REAL_AUTH_SUCCESS));
@@ -205,15 +205,28 @@ public class IdentificationInputActivity extends BaseActivity {
     public void openAlbum() {
         EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
                 .setFileProviderAuthority("com.xiling.fileProvider")
-                .start(new SelectCallback() {
-                    @Override
-                    public void onResult(ArrayList<Photo> photos, ArrayList<String> paths, boolean isOriginal) {
-                        if (paths.size() > 0) {
-                            uploadImage(paths.get(0));
-                        }
-                    }
-                });
+                .start(10101);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10101) {
+            if (data != null) {
+                ArrayList<Photo> resultPhotos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                if (resultPhotos.size() > 0) {
+                    uploadImage(resultPhotos.get(0).path);
+                }
+            }
+        }
+    }
+
+    /* new SelectCallback() {
+        @Override
+        public void onResult(ArrayList<Photo> photos, ArrayList<String> paths, boolean isOriginal) {
+
+        }
+    }*/
 
 
     private void uploadImage(final String path) {

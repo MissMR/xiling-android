@@ -62,6 +62,10 @@ public class CaptchaBtn extends AppCompatTextView {
         setText(String.format("%s s", mCountTime / 1000));
         setEnabled(false);
         setClickable(false);
+        if (countdownTimer != null){
+            countdownTimer.cancel();
+        }
+
         countdownTimer = new AdvancedCountdownTimer(mCountTime, mInterval) {
 
             @Override

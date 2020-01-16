@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.3'
     defaultConfig {
         applicationId "com.xiling"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 26
         versionCode 1000
         versionName "1.0.0"
         multiDexEnabled true
@@ -77,6 +78,12 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
 
     sourceSets {
@@ -246,6 +253,7 @@ android {
             buildConfigField("String", "H5_FUNC", "\"5\"")
 
             buildConfigField("String", "WX_APP_ID", "\"wx1fa673166a365d6b\"")
+
             buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
 
             buildConfigField("String", "WX_MCH_ID", "\"1512666651\"")
@@ -276,13 +284,13 @@ android {
             ]
 
             // 测试环境  210映射 61.162.59.74:9050
-            buildConfigField("String", "BASE_URL", "\"http://xl-mall.xilingbm.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
             //韩奇电脑
-            //buildConfigField("String", "BASE_URL", "\"http://192.168.100.14:8080/\"")
+            // buildConfigField("String", "BASE_URL", "\"https://192.168.100.14:8080/\"")
             //张哲
-            // buildConfigField("String", "BASE_URL", "\"http://192.168.100.22:8080/\"")
+            // buildConfigField("String", "BASE_URL", "\"https://192.168.100.22:8080/\"")
             //姜超
-            //  buildConfigField("String", "BASE_URL", "\"http://192.168.100.23:8080/\"")
+            //  buildConfigField("String", "BASE_URL", "\"https://192.168.100.23:8080/\"")
 
             //H5页服务器地址
 //            buildConfigField("String", "H5_URL", "\"http://h5.dianduoduo.store/\"")
@@ -292,11 +300,12 @@ android {
 
             // 测试key
             buildConfigField("String", "WX_APP_ID", "\"wxf10b84ba54f558d5\"")
+            buildConfigField("String", "WX_PARTNER_ID", "\"1568042081\"")
             buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
 
             buildConfigField("String", "WX_MCH_ID", "\"1514718991\"")
             buildConfigField("String", "WX_PAY_NOTIFY_URL", "\"wxnotify/gzhwxpay\"")
-            buildConfigField("String", "WX_PAY_KEY", "\"e93f87ab75e52d48fa1a86143e3a64a3\"")
+            buildConfigField("String", "WX_PAY_KEY", "\"ef884480341848d595c5b28f02bbdb38\"")
 
             buildConfigField("String", "ALIPAY_APP_ID", "\"2018052460199368\"")
             buildConfigField("String", "ALIPAY_RSA_KEY", "\"MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYK9cVhRQ2OABL3mry65jxmXbUuzJyCLDPpOJvrdVboZRsi46scjMe+uvAn1haiiJfabGQlaOtX0nNot7L3RQFbw2EhtMjRFPHOVF6ueFDi72E/8zeuZ92DE0gu9b6R4EhD0Kbp9A1FeeU1WTNa7H131upAwKW+wmxeOiuKL8MWcJM5wSOnp3Ua39eVoouIUg6IjjZyp5OjTtTtkQN5bRkilTgdt+L7fwPEMkkvbZuvkRYpdaDyIt6fLrswP67kTqi4neJn4WIoi/rpwx/xji8a4UA15X9TcaPNSLxisiSmyTjt74JQNZ6B7XsN5p/bAeTqIIBptTyxiRKiA+HsdLHAgMBAAECggEAA85x0R0wx+ughbV66KAhZ0+uefx53OwuQNnEavcCpMRpmqeycXLpV4hPkmq74YxBIrD3wXYBFdJxuD8/8RMJgTb9Y/ID0cEoQH/P4XtYbhoN0kO21c0q86cvzH3CQVH1AiIEqD0CO40RMNu5FKzqy0uNj6JP71yoRQm9/yMUiiEaM93ePl0Hly+WEOgfu1yp0tc/KNzLNDumK4xmHwpeJ/0/ReKAlUVt7ZfhWlDxIxnPwS9hitThcyv5b13fqwiAOALHqepARzez9qF5GRmAFKKsgVgRZ2Udys6CVLnYofrVWKOy8sl/iZqSuRxIsRyRMq2ElHJxYC/e7j4QZ58SgQKBgQDsb+W3Vj6WjWJ3at9PnQOXfjGw5/O2Bl7VWHGj8/isk4JXi/551Z9CmCpB4sFS6Yn0JrFC1YbJv9ap36I15rp0k1WHF85mVyqh3EwHwI8uKkb/JebDdIVIsSQBbCmtxPd+qqx+eLQPtytKt6T5S2dWNdcSkYBWllmTl/ZNcmJ8pwKBgQDqDq5PYyEJcrKuODFuJai9te8zLb7vJyj8HxRWk2JWthl03vJNzdHJNbkQTzsRbl3UMF9XSzlDtsiJ4HZnBZsLKQ/lMtWEBm9OimDYsjc5IGUL10OfoYN1dGfWtbNTodV9hZFUTzsRf2Xin7fxMtoIDOkdXbubgPj2RheaqoAc4QKBgGXNQEGSVtyH/8+fKoui9XrzEP40wRCs6YQ+0p9fWsEjuklrs6RNwIbx8a/wrIDAoW+IgWZffeu8N/donPVMZRfwoDDMpUgXW/nZWrszw/KCrZMKhLO/pevIqdIa+k8hsdbOMfs6iX0Cxxciv1u/hbzu7a3HDFU741HTam+qQpGdAoGBAJLMQmdoNQBH/+llNRtwYzUZNr1So747QWlf1NG3/qWD8NNsQWyq+jjIiRnBl7qHDjJXZHTLqU7fBUf0kE5tJaEKT/3gtCnqH0WTZMqEfD5IIxgaGz+zfU/dgoMX0zFQ/yWK8GuAhfuje7N3mVaeHkGOV2cjstcFPSC5NXS8Gz4BAoGBAIQMnDth1m2ZCKNYDQFEWpdyjXuxLFibHj0bIRW/hk3KYw2CW6NYkvt0HTgioMhzpNwSbS2SliVMujNadZjALiDJLMsC9hqditszCV5Il7JjlIWowqtPmVLNVhvkRTuQLxHmqzCbhrHVsLZqfa9uyEc9tcF5i7Io2rDmbZFQJm5g\"")
@@ -325,13 +334,13 @@ static def getMyVersionCode() {
 dependencies {
     //引入libs文件夹下的所有库文件
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.github.HuanTanSheng:EasyPhotos:2.4.5'
+    implementation 'com.github.HuanTanSheng:EasyPhotos:2.3.0'
     //引入系统库
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support:support-v4:28+'
-    implementation 'com.android.support:appcompat-v7:28+'
-    implementation 'com.android.support:recyclerview-v7:28+'
-    implementation 'com.android.support:cardview-v7:28+'
+    implementation 'com.android.support:support-v4:26+'
+    implementation 'com.android.support:appcompat-v7:26+'
+    implementation 'com.android.support:recyclerview-v7:26+'
+    implementation 'com.android.support:cardview-v7:26+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     //编译插件库
     implementation project(':ntalkerChatUI')
@@ -370,7 +379,7 @@ dependencies {
     implementation 'com.bigkoo:convenientbanner:2.0.5'
     implementation 'com.orhanobut:logger:1.15'
     implementation 'com.google.android:flexbox:0.2.6'
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.3.1@jar'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     implementation 'com.blankj:utilcode:1.3.6'
 
@@ -454,4 +463,5 @@ dependencies {
 
     implementation 'junit:junit:4.12'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
 }

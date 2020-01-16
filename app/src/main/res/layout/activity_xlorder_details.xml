@@ -112,14 +112,91 @@
                         android:textColor="#ffffffff"
                         android:textSize="@dimen/sp_17" />
 
-                    <TextView
-                        android:id="@+id/tv_status_time"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_5"
-                        android:text="订单将在9天23小时后自动完成"
-                        android:textColor="#ffffffff"
-                        android:textSize="@dimen/sp_12" />
+                        android:layout_marginTop="@dimen/dp_5">
+
+                        <TextView
+                            android:id="@+id/tv_status_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#ffffffff"
+                            android:textSize="@dimen/sp_12"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_count_down"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="剩余支付时间"
+                                android:textColor="#ffffffff"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_hour"
+                                android:layout_width="@dimen/dp_19"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:background="@drawable/product_price_tag_white_bg"
+                                android:gravity="center"
+                                android:textColor="#ff222222"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:text="时"
+                                android:textColor="#ffffffff"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_minute"
+                                android:layout_width="@dimen/dp_19"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:background="@drawable/product_price_tag_white_bg"
+                                android:gravity="center"
+                                android:textColor="#ff222222"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:text="分"
+                                android:textColor="#ffffffff"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/tv_second"
+                                android:layout_width="@dimen/dp_19"
+                                android:layout_height="@dimen/dp_16"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:background="@drawable/product_price_tag_white_bg"
+                                android:gravity="center"
+                                android:textColor="#ff222222"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_3"
+                                android:text="秒"
+                                android:textColor="#ffffffff"
+                                android:textSize="@dimen/sp_12" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 

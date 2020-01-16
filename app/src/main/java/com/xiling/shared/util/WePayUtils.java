@@ -5,6 +5,7 @@ import android.os.SystemClock;
 
 import com.blankj.utilcode.utils.ToastUtils;
 import com.xiling.MyApplication;
+import com.xiling.ddui.bean.WXPayBean;
 import com.xiling.shared.Constants;
 import com.google.common.base.Joiner;
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ import com.xiling.shared.service.contract.IPayService;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -106,6 +108,7 @@ public class WePayUtils {
         );
     }
 
+
     public static byte[] callMapToXML(Map map) {
         StringBuffer sb = new StringBuffer();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><bizdata>");
@@ -149,6 +152,24 @@ public class WePayUtils {
         }
     }
 
+
+    /**
+     * 调起微信支付
+     */
+    public static void startPay(WXPayBean wxPayBean) {
+        PayReq request = new PayReq();
+        request.appId = wxPayBean.appId;
+        request.partnerId = BuildConfig.WX_PARTNER_ID;
+        String prepayId = wxPayBean.packageValue.split("=")[1];
+        request.prepayId = prepayId;
+        request.packageValue =  "Sign=WXPay";
+        request.nonceStr = wxPayBean.nonceStr;
+        request.timeStamp =wxPayBean.timeStamp;
+        request.sign =wxPayBean.paySign;
+        mWxapi.sendReq(request);
+    }
+
+
     /**
      * 调起微信支付
      *
@@ -180,7 +201,6 @@ public class WePayUtils {
             ToastUtils.showShortToast(e.getMessage());
         }
     }
-
 
     private static HashMap<String, String> buildParamsToPay(long money, String orderNo, String notifyUrl) {
         HashMap<String, String> params = new HashMap<>(11);
@@ -220,4 +240,25 @@ public class WePayUtils {
         String str = Joiner.on("&").join(pieces);
         return StringUtil.md5(str).toUpperCase();
     }
+
+    public final static String getMessageDigest(byte[] buffer) {
+        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        try {
+            MessageDigest mdTemp = MessageDigest.getInstance("MD5");
+            mdTemp.update(buffer);
+            byte[] md = mdTemp.digest();
+            int j = md.length;
+            char str[] = new char[j * 2];
+            int k = 0;
+            for (int i = 0; i < j; i++) {
+                byte byte0 = md[i];
+                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+                str[k++] = hexDigits[byte0 & 0xf];
+            }
+            return new String(str);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

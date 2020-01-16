@@ -68,11 +68,11 @@ public class XLOrderDetailsBean implements Parcelable {
     private String payType;
     private double payMoney;
     private int balance;
-    private int waitPayTimeMilli;
+    private long waitPayTimeMilli;
     private List<DetailsBean> details;
 
-    public String getAddress(){
-        return  contactProvince+" "+contactCity+" "+contactDistrict;
+    public String getAddress() {
+        return contactProvince + " " + contactCity + " " + contactDistrict;
     }
 
     public String getOrderId() {
@@ -299,11 +299,11 @@ public class XLOrderDetailsBean implements Parcelable {
         this.balance = balance;
     }
 
-    public int getWaitPayTimeMilli() {
+    public long getWaitPayTimeMilli() {
         return waitPayTimeMilli;
     }
 
-    public void setWaitPayTimeMilli(int waitPayTimeMilli) {
+    public void setWaitPayTimeMilli(long waitPayTimeMilli) {
         this.waitPayTimeMilli = waitPayTimeMilli;
     }
 
@@ -351,7 +351,7 @@ public class XLOrderDetailsBean implements Parcelable {
         dest.writeString(this.payType);
         dest.writeDouble(this.payMoney);
         dest.writeInt(this.balance);
-        dest.writeInt(this.waitPayTimeMilli);
+        dest.writeLong(this.waitPayTimeMilli);
         dest.writeList(this.details);
     }
 
@@ -387,7 +387,7 @@ public class XLOrderDetailsBean implements Parcelable {
         this.payType = in.readString();
         this.payMoney = in.readDouble();
         this.balance = in.readInt();
-        this.waitPayTimeMilli = in.readInt();
+        this.waitPayTimeMilli = in.readLong();
         this.details = new ArrayList<DetailsBean>();
         in.readList(this.details, DetailsBean.class.getClassLoader());
     }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.callback.SelectCallback;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
 import com.xiling.ddui.tools.GlideEngine;
@@ -16,7 +15,6 @@ import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.util.ToastUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -64,7 +62,7 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, TransactionPasswordActivity.class));
                 break;
             case R.id.rel_bank_card://我的银行卡
-                startActivity(new Intent(context,MyBankCardActivity.class));
+                startActivity(new Intent(context, MyBankCardActivity.class));
                 break;
             case R.id.rel_about_us: //关于我们
                 break;
@@ -74,6 +72,7 @@ public class XLSettingActivity extends BaseActivity {
                 break;
         }
     }
+
 
     @Override
     protected boolean isNeedLogin() {

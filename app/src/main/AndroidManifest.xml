@@ -22,6 +22,11 @@
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+
+    <uses-feature android:name="android.hardware.nfc.hce" />
+
+    <uses-permission android:name="org.simalliance.openmobileap" />
 
     <application
         android:name=".MyApplication"
@@ -32,14 +37,8 @@
         android:largeHeap="true"
         android:persistent="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
-        <activity android:name=".ddui.activity.MyBankCardActivity"></activity>
-        <activity android:name=".ddui.activity.XLAddBankActivity" />
-        <activity android:name=".ddui.activity.XLCashierActivity" />
-        <activity android:name=".ddui.activity.XLOrderDetailsActivity" />
-        <activity android:name=".ddui.activity.OrderListActivit" />
-        <activity android:name=".ddui.activity.IdentificationInputActivity" />
-        <activity android:name=".ddui.activity.IdentificationUploadActivity" />
+        tools:replace="android:label,android:icon, android:theme">
+
         <activity
             android:name=".ddui.activity.CategorySecondActivity"
             android:launchMode="singleTask"
@@ -614,6 +613,39 @@
         <activity
             android:name=".ddui.activity.BrandActivity"
             android:screenOrientation="portrait" />
+
+        <uses-library
+            android:name="org.simalliance.openmobileapi"
+            android:required="false" />
+
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.unionpay.UPPayWapActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ddui.activity.UploadCredentalsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ddui.activity.MyBankCardActivity" />
+        <activity
+            android:name=".ddui.activity.XLAddBankActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ddui.activity.XLCashierActivity" />
+        <activity android:name=".ddui.activity.XLOrderDetailsActivity" />
+        <activity android:name=".ddui.activity.OrderListActivit" />
+        <activity android:name=".ddui.activity.IdentificationInputActivity" />
+        <activity android:name=".ddui.activity.IdentificationUploadActivity" />
+
     </application>
 
 </manifest>

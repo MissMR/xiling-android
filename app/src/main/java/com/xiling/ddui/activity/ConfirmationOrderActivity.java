@@ -40,6 +40,8 @@ import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -305,7 +307,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
     @OnClick({R.id.btn_address, R.id.switch_balance, R.id.btn_coupon, R.id.btn_send})
     public void onViewClicked(View view) {
-        ViewUtil.setViewClickedDelay(view, 500);
+        ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_address://更换地址
                 Intent intent = new Intent(this, AddressListActivity.class);
@@ -421,7 +423,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 super.onSuccess(result);
                 if (result.getOrderStatusUs().equals(ORDER_WAIT_PAY)) {
                     //如果是待支付，跳转收银台
-                    XLCashierActivity.jumpCashierActivity(context,result);
+                    XLCashierActivity.jumpCashierActivity(context, result);
                 } else {
                     //已支付，跳转订单详情
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);
@@ -495,5 +497,13 @@ public class ConfirmationOrderActivity extends BaseActivity {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(EventMessage message) {
+        switch (message.getEvent()) {
+            case FINISH_ORDER:
+                finish();
+                break;
+        }
+    }
 
 }
