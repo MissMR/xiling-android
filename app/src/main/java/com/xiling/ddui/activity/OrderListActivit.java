@@ -103,6 +103,7 @@ public class OrderListActivit extends BaseActivity {
         switch (message.getEvent()) {
             case CANCEL_ORDER: //订单关闭，刷新UI
             case ORDER_OVERTIME:  //订单超时，刷新UI
+            case ORDER_RECEIVED_GOODS://确认收货
                 refreshAllData();
                 break;
 

@@ -41,6 +41,9 @@ public class HtmlService {
      * <p>
      * func = 1 表示二级分类可以使用原生模式进入
      */
+    //查看物流
+    public static final String WEB_URL_EXPRESS = BuildConfig.BASE_URL + "logisticsDetail?expressCode=@expressCode&expressId=@expressId&xl_from=2";
+
     public static final String HOME_WEB = BuildConfig.H5_URL + "app_web/home?func=" + BuildConfig.H5_FUNC;
 
     //0元购的App内显示界面

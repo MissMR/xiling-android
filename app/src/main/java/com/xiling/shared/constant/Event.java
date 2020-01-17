@@ -48,5 +48,6 @@ public enum Event {
     ,FINISH_ORDER
     ,CANCEL_ORDER
     ,ORDER_OVERTIME
+    ,ORDER_RECEIVED_GOODS
 
 }

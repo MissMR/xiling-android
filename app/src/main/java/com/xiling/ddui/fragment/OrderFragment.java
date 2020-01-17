@@ -1,9 +1,11 @@
 package com.xiling.ddui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.xiling.ddui.adapter.MyOrderAdapter;
 import com.xiling.ddui.bean.MyOrderDetailBean;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
+import com.xiling.ddui.service.HtmlService;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -41,8 +45,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.xiling.ddui.service.HtmlService.WEB_URL_EXPRESS;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
+import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 
 /**
  * 我的订单
@@ -108,6 +114,11 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onSeeClickListerer(XLOrderDetailsBean recordsBean) {
                 //查看物流
+                String url = WEB_URL_EXPRESS.replace("@expressCode", recordsBean.getExpressCode());
+                url = url.replace("@expressId", recordsBean.getExpressId() + "");
+                startActivity(new Intent(getActivity(), WebViewActivity.class)
+                        .putExtra(Constants.Extras.WEB_URL, url)
+                );
             }
 
             @Override
@@ -262,7 +273,6 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             public void onSuccess(Object result) {
                 super.onSuccess(result);
                 EventBus.getDefault().post(new EventMessage(CANCEL_ORDER));
-                getOrderList();
             }
 
             @Override
@@ -306,7 +316,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
-                ToastUtil.success("已提醒");
+                EventBus.getDefault().post(new EventMessage(ORDER_RECEIVED_GOODS));
             }
 
             @Override

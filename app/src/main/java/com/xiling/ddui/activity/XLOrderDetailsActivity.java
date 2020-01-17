@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,6 +19,8 @@ import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.module.community.DateUtils;
+import com.xiling.module.page.WebViewActivity;
+import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
@@ -34,11 +37,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xiling.ddui.service.HtmlService.WEB_URL_EXPRESS;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 import static com.xiling.shared.constant.Event.ORDER_OVERTIME;
+import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 
 public class XLOrderDetailsActivity extends BaseActivity {
     public static final String ORDER_ID = "order_id";
@@ -305,6 +310,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_see:
+                //查看物流
+                String url = WEB_URL_EXPRESS.replace("@expressCode", orderDetailsBean.getExpressCode());
+                url = url.replace("@expressId", orderDetailsBean.getExpressId() + "");
+                startActivity(new Intent(this, WebViewActivity.class)
+                        .putExtra(Constants.Extras.WEB_URL, url)
+                );
                 break;
             case R.id.btn_confirm:
                 confirmReceived(orderId);
@@ -331,7 +342,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
-                ToastUtil.success("已提醒");
+                EventBus.getDefault().post(new EventMessage(ORDER_RECEIVED_GOODS));
+                finish();
             }
 
             @Override

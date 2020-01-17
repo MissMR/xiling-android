@@ -150,7 +150,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
         getAccountInfo();
         getDefaultAddress();
-        // getConfirmOrder();
     }
 
     private void setAddress(AddressListBean.DatasBean address) {
@@ -315,7 +314,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 startActivityForResult(intent, 0);
                 break;
             case R.id.switch_balance: // 使用账户余额
-
                 if (!isBalance) {
                     //打开
                     //先校验是否有支付密码，如果没有跳转设置密码的界面
@@ -427,6 +425,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 } else {
                     //已支付，跳转订单详情
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);
+                    finish();
                 }
 
             }
