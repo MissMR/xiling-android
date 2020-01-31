@@ -22,6 +22,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.activity.OrderListActivit;
+import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLSettingActivity;
 import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -34,11 +35,16 @@ import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.OrderCount;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.ItemWithIcon;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.IOrderService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +110,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_xl_mine, null, false);
+        EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, view);
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mOrderService = ServiceManager.getInstance().createService(IOrderService.class);
@@ -277,6 +284,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
     }
 
@@ -285,7 +293,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed})
+    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -303,6 +311,10 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             case R.id.orider_closed:
                 jumpOrderList(ORDER_IS_RECEIVED);
                 break;
+            case R.id.ll_user_vip:
+            case R.id.rel_user_vip:
+                startActivity(new Intent(mContext, XLMemberCenterActivity.class));
+                break;
         }
     }
 
@@ -312,5 +324,20 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         startActivity(intent);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdata(EventMessage message) {
+        switch (message.getEvent()) {
+            case UPDATE_AVATAR:
+                GlideUtils.loadHead(mContext, avatarIv, (String) message.getData());
+                break;
+            case UPDATE_NICK:
+                tvName.setText((String)message.getData());
+                break;
+            case UPDATEE_PHONE:
+                tvPhone.setText((String)message.getData());
+                break;
+
+        }
+    }
 
 }

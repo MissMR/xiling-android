@@ -15,6 +15,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -134,11 +135,24 @@ public interface INewUserService {
     @GET("captcha/getMemberInfoChangeMsg")
     Observable<RequestResult<Object>> getMemberMsg(@Query("phone") String phone, @Query("token") String token, @Query("sendType") String sendType);
 
+
+    /**
+     * 获取验证码（更新手机号，设置交易密码，绑定银行卡使用）
+     */
+    @GET("captcha/getUpdatePhoneMsg")
+    Observable<RequestResult<Object>> getMemberMsgNewPhone(@Query("phone") String phone, @Query("token") String token, @Query("sendType") String sendType);
+
     /**
      * 校验验证码（更新手机号，设置交易密码）
      */
     @GET("captcha/checkOldPhone")
     Observable<RequestResult<Object>> checkMember(@Query("checkNumber") String checkNumber);
+
+    /**
+     * 校验验证码（更新手机号，设置交易密码）
+     */
+    @POST("userPhone/newPhoneBinding")
+    Observable<RequestResult<Object>> newPhoneBinding(@Query("phone") String phone,@Query("checkNumber") String checkNumber);
 
 
     /**
@@ -160,6 +174,30 @@ public interface INewUserService {
     @FormUrlEncoded
     @POST("auth/edit")
     Observable<RequestResult<Object>> editAuth(@FieldMap HashMap<String,String> body);
+
+    /**
+     * 修改头像
+     * @param imageUrl
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/changeHead")
+    Observable<RequestResult<Object>> updateAvatar(@Field("headImage") String imageUrl);
+
+    /**
+     * 修改昵称
+     * @param nickname
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/edit")
+    Observable<RequestResult<Object>> editNickname(@Field("nickName") String nickname);
+
+    /**
+     * 更新手机号-身份证验证
+     */
+    @GET("userPhone/getAuthentication")
+    Observable<RequestResult<Object>> getAuthentication(@Query("idCard")String idCard,@Query("token")String token);
 
 
 }

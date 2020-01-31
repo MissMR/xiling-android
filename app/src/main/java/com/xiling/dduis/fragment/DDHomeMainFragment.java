@@ -382,10 +382,17 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLogin(EventMessage message) {
-        if (message.getEvent().equals(Event.LOGIN_SUCCESS)) {
-            updateUserInfo();
-        } else if (message.getEvent().equals(Event.LOGIN_OUT)) {
-            updateUserInfo();
+        switch (message.getEvent()) {
+            case LOGIN_SUCCESS:
+            case LOGIN_OUT:
+                updateUserInfo();
+                break;
+            case UPDATE_AVATAR:
+                GlideUtils.loadHead(mContext,ivHeadIcon , (String) message.getData());
+                break;
+            case UPDATE_NICK:
+                btnLogin.setText((String)message.getData());
+                break;
         }
     }
 

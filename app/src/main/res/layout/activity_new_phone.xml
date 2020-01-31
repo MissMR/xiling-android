@@ -25,7 +25,7 @@
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/sp_12" />
 
-        <TextView
+        <EditText
             android:id="@+id/et_phone_number"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"

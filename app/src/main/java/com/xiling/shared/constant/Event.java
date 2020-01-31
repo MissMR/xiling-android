@@ -49,5 +49,7 @@ public enum Event {
     ,CANCEL_ORDER
     ,ORDER_OVERTIME
     ,ORDER_RECEIVED_GOODS
-
+    ,UPDATE_AVATAR
+    ,UPDATE_NICK
+    ,UPDATEE_PHONE
 }

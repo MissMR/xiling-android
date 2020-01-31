@@ -163,13 +163,13 @@ public class CashWithdrawSecurityActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_btn_forget_trade_password:
                 // 忘记交易密码
-                startActivity(new Intent(this, AccessCaptchaActivity.class)
-                        .putExtra(Constants.Extras.ROUTE, AccessCaptchaActivity.ROUTE_TRADE_PASSWORD));
+               /* startActivity(new Intent(this, AccessCaptchaActivity.class)
+                        .putExtra(Constants.Extras.ROUTE, AccessCaptchaActivity.ROUTE_TRADE_PASSWORD));*/
                 break;
             case R.id.tv_btn_forget_secret:
                 // 忘记安全问题
-                startActivity(new Intent(this, AccessCaptchaActivity.class)
-                        .putExtra(Constants.Extras.ROUTE, AccessCaptchaActivity.ROUTE_SECURITY_QUESTION));
+            /*    startActivity(new Intent(this, AccessCaptchaActivity.class)
+                        .putExtra(Constants.Extras.ROUTE, AccessCaptchaActivity.ROUTE_SECURITY_QUESTION));*/
                 break;
         }
     }

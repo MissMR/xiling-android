@@ -4,9 +4,11 @@ package com.xiling.shared.basic;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -14,9 +16,12 @@ import android.widget.FrameLayout;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.bean.event.MsgMain;
+import com.xiling.shared.constant.Event;
 import com.xiling.shared.util.SessionUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class BaseFragment extends Fragment {
 
@@ -35,6 +40,13 @@ public class BaseFragment extends Fragment {
         return this.title;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -50,7 +62,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("BaseFragment",getClass().getSimpleName());
+        Log.d("BaseFragment", getClass().getSimpleName());
     }
 
     public void setViewHeight(View view, int height) {
@@ -71,4 +83,5 @@ public class BaseFragment extends Fragment {
             }
         }
     }
+
 }

@@ -1,6 +1,5 @@
 package com.xiling.ddui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,34 +10,32 @@ import android.widget.TextView;
 
 import com.xiling.BuildConfig;
 import com.xiling.R;
-import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.CaptchaBtn;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
-import com.xiling.shared.service.contract.ICaptchaService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.StringUtil;
 import com.xiling.shared.util.ToastUtil;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * 修改手机号  获取当前手机号的验证码页面
- */
-public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.OnCountDownListener {
+import static com.xiling.shared.constant.Event.UPDATEE_PHONE;
+
+public class NewPhoneActivity extends BaseActivity implements CaptchaBtn.OnCountDownListener {
     INewUserService mUserService;
-    @BindView(R.id.tv_phone_number)
-    TextView tvPhoneNumber;
+    @BindView(R.id.et_phone_number)
+    TextView etPhoneNumber;
     @BindView(R.id.edit_mobile)
     EditText editMobile;
     @BindView(R.id.cb_captcha)
@@ -47,27 +44,22 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
     TextView cbCaptchaVoice;
     @BindView(R.id.tv_btn_next)
     Button btnOk;
-    private String mPhoneNumber;
+
+    private String phone, code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_access_captcha);
+        setContentView(R.layout.activity_new_phone);
         ButterKnife.bind(this);
-        setTitle("我的手机号");
+        setTitle("更换手机号");
         setLeftBlack();
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
-        initData();
         initView();
 
     }
 
-    private void initData() {
-        mPhoneNumber = UserManager.getInstance().getUser().getPhone();
-    }
-
     private void initView() {
-        tvPhoneNumber.setHint(mPhoneNumber);
         cbCaptcha.setOnCountDownListener(this);
         cbCaptcha.setOnCountDownListener(this);
         btnOk.setEnabled(false);
@@ -94,24 +86,35 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
 
     }
 
-    @OnClick({R.id.cb_captcha, R.id.cb_btn_captcha_voice, R.id.tv_btn_next, R.id.btn_no_use})
+    @OnClick({R.id.cb_captcha, R.id.cb_btn_captcha_voice, R.id.tv_btn_next})
     public void onViewClicked(View view) {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.cb_captcha:
                 cbCaptcha.start();
-                getMemberInfoChangeMsg(mPhoneNumber, "0");
+                phone = etPhoneNumber.getText().toString();
+                getMemberInfoChangeMsg(phone, "0");
                 break;
             case R.id.cb_btn_captcha_voice:
                 cbCaptcha.start();
                 cbCaptchaVoice.setVisibility(View.GONE);
-                getMemberInfoChangeMsg(mPhoneNumber, "1");
-                break;
-            case R.id.btn_no_use:
-                startActivity(new Intent(context,UpdatePhoneIdentityActivity.class));
+                phone = etPhoneNumber.getText().toString();
+                getMemberInfoChangeMsg(phone, "1");
                 break;
             case R.id.tv_btn_next:
-                checkMember(editMobile.getText().toString());
+                phone = etPhoneNumber.getText().toString();
+                code = editMobile.getText().toString();
+                if (!PhoneNumberUtil.checkPhoneNumber(phone)) {
+                    ToastUtil.error("请正确填写手机号");
+                    return;
+                }
+
+                if (code.length() != 4) {
+                    ToastUtil.error("请正确填写验证码");
+                    return;
+                }
+
+                checkMember(code);
                 break;
         }
     }
@@ -119,8 +122,8 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
 
     @Override
     public void onCountDownFinish(CaptchaBtn view) {
-        cbCaptchaVoice.setVisibility(View.VISIBLE);
         view.setText("重新获取");
+        cbCaptchaVoice.setVisibility(View.VISIBLE);
     }
 
 
@@ -132,7 +135,7 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
      */
     private void getMemberInfoChangeMsg(String phone, String sendType) {
         String token = StringUtil.md5(BuildConfig.TOKEN_SALT + phone);
-        APIManager.startRequest(mUserService.getMemberMsg(phone, token, sendType), new BaseRequestListener<Object>() {
+        APIManager.startRequest(mUserService.getMemberMsgNewPhone(phone, token, sendType), new BaseRequestListener<Object>() {
             @Override
             public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
@@ -147,15 +150,16 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
         });
     }
 
-    /**
-     * 校验验证码
-     */
-    private void checkMember(String code) {
-        APIManager.startRequest(mUserService.checkMember(code), new BaseRequestListener<Object>() {
+    private void bindNewPhone(final String phone, String code) {
+        APIManager.startRequest(mUserService.newPhoneBinding(phone, code), new BaseRequestListener<Object>() {
             @Override
             public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
-                startActivity(new Intent(context, NewPhoneActivity.class));
+                NewUserBean newUserBean = UserManager.getInstance().getUser();
+                newUserBean.setPhone(phone);
+                UserManager.getInstance().setUser(newUserBean);
+                EventBus.getDefault().post(new EventMessage(UPDATEE_PHONE, phone));
+                finish();
             }
 
             @Override
@@ -166,12 +170,23 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
         });
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpdata(EventMessage message) {
-        switch (message.getEvent()) {
-            case UPDATEE_PHONE:
-                finish();
-                break;
-        }
+
+    /**
+     * 校验验证码
+     */
+    private void checkMember(final String code) {
+        APIManager.startRequest(mUserService.checkMember(code), new BaseRequestListener<Object>() {
+            @Override
+            public void onSuccess(Object result, String message) {
+                super.onSuccess(result);
+                bindNewPhone(phone, code);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
     }
 }

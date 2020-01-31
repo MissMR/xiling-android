@@ -220,6 +220,7 @@
                     </LinearLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rel_user_vip"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
                         android:background="@drawable/bg_member_ship">

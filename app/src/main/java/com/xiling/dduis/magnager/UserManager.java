@@ -25,6 +25,7 @@ import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.ICaptchaService;
 import com.xiling.shared.util.SessionUtil;
 import com.xiling.shared.util.SharedPreferenceUtil;
+import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -197,6 +198,7 @@ public class UserManager {
                 @Override
                 public void onError(Throwable e) {
                     super.onError(e);
+                    ToastUtil.error(e.getMessage());
                     if (onCheckUserInfoLisense != null) {
                         onCheckUserInfoLisense.onCheckUserInfoFail();
                     }

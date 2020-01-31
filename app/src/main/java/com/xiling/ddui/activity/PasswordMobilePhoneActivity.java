@@ -55,24 +55,24 @@ public class PasswordMobilePhoneActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_get_mobile, R.id.tv_get_mobile_voice, R.id.btn_ok})
+    @OnClick({R.id.cb_captcha, R.id.cb_btn_captcha_voice, R.id.tv_btn_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_get_mobile:
+            case R.id.cb_captcha:
                 if (!PhoneNumberUtil.checkPhoneNumber(phone)) {
                     ToastUtil.error("请填写您的真实手机号码");
                 } else {
                     getMemberInfoChangeMsg(phone, "0");
                 }
                 break;
-            case R.id.tv_get_mobile_voice:
+            case R.id.cb_btn_captcha_voice:
                 if (!PhoneNumberUtil.checkPhoneNumber(phone)) {
                     ToastUtil.error("请填写您的真实手机号码");
                 } else {
                     getMemberInfoChangeMsg(phone, "1");
                 }
                 break;
-            case R.id.btn_ok:
+            case R.id.tv_btn_next:
                 code = editMobile.getText().toString();
                 if (!PhoneNumberUtil.checkPhoneNumber(phone)) {
                     ToastUtil.error("请填写您的真实手机号码");

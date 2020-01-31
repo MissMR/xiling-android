@@ -1,80 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     android:orientation="vertical"
-    tools:context="com.xiling.ddui.activity.AccessCaptchaActivity">
-
-    <TextView
-        android:id="@+id/tv_phone_number"
-        style="@style/TextView.SettingTopTip"
-        android:text="当前手机号码133****1111" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp">
-
-        <EditText
-            android:id="@+id/et_captcha"
-            style="@style/DDMEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:hint="请输入验证码"
-            android:inputType="number"
-            android:maxLength="4">
-
-            <requestFocus />
-        </EditText>
-
-        <com.xiling.shared.component.CaptchaBtn
-            android:id="@+id/cb_captcha"
-            style="@style/MyButton.DDMRed.Small"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="0dp"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:text="获取验证码"
-            android:textSize="12dp" />
-
-    </RelativeLayout>
+    tools:context=".ddui.activity.PasswordMobilePhoneActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
 
         <TextView
-            android:id="@+id/tv_btn_forget_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="原手机号不用了？"
-            android:textColor="@color/ddm_red"
-            android:textSize="@dimen/textSize_12" />
+            android:layout_marginTop="@dimen/dp_14"
+            android:text="安全起见，需要先进行验证"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_12" />
 
-        <com.xiling.shared.component.CaptchaBtn
-            android:id="@+id/cb_btn_captcha_voice"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_14"
+            android:background="@drawable/login_edittext_bg"
+            android:gravity="left|center_vertical"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingLeft="@dimen/dp_17"
+            android:textColor="@color/settings_key_text"
+            android:textColorHint="@color/color_99"
+            android:textSize="@dimen/sp_16" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#F5F5F5"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edit_mobile"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxLength="4"
+                android:background="@drawable/login_edittext_bg"
+                android:gravity="center_vertical"
+                android:hint="请输入验证码"
+                android:paddingLeft="@dimen/dp_17"
+                android:textColor="@color/settings_key_text" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="@dimen/dp_18"
+                android:layout_gravity="center_vertical"
+                android:background="#D2D2D2" />
+
+
+            <com.xiling.shared.component.CaptchaBtn
+                android:id="@+id/cb_captcha"
+                android:layout_width="@dimen/dp_92"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_13" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14">
 
-            android:text="获取语音验证码"
-            android:textColor="@color/ddm_red"
-            android:textSize="@dimen/textSize_12" />
+            <TextView
+                android:id="@+id/btn_no_use"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="该手机号已不再使用"
+                android:textColor="#ffaaaaaa"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/cb_btn_captcha_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="接收语音验证码"
+                android:textColor="#ffaaaaaa"
+                android:textSize="@dimen/sp_12"
+
+                />
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/tv_btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_26"
+            android:background="@drawable/bt_getcode_selector"
+            android:text="确 定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_btn_next"
-        style="@style/MyButton.DDMRed"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="40dp"
-        android:text="下一步" />
+
 </LinearLayout>

@@ -176,10 +176,10 @@ public class SecurityQuestionActivity extends BaseActivity {
 
     @OnClick({R.id.tv_btn_add_question, R.id.tv_btn_update_question})
     public void onViewClicked(View view) {
-        Intent intent = new Intent(this, AccessCaptchaActivity.class);
+      /*  Intent intent = new Intent(this, AccessCaptchaActivity.class);
         int route = mode == vModeQuestion ? AccessCaptchaActivity.ROUTE_SECURITY_QUESTION : AccessCaptchaActivity.ROUTE_TRADE_PASSWORD;
         intent.putExtra(Constants.Extras.ROUTE, route);
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     @Override

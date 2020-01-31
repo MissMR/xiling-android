@@ -13,7 +13,11 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -34,11 +38,7 @@ public class XLSettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("设置");
         setLeftBlack();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         if (UserManager.getInstance().isLogin()) {
             ivHead.setVisibility(View.VISIBLE);
             userBean = UserManager.getInstance().getUser();
@@ -46,12 +46,15 @@ public class XLSettingActivity extends BaseActivity {
         } else {
             ivHead.setVisibility(View.GONE);
         }
+
     }
+
 
     @OnClick({R.id.rel_personal_data, R.id.rel_real_name, R.id.rel_account, R.id.rel_password, R.id.rel_bank_card, R.id.rel_about_us, R.id.rel_clear_cache})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rel_personal_data://个人资料
+                startActivity(new Intent(context, PersonalDataActivity.class));
                 break;
             case R.id.rel_real_name://实名认证
                 startActivity(new Intent(context, RealAuthActivity.class));
@@ -69,6 +72,18 @@ public class XLSettingActivity extends BaseActivity {
             case R.id.rel_clear_cache://清除缓存
                 UserManager.getInstance().loginOut();
                 finish();
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdata(EventMessage message) {
+        switch (message.getEvent()) {
+            case LOGIN_OUT:
+                finish();
+                break;
+            case UPDATE_AVATAR:
+                GlideUtils.loadHead(this, ivHead, (String) message.getData());
                 break;
         }
     }
