@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.XLFinanceManangerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_116"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dp_20">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ "
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/tv_balace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="767291.12"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/dp_26" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="账户指数余额"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_16" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_detailed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_136"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="余额明细"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_arrow_right_gray" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btn_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_46"
+        android:background="#DCB982"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:text="充值"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+</RelativeLayout>

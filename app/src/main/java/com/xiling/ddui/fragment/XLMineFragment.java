@@ -22,6 +22,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.activity.OrderListActivit;
+import com.xiling.ddui.activity.XLCouponActivity;
+import com.xiling.ddui.activity.XLFinanceManangerActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLSettingActivity;
 import com.xiling.ddui.adapter.MineServiceAdapter;
@@ -130,6 +132,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
+        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "财务管理"));
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策"));
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心"));
@@ -146,6 +149,12 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                     case 0: // 管理地址
                         Intent intent = new Intent(mContext, AddressListActivity.class);
                         startActivity(intent);
+                        break;
+                    case 1://优惠券
+                        startActivity(new Intent(mContext, XLCouponActivity.class));
+                        break;
+                    case 2://财务管理
+                        startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
                         break;
                 }
             }

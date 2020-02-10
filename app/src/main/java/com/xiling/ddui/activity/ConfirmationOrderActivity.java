@@ -52,6 +52,7 @@ import butterknife.OnClick;
 
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
  * @author 逄涛
@@ -421,7 +422,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 super.onSuccess(result);
                 if (result.getOrderStatusUs().equals(ORDER_WAIT_PAY)) {
                     //如果是待支付，跳转收银台
-                    XLCashierActivity.jumpCashierActivity(context, result);
+                    XLCashierActivity.jumpCashierActivity(context,PAY_TYPE_ORDER, result.getPayMoney(),result.getWaitPayTimeMilli(),result.getOrderId());
                 } else {
                     //已支付，跳转订单详情
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);

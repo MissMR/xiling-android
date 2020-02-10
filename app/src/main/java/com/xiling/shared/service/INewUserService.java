@@ -1,6 +1,7 @@
 package com.xiling.shared.service;
 
 import com.xiling.ddui.bean.AccountInfo;
+import com.xiling.ddui.bean.AccountManagerBean;
 import com.xiling.ddui.bean.PlatformBean;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -199,5 +200,10 @@ public interface INewUserService {
     @GET("userPhone/getAuthentication")
     Observable<RequestResult<Object>> getAuthentication(@Query("idCard")String idCard,@Query("token")String token);
 
+    /**
+     * 账户列表
+     */
+    @GET("account/getList")
+    Observable<RequestResult<List<AccountManagerBean>>> getAcountList();
 
 }

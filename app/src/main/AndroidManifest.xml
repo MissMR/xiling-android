@@ -38,7 +38,11 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.NewPhoneActivity"></activity>
+        <activity android:name=".ddui.activity.BalanceDetailsActivity"></activity>
+        <activity android:name=".ddui.activity.XLFinanceManangerActivity" />
+        <activity android:name=".ddui.activity.XLCouponActivity" />
+        <activity android:name=".ddui.activity.XLAccountManagerActivity" />
+        <activity android:name=".ddui.activity.NewPhoneActivity" />
         <activity android:name=".ddui.activity.PersonalDataActivity" />
         <activity android:name=".ddui.activity.XLMemberCenterActivity" />
         <activity
@@ -646,7 +650,7 @@
         <activity android:name=".ddui.activity.OrderListActivit" />
         <activity android:name=".ddui.activity.IdentificationInputActivity" />
         <activity android:name=".ddui.activity.IdentificationUploadActivity" />
-        <activity android:name=".ddui.activity.UpdatePhoneIdentityActivity"/>
+        <activity android:name=".ddui.activity.UpdatePhoneIdentityActivity" />
     </application>
 
 </manifest>

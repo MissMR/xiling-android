@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,13 +77,14 @@ public class DateUtils {
      * 倒计时专用
      */
     public static void setCountDownTimeStrng(long time, TextView tvHour, TextView tvMinute, TextView tvSecond) {
-        String timeStr = timeStamp2Date(time, "HH:mm:ss");
-        if (!TextUtils.isEmpty(timeStr)) {
-            String[] times = timeStr.split(":");
-            tvHour.setText(times[0]);
-            tvMinute.setText(times[1]);
-            tvSecond.setText(times[2]);
-        }
+       long hours = time/1000/60/60;
+       long seconds = (time - (hours*60*60*1000))/1000/60;
+       long min = (time - (hours*60*60*1000)-(seconds*60*1000))/1000;
+        DecimalFormat decimalFormat =new DecimalFormat("00");
+        tvHour.setText( decimalFormat.format(hours));
+        tvMinute.setText(decimalFormat.format(seconds));
+        tvSecond.setText(decimalFormat.format(min));
+
     }
 
     /**

@@ -28,6 +28,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 
 /**
+ * @author  pt
  * 我的订单列表
  */
 public class OrderListActivit extends BaseActivity {

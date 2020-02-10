@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -61,7 +62,6 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
  */
 public class XLCashierActivity extends BaseActivity {
     public static final int ADD_BAND_CODE = 1000;
-    public static final String ORDER_DETAILS = "orderDetails";
     private IBankService mBankService;
     private IPayService mPayService;
 
@@ -76,7 +76,6 @@ public class XLCashierActivity extends BaseActivity {
     @BindView(R.id.tv_price_decimal)
     TextView tvPriceDecimal;
 
-    XLOrderDetailsBean orderDetailsBean;
     @BindView(R.id.recycler_bank)
     RecyclerView recyclerBank;
     XLBankPayAdapter bankAdapter;
@@ -85,10 +84,18 @@ public class XLCashierActivity extends BaseActivity {
     TextView btnPay;
     BankListBean mBankBean;
     LargePayDialog largePayDialog;
+    double payMoney = 0; //支付金额
+    long waitPayTimeMilli = 0;
+    String key = "";
+    String type;
 
-    public static void jumpCashierActivity(Context context, XLOrderDetailsBean orderDetailsBean) {
+    public static void jumpCashierActivity(Context context,String type, double payMoney, long waitPayTimeMilli,String key) {
         Intent intent = new Intent(context, XLCashierActivity.class);
-        intent.putExtra(ORDER_DETAILS, orderDetailsBean);
+        intent.putExtra("type", type);
+        intent.putExtra("payMoney", payMoney);
+        intent.putExtra("waitPayTimeMilli", waitPayTimeMilli);
+        intent.putExtra("key",key);
+
         context.startActivity(intent);
     }
 
@@ -119,13 +126,15 @@ public class XLCashierActivity extends BaseActivity {
         mPayService = ServiceManager.getInstance().createService(IPayService.class);
 
         if (getIntent() != null) {
-            orderDetailsBean = getIntent().getParcelableExtra(ORDER_DETAILS);
+            type = getIntent().getStringExtra("type");
+            payMoney = getIntent().getDoubleExtra("payMoney", 0);
+            waitPayTimeMilli = getIntent().getLongExtra("waitPayTimeMilli", 0);
+            key = getIntent().getStringExtra("key");
         }
 
-        if (orderDetailsBean != null) {
-            NumberHandler.setPriceText(orderDetailsBean.getPayMoney(), tvPrice, tvPriceDecimal);
-            startCountDown();
-        }
+        NumberHandler.setPriceText(payMoney, tvPrice, tvPriceDecimal);
+        startCountDown();
+
         WePayUtils.initWePay();
         initBank();
         getBankList();
@@ -135,7 +144,7 @@ public class XLCashierActivity extends BaseActivity {
      * 启动倒计时
      */
     private void startCountDown() {
-        CountDownTimer countDownTimer = new CountDownTimer(orderDetailsBean.getWaitPayTimeMilli(), 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(waitPayTimeMilli, 1000) {
             @Override
             public void onTick(long l) {
                 DateUtils.setCountDownTimeStrng(l, tvHour, tvMinute, tvSecond);
@@ -170,7 +179,7 @@ public class XLCashierActivity extends BaseActivity {
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     bankAdapter.setSelectPosition(position);
                     mBankBean = bankListBeans.get(position);
-                    btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
+                    btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(payMoney));
                 }
             });
         }
@@ -189,9 +198,9 @@ public class XLCashierActivity extends BaseActivity {
                     bankListBeans.addAll(result);
                     bankAdapter.setSelectPosition(position);
                     mBankBean = bankListBeans.get(position);
-                    btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
+                    btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(payMoney));
                 } else {
-                    btnPay.setText(bankListBeans.get(0).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(orderDetailsBean.getPayMoney()));
+                    btnPay.setText(bankListBeans.get(0).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(payMoney));
                     mBankBean = bankListBeans.get(0);
                 }
             }
@@ -210,18 +219,18 @@ public class XLCashierActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_pay:
                 if (mBankBean.getBankName().equals("微信支付")) {
-                    addPay(orderDetailsBean.getOrderId(), CHANNEL_WE_CHAT_PAY);
+                    addPay(key, CHANNEL_WE_CHAT_PAY);
                 } else if (mBankBean.getBankName().equals("支付宝")) {
-                    addPay(orderDetailsBean.getOrderId(), CHANNEL_A_LI_PAY);
+                    addPay(key, CHANNEL_A_LI_PAY);
                 } else {
-                    addPay(orderDetailsBean.getOrderId(), CHANNEL_UNION_PAY);
+                    addPay(key, CHANNEL_UNION_PAY);
                 }
                 break;
             case R.id.btn_add_bank:
                 startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
                 break;
             case R.id.btn_pay_type:
-                largePayDialog = new LargePayDialog(context, orderDetailsBean.getOrderId());
+                largePayDialog = new LargePayDialog(context,type, key);
                 largePayDialog.show();
                 break;
         }
@@ -266,10 +275,10 @@ public class XLCashierActivity extends BaseActivity {
     /**
      * 创建流水单号
      */
-    private void addPay(String orderId, final String channel) {
+    private void addPay(String key, final String channel) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("key", orderId);
-        params.put("type", PAY_TYPE_ORDER);
+        params.put("key", key);
+        params.put("type", type);
         params.put("channel", channel);
         params.put("device", "ANDROID");
         if (channel.equals(CHANNEL_UNION_PAY)) {
@@ -286,7 +295,6 @@ public class XLCashierActivity extends BaseActivity {
                 super.onSuccess(result);
                 //获取流水单号进行支付
                 pay(result, channel);
-
             }
 
 

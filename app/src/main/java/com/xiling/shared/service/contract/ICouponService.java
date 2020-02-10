@@ -1,11 +1,13 @@
 package com.xiling.shared.service.contract;
 
 import com.xiling.ddui.bean.CouponBean;
+import com.xiling.ddui.bean.CouponListBean;
 import com.xiling.shared.bean.Coupon;
 import com.xiling.shared.bean.api.PaginationEntity;
 import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.bean.body.CalcOrderCouponListBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -15,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * @author JayChan <voidea@foxmail.com>
@@ -30,6 +33,15 @@ public interface ICouponService {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("order/effective-coupon")
     Observable<RequestResult<List<CouponBean>>> getCouponList(@Body RequestBody requestBody);
+
+
+    /**
+     * 优惠券-分页
+     * @return
+     */
+    @GET("coupon/page")
+    Observable<RequestResult<CouponListBean>> getCouponListPage(@Query("status") String status, @Query("pageOffset") String pageOffset, @Query("pageSize") String pageSize);
+
 
     @GET("coupon/getMemberCouponList")
     Observable<RequestResult<PaginationEntity<Coupon, Object>>> getMyCouponList(@Query("pageOffset") int page);

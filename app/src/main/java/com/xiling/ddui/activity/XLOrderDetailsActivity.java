@@ -44,6 +44,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 import static com.xiling.shared.constant.Event.ORDER_OVERTIME;
 import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 public class XLOrderDetailsActivity extends BaseActivity {
     public static final String ORDER_ID = "order_id";
@@ -327,7 +328,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 cancelOrder(orderId);
                 break;
             case R.id.btn_payment:
-                XLCashierActivity.jumpCashierActivity(context, orderDetailsBean);
+                XLCashierActivity.jumpCashierActivity(context,PAY_TYPE_ORDER, orderDetailsBean.getPayMoney(),orderDetailsBean.getWaitPayTimeMilli(),orderDetailsBean.getOrderId());
                 break;
         }
     }

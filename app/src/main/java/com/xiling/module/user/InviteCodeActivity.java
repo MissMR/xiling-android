@@ -157,6 +157,7 @@ public class InviteCodeActivity extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        ToastUtil.error(e.getMessage());
                     }
                 });
     }

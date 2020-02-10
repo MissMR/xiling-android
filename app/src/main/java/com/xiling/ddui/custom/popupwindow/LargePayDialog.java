@@ -26,7 +26,8 @@ public class LargePayDialog extends Dialog {
 
     Context mContext;
 
-    String orderId = "";
+    String key = "";
+    String type ="";
 
     public LargePayDialog(@NonNull Context context) {
         this(context, R.style.DDMDialog);
@@ -34,10 +35,11 @@ public class LargePayDialog extends Dialog {
     }
 
 
-    public LargePayDialog(@NonNull Context context, String orderId) {
+    public LargePayDialog(@NonNull Context context,String type, String key) {
         this(context, R.style.DDMDialog);
         mContext = context;
-        this.orderId = orderId;
+        this.type = type;
+        this.key = key;
     }
 
 
@@ -86,7 +88,8 @@ public class LargePayDialog extends Dialog {
                 break;
             case R.id.btn_submit:
                 Intent intent = new Intent(mContext, UploadCredentalsActivity.class);
-                intent.putExtra("orderId", orderId);
+                intent.putExtra("key", key);
+                intent.putExtra("type", type);
                 mContext.startActivity(intent);
                 dismiss();
                 break;

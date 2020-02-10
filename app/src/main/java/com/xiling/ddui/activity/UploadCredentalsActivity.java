@@ -70,7 +70,8 @@ public class UploadCredentalsActivity extends BaseActivity {
     @BindView(R.id.et_remarks)
     EditText etRemarks;
 
-    private String orderId;
+    private String key;
+    private String type;
 
     private String fullName, accountPay, remarks;
     private String payTime = "";
@@ -90,7 +91,8 @@ public class UploadCredentalsActivity extends BaseActivity {
 
     private void initView() {
         if (getIntent() != null) {
-            orderId = getIntent().getStringExtra("orderId");
+            key = getIntent().getStringExtra("key");
+            type= getIntent().getStringExtra("type");
         }
         etRemarks.addTextChangedListener(new TextWatcher() {
             @Override
@@ -154,8 +156,9 @@ public class UploadCredentalsActivity extends BaseActivity {
                 if (result) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context,orderId);
-
+                    if (key.equals(PAY_TYPE_ORDER)){
+                        XLOrderDetailsActivity.jumpOrderDetailsActivity(context,key);
+                    }
                 } else {
                     ToastUtil.error("上传失败");
                 }
@@ -173,10 +176,10 @@ public class UploadCredentalsActivity extends BaseActivity {
     /**
      * 创建流水单号
      */
-    private void addPay(String orderId) {
+    private void addPay(String key) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("key", orderId);
-        params.put("type", PAY_TYPE_ORDER);
+        params.put("key", key);
+        params.put("type", type);
         params.put("channel", CHANNEL_OFFLINE_PAY);
         params.put("device", "ANDROID");
 
@@ -225,7 +228,7 @@ public class UploadCredentalsActivity extends BaseActivity {
             return;
         }
 
-        addPay(orderId);
+        addPay(key);
 
     }
 

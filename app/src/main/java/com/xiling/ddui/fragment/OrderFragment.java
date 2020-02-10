@@ -49,6 +49,7 @@ import static com.xiling.ddui.service.HtmlService.WEB_URL_EXPRESS;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
  * 我的订单
@@ -142,7 +143,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onPaymentClickListerer(XLOrderDetailsBean recordsBean) {
                 //立即付款
-                XLCashierActivity.jumpCashierActivity(mContext, recordsBean);
+                XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_ORDER, recordsBean.getPayMoney(),recordsBean.getWaitPayTimeMilli(),recordsBean.getOrderId());
             }
 
             @Override

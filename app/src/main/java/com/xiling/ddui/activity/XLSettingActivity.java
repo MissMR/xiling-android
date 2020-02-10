@@ -60,6 +60,7 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, RealAuthActivity.class));
                 break;
             case R.id.rel_account://账户管理
+                startActivity(new Intent(context,XLAccountManagerActivity.class));
                 break;
             case R.id.rel_password://交易密码
                 startActivity(new Intent(context, TransactionPasswordActivity.class));
@@ -70,8 +71,7 @@ public class XLSettingActivity extends BaseActivity {
             case R.id.rel_about_us: //关于我们
                 break;
             case R.id.rel_clear_cache://清除缓存
-                UserManager.getInstance().loginOut();
-                finish();
+
                 break;
         }
     }

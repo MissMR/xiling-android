@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ddui.activity.XLAccountManagerActivity">
+
+    <TextView
+        android:id="@+id/btn_account_out"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_46"
+        android:background="@drawable/bg_round_dcb982_3"
+        android:gravity="center"
+        android:text="退出当前账户"
+        android:clickable="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/btn_account_add"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginBottom="@dimen/dp_106"
+        android:background="@drawable/btn_strok_password"
+        android:gravity="center"
+        android:text="添加账号"
+        android:textColor="#DCB982"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_account_out" />
+
+</RelativeLayout>
