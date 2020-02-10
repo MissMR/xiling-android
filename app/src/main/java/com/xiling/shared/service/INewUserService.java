@@ -2,6 +2,8 @@ package com.xiling.shared.service;
 
 import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AccountManagerBean;
+import com.xiling.ddui.bean.BalanceDetailsBean;
+import com.xiling.ddui.bean.BalanceTypeBean;
 import com.xiling.ddui.bean.PlatformBean;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -11,7 +13,6 @@ import com.xiling.shared.bean.api.RequestResult;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -205,5 +206,18 @@ public interface INewUserService {
      */
     @GET("account/getList")
     Observable<RequestResult<List<AccountManagerBean>>> getAcountList();
+
+
+    /**
+     * 获取余额分类
+     */
+    @GET("account/getBalanceType")
+    Observable<RequestResult<List<BalanceTypeBean>>> getBalanceType();
+
+    /**
+     * 获取余额明细列表
+     */
+    @GET("account/getBalanceDeteil")
+    Observable<RequestResult<BalanceDetailsBean>> getBalanceDeteil(@Query("pageOffset") int pageOffset, @Query("pageSize")int pageSize, @Query("balanceType")String balanceType);
 
 }

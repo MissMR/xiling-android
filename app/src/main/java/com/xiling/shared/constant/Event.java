@@ -52,4 +52,5 @@ public enum Event {
     ,UPDATE_AVATAR
     ,UPDATE_NICK
     ,UPDATEE_PHONE
+    ,RECHARGE_SUCCESS
 }

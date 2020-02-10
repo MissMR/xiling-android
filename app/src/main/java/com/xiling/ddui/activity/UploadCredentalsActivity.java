@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.blankj.utilcode.utils.KeyboardUtils;
@@ -47,9 +48,12 @@ import butterknife.OnClick;
 import static com.bigkoo.pickerview.TimePickerView.Type.HOURS_MINS;
 import static com.bigkoo.pickerview.TimePickerView.Type.YEAR_MONTH_DAY;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
+import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_OFFLINE_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MONEY;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
  * 大额支付，上传凭证
@@ -92,7 +96,7 @@ public class UploadCredentalsActivity extends BaseActivity {
     private void initView() {
         if (getIntent() != null) {
             key = getIntent().getStringExtra("key");
-            type= getIntent().getStringExtra("type");
+            type = getIntent().getStringExtra("type");
         }
         etRemarks.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,14 +157,15 @@ public class UploadCredentalsActivity extends BaseActivity {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
-                if (result) {
+                if (key.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                    if (key.equals(PAY_TYPE_ORDER)){
-                        XLOrderDetailsActivity.jumpOrderDetailsActivity(context,key);
-                    }
-                } else {
-                    ToastUtil.error("上传失败");
+                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                } else if (key.equals(PAY_TYPE_CHARGE_MONEY)) {
+                  //  EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
+                    ToastUtil.error("充值成功");
+                } else if (key.equals(PAY_TYPE_WEEK_CARD)) {
+                    ToastUtil.error("购买成功");
                 }
             }
 
@@ -212,7 +217,7 @@ public class UploadCredentalsActivity extends BaseActivity {
         }
 
         String accountPayError = PhoneNumberUtil.checkBankNumber(accountPay);
-        if (!TextUtils.isEmpty(accountPayError)){
+        if (!TextUtils.isEmpty(accountPayError)) {
             ToastUtil.error("请正确填写付款账号");
             return;
         }

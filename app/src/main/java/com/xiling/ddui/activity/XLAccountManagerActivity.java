@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.bean.AccountManagerBean;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
@@ -84,6 +85,7 @@ public class XLAccountManagerActivity extends BaseActivity {
 
     @OnClick({R.id.btn_account_out, R.id.btn_account_add})
     public void onViewClicked(View view) {
+        ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_account_out:
                 UserManager.getInstance().loginOut();

@@ -105,7 +105,7 @@ public class RechargeDialog extends Dialog {
                         return;
                     }
                     //跳转收银台
-                    XLCashierActivity.jumpCashierActivity(mContext,PAY_TYPE_CHARGE_MONEY,amount*100,45*60*1000,(int)(amount*100)+"");
+                    XLCashierActivity.jumpCashierActivity(mContext,PAY_TYPE_CHARGE_MONEY,amount,45*60*1000,(int)(amount*100)+"");
 
 
                 }catch (Exception e){

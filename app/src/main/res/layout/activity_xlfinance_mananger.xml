@@ -31,7 +31,6 @@
                 android:id="@+id/tv_balace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="767291.12"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/dp_26" />
 

@@ -12,7 +12,7 @@ public class AccountInfo {
      */
 
     private int id;
-    private int balance;
+    private double balance;
     private int balanceGrow;
     private int incomeTotal;
     private double growValue;
@@ -26,7 +26,7 @@ public class AccountInfo {
         this.id = id;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
