@@ -1,5 +1,6 @@
 package com.xiling.shared.service.contract;
 
+import com.xiling.ddui.bean.CustomerOrderBean;
 import com.xiling.ddui.bean.ListResultBean;
 import com.xiling.ddui.bean.MyOrderDetailBean;
 import com.xiling.ddui.bean.OrderAddBean;
@@ -260,5 +261,9 @@ public interface IOrderService {
     // 获取订单状态
     @GET("order/getOrderStatus")
     Observable<RequestResult<OrderPayStatusBean>> getOrderStatus(@Query("orderCode") String orderCode);
+
+    //客户订单列表
+    @GET("client/client-order-list")
+    Observable<RequestResult<CustomerOrderBean>> getClientOrderList(@Query("pageOffset") int pageOffset, @Query("pageSize") int pageSize, @Query("isSettlement") String isSettlement);
 
 }

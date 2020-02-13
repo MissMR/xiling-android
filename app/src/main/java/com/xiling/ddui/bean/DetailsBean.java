@@ -20,8 +20,8 @@ public  class DetailsBean implements Parcelable {
     private String skuName;
     private String productImage;
     private String productSpecification;
-    private int price;
-    private int retailPrice;
+    private double price;
+    private double retailPrice;
     private String skuId;
     private String skuCode;
     private int quantity;
@@ -58,19 +58,19 @@ public  class DetailsBean implements Parcelable {
         this.productSpecification = productSpecification;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getRetailPrice() {
+    public double getRetailPrice() {
         return retailPrice;
     }
 
-    public void setRetailPrice(int retailPrice) {
+    public void setRetailPrice(double retailPrice) {
         this.retailPrice = retailPrice;
     }
 
@@ -98,6 +98,11 @@ public  class DetailsBean implements Parcelable {
         this.quantity = quantity;
     }
 
+
+    public DetailsBean() {
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -109,14 +114,11 @@ public  class DetailsBean implements Parcelable {
         dest.writeString(this.skuName);
         dest.writeString(this.productImage);
         dest.writeString(this.productSpecification);
-        dest.writeInt(this.price);
-        dest.writeInt(this.retailPrice);
+        dest.writeDouble(this.price);
+        dest.writeDouble(this.retailPrice);
         dest.writeString(this.skuId);
         dest.writeString(this.skuCode);
         dest.writeInt(this.quantity);
-    }
-
-    public DetailsBean() {
     }
 
     protected DetailsBean(Parcel in) {
@@ -124,14 +126,14 @@ public  class DetailsBean implements Parcelable {
         this.skuName = in.readString();
         this.productImage = in.readString();
         this.productSpecification = in.readString();
-        this.price = in.readInt();
-        this.retailPrice = in.readInt();
+        this.price = in.readDouble();
+        this.retailPrice = in.readDouble();
         this.skuId = in.readString();
         this.skuCode = in.readString();
         this.quantity = in.readInt();
     }
 
-    public static final Parcelable.Creator<DetailsBean> CREATOR = new Parcelable.Creator<DetailsBean>() {
+    public static final Creator<DetailsBean> CREATOR = new Creator<DetailsBean>() {
         @Override
         public DetailsBean createFromParcel(Parcel source) {
             return new DetailsBean(source);

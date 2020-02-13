@@ -69,7 +69,9 @@ public class XLOrderDetailsBean implements Parcelable {
     private double payMoney;
     private int balance;
     private long waitPayTimeMilli;
+    private double receiptsIndices;
     private List<DetailsBean> details;
+    private String storeName;
 
     public String getAddress() {
         return contactProvince + " " + contactCity + " " + contactDistrict;
@@ -353,6 +355,7 @@ public class XLOrderDetailsBean implements Parcelable {
         dest.writeInt(this.balance);
         dest.writeLong(this.waitPayTimeMilli);
         dest.writeList(this.details);
+        dest.writeDouble(this.receiptsIndices);
     }
 
     public XLOrderDetailsBean() {
@@ -361,6 +364,7 @@ public class XLOrderDetailsBean implements Parcelable {
     protected XLOrderDetailsBean(Parcel in) {
         this.orderId = in.readString();
         this.orderCode = in.readString();
+        this.receiptsIndices = in.readDouble();
         this.orderStatus = in.readString();
         this.orderStatusUs = in.readString();
         this.totalQuantity = in.readInt();
@@ -403,4 +407,20 @@ public class XLOrderDetailsBean implements Parcelable {
             return new XLOrderDetailsBean[size];
         }
     };
+
+    public double getReceiptsIndices() {
+        return receiptsIndices;
+    }
+
+    public void setReceiptsIndices(double receiptsIndices) {
+        this.receiptsIndices = receiptsIndices;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 }

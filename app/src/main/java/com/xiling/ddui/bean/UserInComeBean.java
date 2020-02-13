@@ -1,9 +1,12 @@
 package com.xiling.ddui.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 个人资产
  */
-public class UserInComeBean {
+public class UserInComeBean implements Parcelable {
     /**
      * memberId : 123qweasdzxc
      * roleId : 3
@@ -107,4 +110,51 @@ public class UserInComeBean {
     public void setBalanceGrow(double balanceGrow) {
         this.balanceGrow = balanceGrow;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.memberId);
+        dest.writeInt(this.roleId);
+        dest.writeString(this.inviteCode);
+        dest.writeString(this.headImage);
+        dest.writeString(this.nickName);
+        dest.writeString(this.phone);
+        dest.writeDouble(this.incomeDay);
+        dest.writeDouble(this.incomeMonth);
+        dest.writeDouble(this.incomeTotal);
+        dest.writeDouble(this.balanceGrow);
+    }
+
+    public UserInComeBean() {
+    }
+
+    protected UserInComeBean(Parcel in) {
+        this.memberId = in.readString();
+        this.roleId = in.readInt();
+        this.inviteCode = in.readString();
+        this.headImage = in.readString();
+        this.nickName = in.readString();
+        this.phone = in.readString();
+        this.incomeDay = in.readDouble();
+        this.incomeMonth = in.readDouble();
+        this.incomeTotal = in.readDouble();
+        this.balanceGrow = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<UserInComeBean> CREATOR = new Parcelable.Creator<UserInComeBean>() {
+        @Override
+        public UserInComeBean createFromParcel(Parcel source) {
+            return new UserInComeBean(source);
+        }
+
+        @Override
+        public UserInComeBean[] newArray(int size) {
+            return new UserInComeBean[size];
+        }
+    };
 }

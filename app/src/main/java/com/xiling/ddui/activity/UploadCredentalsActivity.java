@@ -157,14 +157,14 @@ public class UploadCredentalsActivity extends BaseActivity {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
-                if (key.equals(PAY_TYPE_ORDER)) {
+                if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
-                } else if (key.equals(PAY_TYPE_CHARGE_MONEY)) {
-                  //  EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
+                } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
+                    EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
                     ToastUtil.error("充值成功");
-                } else if (key.equals(PAY_TYPE_WEEK_CARD)) {
+                } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
                     ToastUtil.error("购买成功");
                 }
             }
@@ -278,6 +278,7 @@ public class UploadCredentalsActivity extends BaseActivity {
     public void updateData(EventMessage message) {
         switch (message.getEvent()) {
             case FINISH_ORDER:
+            case RECHARGE_SUCCESS:
                 finish();
                 break;
         }

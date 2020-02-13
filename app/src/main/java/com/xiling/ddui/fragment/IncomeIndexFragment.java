@@ -12,7 +12,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.adapter.BalanceAdapter;
 import com.xiling.ddui.bean.BalanceDetailsBean;
@@ -38,7 +37,7 @@ import static com.xiling.shared.Constants.PAGE_SIZE;
  * pt
  * 余额分类
  */
-public class BalanceDetailsFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class IncomeIndexFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
     INewUserService iNewUserService;
     String balanceType = "";
 
@@ -56,8 +55,8 @@ public class BalanceDetailsFragment extends BaseFragment implements OnRefreshLis
     List<BalanceDetailsBean.DataBean> dataBeanList = new ArrayList<>();
     BalanceAdapter balanceAdapter;
 
-    public static BalanceDetailsFragment newInstance(String balanceType) {
-        BalanceDetailsFragment fragment = new BalanceDetailsFragment();
+    public static IncomeIndexFragment newInstance(String balanceType) {
+        IncomeIndexFragment fragment = new IncomeIndexFragment();
         Bundle args = new Bundle();
         args.putString("balanceType", balanceType);
         fragment.setArguments(args);
@@ -83,12 +82,16 @@ public class BalanceDetailsFragment extends BaseFragment implements OnRefreshLis
             balanceType = getArguments().getString("balanceType");
         }
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
-        noDataLayout.setTextView("您暂时没有余额明细");
+        noDataLayout.setTextView("您暂时没有当前数据");
         balanceAdapter = new BalanceAdapter();
         recyclerOrder.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerOrder.setAdapter(balanceAdapter);
         recyclerOrder.addItemDecoration(new SpacesItemDecoration(0, 1));
-        getBalanceDeteil();
+        if (balanceType.equals("收益")){
+            getBalanceDeteil();
+        }else{
+            noDataLayout.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }
@@ -97,7 +100,7 @@ public class BalanceDetailsFragment extends BaseFragment implements OnRefreshLis
         if (!isAdded()) {
             return;
         }
-        APIManager.startRequest(iNewUserService.getBalanceDeteil(pageOffset, pageSize, balanceType), new BaseRequestListener<BalanceDetailsBean>() {
+        APIManager.startRequest(iNewUserService.getIncomeList(pageOffset, pageSize), new BaseRequestListener<BalanceDetailsBean>() {
             @Override
             public void onSuccess(BalanceDetailsBean result) {
                 super.onSuccess(result);

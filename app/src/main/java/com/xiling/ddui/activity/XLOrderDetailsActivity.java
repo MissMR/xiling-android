@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -46,6 +45,10 @@ import static com.xiling.shared.constant.Event.ORDER_OVERTIME;
 import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
+/**
+ * pt
+ * 订单详情
+ */
 public class XLOrderDetailsActivity extends BaseActivity {
     public static final String ORDER_ID = "order_id";
     @BindView(R.id.tv_status_title)
@@ -100,6 +103,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView tvSecond;
     @BindView(R.id.ll_count_down)
     LinearLayout llCountDown;
+    @BindView(R.id.tv_warehouse_name)
+    TextView tvWarehouseName;
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -139,6 +144,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
             public void onSuccess(XLOrderDetailsBean result) {
                 super.onSuccess(result);
                 orderDetailsBean = result;
+                tvWarehouseName.setText(orderDetailsBean.getStoreName());
                 setStatus(result.getOrderStatusUs(), result);
                 tvContactName.setText(result.getContactUsername());
                 tvContactAddress.setText(result.getAddress());
@@ -328,7 +334,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 cancelOrder(orderId);
                 break;
             case R.id.btn_payment:
-                XLCashierActivity.jumpCashierActivity(context,PAY_TYPE_ORDER, orderDetailsBean.getPayMoney(),orderDetailsBean.getWaitPayTimeMilli(),orderDetailsBean.getOrderId());
+                XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, orderDetailsBean.getPayMoney(), orderDetailsBean.getWaitPayTimeMilli(), orderDetailsBean.getOrderId());
                 break;
         }
     }

@@ -21,6 +21,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
+import com.xiling.ddui.activity.CustomerOrderActivity;
+import com.xiling.ddui.activity.IncomeIndexActivity;
 import com.xiling.ddui.activity.OrderListActivit;
 import com.xiling.ddui.activity.XLCouponActivity;
 import com.xiling.ddui.activity.XLFinanceManangerActivity;
@@ -63,7 +65,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 个人中心
  */
 public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
@@ -108,6 +110,8 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @BindView(R.id.orider_closed)
     ItemWithIcon oriderClosed;
 
+    UserInComeBean userInComeBean;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -129,6 +133,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         recyclerService.setLayoutManager(new GridLayoutManager(mContext, 4));
         serviceAdapter = new MineServiceAdapter();
         recyclerService.setAdapter(serviceAdapter);
+
 
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
         serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
@@ -250,6 +255,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             public void onSuccess(UserInComeBean result) {
                 super.onSuccess(result);
                 if (result != null) {
+                    userInComeBean = result;
                     tvIncomeDay.setText(NumberHandler.reservedDecimalFor2(result.getIncomeDay()));
                     tvIncomeMonth.setText(NumberHandler.reservedDecimalFor2(result.getIncomeMonth()));
                     tvIncomeTotal.setText(NumberHandler.reservedDecimalFor2(result.getIncomeTotal()));
@@ -302,7 +308,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip})
+    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip,R.id.ll_custom})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -321,8 +327,19 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                 jumpOrderList(ORDER_IS_RECEIVED);
                 break;
             case R.id.ll_user_vip:
+                if (userInComeBean != null){
+                    Intent intent = new Intent(mContext,IncomeIndexActivity.class);
+                    intent.putExtra("userInComeBean",userInComeBean);
+                    startActivity(intent);
+                }
+
+                break;
             case R.id.rel_user_vip:
                 startActivity(new Intent(mContext, XLMemberCenterActivity.class));
+                break;
+            case R.id.ll_custom:
+                //客户订单
+                startActivity(new Intent(mContext, CustomerOrderActivity.class));
                 break;
         }
     }

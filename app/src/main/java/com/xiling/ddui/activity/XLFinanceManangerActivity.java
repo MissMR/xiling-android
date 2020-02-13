@@ -57,7 +57,7 @@ public class XLFinanceManangerActivity extends BaseActivity {
             public void onSuccess(AccountInfo result) {
                 super.onSuccess(result);
                 if (result != null) {
-                    tvBalace.setText(NumberHandler.reservedDecimalFor2(result.getBalance()));
+                    tvBalace.setText(NumberHandler.reservedDecimalFor2(result.getBalance()/100));
                 }
             }
 

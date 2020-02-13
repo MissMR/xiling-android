@@ -220,4 +220,11 @@ public interface INewUserService {
     @GET("account/getBalanceDeteil")
     Observable<RequestResult<BalanceDetailsBean>> getBalanceDeteil(@Query("pageOffset") int pageOffset, @Query("pageSize")int pageSize, @Query("balanceType")String balanceType);
 
+
+    /**
+     * 收益指数列表
+     */
+    @GET("income/page-list")
+    Observable<RequestResult<BalanceDetailsBean>> getIncomeList(@Query("pageOffset") int pageOffset, @Query("pageSize")int pageSize);
+
 }

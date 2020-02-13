@@ -55,7 +55,6 @@ import butterknife.OnClick;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_WE_CHAT_PAY;
-import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
  * 收银台
@@ -361,6 +360,7 @@ public class XLCashierActivity extends BaseActivity {
     public void updateData(EventMessage message) {
         switch (message.getEvent()) {
             case FINISH_ORDER:
+            case RECHARGE_SUCCESS:
                 finish();
                 break;
         }

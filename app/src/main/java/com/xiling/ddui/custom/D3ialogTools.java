@@ -56,6 +56,16 @@ public class D3ialogTools {
         dialog.show();
     }
 
+    public static void showSingleAlertDialog(Context context,String title,String message,String btnName, View.OnClickListener okClickListener){
+        Dialog dialog = new SingleAlertDialog(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setOnClickListener(btnName,okClickListener);
+
+        dialog.show();
+
+    }
+
 
     public static void showAlertDialog(Context context, String message, String posBtn, View.OnClickListener posClickListener,String negBtn,View.OnClickListener negListener){
         Dialog dialog = new DDMDialog(context)

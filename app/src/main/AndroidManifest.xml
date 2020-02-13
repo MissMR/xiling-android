@@ -38,7 +38,10 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.BalanceDetailsActivity"></activity>
+        <activity android:name=".ddui.activity.CustomerOrderDetailsActivity"></activity>
+        <activity android:name=".ddui.activity.CustomerOrderActivity" />
+        <activity android:name=".ddui.activity.IncomeIndexActivity" />
+        <activity android:name=".ddui.activity.BalanceDetailsActivity" />
         <activity android:name=".ddui.activity.XLFinanceManangerActivity" />
         <activity android:name=".ddui.activity.XLCouponActivity" />
         <activity android:name=".ddui.activity.XLAccountManagerActivity" />
