@@ -23,6 +23,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.activity.CustomerOrderActivity;
 import com.xiling.ddui.activity.IncomeIndexActivity;
+import com.xiling.ddui.activity.MyClientActivity;
 import com.xiling.ddui.activity.OrderListActivit;
 import com.xiling.ddui.activity.XLCouponActivity;
 import com.xiling.ddui.activity.XLFinanceManangerActivity;
@@ -308,7 +309,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip,R.id.ll_custom})
+    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip,R.id.ll_custom,R.id.btn_my_client})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -340,6 +341,10 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             case R.id.ll_custom:
                 //客户订单
                 startActivity(new Intent(mContext, CustomerOrderActivity.class));
+                break;
+            case R.id.btn_my_client:
+                //我的客户
+                startActivity(new Intent(mContext, MyClientActivity.class));
                 break;
         }
     }

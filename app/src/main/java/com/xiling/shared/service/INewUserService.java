@@ -4,6 +4,7 @@ import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AccountManagerBean;
 import com.xiling.ddui.bean.BalanceDetailsBean;
 import com.xiling.ddui.bean.BalanceTypeBean;
+import com.xiling.ddui.bean.MyClientListBean;
 import com.xiling.ddui.bean.PlatformBean;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -227,4 +228,19 @@ public interface INewUserService {
     @GET("income/page-list")
     Observable<RequestResult<BalanceDetailsBean>> getIncomeList(@Query("pageOffset") int pageOffset, @Query("pageSize")int pageSize);
 
+
+    /**
+     * 我的客户列表
+     * 会员级别 : 1-普通,2-金牌,3-钻石
+     */
+    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @POST("user/customer/getCustomerList")
+    Observable<RequestResult<MyClientListBean>> getCustomerList(@Body RequestBody body);
+
+
+    /**
+     * 获取我下属会员数量
+     */
+    @POST("user/customer/getCustomerCount")
+    Observable<RequestResult<Integer>> getCustomerCount(@Query("customerType") String customerType);
 }
