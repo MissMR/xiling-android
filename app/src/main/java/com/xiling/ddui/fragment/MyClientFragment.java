@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -17,6 +18,7 @@ import com.xiling.R;
 import com.xiling.ddui.adapter.ClientAdapter;
 import com.xiling.ddui.bean.CustomerOrderBean;
 import com.xiling.ddui.bean.MyClientListBean;
+import com.xiling.ddui.custom.MyClientDetailsDialog;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.component.NoData;
@@ -24,6 +26,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,8 +58,8 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
     RecyclerView recyclerOrder;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
-
     ClientAdapter clientAdapter;
+    List<MyClientListBean.DataBean> list = new ArrayList<>();
 
     public static MyClientFragment newInstance(String type, String searchString) {
         MyClientFragment fragment = new MyClientFragment();
@@ -92,9 +95,16 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
         clientAdapter = new ClientAdapter();
         recyclerOrder.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerOrder.setAdapter(clientAdapter);
-
-        getCustomerList();
-
+        clientAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                MyClientDetailsDialog detailsDialog = new MyClientDetailsDialog(mContext, list.get(position));
+                detailsDialog.show();
+            }
+        });
+        if (!TextUtils.isEmpty(type)) {
+            getCustomerList(type, searchString);
+        }
         return view;
     }
 
@@ -107,19 +117,23 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
     /**
      * 获取客户订单列表
      */
-    public void getCustomerList() {
+    public void getCustomerList(String type, String searchString) {
 
         if (!isAdded()) {
             return;
         }
 
-        HashMap<String,String> map = new HashMap<>();
-        if (!TextUtils.isEmpty(type)){
-            map.put("customerType",type);
-            map.put("pageOffset",pageOffset+"");
-            map.put("pageSize",pageSize+"");
+        HashMap<String, String> map = new HashMap<>();
+        if (!TextUtils.isEmpty(type)) {
+            map.put("customerType", type);
+
+        }
+        if (!TextUtils.isEmpty(searchString)) {
+            map.put("keyWord", searchString);
         }
 
+        map.put("pageOffset", pageOffset + "");
+        map.put("pageSize", pageSize + "");
         APIManager.startRequest(iNewUserService.getCustomerList(APIManager.buildJsonBody(map)), new BaseRequestListener<MyClientListBean>() {
             @Override
             public void onSuccess(MyClientListBean result) {
@@ -138,15 +152,21 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
                         }
 
                         if (pageOffset == 1) {
-                            List<MyClientListBean.DataBean> list = result.getDatas();
+                            list = result.getDatas();
 
-                            for (int i = 0;i<3;i++){
+                            /**
+                             * 测试数据
+                             */
+                           /* for (int i = 0; i < 3; i++) {
                                 MyClientListBean.DataBean dataBean = new MyClientListBean.DataBean();
                                 dataBean.setMemberName("打开好物");
                                 dataBean.setMonthlyConsumption(412.12345);
+                                dataBean.setRoleName("普通用户");
+                                dataBean.setLevel1Count("1");
+                                dataBean.setLevel2Count("2");
+                                dataBean.setLevel3Count("3");
                                 list.add(dataBean);
-                            }
-
+                            }*/
 
 
                             clientAdapter.setNewData(list);
@@ -160,6 +180,7 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
 
 
                         } else {
+                            list.addAll(result.getDatas());
                             clientAdapter.addData(result.getDatas());
                         }
                     }

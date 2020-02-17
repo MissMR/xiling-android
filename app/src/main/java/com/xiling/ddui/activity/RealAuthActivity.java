@@ -61,7 +61,7 @@ public class RealAuthActivity extends BaseActivity {
     }
 
     /**
-     * 校验有没有密码
+     * 获取实名认证信息
      */
     private void getAuth() {
         APIManager.startRequest(mUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
@@ -96,8 +96,6 @@ public class RealAuthActivity extends BaseActivity {
                         btnSet.setText("重新提交实名认证");
                         break;
                 }
-
-
             }
 
             @Override

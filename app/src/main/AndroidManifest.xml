@@ -38,7 +38,8 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.MyClientActivity"></activity>
+        <activity android:name=".ddui.activity.SearchMyClientActivity"></activity>
+        <activity android:name=".ddui.activity.MyClientActivity" />
         <activity android:name=".ddui.activity.CustomerOrderDetailsActivity" />
         <activity android:name=".ddui.activity.CustomerOrderActivity" />
         <activity android:name=".ddui.activity.IncomeIndexActivity" />

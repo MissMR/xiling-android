@@ -13,9 +13,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
             android:focusable="true"
-            >
+            android:focusableInTouchMode="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -233,8 +232,7 @@
                             android:layout_height="@dimen/dp_18"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_12"
-                            android:background="@drawable/icon_vip"
-                           />
+                            android:background="@drawable/icon_vip" />
 
                         <ImageView
                             android:layout_width="@dimen/dp_66"
@@ -414,8 +412,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_customer_order"
                     android:orientation="vertical"
-                    android:paddingLeft="@dimen/dp_12"
-                    >
+                    android:paddingLeft="@dimen/dp_12">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -452,17 +449,20 @@
                     >
 
                     <ImageView
+                        android:id="@+id/btn_invite_friends"
                         android:layout_width="@dimen/dp_110"
                         android:layout_height="@dimen/dp_51"
                         android:background="@drawable/bg_invite_friends" />
 
                     <ImageView
+                        android:id="@+id/btn_my_housekeeper"
                         android:layout_width="@dimen/dp_110"
                         android:layout_height="@dimen/dp_51"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:background="@drawable/bg_my_housekeeper" />
 
                     <ImageView
+                        android:id="@+id/btn_financial_management"
                         android:layout_width="@dimen/dp_110"
                         android:layout_height="@dimen/dp_51"
                         android:layout_marginLeft="@dimen/dp_10"
@@ -506,8 +506,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
                     android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginRight="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_12"
                     android:background="#F5F5F5" />
 
                 <android.support.v7.widget.RecyclerView
@@ -519,8 +519,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_117"
-                    android:background="#F5F5F5"
-                    >
+                    android:background="#F5F5F5">
 
                     <ImageView
                         android:layout_width="@dimen/dp_94"

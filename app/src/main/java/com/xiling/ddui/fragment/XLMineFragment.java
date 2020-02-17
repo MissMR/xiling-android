@@ -1,12 +1,12 @@
 package com.xiling.ddui.fragment;
 
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +25,17 @@ import com.xiling.ddui.activity.CustomerOrderActivity;
 import com.xiling.ddui.activity.IncomeIndexActivity;
 import com.xiling.ddui.activity.MyClientActivity;
 import com.xiling.ddui.activity.OrderListActivit;
+import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.XLCouponActivity;
 import com.xiling.ddui.activity.XLFinanceManangerActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLSettingActivity;
+import com.xiling.ddui.adapter.AuthListAdapter;
 import com.xiling.ddui.adapter.MineServiceAdapter;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
@@ -46,6 +50,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.IOrderService;
+import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -112,6 +117,30 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     ItemWithIcon oriderClosed;
 
     UserInComeBean userInComeBean;
+    @BindView(R.id.rel_user_vip)
+    RelativeLayout relUserVip;
+    @BindView(R.id.rel_asset)
+    RelativeLayout relAsset;
+    @BindView(R.id.tv_order)
+    TextView tvOrder;
+    @BindView(R.id.view_line)
+    View viewLine;
+    @BindView(R.id.recycler_order)
+    LinearLayout recyclerOrder;
+    @BindView(R.id.rel_order)
+    RelativeLayout relOrder;
+    @BindView(R.id.btn_my_client)
+    LinearLayout btnMyClient;
+    @BindView(R.id.ll_custom)
+    LinearLayout llCustom;
+    @BindView(R.id.btn_invite_friends)
+    ImageView btnInviteFriends;
+    @BindView(R.id.btn_my_housekeeper)
+    ImageView btnMyHousekeeper;
+    @BindView(R.id.btn_financial_management)
+    ImageView btnFinancialManagement;
+    @BindView(R.id.ll_my_servuce)
+    LinearLayout llMyServuce;
 
     @Nullable
     @Override
@@ -121,12 +150,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         unbinder = ButterKnife.bind(this, view);
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mOrderService = ServiceManager.getInstance().createService(IOrderService.class);
-        initView();
-        requestUserInfo();
-        return view;
-    }
 
-    private void initView() {
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(this);
@@ -134,16 +158,90 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         recyclerService.setLayoutManager(new GridLayoutManager(mContext, 4));
         serviceAdapter = new MineServiceAdapter();
         recyclerService.setAdapter(serviceAdapter);
+        requestUserInfo();
+        return view;
+    }
 
+    /**
+     * 获取实名认证信息
+     */
+    private void getAuth(final NewUserBean newUserBean) {
+        APIManager.startRequest(iNewUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
+            @Override
+            public void onSuccess(RealAuthBean result) {
+                super.onSuccess(result);
+                //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
+                initView(result, newUserBean);
+            }
 
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "财务管理"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名"));
-        serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_paihang, "排行榜"));
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+
+            }
+        });
+    }
+
+    private void initView(final RealAuthBean result, NewUserBean newUserBean) {
+      //  result.setAuthStatus(0);
+        switch (result.getAuthStatus()) {
+            case 0:
+            case 1:
+            case 4:
+                //注册会员
+                ivUserOrdinary.setVisibility(View.VISIBLE);
+                llUserVip.setVisibility(View.GONE);
+                relCustom.setVisibility(View.GONE);
+                ivUserOrdinary.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String message = "";
+                        if (result.getAuthStatus() == 1) {
+                            message = "请先实名认证\n认证当前商户信息";
+                        } else {
+                            message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";
+                        }
+
+                        D3ialogTools.showSingleAlertDialog(mContext, "",
+                                message, "我知道了",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        startActivity(new Intent(mContext, RealAuthActivity.class));
+                                    }
+                                });
+                    }
+                });
+                break;
+            case 2:
+                //会员
+                ivUserOrdinary.setVisibility(View.GONE);
+                llUserVip.setVisibility(View.VISIBLE);
+                relCustom.setVisibility(View.VISIBLE);
+                requestVipData();
+                break;
+        }
+
+        serviceBeanList.clear();
+        if (result.getAuthStatus() == 2) {
+            //普通用户
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_paihang, "排行榜"));
+        } else {
+            // 注册用户
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_finance, "财务管理"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名"));
+        }
+
 
         serviceAdapter.setNewData(serviceBeanList);
 
@@ -151,16 +249,31 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (position) {
-                    case 0: // 管理地址
+                switch (serviceBeanList.get(position).getTitle()) {
+                    case "管理地址":
                         Intent intent = new Intent(mContext, AddressListActivity.class);
                         startActivity(intent);
                         break;
-                    case 1://优惠券
+                    case "优惠券":
                         startActivity(new Intent(mContext, XLCouponActivity.class));
                         break;
-                    case 2://财务管理
+                    case "财务管理":
                         startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
+                        break;
+                    case "政策":
+                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                    case "帮助与客服":
+                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                    case "规则中心":
+                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                    case "活动报名":
+                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                    case "排行榜":
+                        ToastUtil.success(serviceBeanList.get(position).getTitle());
                         break;
                 }
             }
@@ -189,20 +302,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                     GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
                     tvName.setText(newUserBean.getNickName());
                     tvPhone.setText(newUserBean.getPhone());
-                    if (newUserBean.getRole().getRoleLevel() == 10) {
-                        //普通会员
-                        ivUserOrdinary.setVisibility(View.VISIBLE);
-                        llUserVip.setVisibility(View.GONE);
-                        relCustom.setVisibility(View.GONE);
-                    } else {
-                        // 高级会员
-                        ivUserOrdinary.setVisibility(View.GONE);
-                        llUserVip.setVisibility(View.VISIBLE);
-                        relCustom.setVisibility(View.VISIBLE);
-                        requestVipData();
-                    }
-
-
+                    getAuth(newUserBean);
                 }
             }
 
@@ -309,7 +409,9 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip,R.id.ll_custom,R.id.btn_my_client})
+    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip, R.id.ll_custom, R.id.btn_my_client
+            , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management
+    })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
@@ -328,12 +430,11 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                 jumpOrderList(ORDER_IS_RECEIVED);
                 break;
             case R.id.ll_user_vip:
-                if (userInComeBean != null){
-                    Intent intent = new Intent(mContext,IncomeIndexActivity.class);
-                    intent.putExtra("userInComeBean",userInComeBean);
+                if (userInComeBean != null) {
+                    Intent intent = new Intent(mContext, IncomeIndexActivity.class);
+                    intent.putExtra("userInComeBean", userInComeBean);
                     startActivity(intent);
                 }
-
                 break;
             case R.id.rel_user_vip:
                 startActivity(new Intent(mContext, XLMemberCenterActivity.class));
@@ -345,6 +446,16 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             case R.id.btn_my_client:
                 //我的客户
                 startActivity(new Intent(mContext, MyClientActivity.class));
+                break;
+            case R.id.btn_invite_friends:
+                //邀请好友
+                break;
+            case R.id.btn_my_housekeeper:
+                //我的管家
+                break;
+            case R.id.btn_financial_management:
+                // 财务管理
+                startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
                 break;
         }
     }
@@ -362,13 +473,14 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                 GlideUtils.loadHead(mContext, avatarIv, (String) message.getData());
                 break;
             case UPDATE_NICK:
-                tvName.setText((String)message.getData());
+                tvName.setText((String) message.getData());
                 break;
             case UPDATEE_PHONE:
-                tvPhone.setText((String)message.getData());
+                tvPhone.setText((String) message.getData());
                 break;
 
         }
     }
+
 
 }

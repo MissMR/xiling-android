@@ -1,8 +1,10 @@
 package com.xiling.ddui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,8 +31,6 @@ import butterknife.OnClick;
 public class MyClientActivity extends BaseActivity {
     INewUserService iNewUserService;
 
-    @BindView(R.id.btn_back)
-    ImageView btnBack;
     @BindView(R.id.keywordEt)
     TextView keywordEt;
     @BindView(R.id.sliding_tab)
@@ -64,9 +64,9 @@ public class MyClientActivity extends BaseActivity {
         childNames.add("VIP会员");
         childNames.add("黑卡会员");
 
-        fragments.add(MyClientFragment.newInstance("1",""));
-        fragments.add(MyClientFragment.newInstance("2",""));
-        fragments.add(MyClientFragment.newInstance("3",""));
+        fragments.add(MyClientFragment.newInstance("1", ""));
+        fragments.add(MyClientFragment.newInstance("2", ""));
+        fragments.add(MyClientFragment.newInstance("3", ""));
         slidingTab.setViewPager(viewpagerOrder, childNames.toArray(new String[childNames.size()]), this, fragments);
         viewpagerOrder.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -77,7 +77,7 @@ public class MyClientActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mPosition = position;
-                type = position+1+"";
+                type = position + 1 + "";
                 getCustomerCount();
             }
 
@@ -110,8 +110,15 @@ public class MyClientActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.btn_back)
-    public void onViewClicked() {
-        finish();
+    @OnClick({R.id.btn_back, R.id.keywordEt})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+            case R.id.keywordEt:
+                startActivity(new Intent(this,SearchMyClientActivity.class));
+                break;
+        }
     }
 }
