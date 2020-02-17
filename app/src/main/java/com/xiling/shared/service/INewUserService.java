@@ -5,6 +5,7 @@ import com.xiling.ddui.bean.AccountManagerBean;
 import com.xiling.ddui.bean.BalanceDetailsBean;
 import com.xiling.ddui.bean.BalanceTypeBean;
 import com.xiling.ddui.bean.MyClientListBean;
+import com.xiling.ddui.bean.MyManagerBean;
 import com.xiling.ddui.bean.PlatformBean;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -243,4 +244,18 @@ public interface INewUserService {
      */
     @POST("user/customer/getCustomerCount")
     Observable<RequestResult<Integer>> getCustomerCount(@Query("customerType") String customerType);
+
+    /**
+     * 我的经理
+     */
+    @GET("manager/get")
+    Observable<RequestResult<MyManagerBean>> getMyManager();
+
+
+    /**
+     * 个人中心-邀请分享
+     */
+    @GET("share/invite-friends-image")
+    Observable<RequestResult<List<String>>> getInviteFriendsImage();
+
 }

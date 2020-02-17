@@ -10,6 +10,7 @@ import com.xiling.ddui.bean.CommunityDataBean;
 import com.xiling.ddui.custom.DDResDownloadDialog;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ImageTools;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.SkuInfo;
 import com.xiling.shared.component.dialog.DDMShareDialog;
@@ -86,7 +87,7 @@ public class CommunityShareManager {
 
     public String getProductUrl() {
         String url = BuildConfig.BASE_URL + "spu/" + data.getProductId();
-        if (SessionUtil.getInstance().isLogin()) {
+        if (UserManager.getInstance().isLogin()) {
             url += "/" + SessionUtil.getInstance().getLoginUser().invitationCode;
         }
         return url;

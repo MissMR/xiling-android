@@ -23,7 +23,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.activity.CustomerOrderActivity;
 import com.xiling.ddui.activity.IncomeIndexActivity;
+import com.xiling.ddui.activity.InviteFriendsActivity;
 import com.xiling.ddui.activity.MyClientActivity;
+import com.xiling.ddui.activity.MyManagerActivity;
 import com.xiling.ddui.activity.OrderListActivit;
 import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.XLCouponActivity;
@@ -184,7 +186,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     }
 
     private void initView(final RealAuthBean result, NewUserBean newUserBean) {
-      //  result.setAuthStatus(0);
+        //  result.setAuthStatus(0);
         switch (result.getAuthStatus()) {
             case 0:
             case 1:
@@ -449,9 +451,11 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                 break;
             case R.id.btn_invite_friends:
                 //邀请好友
+                startActivity(new Intent(mContext, InviteFriendsActivity.class));
                 break;
             case R.id.btn_my_housekeeper:
                 //我的管家
+                startActivity(new Intent(mContext, MyManagerActivity.class));
                 break;
             case R.id.btn_financial_management:
                 // 财务管理

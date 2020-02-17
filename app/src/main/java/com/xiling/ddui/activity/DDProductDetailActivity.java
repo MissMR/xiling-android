@@ -3,6 +3,8 @@ package com.xiling.ddui.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.service.HtmlService;
+import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.MainActivity;
@@ -22,6 +25,7 @@ import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.component.dialog.DDMProductQrCodeDialog;
 import com.xiling.shared.component.dialog.XLProductQrCodeDialog;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.constant.Key;
@@ -243,9 +247,11 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     private void showShareDialog() {
-        ToastUtil.hideLoading();
-        XLProductQrCodeDialog dialog = new XLProductQrCodeDialog(this, mSpuInfo);
-        dialog.show();
+        if (UserManager.getInstance().isLogin(context)){
+            ToastUtil.hideLoading();
+            XLProductQrCodeDialog dialog = new XLProductQrCodeDialog(this, mSpuInfo);
+            dialog.show();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
