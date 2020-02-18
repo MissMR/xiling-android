@@ -14,8 +14,10 @@ import com.umeng.socialize.UMShareAPI;
 import com.xiling.R;
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
@@ -24,6 +26,7 @@ import com.xiling.module.MainActivity;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.dialog.DDMProductQrCodeDialog;
 import com.xiling.shared.component.dialog.XLProductQrCodeDialog;
@@ -31,6 +34,7 @@ import com.xiling.shared.constant.Event;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.ICartService;
 import com.xiling.shared.service.contract.IProductService;
 import com.xiling.shared.util.ToastUtil;
@@ -62,6 +66,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     private String mSpuId;
     private IProductService mProductService;
     private ICartService mCartService;
+    private INewUserService iNewUserService;
 
     private ProductNewBean mSpuInfo;
 
@@ -121,7 +126,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     private void initData() {
         getIntentData();
-
+        iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mProductService = ServiceManager.getInstance().createService(IProductService.class);
         mCartService = ServiceManager.getInstance().createService(ICartService.class);
         getProductInfo(mSpuId);
@@ -137,21 +142,37 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         }
     }
 
-    private void getProductInfo(String spuId) {
-        APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(this) {
+    private void getProductInfo(final String spuId) {
+        UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
             @Override
-            public void onSuccess(ProductNewBean product) {
-                super.onSuccess(product);
-                mSpuInfo = product;
-                mProductDetailUIHelper.updateSpuViews(mSpuInfo);
+            public void onCheckUserInfoSucess(final NewUserBean newUserBean) {
+                APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(context) {
+                    @Override
+                    public void onSuccess(ProductNewBean product) {
+                        super.onSuccess(product);
+                        mSpuInfo = product;
+                        mProductDetailUIHelper.updateSpuViews(mSpuInfo,newUserBean);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+
+                    }
+                });
+
+
+
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void onCheckUserInfoFail() {
 
             }
         });
+
+
+
     }
 
     @Override
@@ -231,10 +252,50 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         return null == o;
     }
 
+    // 立即升级
     @Override
     public void onClickBecomeMaster() {
-        WebViewActivity.jumpService(this, HtmlService.BESHOPKEPPER);
+        getAuth();
     }
+
+
+    /**
+     * 获取实名认证信息
+     */
+    private void getAuth() {
+        APIManager.startRequest(iNewUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
+            @Override
+            public void onSuccess(RealAuthBean result) {
+                super.onSuccess(result);
+                //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
+                if (result.getAuthStatus() != 2){
+                    //去认证
+                    D3ialogTools.showAlertDialog(context,"请先实名认证\n认证当前商户信息", "实名认证", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(context, RealAuthActivity.class));
+                        }
+                    }, "取消", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                }else{
+                    //跳转会员中心
+                    startActivity(new Intent(context,XLMemberCenterActivity.class));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+
+            }
+        });
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(EventMessage message) {

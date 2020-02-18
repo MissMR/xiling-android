@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * pt
  * 会员中心
  */
 public class XLMemberCenterActivity extends BaseActivity {
@@ -46,16 +47,8 @@ public class XLMemberCenterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xlmember_center);
         ButterKnife.bind(this);
+        makeStatusBarTranslucent();
         iMemberService = ServiceManager.getInstance().createService(IMemberService.class);
-        setTitle("喜领会员");
-        setLeftBlack();
-        showHeaderRightText("会员说明", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         initView();
         getMemberCenterInfo();
     }
@@ -87,7 +80,7 @@ public class XLMemberCenterActivity extends BaseActivity {
      * 获取会员中心信息
      */
     private void getMemberCenterInfo() {
-        ToastUtil.showLoading(this);
+        //   ToastUtil.showLoading(this);
         UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
             @Override
             public void onCheckUserInfoSucess(NewUserBean newUserBean) {

@@ -77,8 +77,8 @@
     </style>
 
     <style name="TabBarItemIcon">
-        <item name="android:layout_width">@dimen/dp_25</item>
-        <item name="android:layout_height">@dimen/dp_25</item>
+        <item name="android:layout_width">@dimen/dp_18</item>
+        <item name="android:layout_height">@dimen/dp_21</item>
         <item name="android:duplicateParentState">true</item>
         <item name="android:layout_marginBottom">1dp</item>
         <item name="android:scaleType">centerCrop</item>

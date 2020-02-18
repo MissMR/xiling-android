@@ -388,10 +388,10 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 updateUserInfo();
                 break;
             case UPDATE_AVATAR:
-                GlideUtils.loadHead(mContext,ivHeadIcon , (String) message.getData());
+                GlideUtils.loadHead(mContext, ivHeadIcon, (String) message.getData());
                 break;
             case UPDATE_NICK:
-                btnLogin.setText((String)message.getData());
+                btnLogin.setText((String) message.getData());
                 break;
         }
     }
@@ -404,9 +404,18 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
                 GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
-                if (user.getRole() != null && !TextUtils.isEmpty(user.getRole().getRoleName())) {
-                    tvGrade.setText(user.getRole().getRoleName());
+                switch (user.getRole().getRoleLevel()) {
+                    case 10:
+                        tvGrade.setBackgroundResource(R.drawable.bg_home_user);
+                        break;
+                    case 20:
+                        tvGrade.setBackgroundResource(R.drawable.bg_home_vip);
+                        break;
+                    case 30:
+                        tvGrade.setBackgroundResource(R.drawable.bg_home_back);
+                        break;
                 }
+
             }
         } else {
             //退出登录

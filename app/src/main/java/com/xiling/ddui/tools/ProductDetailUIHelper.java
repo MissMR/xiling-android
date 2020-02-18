@@ -14,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sobot.chat.utils.ToastUtil;
 import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.adapter.DDCommunityDataAdapter;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.custom.DDSmartTab;
 import com.xiling.ddui.custom.DDSquareBanner;
@@ -26,13 +26,16 @@ import com.xiling.ddui.manager.ShopDetailManager;
 import com.xiling.dduis.adapter.ShopListTagsAdapter;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.SkuPvIds;
 import com.xiling.shared.component.dialog.SkuSelectorDialog;
+import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.util.CarouselUtil;
 import com.xiling.shared.util.RvUtils;
 import com.xiling.shared.util.SessionUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.xiling.shared.util.ToastUtil;
 import com.xiling.shared.util.WebViewUtil;
 
 import java.util.Arrays;
@@ -140,6 +143,10 @@ public class ProductDetailUIHelper {
     WebView mProductDetailWebView;
     @BindView(R.id.iv_bottom)
     ImageView ivBottom;
+    @BindView(R.id.rl_become_master_guide)
+    RelativeLayout rlBecomeMasterGuide;
+    @BindView(R.id.tv_reward_guide)
+    TextView tvRewardGuide;
 
     private OnActionListener mOnActionListener;
 
@@ -161,6 +168,7 @@ public class ProductDetailUIHelper {
 
     SkuSelectorDialog mSkuSelectorDialog;
     ProductNewBean mSpuInfo;
+    NewUserBean newUserBean;
 
     public ProductDetailUIHelper(DDProductDetailActivity productDetailActivity) {
         mContext = productDetailActivity;
@@ -196,11 +204,24 @@ public class ProductDetailUIHelper {
 
     }
 
-    public void updateSpuViews(ProductNewBean spuInfo) {
+
+    public void updateSpuViews(ProductNewBean spuInfo, NewUserBean newUserBean) {
         if (spuInfo == null) {
             return;
         }
         mSpuInfo = spuInfo;
+        this.newUserBean = newUserBean;
+
+        if (newUserBean != null) {
+            if (newUserBean.getRole().getRoleLevel() == 30) {
+                //黑卡会员
+                rlBecomeMasterGuide.setVisibility(View.GONE);
+            } else {
+                rlBecomeMasterGuide.setVisibility(View.VISIBLE);
+                tvRewardGuide.setText("开通黑卡会员，享受最低价¥" + mSpuInfo.getLevel30Price());
+            }
+        }
+
 
         if (spuInfo.getImages() != null && spuInfo.getImages().size() > 0) {
             updateSkuBanner(spuInfo.getImages());
@@ -293,6 +314,8 @@ public class ProductDetailUIHelper {
         flCard.setOnClickListener(mOnClickListener);
         tvBtnAddCart.setOnClickListener(mOnClickListener);
         tvBtnBuyNormal.setOnClickListener(mOnClickListener);
+
+        rlBecomeMasterGuide.setOnClickListener(mOnClickListener);
 
     }
 
@@ -444,6 +467,7 @@ public class ProductDetailUIHelper {
         }
     }
 
+
     private void showSkuDialog(int action) {
         if (mSpuInfo != null && mSpuInfo.getSkus() != null && mSpuInfo.getSkus().size() > 0) {
             if (mSkuSelectorDialog == null) {
@@ -468,7 +492,7 @@ public class ProductDetailUIHelper {
                 @Override
                 public void buyItNow(String skuId, String propertyValue, int selectCount) {
                     updateSkuViews(propertyValue);
-                    SkuListBean skuListBean = new SkuListBean(skuId,selectCount);
+                    SkuListBean skuListBean = new SkuListBean(skuId, selectCount);
                     mOnActionListener.onClickBuy(skuListBean);
                 }
             });

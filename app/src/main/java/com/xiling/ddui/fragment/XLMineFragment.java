@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,6 @@ import com.xiling.ddui.activity.XLCouponActivity;
 import com.xiling.ddui.activity.XLFinanceManangerActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLSettingActivity;
-import com.xiling.ddui.adapter.AuthListAdapter;
 import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
@@ -143,6 +141,8 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     ImageView btnFinancialManagement;
     @BindView(R.id.ll_my_servuce)
     LinearLayout llMyServuce;
+    @BindView(R.id.iv_level)
+    ImageView ivLevel;
 
     @Nullable
     @Override
@@ -304,6 +304,19 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                     GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
                     tvName.setText(newUserBean.getNickName());
                     tvPhone.setText(newUserBean.getPhone());
+                    switch (newUserBean.getRole().getRoleLevel()){
+                        case 10:
+                            ivLevel.setBackgroundResource(R.drawable.icon_user);
+                            break;
+                        case 20:
+                            ivLevel.setBackgroundResource(R.drawable.icon_vip);
+                            break;
+                        case 30:
+                            ivLevel.setBackgroundResource(R.drawable.icon_black);
+                            break;
+                    }
+
+
                     getAuth(newUserBean);
                 }
             }

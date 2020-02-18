@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,48 +19,43 @@
                 android:id="@+id/rel_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/dp_12"
-                android:paddingRight="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_58"
-                >
+                android:paddingLeft="@dimen/dp_12"
+                android:paddingRight="@dimen/dp_20">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_headIcon"
                     android:layout_width="@dimen/dp_40"
                     android:layout_height="@dimen/dp_40"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/bg_circle_head"
-                    />
+                    android:background="@drawable/bg_circle_head" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/iv_headIcon"
                     android:layout_marginLeft="@dimen/dp_12"
-                    >
+                    android:layout_toRightOf="@id/iv_headIcon"
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/btn_login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#202020"
-                        android:textSize="@dimen/sp_16"
                         android:text="登录/注册"
-                        />
+                        android:textColor="#202020"
+                        android:textSize="@dimen/sp_16" />
 
                     <TextView
                         android:id="@+id/tv_grade"
                         android:layout_width="@dimen/dp_63"
                         android:layout_height="@dimen/dp_19"
-                        android:textSize="@dimen/sp_9"
-                        android:textColor="#a6b1b9"
                         android:layout_marginTop="@dimen/dp_6"
-                        android:gravity="center"
-                        android:text="普通用户"
                         android:background="#202020"
-                        android:visibility="gone"
-                        />
+                        android:gravity="center"
+                        android:textColor="#a6b1b9"
+                        android:textSize="@dimen/sp_9"
+                        android:visibility="gone" />
 
 
                 </LinearLayout>
@@ -66,40 +63,35 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    >
+                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:id="@+id/rel_search"
                         android:layout_width="@dimen/dp_82"
                         android:layout_height="@dimen/dp_32"
-                        android:background="@drawable/bg_round_f2_16"
-                        >
+                        android:background="@drawable/bg_round_f2_16">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_8"
-                            >
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="@dimen/dp_12"
                                 android:layout_height="@dimen/dp_14"
-                                android:background="@mipmap/icon_search_address"
-                                />
+                                android:background="@mipmap/icon_search_address" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="#AAAAAA"
-                                android:textSize="@dimen/sp_12"
                                 android:layout_marginLeft="@dimen/dp_7"
                                 android:text="搜索"
-                                />
+                                android:textColor="#AAAAAA"
+                                android:textSize="@dimen/sp_12" />
 
                         </LinearLayout>
 
@@ -107,15 +99,25 @@
                     </RelativeLayout>
 
 
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#AAAAAA"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:textSize="@dimen/sp_12"
-                        android:gravity="center"
-                        android:text="消息"
-                        />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_12">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_19"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:background="@drawable/icon_message_home" />
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_10"
+                            android:layout_height="@dimen/dp_10"
+                            android:layout_marginLeft="@dimen/dp_13"
+                            android:background="@drawable/icon_message_notice" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -127,25 +129,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_29"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_12"
-                    android:textSize="@dimen/sp_12"
+                    android:text="热搜"
                     android:textColor="#202020"
-                    android:text="热搜"/>
+                    android:textSize="@dimen/sp_12" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_hot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_marginRight="@dimen/dp_10"
-                    />
-
+                    android:layout_marginRight="@dimen/dp_10" />
 
 
             </LinearLayout>
@@ -154,64 +153,58 @@
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_210"
-                app:indicator_width="@dimen/dp_6"
-                app:indicator_height="@dimen/dp_6"
                 android:layout_marginTop="@dimen/dp_10"
                 app:indicator_drawable_selected="@drawable/banner_select"
                 app:indicator_drawable_unselected="@drawable/banner_unselect"
-                />
+                app:indicator_height="@dimen/dp_6"
+                app:indicator_width="@dimen/dp_6" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="4"
                 android:layout_marginTop="@dimen/dp_11"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/dp_12"
                 android:paddingRight="@dimen/dp_12"
-                >
+                android:weightSum="4">
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#202020"
-                    android:textSize="@dimen/sp_11"
+                    android:gravity="center"
                     android:text="喜领直购"
-                    android:gravity="center"
-                    />
+                    android:textColor="#202020"
+                    android:textSize="@dimen/sp_11" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#202020"
-                    android:textSize="@dimen/sp_11"
+                    android:gravity="center"
                     android:text="全球直采"
-                    android:gravity="center"
-                    />
+                    android:textColor="#202020"
+                    android:textSize="@dimen/sp_11" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#202020"
-                    android:textSize="@dimen/sp_11"
+                    android:gravity="center"
                     android:text="厂家直供"
-                    android:gravity="center"
-                    />
+                    android:textColor="#202020"
+                    android:textSize="@dimen/sp_11" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textColor="#202020"
-                    android:textSize="@dimen/sp_11"
-                    android:text="售后无忧"
                     android:gravity="center"
-                    />
+                    android:text="售后无忧"
+                    android:textColor="#202020"
+                    android:textSize="@dimen/sp_11" />
 
             </LinearLayout>
 
@@ -222,43 +215,38 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_37"
                 android:paddingLeft="@dimen/dp_12"
-                android:paddingRight="@dimen/dp_12"
-                />
+                android:paddingRight="@dimen/dp_12" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginLeft="@dimen/dp_12"
-                android:layout_marginRight="@dimen/dp_12"
-                android:background="#F5F5F5"
                 android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
                 android:layout_marginBottom="@dimen/dp_15"
-                />
+                android:background="#F5F5F5" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/dp_12"
-                android:paddingRight="@dimen/dp_12"
-                />
+                android:paddingRight="@dimen/dp_12" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_10"
-                android:background="#F5F5F5"
                 android:layout_marginTop="@dimen/dp_30"
                 android:layout_marginBottom="@dimen/dp_15"
-                />
+                android:background="#F5F5F5" />
 
             <RelativeLayout
                 android:id="@+id/rel_brand_head"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_18"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"
-                >
+                android:layout_marginTop="@dimen/dp_18"
+                android:layout_marginRight="@dimen/dp_20">
 
                 <TextView
                     android:id="@+id/title"
@@ -266,34 +254,30 @@
                     android:layout_height="wrap_content"
                     android:text="全球品牌馆"
                     android:textColor="#ff202020"
-                    android:textSize="@dimen/sp_20"
-                    />
+                    android:textSize="@dimen/sp_20" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/title"
                     android:text="保健美妆护肤热卖好货 喜领 专业为你推荐"
                     android:textColor="#aaaaaa"
-                    android:textSize="@dimen/sp_12"
-                    android:layout_below="@id/title"
-                    />
+                    android:textSize="@dimen/sp_12" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_brandPosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#202020"
-                        android:textSize="@dimen/sp_20"
-                        />
+                        android:textSize="@dimen/sp_20" />
 
 
                     <TextView
@@ -301,8 +285,7 @@
                         android:layout_height="wrap_content"
                         android:text="/"
                         android:textColor="#aaaaaa"
-                        android:textSize="@dimen/sp_10"
-                        />
+                        android:textSize="@dimen/sp_10" />
 
 
                     <TextView
@@ -310,8 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#aaaaaa"
-                        android:textSize="@dimen/sp_12"
-                        />
+                        android:textSize="@dimen/sp_12" />
 
                 </LinearLayout>
 
@@ -324,46 +306,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginBottom="@dimen/dp_21"
-                />
+                android:layout_marginBottom="@dimen/dp_21" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="#F5F5F5"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="当红爆品推荐"
-                    android:textColor="#ff202020"
-                    android:textSize="@dimen/sp_20"
                     android:layout_marginLeft="@dimen/dp_21"
                     android:layout_marginTop="@dimen/dp_26"
-                    />
+                    android:text="当红爆品推荐"
+                    android:textColor="#ff202020"
+                    android:textSize="@dimen/sp_20" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_21"
                     android:text="精选全球当红大牌"
                     android:textColor="#ffaaaaaa"
-                    android:textSize="@dimen/sp_12"
-                    android:layout_marginLeft="@dimen/dp_21"
-                    />
+                    android:textSize="@dimen/sp_12" />
 
                 <com.xiling.dduis.custom.NestRecyclerView
                     android:id="@+id/recyclerView_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_12"
-                    android:layout_marginRight="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_18"
-                    />
+                    android:layout_marginRight="@dimen/dp_12" />
 
             </LinearLayout>
-
 
 
         </LinearLayout>

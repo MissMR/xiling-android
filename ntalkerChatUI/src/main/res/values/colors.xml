@@ -99,7 +99,7 @@
     <color name="re_send_right_text">@color/mainColor</color>
 
     <!--主题色-->
-    <color name="mainColor">#FF4647</color>
+    <color name="mainColor">#DCB982</color>
 
     <!--:聊天界面状态栏颜色-->
     <color name="chat_activity_bar">@color/mainColor</color>
