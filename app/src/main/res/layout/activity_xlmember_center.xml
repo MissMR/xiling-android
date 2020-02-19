@@ -24,13 +24,22 @@
                 android:layout_height="@dimen/dp_45"
                 android:layout_marginTop="@dimen/dp_25">
 
-                <ImageView
+                <RelativeLayout
                     android:id="@+id/btn_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_12"
-                    android:background="@drawable/white_arrow_left" />
+                    android:padding="@dimen/dp_10">
+
+                    <ImageView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/white_arrow_left" />
+
+                </RelativeLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -297,7 +306,6 @@
             android:layout_height="@dimen/dp_101"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_20"
-            android:background="@drawable/bg_member_week_card_vip"
             android:paddingLeft="@dimen/dp_16"
             android:visibility="gone">
 

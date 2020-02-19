@@ -55,6 +55,7 @@ import butterknife.OnClick;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_WE_CHAT_PAY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
  * 收银台
@@ -87,6 +88,7 @@ public class XLCashierActivity extends BaseActivity {
     long waitPayTimeMilli = 0;
     String key = "";
     String type;
+    String weekSize;
 
     public static void jumpCashierActivity(Context context,String type, double payMoney, long waitPayTimeMilli,String key) {
         Intent intent = new Intent(context, XLCashierActivity.class);
@@ -94,7 +96,16 @@ public class XLCashierActivity extends BaseActivity {
         intent.putExtra("payMoney", payMoney);
         intent.putExtra("waitPayTimeMilli", waitPayTimeMilli);
         intent.putExtra("key",key);
+        context.startActivity(intent);
+    }
 
+    public static void jumpCashierActivity(Context context,String type, double payMoney, long waitPayTimeMilli,String key,String weekSize) {
+        Intent intent = new Intent(context, XLCashierActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("payMoney", payMoney);
+        intent.putExtra("waitPayTimeMilli", waitPayTimeMilli);
+        intent.putExtra("key",key);
+        intent.putExtra("weekSize",weekSize);
         context.startActivity(intent);
     }
 
@@ -129,6 +140,7 @@ public class XLCashierActivity extends BaseActivity {
             payMoney = getIntent().getDoubleExtra("payMoney", 0);
             waitPayTimeMilli = getIntent().getLongExtra("waitPayTimeMilli", 0);
             key = getIntent().getStringExtra("key");
+            weekSize = getIntent().getStringExtra("weekSize");
         }
 
         NumberHandler.setPriceText(payMoney, tvPrice, tvPriceDecimal);
@@ -267,7 +279,8 @@ public class XLCashierActivity extends BaseActivity {
 
 
     class EXT {
-        private String UNION_PAY_CARD_ID = "";
+        private String UNION_PAY_CARD_ID ;
+        private String NUMBER;
     }
 
 
@@ -286,6 +299,10 @@ public class XLCashierActivity extends BaseActivity {
                 ext.UNION_PAY_CARD_ID = mBankBean.getId();
                 params.put("ext", ext);
             }
+        }else if (type.equals(PAY_TYPE_WEEK_CARD)){
+            EXT ext = new EXT();
+            ext.NUMBER = weekSize;
+            params.put("ext",ext);
         }
 
         APIManager.startRequest(mPayService.addPay(APIManager.buildJsonBody(params)), new BaseRequestListener<String>() {

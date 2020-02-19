@@ -136,7 +136,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     childNames.clear();
                     for (WeekCardConfigBean weekCardConfigBean : result) {
                         childNames.add(weekCardConfigBean.getWeekName());
-                        fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean.getWeekType()));
+                        fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean));
                     }
 
                     slidingTab.setViewPager(viewpagerOrder, childNames.toArray(new String[childNames.size()]), XLMemberCenterActivity.this, fragments);
@@ -229,6 +229,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     // 已经是黑卡，不需要请求周卡信息
                     ToastUtil.hideLoading();
                     llWeekCardPackage.setVisibility(View.GONE);
+                    setWeekCardStatus(null);
                 } else {
                     getWeekCardConfigList();
                     getWeekCardInfo();
@@ -277,6 +278,16 @@ public class XLMemberCenterActivity extends BaseActivity {
             //有周卡
             if (weekCardInfo.getStatus() == 1) {
                 // 有效
+
+                switch (weekCardInfo.getWeekType()){
+                    case 1:
+                        relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
+                        break;
+                    case 2:
+                        relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
+                        break;
+                }
+
                 tvMyWeekCard.setText("当前已开通周卡体验");
                 relWeekCard.setVisibility(View.VISIBLE);
                 tvWeekCardName.setText("喜领" + weekCardInfo.getWeekName());
@@ -300,19 +311,24 @@ public class XLMemberCenterActivity extends BaseActivity {
             public void onSuccess(WeekCardInfo result) {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
-                NewUserBean newUserBean = UserManager.getInstance().getUser();
-                //有效
-                if (result.getWeekType() == 1) {
-                    // 如果当前有效周卡为vip卡，只有普通用户有效
-                    if (newUserBean.getRole().getRoleLevel() == 10) {
+                if (result != null){
+                    NewUserBean newUserBean = UserManager.getInstance().getUser();
+                    //有效
+                    if (result.getWeekType() == 1) {
+                        // 如果当前有效周卡为vip卡，只有普通用户有效
+                        if (newUserBean.getRole().getRoleLevel() == 10) {
+                            setWeekCardStatus(result);
+                        } else {
+                            setWeekCardStatus(null);
+                        }
+                    } else if (result.getWeekType() == 2) {
+                        // 如果当前有效周卡为黑卡 普通和vip用户都有效
                         setWeekCardStatus(result);
-                    } else {
-                        setWeekCardStatus(null);
                     }
-                } else if (result.getWeekType() == 2) {
-                    // 如果当前有效周卡为黑卡 普通和vip用户都有效
-                    setWeekCardStatus(result);
+                }else{
+                    setWeekCardStatus(null);
                 }
+
 
             }
 
@@ -364,5 +380,12 @@ public class XLMemberCenterActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 去开通周卡，fragment调用
+     */
+    public void purchaseWeekCard(WeekCardConfigBean weekCardConfigBean){
+        String myWeekCard = tvMyWeekCard.getText().toString();
+        BuyWeekCardActivity.jumpBuyWeekCardActivity(this,weekCardConfigBean,myWeekCard);
+    }
 
 }

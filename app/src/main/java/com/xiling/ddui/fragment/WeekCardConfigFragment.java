@@ -11,7 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
+import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.adapter.PrivilegeAdapter;
+import com.xiling.ddui.bean.WeekCardConfigBean;
+import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseFragment;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ import butterknife.Unbinder;
  * 周卡配置fragment
  */
 public class WeekCardConfigFragment extends BaseFragment {
-    int weekType;
+    WeekCardConfigBean weekCardConfigBean;
     @BindView(R.id.ll_week_card_backgroud)
     LinearLayout llWeekCardBackgroud;
     @BindView(R.id.tv_week_price)
@@ -45,10 +48,10 @@ public class WeekCardConfigFragment extends BaseFragment {
     List<String> privilegeList = new ArrayList<>();
 
 
-    public static WeekCardConfigFragment newInstance(int weekType) {
+    public static WeekCardConfigFragment newInstance(WeekCardConfigBean weekType) {
         WeekCardConfigFragment fragment = new WeekCardConfigFragment();
         Bundle args = new Bundle();
-        args.putInt("weekType", weekType);
+        args.putParcelable("weekType", weekType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +60,7 @@ public class WeekCardConfigFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            weekType = getArguments().getInt("weekType");
+            weekCardConfigBean = getArguments().getParcelable("weekType");
         }
     }
 
@@ -67,10 +70,10 @@ public class WeekCardConfigFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_week_card_config, container, false);
         unbinder = ButterKnife.bind(this, view);
         privilegeList.clear();
-        switch (weekType) {
+        switch (weekCardConfigBean.getWeekType()) {
             case 1:
                 //VIP
-                weekPrice = 199;
+                weekPrice = Constants.WEEK_CARD_PRICE_VIP;
                 tvCard.setTextColor(Color.parseColor("#EB5F76"));
                 llWeekCardBackgroud.setBackgroundResource(R.drawable.bg_week_card_vip);
                 privilegeList.add("全场商品订货享受8.5折优惠起");
@@ -82,7 +85,7 @@ public class WeekCardConfigFragment extends BaseFragment {
                 break;
             case 2:
                 // 黑卡
-                weekPrice = 299;
+                weekPrice = Constants.WEEK_CARD_PRICE_BLACK;
                 tvCard.setTextColor(Color.parseColor("#F09165"));
                 llWeekCardBackgroud.setBackgroundResource(R.drawable.bg_week_card_black);
                 privilegeList.add("全场商品订货享受8.5折优惠起");
@@ -112,6 +115,12 @@ public class WeekCardConfigFragment extends BaseFragment {
 
     @OnClick(R.id.btn_purchase)
     public void onViewClicked() {
+        //去开通
+        if (mContext != null){
+            ((XLMemberCenterActivity)mContext).purchaseWeekCard(weekCardConfigBean);
+        }
+
+
     }
 
 

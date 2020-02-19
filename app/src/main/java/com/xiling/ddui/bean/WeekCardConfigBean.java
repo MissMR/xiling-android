@@ -1,6 +1,9 @@
 package com.xiling.ddui.bean;
 
-public class WeekCardConfigBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class WeekCardConfigBean implements Parcelable {
     /**
      * weekId : 1
      * weekType : 1
@@ -114,4 +117,53 @@ public class WeekCardConfigBean {
     public void setUpdateUser(String updateUser) {
         this.updateUser = updateUser;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.weekId);
+        dest.writeInt(this.weekType);
+        dest.writeString(this.weekName);
+        dest.writeString(this.weekRemark);
+        dest.writeInt(this.weekPrice);
+        dest.writeInt(this.expiredOpen);
+        dest.writeInt(this.expiredUnuse);
+        dest.writeString(this.createDate);
+        dest.writeString(this.createUser);
+        dest.writeString(this.updateDate);
+        dest.writeString(this.updateUser);
+    }
+
+    public WeekCardConfigBean() {
+    }
+
+    protected WeekCardConfigBean(Parcel in) {
+        this.weekId = in.readInt();
+        this.weekType = in.readInt();
+        this.weekName = in.readString();
+        this.weekRemark = in.readString();
+        this.weekPrice = in.readInt();
+        this.expiredOpen = in.readInt();
+        this.expiredUnuse = in.readInt();
+        this.createDate = in.readString();
+        this.createUser = in.readString();
+        this.updateDate = in.readString();
+        this.updateUser = in.readString();
+    }
+
+    public static final Parcelable.Creator<WeekCardConfigBean> CREATOR = new Parcelable.Creator<WeekCardConfigBean>() {
+        @Override
+        public WeekCardConfigBean createFromParcel(Parcel source) {
+            return new WeekCardConfigBean(source);
+        }
+
+        @Override
+        public WeekCardConfigBean[] newArray(int size) {
+            return new WeekCardConfigBean[size];
+        }
+    };
 }

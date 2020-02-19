@@ -38,7 +38,8 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.InviteFriendsActivity"></activity>
+        <activity android:name=".ddui.activity.BuyWeekCardActivity"></activity>
+        <activity android:name=".ddui.activity.InviteFriendsActivity" />
         <activity android:name=".ddui.activity.MyManagerActivity" />
         <activity android:name=".ddui.activity.SearchMyClientActivity" />
         <activity android:name=".ddui.activity.MyClientActivity" />
