@@ -9,22 +9,21 @@
         android:id="@+id/iv_head"
         android:layout_width="29dp"
         android:layout_height="28dp"
-        android:layout_centerVertical="true"
-        />
+        android:layout_centerVertical="true" />
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_51"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@id/iv_head"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="邀请好友成为VIP会员"
             android:textColor="#ff202020"
             android:textSize="@dimen/sp_13" />
 
@@ -32,7 +31,6 @@
             android:id="@+id/tv_describe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="邀请好友、兑换好礼"
             android:textColor="#ffaaaaaa"
             android:textSize="12sp" />
 

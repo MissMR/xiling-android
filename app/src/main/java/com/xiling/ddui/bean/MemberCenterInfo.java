@@ -6,7 +6,7 @@ public class MemberCenterInfo {
      * headImage : http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132
      * nickName : 逄涛
      * memberRole : {"id":3,"roleName":"黑卡会员","roleLevel":30,"roleDiscount":55,"growValue":1000,"weekCardPrice":75000}
-     * nextMemberRole :
+     * nextMemberRole :{}
      * growValue : 9301.0
      * growValueTotle : 9301.0
      * couponCount : 0
@@ -18,7 +18,7 @@ public class MemberCenterInfo {
     private String headImage;
     private String nickName;
     private MemberRoleBean memberRole;
-    private String nextMemberRole;
+    private MemberRoleBean nextMemberRole;
     private double growValue;
     private double growValueTotle;
     private int couponCount;
@@ -57,11 +57,11 @@ public class MemberCenterInfo {
         this.memberRole = memberRole;
     }
 
-    public String getNextMemberRole() {
+    public MemberRoleBean getNextMemberRole() {
         return nextMemberRole;
     }
 
-    public void setNextMemberRole(String nextMemberRole) {
+    public void setNextMemberRole(MemberRoleBean nextMemberRole) {
         this.nextMemberRole = nextMemberRole;
     }
 
@@ -115,18 +115,18 @@ public class MemberCenterInfo {
          * weekCardPrice : 75000
          */
 
-        private int id;
+        private String id;
         private String roleName;
-        private int roleLevel;
-        private int roleDiscount;
-        private double growValue;
-        private int weekCardPrice;
+        private String roleLevel;
+        private String roleDiscount;
+        private String growValue;
+        private String weekCardPrice;
 
-        public int getId() {
+        public String getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(String id) {
             this.id = id;
         }
 
@@ -138,35 +138,35 @@ public class MemberCenterInfo {
             this.roleName = roleName;
         }
 
-        public int getRoleLevel() {
+        public String getRoleLevel() {
             return roleLevel;
         }
 
-        public void setRoleLevel(int roleLevel) {
+        public void setRoleLevel(String roleLevel) {
             this.roleLevel = roleLevel;
         }
 
-        public int getRoleDiscount() {
+        public String getRoleDiscount() {
             return roleDiscount;
         }
 
-        public void setRoleDiscount(int roleDiscount) {
+        public void setRoleDiscount(String roleDiscount) {
             this.roleDiscount = roleDiscount;
         }
 
-        public double getGrowValue() {
+        public String getGrowValue() {
             return growValue;
         }
 
-        public void setGrowValue(double growValue) {
+        public void setGrowValue(String growValue) {
             this.growValue = growValue;
         }
 
-        public int getWeekCardPrice() {
+        public String getWeekCardPrice() {
             return weekCardPrice;
         }
 
-        public void setWeekCardPrice(int weekCardPrice) {
+        public void setWeekCardPrice(String weekCardPrice) {
             this.weekCardPrice = weekCardPrice;
         }
     }

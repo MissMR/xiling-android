@@ -9,14 +9,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.activity.XLCashierActivity;
 import com.xiling.ddui.bean.SkuListBean;
-import com.xiling.ddui.service.IBankService;
-import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IPayService;
 import com.xiling.shared.util.ToastUtil;
@@ -31,37 +28,32 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MON
 
 /**
  * @author 逄涛
- * 账户充值
+ * 黑卡直充
  */
-public class RechargeDialog extends Dialog {
-    IBankService iBankService;
+public class DirectRechargeDialog extends Dialog {
     Context mContext;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.et_amount)
-    EditText etAmount;
     IPayService iPayService;
-    @BindView(R.id.tv_account)
-    TextView tvAccount;
+    @BindView(R.id.et_amount)
+    TextView etAmount;
 
-    public RechargeDialog(@NonNull Context context) {
+    public DirectRechargeDialog(@NonNull Context context) {
         this(context, R.style.DDMDialog);
         mContext = context;
     }
 
 
-    public RechargeDialog(@NonNull Context context, ArrayList<SkuListBean> skuList, String selectId) {
+    public DirectRechargeDialog(@NonNull Context context, ArrayList<SkuListBean> skuList, String selectId) {
         this(context, R.style.DDMDialog);
         mContext = context;
     }
 
 
-    public RechargeDialog(@NonNull Context context, int themeResId) {
+    public DirectRechargeDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         mContext = context;
     }
 
-    public RechargeDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    public DirectRechargeDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         mContext = context;
     }
@@ -69,7 +61,7 @@ public class RechargeDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_recharge);
+        setContentView(R.layout.dialog_direct_recharge);
         ButterKnife.bind(this);
         iPayService = ServiceManager.getInstance().createService(IPayService.class);
         initView();
@@ -78,7 +70,6 @@ public class RechargeDialog extends Dialog {
 
     private void initView() {
         initWindow();
-        tvAccount.setText(UserManager.getInstance().getUser().getPhone());
     }
 
     private void initWindow() {
@@ -103,19 +94,11 @@ public class RechargeDialog extends Dialog {
                 double amount = 0;
                 try {
                     amount = Integer.valueOf(etAmount.getText().toString());
-                    if (amount < 1000) {
-                        ToastUtil.error("最小充值金额1000元");
-                        return;
-                    }
                     //跳转收银台
                     XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_CHARGE_MONEY, amount, 45 * 60 * 1000, (int) (amount * 100) + "");
-
-
                 } catch (Exception e) {
                     ToastUtil.error("充值金额必须为整数");
                 }
-
-
                 break;
         }
 

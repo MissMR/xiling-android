@@ -1,5 +1,6 @@
 package com.xiling.ddui.adapter;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,7 +22,12 @@ public class MackAdapter extends BaseQuickAdapter<MackAdapter.MackBean, BaseView
     protected void convert(BaseViewHolder helper, MackBean item) {
         GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_head), item.iconRes);
         helper.setText(R.id.tv_title, item.title);
-        helper.setText(R.id.tv_describe, item.describe);
+        if (!TextUtils.isEmpty(item.describe)){
+            helper.setVisible(R.id.tv_describe,true);
+            helper.setText(R.id.tv_describe, item.describe);
+        }else{
+            helper.setVisible(R.id.tv_describe,false);
+        }
         helper.setText(R.id.btn_go, item.buttomName);
     }
 

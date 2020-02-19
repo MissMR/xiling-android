@@ -77,11 +77,11 @@ public class DateUtils {
      * 倒计时专用
      */
     public static void setCountDownTimeStrng(long time, TextView tvHour, TextView tvMinute, TextView tvSecond) {
-       long hours = time/1000/60/60;
-       long seconds = (time - (hours*60*60*1000))/1000/60;
-       long min = (time - (hours*60*60*1000)-(seconds*60*1000))/1000;
-        DecimalFormat decimalFormat =new DecimalFormat("00");
-        tvHour.setText( decimalFormat.format(hours));
+        long hours = time / 1000 / 60 / 60;
+        long seconds = (time - (hours * 60 * 60 * 1000)) / 1000 / 60;
+        long min = (time - (hours * 60 * 60 * 1000) - (seconds * 60 * 1000)) / 1000;
+        DecimalFormat decimalFormat = new DecimalFormat("00");
+        tvHour.setText(decimalFormat.format(hours));
         tvMinute.setText(decimalFormat.format(seconds));
         tvSecond.setText(decimalFormat.format(min));
 
@@ -95,7 +95,7 @@ public class DateUtils {
     public static long getOrderFinishTime(String shipDate) {
         long shipStamp = date2TimeStampLong(shipDate, "");
         long curTime = System.currentTimeMillis();
-        return shipStamp + 3600 * 24 * 10*1000 -curTime;
+        return shipStamp + 3600 * 24 * 10 * 1000 - curTime;
     }
 
     /**
@@ -108,6 +108,34 @@ public class DateUtils {
         int day = (int) (countDownTimne / (1000 * 60 * 60 * 24));
         int hour = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
         return "订单将在" + day + "天" + hour + "小时后自动完成";
+    }
+
+    /**
+     * 计算当前时间戳- 天，时，分，秒
+     *
+     * @return
+     */
+    public static String getDayForTime(long countDownTimne) {
+        int day = (int) (countDownTimne / (1000 * 60 * 60 * 24));
+        int hour = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+        int seconds = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24 - hour*1000 * 60 * 60) / (1000 * 60));
+        int min = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24 - hour * 1000 * 60 * 60 - seconds * 60 * 1000) / (1000));
+
+        String result = "";
+
+        if (day > 0) {
+            result += day + "天";
+        }
+
+        if (hour > 0) {
+            result += hour + "时";
+        }
+
+        if (seconds > 0) {
+            result += seconds + "分";
+        }
+        result += min + "秒";
+        return result;
     }
 
 

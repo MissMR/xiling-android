@@ -83,7 +83,7 @@ public class ToastUtil {
             mProgressDialog.setContentView(view, new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT));
-            mProgressDialog.setCancelable(false);
+            mProgressDialog.setCanceledOnTouchOutside(false);
         }
         if (null != mProgressDialog && !mProgressDialog.isShowing()) {
             mProgressDialog.show();

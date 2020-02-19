@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="账户充值"
+            android:text="升级充值"
             android:textColor="#ff202020"
             android:textSize="@dimen/dp_16" />
 
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="充值账户"
+            android:text="充值类型"
             android:textColor="#ff202020"
             android:textSize="@dimen/sp_16" />
 
@@ -57,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="#ffaaaaaa"
+            android:text="直升黑卡会员"
+            android:textColor="#202020"
             android:textSize="@dimen/sp_16" />
 
     </RelativeLayout>
@@ -98,13 +99,13 @@
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_16" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:inputType="number"
-                android:text="1000"
+                android:text="58000"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_16" />
 
@@ -117,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_18"
-        android:text="充值说明：充值的货款将直接存储到个人账户中，后续下单订货可以直接使用余额支付"
+        android:text="充值说明：\n 一次性充值货款58000直升黑卡会员，充值的货款将直接存储 到个人账户中，后续下单订货可以直接使用余额支付 "
         android:textColor="#ffaaaaaa"
         android:textSize="@dimen/sp_12" />
 
