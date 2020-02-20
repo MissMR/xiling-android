@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.xiling.ddui.service.HtmlService.WEB_URL_EXPRESS;
+import static com.xiling.ddui.config.H5UrlConfig.WEB_URL_EXPRESS;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;

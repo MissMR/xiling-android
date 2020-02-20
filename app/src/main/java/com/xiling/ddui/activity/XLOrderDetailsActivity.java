@@ -36,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.xiling.ddui.service.HtmlService.WEB_URL_EXPRESS;
+import static com.xiling.ddui.config.H5UrlConfig.WEB_URL_EXPRESS;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;

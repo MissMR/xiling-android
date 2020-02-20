@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_293"
+    android:layout_height="@dimen/dp_180"
+    android:background="@drawable/bg_week_beoverdue"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您的周卡体验已到期"
+        android:textColor="#ffffffff"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="重新开通可继续使用"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/btn_open"
+        android:layout_width="@dimen/dp_116"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_32"
+        android:background="@drawable/btn_white_radius_10"
+        android:gravity="center"
+        android:text="重新开通"
+        android:textColor="#ffdcb982"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/btn_know"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="我知道了"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/sp_12" />
+
+</LinearLayout>

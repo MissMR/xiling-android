@@ -304,7 +304,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                     GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
                     tvName.setText(newUserBean.getNickName());
                     tvPhone.setText(newUserBean.getPhone());
-                    switch (newUserBean.getRole().getRoleLevel()){
+                    switch (newUserBean.getRole().getRoleLevel()) {
                         case 10:
                             ivLevel.setBackgroundResource(R.drawable.icon_user);
                             break;
@@ -483,19 +483,23 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         startActivity(intent);
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdata(EventMessage message) {
         switch (message.getEvent()) {
-            case UPDATE_AVATAR:
+            case UPDATE_AVATAR://更新头像
                 GlideUtils.loadHead(mContext, avatarIv, (String) message.getData());
                 break;
-            case UPDATE_NICK:
+            case UPDATE_NICK://更新昵称
                 tvName.setText((String) message.getData());
                 break;
-            case UPDATEE_PHONE:
+            case UPDATEE_PHONE://更新电话
                 tvPhone.setText((String) message.getData());
                 break;
-
+            case WEEK_CARD_OPEN:
+                //开通了周卡,刷新
+                requestUserInfo();
+                break;
         }
     }
 

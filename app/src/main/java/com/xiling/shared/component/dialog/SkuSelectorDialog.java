@@ -151,17 +151,6 @@ public class SkuSelectorDialog extends Dialog {
     }
 
     private void upDateSku() {
-  /*      if (selectMap != null && selectMap.size() > 0) {
-            String skuName = "";
-            for (Map.Entry<String, ProductNewBean.PropertiesBean.PropertyValuesBean> entry : selectMap.entrySet()) {
-                ProductNewBean.PropertiesBean.PropertyValuesBean valuesBean = entry.getValue();
-                String parentId = entry.getKey();
-                skuName += parentNameMap.get(parentId) + ":" + valuesBean.getPropertyValue() + " ";
-            }
-            setSkuName(skuName);
-        } else {
-            setSkuName("");
-        }*/
         if (skuBean != null) {
             setSkuName(skuBean.getPropertyValues());
             GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());

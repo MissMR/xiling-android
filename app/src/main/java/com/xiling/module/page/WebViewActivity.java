@@ -13,12 +13,14 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.BuildConfig;
@@ -354,7 +356,7 @@ public class WebViewActivity extends BaseActivity {
     }
 
 
-    public static final String K_DDM = "ddm_from";
+    public static final String K_DDM = "xl_from";
     public static final String V_DDM = "" + ICommunityService.DEVICE_TYPE;
 
     public String buildUrl(String url) {
@@ -435,6 +437,12 @@ public class WebViewActivity extends BaseActivity {
                     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                         mUrl = request.getUrl().toString();
                         return super.shouldOverrideUrlLoading(view, request);
+                    }
+
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+
                     }
                 })
                 .setReceivedTitleCallback(new ChromeClientCallbackManager.ReceivedTitleCallback() {

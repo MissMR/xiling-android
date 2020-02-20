@@ -150,7 +150,7 @@ public interface ICommunityService {
      */
 
     /*设备类型 0:iOS;1:Android*/
-    int DEVICE_TYPE = 1;
+    int DEVICE_TYPE = 2;
 
     /**
      * App升级接口

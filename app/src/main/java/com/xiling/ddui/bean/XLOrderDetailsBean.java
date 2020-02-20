@@ -118,7 +118,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getTotalPrice() {
-        return totalPrice;
+        return totalPrice / 100;
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -126,7 +126,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getGoodsTotalRetailPrice() {
-        return goodsTotalRetailPrice;
+        return goodsTotalRetailPrice / 100;
     }
 
     public void setGoodsTotalRetailPrice(double goodsTotalRetailPrice) {
@@ -206,7 +206,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getFreight() {
-        return freight;
+        return freight / 100;
     }
 
     public void setFreight(double freight) {
@@ -214,7 +214,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getDiscountCoupon() {
-        return discountCoupon;
+        return discountCoupon / 100;
     }
 
     public void setDiscountCoupon(double discountCoupon) {
@@ -222,7 +222,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getDiscountPrice() {
-        return discountPrice;
+        return discountPrice / 100;
     }
 
     public void setDiscountPrice(double discountPrice) {
@@ -286,7 +286,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getPayMoney() {
-        return payMoney;
+        return payMoney / 100;
     }
 
     public void setPayMoney(double payMoney) {

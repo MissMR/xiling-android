@@ -22,7 +22,7 @@ public class WeekCardConfigBean implements Parcelable {
     private int weekType;
     private String weekName;
     private String weekRemark;
-    private int weekPrice;
+    private double weekPrice;
     private int expiredOpen;
     private int expiredUnuse;
     private String createDate;
@@ -62,11 +62,11 @@ public class WeekCardConfigBean implements Parcelable {
         this.weekRemark = weekRemark;
     }
 
-    public int getWeekPrice() {
-        return weekPrice;
+    public double getWeekPrice() {
+        return weekPrice/100;
     }
 
-    public void setWeekPrice(int weekPrice) {
+    public void setWeekPrice(double weekPrice) {
         this.weekPrice = weekPrice;
     }
 
@@ -129,7 +129,7 @@ public class WeekCardConfigBean implements Parcelable {
         dest.writeInt(this.weekType);
         dest.writeString(this.weekName);
         dest.writeString(this.weekRemark);
-        dest.writeInt(this.weekPrice);
+        dest.writeDouble(this.weekPrice);
         dest.writeInt(this.expiredOpen);
         dest.writeInt(this.expiredUnuse);
         dest.writeString(this.createDate);
@@ -146,7 +146,7 @@ public class WeekCardConfigBean implements Parcelable {
         this.weekType = in.readInt();
         this.weekName = in.readString();
         this.weekRemark = in.readString();
-        this.weekPrice = in.readInt();
+        this.weekPrice = in.readDouble();
         this.expiredOpen = in.readInt();
         this.expiredUnuse = in.readInt();
         this.createDate = in.readString();

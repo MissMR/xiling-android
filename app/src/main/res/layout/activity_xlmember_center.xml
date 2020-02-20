@@ -392,6 +392,7 @@
 
 
                 <TextView
+                    android:id="@+id/btn_my_week_card_package"
                     android:layout_width="@dimen/dp_87"
                     android:layout_height="@dimen/dp_27"
                     android:layout_alignParentRight="true"
@@ -452,6 +453,7 @@
                     android:textSize="@dimen/sp_20" />
 
                 <TextView
+                    android:id="@+id/btn_growth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

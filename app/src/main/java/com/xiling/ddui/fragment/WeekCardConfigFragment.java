@@ -73,7 +73,6 @@ public class WeekCardConfigFragment extends BaseFragment {
         switch (weekCardConfigBean.getWeekType()) {
             case 1:
                 //VIP
-                weekPrice = Constants.WEEK_CARD_PRICE_VIP;
                 tvCard.setTextColor(Color.parseColor("#EB5F76"));
                 llWeekCardBackgroud.setBackgroundResource(R.drawable.bg_week_card_vip);
                 privilegeList.add("全场商品订货享受8.5折优惠起");
@@ -85,7 +84,6 @@ public class WeekCardConfigFragment extends BaseFragment {
                 break;
             case 2:
                 // 黑卡
-                weekPrice = Constants.WEEK_CARD_PRICE_BLACK;
                 tvCard.setTextColor(Color.parseColor("#F09165"));
                 llWeekCardBackgroud.setBackgroundResource(R.drawable.bg_week_card_black);
                 privilegeList.add("全场商品订货享受8.5折优惠起");
@@ -97,7 +95,7 @@ public class WeekCardConfigFragment extends BaseFragment {
 
                 break;
         }
-
+        tvWeekPrice.setText(weekCardConfigBean.getWeekPrice()+"");
         recyclerPrivilege.setLayoutManager(new LinearLayoutManager(mContext));
         privilegeAdapter = new PrivilegeAdapter();
         privilegeAdapter.setNewData(privilegeList);
@@ -116,8 +114,8 @@ public class WeekCardConfigFragment extends BaseFragment {
     @OnClick(R.id.btn_purchase)
     public void onViewClicked() {
         //去开通
-        if (mContext != null){
-            ((XLMemberCenterActivity)mContext).purchaseWeekCard(weekCardConfigBean);
+        if (mContext != null) {
+            ((XLMemberCenterActivity) mContext).purchaseWeekCard(weekCardConfigBean);
         }
 
 

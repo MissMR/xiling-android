@@ -130,7 +130,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice;
+        return mPrice/100;
     }
 
     /**
@@ -154,7 +154,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice;
+        return mPrice/100;
     }
     /**
      * 根据用户等级，获取商品价格
@@ -177,7 +177,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice;
+        return mPrice/100;
     }
 
 

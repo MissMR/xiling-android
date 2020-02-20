@@ -136,7 +136,7 @@ public class HomeRecommendDataBean {
         }
 
         public double getMinMarketPrice() {
-            return minMarketPrice;
+            return minMarketPrice/100;
         }
 
         public void setMinMarketPrice(double minMarketPrice) {
@@ -144,7 +144,7 @@ public class HomeRecommendDataBean {
         }
 
         public double getMinPrice() {
-            return minPrice;
+            return minPrice/100;
         }
 
         public void setMinPrice(double minPrice) {

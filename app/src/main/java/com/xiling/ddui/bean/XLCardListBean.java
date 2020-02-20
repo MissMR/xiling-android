@@ -131,7 +131,7 @@ public class XLCardListBean {
         }
 
         public double getPrice() {
-            return price;
+            return price/100;
         }
 
         public void setPrice(double price) {
@@ -147,7 +147,7 @@ public class XLCardListBean {
         }
 
         public double getRetailPrice() {
-            return retailPrice;
+            return retailPrice/100;
         }
 
         public void setRetailPrice(double retailPrice) {

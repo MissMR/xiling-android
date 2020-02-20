@@ -2,6 +2,7 @@ package com.xiling.ddui.service;
 
 import com.xiling.ddui.bean.MemberCenterInfo;
 import com.xiling.ddui.bean.StoreBean;
+import com.xiling.ddui.bean.WeekCardBean;
 import com.xiling.ddui.bean.WeekCardConfigBean;
 import com.xiling.ddui.bean.WeekCardInfo;
 import com.xiling.shared.bean.api.RequestResult;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * 会员接口
@@ -28,4 +30,13 @@ public interface IMemberService {
     // 获取周卡配置
     @GET("weekCard/getWeekCardConfigList")
     Observable<RequestResult<List<WeekCardConfigBean>>> getWeekCardConfigList();
+
+    // 获取卡包列表
+    @GET("center/getWeekCardList")
+    Observable<RequestResult<List<WeekCardBean>>> getWeekCardList(@Query("useStatus") int useStatus);
+
+    // 开通周卡
+    @GET("center/openWeekCard")
+    Observable<RequestResult<Object>> openWeekCard(@Query("id") String id);
+
 }

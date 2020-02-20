@@ -1,5 +1,6 @@
 package com.xiling.ddui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
@@ -14,25 +15,33 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.xiling.R;
 import com.xiling.ddui.adapter.MackAdapter;
 import com.xiling.ddui.bean.MemberCenterInfo;
 import com.xiling.ddui.bean.WeekCardConfigBean;
 import com.xiling.ddui.bean.WeekCardInfo;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.popupwindow.DirectRechargeDialog;
+import com.xiling.ddui.custom.popupwindow.WeekBeOverdueDialog;
 import com.xiling.ddui.fragment.WeekCardConfigFragment;
 import com.xiling.ddui.service.IMemberService;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.community.DateUtils;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.util.ToastUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +103,7 @@ public class XLMemberCenterActivity extends BaseActivity {
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
-
+    WeekCardInfo weekCardInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +127,19 @@ public class XLMemberCenterActivity extends BaseActivity {
         mackBeanList.add(new MackAdapter.MackBean(R.drawable.icon_invitation, "邀请黑卡会员赚成长值翻倍", "", "去邀请"));
         mackBeanList.add(new MackAdapter.MackBean(R.drawable.icon_place_order, "下单订货赚成长值翻倍", "350元=1成长值", "去订货"));
         mackAdapter.setNewData(mackBeanList);
+        mackAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (position) {
+                    case 0:
+                    case 1:
+                        startActivity(new Intent(context, InviteFriendsActivity.class));
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -276,14 +298,13 @@ public class XLMemberCenterActivity extends BaseActivity {
             relWeekCard.setVisibility(View.GONE);
         } else {
             //有周卡
-            if (weekCardInfo.getStatus() == 1) {
+            if (weekCardInfo.getStatus().equals("1")) {
                 // 有效
-
-                switch (weekCardInfo.getWeekType()){
-                    case 1:
+                switch (weekCardInfo.getWeekType()) {
+                    case "1":
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
                         break;
-                    case 2:
+                    case "2":
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
                         break;
                 }
@@ -297,6 +318,8 @@ public class XLMemberCenterActivity extends BaseActivity {
                 //过期
                 tvMyWeekCard.setText("当前周卡已到期");
                 relWeekCard.setVisibility(View.GONE);
+                WeekBeOverdueDialog weekBeOverdueDialog = new WeekBeOverdueDialog(context);
+                weekBeOverdueDialog.show();
             }
         }
     }
@@ -311,25 +334,26 @@ public class XLMemberCenterActivity extends BaseActivity {
             public void onSuccess(WeekCardInfo result) {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
-                if (result != null){
+                weekCardInfo = result;
+                if (result != null) {
                     NewUserBean newUserBean = UserManager.getInstance().getUser();
                     //有效
-                    if (result.getWeekType() == 1) {
+                    if (result.getWeekType().equals("1")) {
                         // 如果当前有效周卡为vip卡，只有普通用户有效
-                        if (newUserBean.getRole().getRoleLevel() == 10) {
+                        if (newUserBean.getRoleId() == 1) {
                             setWeekCardStatus(result);
                         } else {
                             setWeekCardStatus(null);
                         }
-                    } else if (result.getWeekType() == 2) {
+                    } else if (result.getWeekType().equals("2")) {
                         // 如果当前有效周卡为黑卡 普通和vip用户都有效
                         setWeekCardStatus(result);
+                    } else {
+                        setWeekCardStatus(null);
                     }
-                }else{
+                } else {
                     setWeekCardStatus(null);
                 }
-
-
             }
 
             @Override
@@ -360,7 +384,7 @@ public class XLMemberCenterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record,R.id.btn_recharge})
+    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record, R.id.btn_recharge, R.id.btn_my_week_card_package, R.id.btn_growth})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -368,24 +392,46 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.btn_notes:
                 //会员说明
+                WebViewActivity.jumpUrl(context, "会员说明", H5UrlConfig.MEMBER_EXPLAIN);
                 break;
             case R.id.rel_week_record:
                 //我的周卡记录
+                WebViewActivity.jumpUrl(context, "购买记录", H5UrlConfig.WEEK_CARD_RECORD);
                 break;
             case R.id.btn_recharge:
                 //立即充值
                 DirectRechargeDialog directRechargeDialog = new DirectRechargeDialog(context);
                 directRechargeDialog.show();
                 break;
+            case R.id.btn_my_week_card_package:
+                //我的周卡包
+                Intent intent = new Intent(context, MyWeekCardPackageActivity.class);
+                if (weekCardInfo != null) {
+                    intent.putExtra("weekCardInfo", weekCardInfo);
+                }
+                startActivity(intent);
+                break;
+            case R.id.btn_growth:
+                WebViewActivity.jumpUrl(context, "成长值说明", H5UrlConfig.GROWTH_INTRO);
+                break;
         }
     }
 
     /**
-     * 去开通周卡，fragment调用
+     * 去购买周卡，fragment调用
      */
-    public void purchaseWeekCard(WeekCardConfigBean weekCardConfigBean){
+    public void purchaseWeekCard(WeekCardConfigBean weekCardConfigBean) {
         String myWeekCard = tvMyWeekCard.getText().toString();
-        BuyWeekCardActivity.jumpBuyWeekCardActivity(this,weekCardConfigBean,myWeekCard);
+        BuyWeekCardActivity.jumpBuyWeekCardActivity(this, weekCardConfigBean, myWeekCard);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventBus(EventMessage message) {
+        switch (message.getEvent()) {
+            case WEEK_CARD_OPEN:
+                //开通了周卡,刷新
+                getMemberCenterInfo();
+                break;
+        }
+    }
 }

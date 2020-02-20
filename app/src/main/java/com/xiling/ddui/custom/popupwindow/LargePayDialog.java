@@ -28,18 +28,19 @@ public class LargePayDialog extends Dialog {
 
     String key = "";
     String type ="";
+    String weekSize = "";
 
     public LargePayDialog(@NonNull Context context) {
         this(context, R.style.DDMDialog);
         mContext = context;
     }
 
-
-    public LargePayDialog(@NonNull Context context,String type, String key) {
+    public LargePayDialog(@NonNull Context context,String type, String key,String weekSize) {
         this(context, R.style.DDMDialog);
         mContext = context;
         this.type = type;
         this.key = key;
+        this.weekSize = weekSize;
     }
 
 
@@ -90,6 +91,7 @@ public class LargePayDialog extends Dialog {
                 Intent intent = new Intent(mContext, UploadCredentalsActivity.class);
                 intent.putExtra("key", key);
                 intent.putExtra("type", type);
+                intent.putExtra("weekSize",weekSize);
                 mContext.startActivity(intent);
                 dismiss();
                 break;

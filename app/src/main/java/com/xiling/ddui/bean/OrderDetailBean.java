@@ -18,7 +18,7 @@ public class OrderDetailBean {
     private double totalPrice;
 
     public double getTotalPrice() {
-        return totalPrice;
+        return totalPrice/100;
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -50,7 +50,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalRetailPrice() {
-        return goodsTotalRetailPrice;
+        return goodsTotalRetailPrice/100;
     }
 
     public void setGoodsTotalRetailPrice(double goodsTotalRetailPrice) {
@@ -58,7 +58,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalDiscountPrice() {
-        return goodsTotalDiscountPrice;
+        return goodsTotalDiscountPrice/100;
     }
 
     public void setGoodsTotalDiscountPrice(double goodsTotalDiscountPrice) {
@@ -66,7 +66,7 @@ public class OrderDetailBean {
     }
 
     public double getCouponReductionPrice() {
-        return couponReductionPrice;
+        return couponReductionPrice/100;
     }
 
     public void setCouponReductionPrice(double couponReductionPrice) {
@@ -74,7 +74,7 @@ public class OrderDetailBean {
     }
 
     public double getFreight() {
-        return freight;
+        return freight/100;
     }
 
     public void setFreight(double freight) {
@@ -178,8 +178,8 @@ public class OrderDetailBean {
             private String skuCode;
             private String skuName;
             private int quantity;
-            private int price;
-            private int retailPrice;
+            private double price;
+            private double retailPrice;
             private int marketPrice;
             private String costPrice;
             private int lineTotal;
@@ -302,19 +302,19 @@ public class OrderDetailBean {
                 this.quantity = quantity;
             }
 
-            public int getPrice() {
-                return price;
+            public double getPrice() {
+                return price/100;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 
-            public int getRetailPrice() {
-                return retailPrice;
+            public double getRetailPrice() {
+                return retailPrice/100;
             }
 
-            public void setRetailPrice(int retailPrice) {
+            public void setRetailPrice(double retailPrice) {
                 this.retailPrice = retailPrice;
             }
 

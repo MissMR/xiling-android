@@ -7,8 +7,8 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ToastUtils;
@@ -19,7 +19,6 @@ import com.xiling.R;
 import com.xiling.ddui.adapter.XLBankPayAdapter;
 import com.xiling.ddui.bean.BankListBean;
 import com.xiling.ddui.bean.WXPayBean;
-import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.LargePayDialog;
 import com.xiling.ddui.service.IBankService;
@@ -30,19 +29,16 @@ import com.xiling.module.pay.PayMsg;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IPayService;
 import com.xiling.shared.util.AliPayUtils;
-import com.xiling.shared.util.ConvertUtil;
 import com.xiling.shared.util.ToastUtil;
 import com.xiling.shared.util.WePayUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,9 +48,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xiling.shared.constant.Event.FINISH_ORDER;
+import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
+import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_WE_CHAT_PAY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MONEY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
@@ -62,6 +63,10 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
  */
 public class XLCashierActivity extends BaseActivity {
     public static final int ADD_BAND_CODE = 1000;
+    @BindView(R.id.rel_head)
+    RelativeLayout relHead;
+    @BindView(R.id.btn_pay_type)
+    RelativeLayout btnPayType;
     private IBankService mBankService;
     private IPayService mPayService;
 
@@ -90,22 +95,22 @@ public class XLCashierActivity extends BaseActivity {
     String type;
     String weekSize;
 
-    public static void jumpCashierActivity(Context context,String type, double payMoney, long waitPayTimeMilli,String key) {
+    public static void jumpCashierActivity(Context context, String type, double payMoney, long waitPayTimeMilli, String key) {
         Intent intent = new Intent(context, XLCashierActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("payMoney", payMoney);
         intent.putExtra("waitPayTimeMilli", waitPayTimeMilli);
-        intent.putExtra("key",key);
+        intent.putExtra("key", key);
         context.startActivity(intent);
     }
 
-    public static void jumpCashierActivity(Context context,String type, double payMoney, long waitPayTimeMilli,String key,String weekSize) {
+    public static void jumpCashierActivity(Context context, String type, double payMoney, long waitPayTimeMilli, String key, String weekSize) {
         Intent intent = new Intent(context, XLCashierActivity.class);
         intent.putExtra("type", type);
         intent.putExtra("payMoney", payMoney);
         intent.putExtra("waitPayTimeMilli", waitPayTimeMilli);
-        intent.putExtra("key",key);
-        intent.putExtra("weekSize",weekSize);
+        intent.putExtra("key", key);
+        intent.putExtra("weekSize", weekSize);
         context.startActivity(intent);
     }
 
@@ -141,6 +146,12 @@ public class XLCashierActivity extends BaseActivity {
             waitPayTimeMilli = getIntent().getLongExtra("waitPayTimeMilli", 0);
             key = getIntent().getStringExtra("key");
             weekSize = getIntent().getStringExtra("weekSize");
+        }
+
+        if (type.equals(PAY_TYPE_WEEK_CARD)){
+            btnPayType.setVisibility(View.GONE);
+        }else{
+            btnPayType.setVisibility(View.VISIBLE);
         }
 
         NumberHandler.setPriceText(payMoney, tvPrice, tvPriceDecimal);
@@ -241,7 +252,7 @@ public class XLCashierActivity extends BaseActivity {
                 startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
                 break;
             case R.id.btn_pay_type:
-                largePayDialog = new LargePayDialog(context,type, key);
+                largePayDialog = new LargePayDialog(context, type, key, weekSize);
                 largePayDialog.show();
                 break;
         }
@@ -278,9 +289,25 @@ public class XLCashierActivity extends BaseActivity {
     }
 
 
-    class EXT {
-        private String UNION_PAY_CARD_ID ;
+    public static class EXT {
+        private String UNION_PAY_CARD_ID;
         private String NUMBER;
+
+        public String getUNION_PAY_CARD_ID() {
+            return UNION_PAY_CARD_ID;
+        }
+
+        public void setUNION_PAY_CARD_ID(String UNION_PAY_CARD_ID) {
+            this.UNION_PAY_CARD_ID = UNION_PAY_CARD_ID;
+        }
+
+        public String getNUMBER() {
+            return NUMBER;
+        }
+
+        public void setNUMBER(String NUMBER) {
+            this.NUMBER = NUMBER;
+        }
     }
 
 
@@ -299,10 +326,10 @@ public class XLCashierActivity extends BaseActivity {
                 ext.UNION_PAY_CARD_ID = mBankBean.getId();
                 params.put("ext", ext);
             }
-        }else if (type.equals(PAY_TYPE_WEEK_CARD)){
+        } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
             EXT ext = new EXT();
             ext.NUMBER = weekSize;
-            params.put("ext",ext);
+            params.put("ext", ext);
         }
 
         APIManager.startRequest(mPayService.addPay(APIManager.buildJsonBody(params)), new BaseRequestListener<String>() {
@@ -330,7 +357,6 @@ public class XLCashierActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 super.onSuccess(result);
-
                 switch (channel) {
                     case CHANNEL_A_LI_PAY:
                         AliPayUtils.pay(XLCashierActivity.this, result);
@@ -362,7 +388,17 @@ public class XLCashierActivity extends BaseActivity {
         switch (msgStatus.getAction()) {
             case PayMsg.ACTION_WXPAY_SUCCEED:
             case PayMsg.ACTION_ALIPAY_SUCCEED:
-                ToastUtil.success("支付成功");
+
+                if (type.equals(PAY_TYPE_ORDER)) {
+                    //发送订单完成广播，通知页面关闭
+                    EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
+                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
+                    EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
+                } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
+                    EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
+                }
+                ToastUtil.error("支付成功");
                 finish();
                 break;
             case PayMsg.ACTION_WXPAY_FAIL:

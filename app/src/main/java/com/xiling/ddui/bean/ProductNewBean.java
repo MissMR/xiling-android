@@ -84,7 +84,7 @@ public class ProductNewBean {
     }
 
     public float getMinMarketPrice() {
-        return minMarketPrice;
+        return minMarketPrice/100;
     }
 
     public void setMinMarketPrice(float minMarketPrice) {
@@ -92,7 +92,7 @@ public class ProductNewBean {
     }
 
     public float getMinPrice() {
-        return minPrice;
+        return minPrice/100;
     }
 
     public void setMinPrice(float minPrice) {
@@ -380,7 +380,7 @@ public class ProductNewBean {
         }
 
         public double getRetailPrice() {
-            return retailPrice;
+            return retailPrice/100;
         }
 
         public void setRetailPrice(double retailPrice) {
@@ -388,7 +388,7 @@ public class ProductNewBean {
         }
 
         public double getMarketPrice() {
-            return marketPrice;
+            return marketPrice/100;
         }
 
         public void setMarketPrice(double marketPrice) {

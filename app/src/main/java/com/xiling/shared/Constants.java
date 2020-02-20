@@ -10,15 +10,6 @@ import java.util.Locale;
  * Created by JayChan on 2016/12/13.
  */
 public class Constants {
-    /**
-     * VIP周卡价格
-     */
-    public static final int WEEK_CARD_PRICE_VIP = 199;
-
-    /**
-     * 黑卡周卡价格
-     */
-    public static final int WEEK_CARD_PRICE_BLACK =299;
 
     public static final String API_VERSION = "1.0";
 

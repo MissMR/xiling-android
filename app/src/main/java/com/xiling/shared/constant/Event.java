@@ -53,4 +53,5 @@ public enum Event {
     ,UPDATE_NICK
     ,UPDATEE_PHONE
     ,RECHARGE_SUCCESS
+    ,WEEK_CARD_OPEN
 }

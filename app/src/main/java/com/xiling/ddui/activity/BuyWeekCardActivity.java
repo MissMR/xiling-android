@@ -10,19 +10,25 @@ import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.bean.WeekCardConfigBean;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.NumberField;
 import com.xiling.shared.contracts.OnValueChangeLister;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MONEY;
+import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
@@ -52,7 +58,7 @@ public class BuyWeekCardActivity extends BaseActivity {
     TextView tvTotalPrice;
 
     int size = 1;//数量
-    int week_price = 0;//单价
+    double week_price = 0;//单价
     int key; //支付使用
 
     public static void jumpBuyWeekCardActivity(Context context, WeekCardConfigBean weekCardConfigBean, String weekMessage) {
@@ -83,16 +89,13 @@ public class BuyWeekCardActivity extends BaseActivity {
         tvMyWeekCard.setText(weekMessage);
 
         if (weekCardConfigBean != null) {
-
+            week_price = weekCardConfigBean.getWeekPrice();
             switch (weekCardConfigBean.getWeekType()) {
                 case 1:
                     relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
-                    week_price = Constants.WEEK_CARD_PRICE_VIP;
-
                     break;
                 case 2:
                     relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
-                    week_price = Constants.WEEK_CARD_PRICE_BLACK;
                     break;
             }
             key = weekCardConfigBean.getWeekId();
@@ -111,7 +114,7 @@ public class BuyWeekCardActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_close, R.id.btn_record,R.id.btn_buy})
+    @OnClick({R.id.btn_close, R.id.btn_record, R.id.btn_buy})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -119,11 +122,19 @@ public class BuyWeekCardActivity extends BaseActivity {
                 break;
             case R.id.btn_record:
                 //购买记录
+                WebViewActivity.jumpUrl(context, "购买记录", H5UrlConfig.WEEK_CARD_RECORD);
                 break;
             case R.id.btn_buy:
                 //立即购买
-                XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_WEEK_CARD, Double.valueOf(week_price * size), 45 * 60 * 1000, key+"",size+"");
+                XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_WEEK_CARD, week_price * size, 45 * 60 * 1000, key + "", size + "");
                 break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void eventBus(EventMessage message) {
+        if (message.getEvent() == WEEK_CARD_OPEN) {
+            finish();
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.xiling.ddui.bean;
 
-public class WeekCardInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class WeekCardInfo implements Parcelable {
     /**
      * id : 117
      * incId : 10011
@@ -19,59 +22,59 @@ public class WeekCardInfo {
      * weekRemark : 全场下单享受6.5折优惠价格
      */
 
-    private int id;
-    private int incId;
-    private int weekId;
-    private int weekType;
-    private int price;
+    private String id;
+    private String incId;
+    private String weekId;
+    private String weekType;
+    private String price;
     private String openTime;
     private String payTime;
     private String expiredTime;
-    private int payStatus;
-    private int status;
-    private int useStatus;
-    private int sendMessage;
+    private String payStatus;
+    private String status;
+    private String useStatus;
+    private String sendMessage;
     private String weekOrderNo;
     private String weekName;
     private String weekRemark;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getIncId() {
+    public String getIncId() {
         return incId;
     }
 
-    public void setIncId(int incId) {
+    public void setIncId(String incId) {
         this.incId = incId;
     }
 
-    public int getWeekId() {
+    public String getWeekId() {
         return weekId;
     }
 
-    public void setWeekId(int weekId) {
+    public void setWeekId(String weekId) {
         this.weekId = weekId;
     }
 
-    public int getWeekType() {
+    public String getWeekType() {
         return weekType;
     }
 
-    public void setWeekType(int weekType) {
+    public void setWeekType(String weekType) {
         this.weekType = weekType;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -99,35 +102,35 @@ public class WeekCardInfo {
         this.expiredTime = expiredTime;
     }
 
-    public int getPayStatus() {
+    public String getPayStatus() {
         return payStatus;
     }
 
-    public void setPayStatus(int payStatus) {
+    public void setPayStatus(String payStatus) {
         this.payStatus = payStatus;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public int getUseStatus() {
+    public String getUseStatus() {
         return useStatus;
     }
 
-    public void setUseStatus(int useStatus) {
+    public void setUseStatus(String useStatus) {
         this.useStatus = useStatus;
     }
 
-    public int getSendMessage() {
+    public String getSendMessage() {
         return sendMessage;
     }
 
-    public void setSendMessage(int sendMessage) {
+    public void setSendMessage(String sendMessage) {
         this.sendMessage = sendMessage;
     }
 
@@ -154,4 +157,61 @@ public class WeekCardInfo {
     public void setWeekRemark(String weekRemark) {
         this.weekRemark = weekRemark;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.incId);
+        dest.writeString(this.weekId);
+        dest.writeString(this.weekType);
+        dest.writeString(this.price);
+        dest.writeString(this.openTime);
+        dest.writeString(this.payTime);
+        dest.writeString(this.expiredTime);
+        dest.writeString(this.payStatus);
+        dest.writeString(this.status);
+        dest.writeString(this.useStatus);
+        dest.writeString(this.sendMessage);
+        dest.writeString(this.weekOrderNo);
+        dest.writeString(this.weekName);
+        dest.writeString(this.weekRemark);
+    }
+
+    public WeekCardInfo() {
+    }
+
+    protected WeekCardInfo(Parcel in) {
+        this.id = in.readString();
+        this.incId = in.readString();
+        this.weekId = in.readString();
+        this.weekType = in.readString();
+        this.price = in.readString();
+        this.openTime = in.readString();
+        this.payTime = in.readString();
+        this.expiredTime = in.readString();
+        this.payStatus = in.readString();
+        this.status = in.readString();
+        this.useStatus = in.readString();
+        this.sendMessage = in.readString();
+        this.weekOrderNo = in.readString();
+        this.weekName = in.readString();
+        this.weekRemark = in.readString();
+    }
+
+    public static final Parcelable.Creator<WeekCardInfo> CREATOR = new Parcelable.Creator<WeekCardInfo>() {
+        @Override
+        public WeekCardInfo createFromParcel(Parcel source) {
+            return new WeekCardInfo(source);
+        }
+
+        @Override
+        public WeekCardInfo[] newArray(int size) {
+            return new WeekCardInfo[size];
+        }
+    };
 }

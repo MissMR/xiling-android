@@ -80,6 +80,7 @@ public class UploadCredentalsActivity extends BaseActivity {
     private String fullName, accountPay, remarks;
     private String payTime = "";
     private String uploadImg = "";
+    String weekSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class UploadCredentalsActivity extends BaseActivity {
         if (getIntent() != null) {
             key = getIntent().getStringExtra("key");
             type = getIntent().getStringExtra("type");
+            weekSize = getIntent().getStringExtra("weekSize");
         }
         etRemarks.addTextChangedListener(new TextWatcher() {
             @Override
@@ -163,9 +165,6 @@ public class UploadCredentalsActivity extends BaseActivity {
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
                 } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
                     EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
-                    ToastUtil.error("充值成功");
-                } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
-                    ToastUtil.error("购买成功");
                 }
             }
 
@@ -187,6 +186,12 @@ public class UploadCredentalsActivity extends BaseActivity {
         params.put("type", type);
         params.put("channel", CHANNEL_OFFLINE_PAY);
         params.put("device", "ANDROID");
+
+        if (type.equals(PAY_TYPE_WEEK_CARD)) {
+            XLCashierActivity.EXT ext = new XLCashierActivity.EXT();
+            ext.setNUMBER(weekSize);
+            params.put("ext", ext);
+        }
 
         APIManager.startRequest(iPayService.addPay(APIManager.buildJsonBody(params)), new BaseRequestListener<String>() {
             @Override
