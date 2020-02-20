@@ -3,6 +3,7 @@ package com.xiling.ddui.config;
 import com.xiling.BuildConfig;
 
 public class H5UrlConfig {
+
     //购买记录
     public static final String WEEK_CARD_RECORD = BuildConfig.BASE_URL+ "weekCardRecord";
     //查看物流
