@@ -468,7 +468,7 @@ public class UserSettingsActivity extends BaseActivity {
             public void onSuccess(Object result) {
                 super.onSuccess(result);
                 UserService.logout();
-                UserManager.getInstance().loginOut();
+                UserManager.getInstance().loginOut(context);
                 onBackPressed();
             }
 

@@ -132,7 +132,7 @@ public class LoginActivity extends BaseActivity {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
                //登录成功
-                UserManager.getInstance().loginSuccess(result);
+                UserManager.getInstance().loginSuccess(context,result);
             }
 
             @Override

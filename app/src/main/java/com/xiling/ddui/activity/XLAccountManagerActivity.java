@@ -88,7 +88,7 @@ public class XLAccountManagerActivity extends BaseActivity {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_account_out:
-                UserManager.getInstance().loginOut();
+                UserManager.getInstance().loginOut(context);
                 finish();
                 break;
             case R.id.btn_account_add:

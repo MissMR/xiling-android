@@ -21,6 +21,7 @@ import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.NoData;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -178,12 +179,12 @@ public class MyWeekCardPackageFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventBus(EventMessage message) {
         switch (message.getEvent()) {
             case WEEK_CARD_OPEN:
-                //开通了周卡,刷新
+                //开通了周卡,更新过期状态，刷新列表
+                SharedPreferenceUtil.getInstance().putBoolean("weekBeOverdue", true);
                 getWeekCardList();
                 break;
         }

@@ -66,17 +66,19 @@ public class UserManager {
         spUtils.putString(USER_MYUSER, gson.toJson(user));
     }
 
-    public void loginSuccess(NewUserBean user) {
+    public void loginSuccess(Context context,NewUserBean user) {
         spUtils.putString(USER_MYUSER, gson.toJson(user));
         EventBus.getDefault().post(new EventMessage(Event.LOGIN_SUCCESS));
+        PushManager.setJPushInfo(context,user);
     }
 
     /**
      * 退出登录
      */
-    public void loginOut() {
+    public void loginOut(Context context) {
         spUtils.remove(Key.OAUTH);
         spUtils.remove(USER_MYUSER);
+        PushManager.setJPushInfo(context,null);
         EventBus.getDefault().post(new EventMessage(Event.LOGIN_OUT));
     }
 

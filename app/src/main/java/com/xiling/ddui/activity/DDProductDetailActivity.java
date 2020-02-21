@@ -143,34 +143,48 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
     private void getProductInfo(final String spuId) {
-        UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
-            @Override
-            public void onCheckUserInfoSucess(final NewUserBean newUserBean) {
-                APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(context) {
-                    @Override
-                    public void onSuccess(ProductNewBean product) {
-                        super.onSuccess(product);
-                        mSpuInfo = product;
-                        mProductDetailUIHelper.updateSpuViews(mSpuInfo,newUserBean);
-                    }
+        if (UserManager.getInstance().isLogin()) {
+            UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
+                @Override
+                public void onCheckUserInfoSucess(final NewUserBean newUserBean) {
+                    APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(context) {
+                        @Override
+                        public void onSuccess(ProductNewBean product) {
+                            super.onSuccess(product);
+                            mSpuInfo = product;
+                            mProductDetailUIHelper.updateSpuViews(mSpuInfo, newUserBean);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
 
-                    }
-                });
+                        }
+                    });
+                }
 
+                @Override
+                public void onCheckUserInfoFail() {
 
+                }
+            });
+        } else {
+            APIManager.startRequest(mProductService.getProductDetail(spuId), new BaseRequestListener<ProductNewBean>(context) {
+                @Override
+                public void onSuccess(ProductNewBean product) {
+                    super.onSuccess(product);
+                    mSpuInfo = product;
+                    mProductDetailUIHelper.updateSpuViews(mSpuInfo, null);
+                }
 
-            }
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
 
-            @Override
-            public void onCheckUserInfoFail() {
+                }
+            });
 
-            }
-        });
-
+        }
 
 
     }
@@ -193,25 +207,32 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     public void onClickCart() {
         // 去购物车 业务逻辑
-        startActivity(new Intent(this, MainActivity.class));
-        EventBus.getDefault().post(new EventMessage(viewCart));
+        if (UserManager.getInstance().isLogin(context)) {
+            startActivity(new Intent(this, MainActivity.class));
+            EventBus.getDefault().post(new EventMessage(viewCart));
+        }
     }
 
     @Override
     public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
-        requestAddCart(skuId, size);
+        if (UserManager.getInstance().isLogin(context)) {
+            EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+            requestAddCart(skuId, size);
+        }
     }
 
     @Override
     public void onClickBuy(SkuListBean skuListBean) {
         //立即购买 业务逻辑
-        ArrayList<SkuListBean> skuList = new ArrayList<>();
-        skuList.add(skuListBean);
-        Intent intent = new Intent(context, ConfirmationOrderActivity.class);
-        intent.putExtra(SKULIST, skuList);
-        intent.putExtra(ORDER_SOURCE, 1);
-        startActivity(intent);
+        if (UserManager.getInstance().isLogin(context)) {
+            ArrayList<SkuListBean> skuList = new ArrayList<>();
+            skuList.add(skuListBean);
+            Intent intent = new Intent(context, ConfirmationOrderActivity.class);
+            intent.putExtra(SKULIST, skuList);
+            intent.putExtra(ORDER_SOURCE, 1);
+            startActivity(intent);
+        }
     }
 
     /**
@@ -233,18 +254,24 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
 
     private void requestUpDataShopCardCount() {
-        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
-            @Override
-            public void onSuccess(Integer result) {
-                super.onSuccess(result);
-                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
-            }
+        if (UserManager.getInstance().isLogin()) {
+            APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+                @Override
+                public void onSuccess(Integer result) {
+                    super.onSuccess(result);
+                    EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+                }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
-        });
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    ToastUtil.error(e.getMessage());
+                }
+            });
+        } else {
+            EventBus.getDefault().post(new EventMessage(cartAmountUpdate, 0));
+        }
+
     }
 
 
@@ -255,7 +282,9 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     // 立即升级
     @Override
     public void onClickBecomeMaster() {
-        getAuth();
+        if (UserManager.getInstance().isLogin(context)) {
+            getAuth();
+        }
     }
 
 
@@ -268,9 +297,9 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
             public void onSuccess(RealAuthBean result) {
                 super.onSuccess(result);
                 //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
-                if (result.getAuthStatus() != 2){
+                if (result.getAuthStatus() != 2) {
                     //去认证
-                    D3ialogTools.showAlertDialog(context,"请先实名认证\n认证当前商户信息", "实名认证", new View.OnClickListener() {
+                    D3ialogTools.showAlertDialog(context, "请先实名认证\n认证当前商户信息", "实名认证", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             startActivity(new Intent(context, RealAuthActivity.class));
@@ -281,9 +310,9 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
                         }
                     });
-                }else{
+                } else {
                     //跳转会员中心
-                    startActivity(new Intent(context,XLMemberCenterActivity.class));
+                    startActivity(new Intent(context, XLMemberCenterActivity.class));
                 }
             }
 
@@ -297,18 +326,8 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(EventMessage message) {
-        switch (message.getEvent()) {
-            case cartAmountUpdate:
-                String total = (int) message.getData() > 99 ? "99+" : String.valueOf(message.getData());
-                break;
-            default:
-        }
-    }
-
     private void showShareDialog() {
-        if (UserManager.getInstance().isLogin(context)){
+        if (UserManager.getInstance().isLogin(context)) {
             ToastUtil.hideLoading();
             XLProductQrCodeDialog dialog = new XLProductQrCodeDialog(this, mSpuInfo);
             dialog.show();

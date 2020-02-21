@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.blankj.utilcode.utils.LogUtils;
 import com.xiling.BuildConfig;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 
 import java.util.HashSet;
@@ -17,7 +18,7 @@ public class PushManager {
         JPushInterface.init(context);
     }
 
-    public static void setJPushInfo(Context context, User user) {
+    public static void setJPushInfo(Context context, NewUserBean user) {
         if (BuildConfig.DEBUG) {
             addTestTag(context);
         }
@@ -27,8 +28,8 @@ public class PushManager {
         } else {
             if (BuildConfig.DEBUG) {
             }
-            JPushInterface.setAlias(context, 1, user.id);
-            LogUtils.e("设置推送 Alias   " + user.id);
+            JPushInterface.setAlias(context, 1, user.getMemberId());
+            LogUtils.e("设置推送 Alias   " + user.getMemberId());
         }
     }
 

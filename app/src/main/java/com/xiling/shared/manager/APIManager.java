@@ -63,7 +63,6 @@ public class APIManager {
                         MyApplication.isShowNoLogin = true;
                         listener.onError(new Exception(Config.NET_MESSAGE.NO_LOGIN));
                         EventBus.getDefault().post(new EventMessage(Event.goToLogin));
-                        UserManager.getInstance().loginOut();
                     }
                 } else {
                     listener.onError(new Exception(message));

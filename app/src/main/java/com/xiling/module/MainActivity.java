@@ -516,9 +516,9 @@ public class MainActivity extends BaseActivity {
      * 用来读取未读消息条数
      */
     public void loadUserStatus() {
-       /* if (!SessionUtil.getInstance().isLogin()) {
-            return;
-        }*/
+       if (!UserManager.getInstance().isLogin()){
+           return;
+       }
 
         IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
        /* APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {

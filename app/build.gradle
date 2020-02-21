@@ -237,10 +237,8 @@ android {
         release {
             manifestPlaceholders = [
                     APP_NAME     : "@string/appName",
-
                     JPUSH_PKGNAME: defaultConfig.applicationId,
-                    JPUSH_APPKEY : "1c17c29dc8530000969dc216", //JPush上注册的包名对应的appkey.
-
+                    JPUSH_APPKEY : "a8decdd6c5ae1302a619bafa", //JPush上注册的包名对应的appkey.
                     UMENG_APPKEY : "5b6a89d6a40fa3082800006d", //友盟App Key
             ]
 

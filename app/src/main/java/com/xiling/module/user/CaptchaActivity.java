@@ -221,7 +221,7 @@ public class CaptchaActivity extends BaseActivity {
                     public void onSuccess(NewUserBean result) {
                         super.onSuccess(result);
                         //登录成功
-                        UserManager.getInstance().loginSuccess(result);
+                        UserManager.getInstance().loginSuccess(context,result);
                     }
 
                     @Override

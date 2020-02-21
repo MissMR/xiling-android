@@ -38,6 +38,8 @@ import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.util.ShareUtils;
+import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -329,8 +331,12 @@ public class XLMemberCenterActivity extends BaseActivity {
                 //过期
                 tvMyWeekCard.setText("当前周卡已到期");
                 relWeekCard.setVisibility(View.GONE);
-                WeekBeOverdueDialog weekBeOverdueDialog = new WeekBeOverdueDialog(context);
-                weekBeOverdueDialog.show();
+                //如果没有弹出过，弹出过期提醒
+                if (SharedPreferenceUtil.getInstance().getBoolean("weekBeOverdue")){
+                    WeekBeOverdueDialog weekBeOverdueDialog = new WeekBeOverdueDialog(context);
+                    weekBeOverdueDialog.show();
+                }
+
             }
         }
     }
