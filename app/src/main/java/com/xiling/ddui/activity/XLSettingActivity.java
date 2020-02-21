@@ -8,9 +8,11 @@ import android.widget.ImageView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.tools.GlideEngine;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
@@ -60,7 +62,7 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, RealAuthActivity.class));
                 break;
             case R.id.rel_account://账户管理
-                startActivity(new Intent(context,XLAccountManagerActivity.class));
+                startActivity(new Intent(context, XLAccountManagerActivity.class));
                 break;
             case R.id.rel_password://交易密码
                 startActivity(new Intent(context, TransactionPasswordActivity.class));
@@ -69,9 +71,10 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, MyBankCardActivity.class));
                 break;
             case R.id.rel_about_us: //关于我们
+                WebViewActivity.jumpUrl(context, H5UrlConfig.ABOUT_US);
                 break;
             case R.id.rel_clear_cache://清除缓存
-
+                ToastUtil.error("清除成功");
                 break;
         }
     }

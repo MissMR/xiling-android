@@ -158,14 +158,14 @@ public class WePayUtils {
      */
     public static void startPay(WXPayBean wxPayBean) {
         PayReq request = new PayReq();
-        request.appId = wxPayBean.appId;
-        request.partnerId = BuildConfig.WX_PARTNER_ID;
-        String prepayId = wxPayBean.packageValue.split("=")[1];
+        request.appId = wxPayBean.getAppId();
+        request.partnerId = wxPayBean.getPartnerId();
+        String prepayId = wxPayBean.getPrepayId();
         request.prepayId = prepayId;
-        request.packageValue =  "Sign=WXPay";
-        request.nonceStr = wxPayBean.nonceStr;
-        request.timeStamp =wxPayBean.timeStamp;
-        request.sign =wxPayBean.paySign;
+        request.packageValue = "Sign=WXPay";
+        request.nonceStr = wxPayBean.getNonceStr();
+        request.timeStamp = wxPayBean.getTimeStamp();
+        request.sign = wxPayBean.getSign();
         mWxapi.sendReq(request);
     }
 
@@ -242,7 +242,7 @@ public class WePayUtils {
     }
 
     public final static String getMessageDigest(byte[] buffer) {
-        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
         try {
             MessageDigest mdTemp = MessageDigest.getInstance("MD5");
             mdTemp.update(buffer);

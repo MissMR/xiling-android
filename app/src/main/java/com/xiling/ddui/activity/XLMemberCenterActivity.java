@@ -156,9 +156,20 @@ public class XLMemberCenterActivity extends BaseActivity {
                     llWeekCardPackage.setVisibility(View.VISIBLE);
                     fragments.clear();
                     childNames.clear();
+                    NewUserBean userBean = UserManager.getInstance().getUser();
                     for (WeekCardConfigBean weekCardConfigBean : result) {
-                        childNames.add(weekCardConfigBean.getWeekName());
-                        fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean));
+                        if (userBean.getRoleId() == 1) {
+                            // 如果本身是普通会员，都可以购买
+                            childNames.add(weekCardConfigBean.getWeekName());
+                            fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean));
+                        } else if (userBean.getRoleId() == 2) {
+                            //如果是vip会员，只能购买黑卡
+                            if (weekCardConfigBean.getWeekType() == 2) {
+                                childNames.add(weekCardConfigBean.getWeekName());
+                                fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean));
+                            }
+                        }
+
                     }
 
                     slidingTab.setViewPager(viewpagerOrder, childNames.toArray(new String[childNames.size()]), XLMemberCenterActivity.this, fragments);
