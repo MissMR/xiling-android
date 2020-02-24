@@ -354,16 +354,14 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
      */
     void loadUnReadMsgCount() {
         IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {
+        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<String>() {
             @Override
-            public void onSuccess(UnReadMessageCountBean result) {
+            public void onSuccess(String result) {
                 super.onSuccess(result);
-                if (result != null) {
-
-                    DLog.i("DDMineFragment.getNum:" + result.getNum());
-
+                if (!TextUtils.isEmpty(result)) {
+                    DLog.i("DDMineFragment.getNum:" + result);
                     MyStatus status = new MyStatus();
-                    status.messageCount = result.getNum();
+                    status.messageCount = Integer.valueOf(result);
                     EventBus.getDefault().post(status);
                 }
             }

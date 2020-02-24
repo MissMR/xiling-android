@@ -39,7 +39,7 @@ public class UserService {
             }
         });
         UserService.login(user);
-        PushManager.setJPushInfo(activity, user);
+        //PushManager.setJPushInfo(activity, user);
         EventBus.getDefault().post(new EventMessage(Event.loginSuccess));
         activity.startActivity(new Intent(activity, MainActivity.class));
         activity.finish();

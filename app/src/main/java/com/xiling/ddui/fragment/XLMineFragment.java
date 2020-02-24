@@ -30,18 +30,21 @@ import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.XLCouponActivity;
 import com.xiling.ddui.activity.XLFinanceManangerActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
+import com.xiling.ddui.activity.XLNewsGroupActivity;
 import com.xiling.ddui.activity.XLSettingActivity;
 import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
 import com.xiling.ddui.custom.D3ialogTools;
+import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.MyStatus;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.OrderCount;
 import com.xiling.shared.bean.event.EventMessage;
@@ -143,6 +146,8 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     LinearLayout llMyServuce;
     @BindView(R.id.iv_level)
     ImageView ivLevel;
+    @BindView(R.id.iv_message)
+    ImageView ivMessage;
 
     @Nullable
     @Override
@@ -425,12 +430,16 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     }
 
     @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip, R.id.ll_custom, R.id.btn_my_client
-            , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management
+            , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management, R.id.rel_message
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
                 startActivity(new Intent(mContext, XLSettingActivity.class));
+                break;
+            case R.id.rel_message:
+                //消息
+                startActivity(new Intent(mContext, XLNewsGroupActivity.class));
                 break;
             case R.id.orider_wait_pay:
                 jumpOrderList(ORDER_WAIT_PAY);
@@ -504,4 +513,14 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MyStatus status) {
+        if (status != null) {
+            if (status.messageCount > 0) {
+                ivMessage.setVisibility(View.VISIBLE);
+            } else {
+                ivMessage.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
 }

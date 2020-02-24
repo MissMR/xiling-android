@@ -100,7 +100,7 @@ public class MessageGroupActivity extends DDListActivity<MessageGroupBean> {
     }
 
     private void clearItemBadge(int position) {
-        mAdapter.getItem(position).setNoReadNum(0);
+      //  mAdapter.getItem(position).setNoReadNum(0);
         mAdapter.notifyItemChanged(position + mAdapter.getHeaderLayoutCount());
     }
 

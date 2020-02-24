@@ -5,91 +5,65 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:divider="@drawable/list_divider"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:showDividers="beginning|end">
-
-        <TextView
-            android:id="@+id/itemTitleTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:text="Title"
-            android:textColor="@color/default_text_color"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        android:layout_height="@dimen/dp_40">
 
         <TextView
             android:id="@+id/itemTimeTv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:text="Time"
-            android:textColor="@color/grayDark"
-            android:textSize="12sp" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_11" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:background="@drawable/white_bg_radius_4">
 
         <TextView
-            android:id="@+id/itemContentTv"
-            android:layout_width="match_parent"
+            android:id="@+id/itemTitleTv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:lineSpacingExtra="4sp"
-            android:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"
-            android:textColor="@color/default_text_color"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_14"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_12" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/itemThumbIv"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:minHeight="50dp"
-            android:visibility="gone"
-            fresco:viewAspectRatio="2.3"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@drawable/default_image"
-            fresco:placeholderImageScaleType="fitXY" />
+            android:layout_marginTop="@dimen/dp_50">
 
-        <LinearLayout
-            android:id="@+id/itemMoreLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:clickable="true"
-            android:divider="@drawable/list_divider"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:showDividers="beginning">
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="@dimen/dp_57"
+                android:layout_height="@dimen/dp_57"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10" />
+
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:drawableRight="@mipmap/icon_arrow_right"
-                android:gravity="center_vertical"
-                android:text="点击查看详情"
-                android:textColor="@color/default_text_color" />
-        </LinearLayout>
-    </LinearLayout>
+                android:id="@+id/itemContentTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_32"
+                android:layout_toRightOf="@id/iv_head"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_12" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

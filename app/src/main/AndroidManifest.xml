@@ -28,6 +28,20 @@
 
     <uses-permission android:name="org.simalliance.openmobileap" />
 
+   <!-- &lt;!&ndash; 极光推送 &ndash;&gt;
+    <permission android:protectionLevel="signature" android:name=".permission.JPUSH_MESSAGE"/>
+    <uses-permission android:name="com.example.myapplication.permission.JPUSH_MESSAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
+
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -38,7 +52,7 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.XLNewsActivity"></activity>
+        <activity android:name=".ddui.activity.XLNewsGroupActivity"></activity>
         <activity android:name=".ddui.activity.MyWeekCardPackageActivity" />
         <activity android:name=".ddui.activity.BuyWeekCardActivity" />
         <activity android:name=".ddui.activity.InviteFriendsActivity" />
@@ -75,7 +89,8 @@
             android:value="${UMENG_CHANNEL}" />
         <meta-data
             android:name="CHANNEL_ID"
-            android:value="${CHANNEL_ID}" /> <!-- 极光推送广播接收器 -->
+            android:value="${CHANNEL_ID}" />
+        <!-- 极光推送广播接收器 -->
         <receiver
             android:name=".shared.receiver.JPushReceiver"
             android:enabled="true"

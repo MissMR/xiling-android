@@ -31,14 +31,30 @@
                     android:layout_marginTop="@dimen/dp_57"
                     android:background="@drawable/icon_setting" />
 
-                <ImageView
-                    android:id="@+id/iv_message"
-                    android:layout_width="@dimen/dp_19"
-                    android:layout_height="@dimen/dp_18"
-                    android:layout_marginTop="@dimen/dp_57"
+                <RelativeLayout
+                    android:id="@+id/rel_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_54"
                     android:layout_marginRight="@dimen/dp_16"
-                    android:layout_toLeftOf="@id/iv_setting"
-                    android:background="@drawable/icon_message" />
+                    android:layout_toLeftOf="@id/iv_setting">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_19"
+                        android:layout_height="@dimen/dp_18"
+                        android:layout_marginTop="@dimen/dp_3"
+                        android:background="@drawable/icon_message" />
+
+                    <ImageView
+                        android:id="@+id/iv_message"
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_10"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:background="@drawable/icon_message_notice"
+                        android:visibility="gone"
+                        />
+
+                </RelativeLayout>
 
 
                 <ImageView
@@ -232,8 +248,7 @@
                             android:layout_width="@dimen/dp_72"
                             android:layout_height="@dimen/dp_18"
                             android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_12"
-                         />
+                            android:layout_marginLeft="@dimen/dp_12" />
 
                         <ImageView
                             android:layout_width="@dimen/dp_66"
@@ -363,8 +378,7 @@
                 android:paddingTop="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_12"
                 android:paddingBottom="@dimen/dp_10"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/btn_my_client"

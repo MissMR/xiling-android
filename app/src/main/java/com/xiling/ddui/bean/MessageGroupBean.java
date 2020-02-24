@@ -16,8 +16,9 @@ public class MessageGroupBean {
     private String id;
     private String title;
     private String img;
-    private int noReadNum;
+    private String noReadNum;
     private String msgTitle;
+    private String msgDate;
 
     public String getId() {
         return id;
@@ -43,11 +44,11 @@ public class MessageGroupBean {
         this.img = img;
     }
 
-    public int getNoReadNum() {
+    public String getNoReadNum() {
         return noReadNum;
     }
 
-    public void setNoReadNum(int noReadNum) {
+    public void setNoReadNum(String noReadNum) {
         this.noReadNum = noReadNum;
     }
 
@@ -57,5 +58,13 @@ public class MessageGroupBean {
 
     public void setMsgTitle(String msgTitle) {
         this.msgTitle = msgTitle;
+    }
+
+    public String getMsgDate() {
+        return msgDate;
+    }
+
+    public void setMsgDate(String msgDate) {
+        this.msgDate = msgDate;
     }
 }

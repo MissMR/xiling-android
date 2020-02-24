@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.XLNewsGroupActivity;
+import com.xiling.ddui.tools.DLog;
 import com.xiling.dduis.adapter.HomeActivityAdapter;
 import com.xiling.dduis.adapter.HomeBrandAdapter;
 import com.xiling.dduis.adapter.HomeHotAdapter;
@@ -35,13 +38,13 @@ import com.xiling.image.GlideUtils;
 import com.xiling.module.search.SearchActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.MyStatus;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
-import com.xiling.shared.service.contract.ICaptchaService;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,6 +114,8 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     TextView tvGrade;
     @BindView(R.id.iv_headIcon)
     CircleImageView ivHeadIcon;
+    @BindView(R.id.iv_message)
+    ImageView ivMessage;
     private LinearLayoutManager bannerLayoutManager;
 
     @Nullable
@@ -373,11 +378,23 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         checkUserInfo();
     }
 
-    @OnClick({R.id.btn_login, R.id.rel_search})
-    public void onViewClicked() {
-        if (!UserManager.getInstance().isLogin()) {
-            EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+    @OnClick({R.id.btn_login, R.id.rel_search, R.id.btn_message})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_login:
+                if (!UserManager.getInstance().isLogin()) {
+                    EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+                }
+                break;
+            case R.id.rel_search:
+                Intent intent = new Intent(mContext, SearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_message:
+                startActivity(new Intent(mContext, XLNewsGroupActivity.class));
+                break;
         }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -395,6 +412,19 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 break;
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MyStatus status) {
+        if (status != null) {
+            DLog.i("onEvent+MessageCount:" + status.messageCount);
+            if (status.messageCount > 0) {
+                ivMessage.setVisibility(View.VISIBLE);
+            } else {
+                ivMessage.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
 
     private void updateUserInfo() {
         //登录成功
@@ -426,9 +456,4 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     }
 
 
-    @OnClick(R.id.rel_search)
-    public void searchClick() {
-        Intent intent = new Intent(mContext, SearchActivity.class);
-        startActivity(intent);
-    }
 }

@@ -6,9 +6,12 @@ import android.text.TextUtils;
 
 import com.xiling.ddui.activity.DDBaseListActivity;
 import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.ddui.bean.XLMessageBean;
 import com.xiling.module.message.adapter.MessageAdapter;
 import com.xiling.shared.Constants;
+import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseAdapter;
+import com.xiling.shared.basic.BaseListActivity;
 import com.xiling.shared.bean.Message;
 import com.xiling.shared.bean.api.RequestResult;
 import com.xiling.shared.manager.ServiceManager;
@@ -19,24 +22,26 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
 /**
- * @author Jigsaw
- * @date 2018/12/6
+ * pt
+ * 消息列表
  */
-public class MessageListActivity extends DDBaseListActivity<Message> {
+public class MessageListActivity extends DDBaseListActivity<XLMessageBean> {
 
     private String mMessageGroupId;
+    private String messageTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getIntentData();
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-
-        showHeader("消息");
+        setNoDataLayout("暂时还没有消息");
+        setTitle(messageTitle);
+        setLeftBlack();
     }
 
     private void getIntentData() {
         mMessageGroupId = getIntent().getStringExtra(Constants.Extras.ID);
+        messageTitle = getIntent().getStringExtra("title");
         if (TextUtils.isEmpty(mMessageGroupId)) {
             ToastUtil.error("id不能为空");
             finish();
@@ -44,7 +49,7 @@ public class MessageListActivity extends DDBaseListActivity<Message> {
     }
 
     @Override
-    protected Observable<RequestResult<ListResultBean<Message>>> getApiObservable() {
+    protected Observable<RequestResult<ListResultBean<XLMessageBean>>> getApiObservable() {
         return ServiceManager.getInstance().createService(IMessageService.class).getMessageList(mPage, mSize, mMessageGroupId);
     }
 

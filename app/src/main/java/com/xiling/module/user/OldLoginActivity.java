@@ -198,7 +198,7 @@ public class OldLoginActivity extends BaseActivity {
 
     private void loginSucceed(User user) {
         UserService.login(user);
-        PushManager.setJPushInfo(this, user);
+      //  PushManager.setJPushInfo(this, user);
         EventBus.getDefault().post(new EventMessage(Event.loginSuccess));
     }
 

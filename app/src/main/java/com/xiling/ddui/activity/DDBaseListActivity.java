@@ -4,20 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import com.xiling.R;
-import com.xiling.ddui.bean.ListResultBean;
-import com.xiling.shared.basic.BaseActivity;
-import com.xiling.shared.basic.BaseAdapter;
-import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.api.RequestResult;
-import com.xiling.shared.manager.APIManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.xiling.R;
+import com.xiling.ddui.bean.ListResultBean;
+import com.xiling.shared.basic.BaseActivity;
+import com.xiling.shared.basic.BaseAdapter;
+import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.api.RequestResult;
+import com.xiling.shared.component.NoData;
+import com.xiling.shared.manager.APIManager;
 
 import java.util.List;
 
@@ -42,15 +44,22 @@ public abstract class DDBaseListActivity<T> extends BaseActivity implements OnLo
     protected int mSize = 10;
 
     protected BaseAdapter mAdapter;
+    @BindView(R.id.noDataLayout)
+    NoData noDataLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ddlist);
         ButterKnife.bind(this);
+        noDataLayout.setTextView("暂无数据");
         initData();
         initView();
         getList();
+    }
+
+    public void setNoDataLayout(String text) {
+        noDataLayout.setTextView(text);
     }
 
     private void initData() {
@@ -78,18 +87,22 @@ public abstract class DDBaseListActivity<T> extends BaseActivity implements OnLo
             public void onSuccess(ListResultBean<T> result) {
                 super.onSuccess(result);
                 finishRefresh();
-                List<T> list = result.getDatas();
-                if (null != list && list.size() > 0) {
-                    mAdapter.addItems(list);
-                    mSmartRefreshLayout.setNoMoreData(false);
+                if (mPage >= result.getTotalPage()) {
+                    mSmartRefreshLayout.setEnableLoadMore(false);
                 } else {
-                    if (mPage > 0) {
-                        if (mPage == 1) {
-                            mAdapter.getItems().clear();
-                            mAdapter.notifyDataSetChanged();
-                        }
-                        mSmartRefreshLayout.setNoMoreData(true);
+                    mSmartRefreshLayout.setEnableLoadMore(true);
+                }
+                List<T> list = result.getDatas();
+                if (mPage == 1) {
+                    mAdapter.getItems().clear();
+                    if (null != list && list.size() > 0) {
+                        mAdapter.addItems(list);
+                        noDataLayout.setVisibility(View.GONE);
+                    } else {
+                        noDataLayout.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    mAdapter.addItems(list);
                 }
             }
 

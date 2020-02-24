@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/sdv_img"
-        style="@style/DefaultSimpleDraweeView"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="11dp"
         android:layout_marginLeft="19dp"
+        android:layout_marginTop="11dp"
         android:layout_marginRight="14dp"
-        android:layout_marginTop="11dp" />
+        android:layout_marginBottom="11dp"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_badge"
@@ -40,7 +40,6 @@
         android:layout_toRightOf="@id/sdv_img"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="Title"
         android:textSize="16sp" />
 
     <TextView
@@ -52,7 +51,6 @@
         android:layout_toRightOf="@id/sdv_img"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="副标题"
         android:textColor="@color/ddm_gray_dark"
         android:textSize="12sp" />
 
@@ -61,4 +59,14 @@
         android:layout_height="1dp"
         android:layout_below="@id/sdv_img"
         android:background="@color/ddm_gray_light" />
+
+    <View
+        android:id="@+id/fgx"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:layout_below="@id/sdv_img"
+        android:background="#F5F5F5"
+        android:visibility="gone"
+        />
+
 </RelativeLayout>

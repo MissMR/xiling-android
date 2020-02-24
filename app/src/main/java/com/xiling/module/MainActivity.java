@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +22,7 @@ import com.xiling.BuildConfig;
 import com.xiling.MyApplication;
 import com.xiling.R;
 import com.xiling.ddui.api.MApiActivity;
+import com.xiling.ddui.bean.UnReadMessageCountBean;
 import com.xiling.ddui.config.UIConfig;
 import com.xiling.ddui.custom.DDPermissionDialog;
 import com.xiling.ddui.fragment.DDCartFragment;
@@ -224,10 +226,10 @@ public class MainActivity extends BaseActivity {
 //        new AppUpgradeManager(context).check(false);
 
         //获取消息条数
-      //  loadUserStatus();
+        loadUserStatus();
 
         //加载本地缓存的购物车数量
-       // CartAmountManager.share().reload();
+        // CartAmountManager.share().reload();
 
         if (UIConfig.isProtocolTest) {
             startActivity(new Intent(context, MApiActivity.class));
@@ -516,25 +518,33 @@ public class MainActivity extends BaseActivity {
      * 用来读取未读消息条数
      */
     public void loadUserStatus() {
-       if (!UserManager.getInstance().isLogin()){
-           return;
-       }
+        if (!UserManager.getInstance().isLogin()) {
+            return;
+        }
 
         IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-       /* APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<UnReadMessageCountBean>() {
+        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<String>() {
             @Override
-            public void onSuccess(UnReadMessageCountBean result) {
+            public void onSuccess(String result) {
                 super.onSuccess(result);
-                if (result != null) {
-
-                    DLog.i("MainActivity.getNum:" + result.getNum());
-
+                if (!TextUtils.isEmpty(result)) {
                     MyStatus status = new MyStatus();
-                    status.messageCount = result.getNum();
+                    status.messageCount = Integer.valueOf(result);
+                    EventBus.getDefault().post(status);
+                } else {
+                    MyStatus status = new MyStatus();
+                    status.messageCount = 0;
                     EventBus.getDefault().post(status);
                 }
+
             }
-        });*/
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
     }
 
     private void toLogin() {
