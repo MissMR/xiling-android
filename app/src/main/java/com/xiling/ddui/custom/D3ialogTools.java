@@ -56,6 +56,14 @@ public class D3ialogTools {
         dialog.show();
     }
 
+    /**
+     * 单个按钮
+     * @param context
+     * @param title
+     * @param message
+     * @param btnName
+     * @param okClickListener
+     */
     public static void showSingleAlertDialog(Context context,String title,String message,String btnName, View.OnClickListener okClickListener){
         Dialog dialog = new SingleAlertDialog(context)
                 .setTitle(title)

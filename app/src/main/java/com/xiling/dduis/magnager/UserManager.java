@@ -125,7 +125,7 @@ public class UserManager {
      * @return
      */
     public double getPriceForUser(ProductNewBean item) {
-        double mPrice = item.getLevel10Price();
+        double mPrice = item.getMinPrice();
         NewUserBean userBean = getUser();
         if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
@@ -149,7 +149,7 @@ public class UserManager {
      * @return
      */
     public double getPriceForUser(HomeRecommendDataBean.DatasBean item) {
-        double mPrice = item.getLevel10Price();
+        double mPrice = item.getMinPrice();
         NewUserBean userBean = getUser();
         if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
@@ -173,7 +173,7 @@ public class UserManager {
      * @return
      */
     public double getPriceForUser(ProductNewBean.SkusBean item) {
-        double mPrice = item.getLevel10Price();
+        double mPrice = item.getRetailPrice();
         NewUserBean userBean = getUser();
         if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {

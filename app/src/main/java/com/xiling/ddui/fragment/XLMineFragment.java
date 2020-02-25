@@ -39,6 +39,7 @@ import com.xiling.ddui.bean.UserInComeBean;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.address.AddressListActivity;
@@ -256,6 +257,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ViewUtil.setViewClickedDelay(view);
                 switch (serviceBeanList.get(position).getTitle()) {
                     case "管理地址":
                         Intent intent = new Intent(mContext, AddressListActivity.class);

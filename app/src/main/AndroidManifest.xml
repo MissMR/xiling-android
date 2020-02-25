@@ -52,29 +52,86 @@
         android:persistent="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label,android:icon, android:theme">
-        <activity android:name=".ddui.activity.XLNewsGroupActivity"></activity>
-        <activity android:name=".ddui.activity.MyWeekCardPackageActivity" />
-        <activity android:name=".ddui.activity.BuyWeekCardActivity" />
-        <activity android:name=".ddui.activity.InviteFriendsActivity" />
-        <activity android:name=".ddui.activity.MyManagerActivity" />
-        <activity android:name=".ddui.activity.SearchMyClientActivity" />
-        <activity android:name=".ddui.activity.MyClientActivity" />
-        <activity android:name=".ddui.activity.CustomerOrderDetailsActivity" />
-        <activity android:name=".ddui.activity.CustomerOrderActivity" />
-        <activity android:name=".ddui.activity.IncomeIndexActivity" />
-        <activity android:name=".ddui.activity.BalanceDetailsActivity" />
-        <activity android:name=".ddui.activity.XLFinanceManangerActivity" />
-        <activity android:name=".ddui.activity.XLCouponActivity" />
-        <activity android:name=".ddui.activity.XLAccountManagerActivity" />
-        <activity android:name=".ddui.activity.NewPhoneActivity" />
-        <activity android:name=".ddui.activity.PersonalDataActivity" />
-        <activity android:name=".ddui.activity.XLMemberCenterActivity" />
+        <activity
+            android:name=".ddui.activity.XLNewsGroupActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.MyWeekCardPackageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.BuyWeekCardActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.InviteFriendsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.MyManagerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.SearchMyClientActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.MyClientActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.CustomerOrderDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.CustomerOrderActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.IncomeIndexActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.BalanceDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.XLFinanceManangerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.XLCouponActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.XLAccountManagerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.NewPhoneActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.PersonalDataActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.XLMemberCenterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ddui.activity.CategorySecondActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".ddui.activity.DDCouponIntroActivity" />
-        <activity android:name=".ddui.activity.DDCouponActivity" /> <!-- 设置key -->
+        <activity
+            android:name=".ddui.activity.DDCouponIntroActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.DDCouponActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" /> <!-- 设置key -->
         <!-- <meta-data -->
         <!-- android:name="com.amap.api.v2.apikey" -->
         <!-- android:value="3824cb3b931408d842fca21b5224c5a0"/> -->

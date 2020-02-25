@@ -10,15 +10,21 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.SPUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
+import com.xiling.ddui.bean.SystemConfigBean;
+import com.xiling.ddui.service.IConfigService;
 import com.xiling.module.MainActivity;
+import com.xiling.module.auth.Config;
 import com.xiling.module.splash.GuideActivity;
 import com.xiling.module.splash.SplashActivity;
 import com.xiling.shared.basic.BaseActivity;
+import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.basic.BaseSubscriber;
 import com.xiling.shared.bean.Splash;
+import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IAdService;
 import com.google.gson.Gson;
+import com.xiling.shared.util.ToastUtil;
 import com.zjm.zviewlibrary.splash.model.SplashModel;
 
 import butterknife.BindView;
@@ -30,7 +36,7 @@ import butterknife.ButterKnife;
  * 启动页
  */
 public class DDSplashActivity extends BaseActivity {
-
+    IConfigService iConfigService;
     @BindView(R.id.tv_hint)
     TextView tvHint;
 
@@ -50,6 +56,10 @@ public class DDSplashActivity extends BaseActivity {
         setContentView(R.layout.activity_ddsplash);
         ButterKnife.bind(this);
 
+        iConfigService = ServiceManager.getInstance().createService(IConfigService.class);
+        //获取系统参数
+        getSystemConfig();
+
         tvHint.setText(String.format(hint, BuildConfig.VERSION_NAME));
 
         SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
@@ -64,7 +74,30 @@ public class DDSplashActivity extends BaseActivity {
         }
     }
 
-    public void getSplashData() {
+    /**
+     * 系统配置信息
+     */
+    private void getSystemConfig() {
+        APIManager.startRequest(iConfigService.getSystemConfig(), new BaseRequestListener<SystemConfigBean>() {
+            @Override
+            public void onSuccess(SystemConfigBean result) {
+                super.onSuccess(result);
+                //保存系统配置信息
+                Config.systemConfigBean = result;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+
+
+    }
+
+
+   /* public void getSplashData() {
         //获取网络数据
         IAdService adService = ServiceManager.getInstance().createService(IAdService.class);
         execute(adService.getSplashAd(), new BaseSubscriber<Splash>() {
@@ -93,7 +126,7 @@ public class DDSplashActivity extends BaseActivity {
                 jumpToMain();
             }
         });
-    }
+    }*/
 
 
     void clearFlashImage() {

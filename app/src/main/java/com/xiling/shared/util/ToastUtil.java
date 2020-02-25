@@ -6,13 +6,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.utils.ScreenUtils;
 import com.blankj.utilcode.utils.SizeUtils;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.xiling.MyApplication;
@@ -99,39 +103,44 @@ public class ToastUtil {
         }
     }
 
-    public static void showOrderToast(Context context, PopupOrderList.DatasEntity datasEntity) {
-
-        if (datasEntity == null) {
-            return;
-        }
-
-        String time = TimeUtils.getFitTimeSpan(TimeUtils.string2Millis(datasEntity.createDate), TimeUtils.getNowTimeMills(), 4);
-        if (time == null) {
-            return;
-        }
-
+    /**
+     * 成功
+     *
+     * @param msg
+     */
+    public static void showSuccessToast(Context context, String msg) {
         Toast toast = new Toast(context);
-        View inflate = View.inflate(context, R.layout.layout_main_toast, null);
-        //设置头像
-        SimpleDraweeView simpleDraweeView = inflate.findViewById(R.id.avatarImageView);
-        FrescoUtil.setImageSmall(simpleDraweeView, datasEntity.headImage);
-        //设置昵称
-        TextView nameTextView = inflate.findViewById(R.id.nameTextView);
-        nameTextView.setText("" + datasEntity.nickName);
-        //设置时间
-        TextView timeTextView = inflate.findViewById(R.id.timeTextView);
-        timeTextView.setText("来自" + time + "之前的订单");
-
+        View inflate = View.inflate(context, R.layout.toast_success_or_fail, null);
+        TextView tvMsg = inflate.findViewById(R.id.tv_msg);
+        ImageView ivIcon = inflate.findViewById(R.id.iv_icon);
+        if (!TextUtils.isEmpty(msg)) {
+            tvMsg.setText(msg);
+        }
+        ivIcon.setBackgroundResource(R.mipmap.icon_dialog_top_success);
         toast.setView(inflate);
-        toast.setDuration(Toast.LENGTH_LONG);
-
-        DLog.e(datasEntity.createDate + "   " + datasEntity.nickName + "  差时间" + time);
-
-        int x = SizeUtils.dp2px(22);
-        int y = SizeUtils.dp2px(84);
-        toast.setGravity(Gravity.BOTTOM | Gravity.LEFT, x, y);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
+    /**
+     * 失败
+     *
+     * @param msg
+     */
+    public static void showFailToast(Context context, String msg) {
+        Toast toast = new Toast(context);
+        View inflate = View.inflate(context, R.layout.toast_success_or_fail, null);
+        TextView tvMsg = inflate.findViewById(R.id.tv_msg);
+        ImageView ivIcon = inflate.findViewById(R.id.iv_icon);
+        if (!TextUtils.isEmpty(msg)) {
+            tvMsg.setText(msg);
+        }
+        ivIcon.setBackgroundResource(R.mipmap.icon_dialog_top_failure);
+        toast.setView(inflate);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
 
     public static Dialog getProgressDialog() {
         return mProgressDialog;

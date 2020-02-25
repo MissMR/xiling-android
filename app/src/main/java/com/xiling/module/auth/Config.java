@@ -1,5 +1,6 @@
 package com.xiling.module.auth;
 
+import com.xiling.ddui.bean.SystemConfigBean;
 import com.xiling.ddui.config.AppConfig;
 
 /**
@@ -9,6 +10,10 @@ import com.xiling.ddui.config.AppConfig;
  * Created by zjm on 2017/3/19.
  */
 public class Config {
+   public static SystemConfigBean systemConfigBean;
+
+
+
     /**
      * 是否开启会员会员折扣功能
      */

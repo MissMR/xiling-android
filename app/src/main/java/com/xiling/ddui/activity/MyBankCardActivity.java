@@ -18,6 +18,7 @@ import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.auth.Config;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.component.NoData;
@@ -25,6 +26,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,6 +36,7 @@ import butterknife.OnClick;
 import static com.xiling.ddui.activity.XLCashierActivity.ADD_BAND_CODE;
 
 /**
+ * pt
  * 我的银行卡
  */
 public class MyBankCardActivity extends BaseActivity {
@@ -46,6 +49,8 @@ public class MyBankCardActivity extends BaseActivity {
     @BindView(R.id.rel_content)
     RelativeLayout relContent;
     BankListAdapter bankListAdapter;
+    List<BankListBean> bankList = new ArrayList<>();
+    int blankMaxSize = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,7 @@ public class MyBankCardActivity extends BaseActivity {
             @Override
             public void onSuccess(List<BankListBean> result) {
                 super.onSuccess(result);
+                bankList = result;
                 relContent.setVisibility(result.size() > 0 ? View.VISIBLE : View.GONE);
                 noDataLayout.setVisibility(result.size() > 0 ? View.GONE : View.VISIBLE);
                 bankListAdapter.setNewData(result);
@@ -113,7 +119,15 @@ public class MyBankCardActivity extends BaseActivity {
     @OnClick(R.id.btn_add)
     public void onViewClicked(View view) {
         ViewUtil.setViewClickedDelay(view);
-        startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
+        if (Config.systemConfigBean != null){
+            blankMaxSize = Config.systemConfigBean.getPayCardNumber();
+        }
+        if (bankList != null && bankList.size() < blankMaxSize){
+            startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
+        }else{
+            ToastUtil.error("银行卡已经添加到最大数量了");
+        }
+
     }
 
 

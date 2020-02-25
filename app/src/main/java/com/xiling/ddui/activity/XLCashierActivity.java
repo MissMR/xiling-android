@@ -24,6 +24,7 @@ import com.xiling.ddui.custom.popupwindow.LargePayDialog;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.module.auth.Config;
 import com.xiling.module.community.DateUtils;
 import com.xiling.module.pay.PayMsg;
 import com.xiling.shared.basic.BaseActivity;
@@ -253,7 +254,16 @@ public class XLCashierActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_add_bank:
-                startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
+                int blankMaxSize = 3;
+                if (Config.systemConfigBean != null){
+                    blankMaxSize = Config.systemConfigBean.getPayCardNumber();
+                }
+                if (bankListBeans != null && bankListBeans.size() < blankMaxSize){
+                    startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
+                }else{
+                    ToastUtil.error("银行卡已经添加到最大数量了");
+                }
+
                 break;
             case R.id.btn_pay_type:
                 largePayDialog = new LargePayDialog(context, type, key, weekSize);
@@ -392,7 +402,6 @@ public class XLCashierActivity extends BaseActivity {
         switch (msgStatus.getAction()) {
             case PayMsg.ACTION_WXPAY_SUCCEED:
             case PayMsg.ACTION_ALIPAY_SUCCEED:
-
                 if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
@@ -402,12 +411,12 @@ public class XLCashierActivity extends BaseActivity {
                 } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
                     EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
                 }
-                ToastUtil.error("支付成功");
+                ToastUtil.showSuccessToast(context,"支付成功");
                 finish();
                 break;
             case PayMsg.ACTION_WXPAY_FAIL:
             case PayMsg.ACTION_ALIPAY_FAIL:
-                ToastUtils.showShortToast(msgStatus.message);
+                ToastUtil.showFailToast(context,"支付失败");
                 break;
             default:
         }
