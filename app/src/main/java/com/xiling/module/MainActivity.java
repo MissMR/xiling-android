@@ -454,6 +454,13 @@ public class MainActivity extends BaseActivity {
                     EventBus.getDefault().post(new EventMessage(Event.goToLogin));
                 }
                 break;
+            case viewCenter:
+                if (UserManager.getInstance().isLogin()) {
+                    onClickTabItems(mTabs.get(3));
+                } else {
+                    EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+                }
+                break;
             case cartAmountUpdate:
                 int total = (int) message.getData();
                 mCartBadgeTv.setText(total > 99 ? "99+" : String.valueOf(total));

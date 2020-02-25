@@ -114,6 +114,20 @@ public class XLCashierActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        D3ialogTools.showAlertDialog(context, "是否要放弃支付  订单会保留45分钟，请尽快支付", "继续支付", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        }, "确认离开", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,17 +138,7 @@ public class XLCashierActivity extends BaseActivity {
         setLeftBlack(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                D3ialogTools.showAlertDialog(context, "是否要放弃支付  订单会保留45分钟，请尽快支付", "继续支付", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }, "确认离开", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
+                onBackPressed();
             }
         });
         mBankService = ServiceManager.getInstance().createService(IBankService.class);

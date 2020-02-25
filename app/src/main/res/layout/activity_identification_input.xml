@@ -133,7 +133,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/login_edittext_bg"
                 android:gravity="left|center_vertical"
-                android:hint="请填写店铺名称"
+                android:hint="请填写店铺/商户名称"
                 android:lines="1"
                 android:paddingLeft="@dimen/dp_17"
                 android:textColor="@color/settings_key_text"

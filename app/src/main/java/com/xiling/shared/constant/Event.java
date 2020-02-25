@@ -25,6 +25,7 @@ public enum Event {
     viewCategory,
     viewNearStore,
     viewCart,
+    viewCenter,
     viewCommunity,
 
     /*购物车选中状态变更*/

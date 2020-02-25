@@ -61,6 +61,8 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
+import static com.xiling.shared.constant.Event.viewCart;
+import static com.xiling.shared.constant.Event.viewCenter;
 
 
 public class DDHomeMainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
@@ -173,19 +175,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         };
         snapHelper.attachToRecyclerView(recyclerViewBrand);
 
-        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-
+        LinearLayoutManager recommendLayoutManager = new LinearLayoutManager(getActivity()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
-        recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
         recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
     }
@@ -378,7 +374,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         checkUserInfo();
     }
 
-    @OnClick({R.id.btn_login, R.id.rel_search, R.id.btn_message})
+    @OnClick({R.id.btn_login, R.id.rel_search, R.id.btn_message, R.id.iv_headIcon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -392,6 +388,10 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 break;
             case R.id.btn_message:
                 startActivity(new Intent(mContext, XLNewsGroupActivity.class));
+                break;
+            case R.id.iv_headIcon:
+                //头像点击进入个人中心
+                EventBus.getDefault().post(new EventMessage(viewCenter));
                 break;
         }
 

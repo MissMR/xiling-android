@@ -198,7 +198,7 @@ public class FrescoUtil {
 
     public static GenericDraweeHierarchy getGenericDraweeHierarchy(Context context) {
         return new GenericDraweeHierarchyBuilder(context.getResources())
-                .setPlaceholderImage(R.drawable.default_image)
+                .setPlaceholderImage(R.drawable.bg_image_def)
                 .setPlaceholderImageScaleType(ScalingUtils.ScaleType.FOCUS_CROP)
                 .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
                 .build();

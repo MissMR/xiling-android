@@ -37,6 +37,13 @@ public interface IOrderService {
 
 
     /**
+     * 订单-提醒审核
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PUT("order/remind-audit")
+    Observable<RequestResult<Object>> remindAudit(@Body RequestBody requestBody);
+
+    /**
      * 获取确认订单数据
      */
     @Headers("Content-Type: application/json;charset=UTF-8")

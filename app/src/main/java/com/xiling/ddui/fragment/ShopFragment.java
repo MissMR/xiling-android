@@ -3,12 +3,14 @@ package com.xiling.ddui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -114,10 +116,9 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         smartRefreshLayout.setOnLoadMoreListener(this);
         smartRefreshLayout.setOnRefreshListener(this);
 
-        GridLayoutManager shopLayoutManager = new GridLayoutManager(getActivity(), 2);
+        LinearLayoutManager shopLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerShop.setLayoutManager(shopLayoutManager);
-        recyclerShop.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
         shopAdapter = new ShopListAdapter(R.layout.item_home_recommend, shopDataList);
         recyclerShop.setAdapter(shopAdapter);
 

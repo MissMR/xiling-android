@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.xiling.R;
 
 import cn.bumptech.xnglide.load.resource.bitmap.CircleCrop;
 import cn.bumptech.xnglide.request.RequestOptions;
@@ -20,6 +21,7 @@ public class GlideUtils {
                 .load(url)
                 .bitmapTransform(new CropCircleTransformation(context))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .placeholder(R.drawable.bg_image_def)
                 .into(imageView);
     }
 

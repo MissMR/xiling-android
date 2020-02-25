@@ -322,7 +322,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                         break;
                 }
 
-                tvMyWeekCard.setText("当前已开通周卡体验");
+                tvMyWeekCard.setText("当前已开通" + weekCardInfo.getWeekName());
                 relWeekCard.setVisibility(View.VISIBLE);
                 tvWeekCardName.setText("喜领" + weekCardInfo.getWeekName());
                 long waitPayTimeMilli = DateUtils.date2TimeStampLong(weekCardInfo.getExpiredTime(), "") - System.currentTimeMillis();

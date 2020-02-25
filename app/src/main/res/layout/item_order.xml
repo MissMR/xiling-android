@@ -160,6 +160,18 @@
                 android:textColor="#ffffffff"
                 android:textSize="@dimen/sp_12"
                 android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/btn_examine"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_30"
+                android:layout_marginRight="@dimen/dp_12"
+                android:background="@drawable/bg_round_dcb982_3"
+                android:gravity="center"
+                android:text="提醒审核"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
         </LinearLayout>
 
 

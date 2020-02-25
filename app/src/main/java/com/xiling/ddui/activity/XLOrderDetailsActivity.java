@@ -29,6 +29,8 @@ import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
@@ -37,6 +39,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.xiling.ddui.config.H5UrlConfig.WEB_URL_EXPRESS;
+import static com.xiling.shared.Constants.ORDER_CLOSED;
+import static com.xiling.shared.Constants.ORDER_WAIT_AUDIT;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
@@ -105,6 +109,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
     LinearLayout llCountDown;
     @BindView(R.id.tv_warehouse_name)
     TextView tvWarehouseName;
+    @BindView(R.id.btn_examine)
+    TextView btnExamine;
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -177,16 +183,9 @@ public class XLOrderDetailsActivity extends BaseActivity {
     }
 
     private void setStatus(String status, XLOrderDetailsBean orderDetailsBean) {
-
-      /*  if (orderDetailsBean.getPayType().equals("未支付")) {
-            if (orderDetailsBean.getOrderStatus().equals("已关闭")) {
-                //这种状态代表支付已超时
-                orderOverTime();
-            }
-        }*/
-
         switch (status) {
             case ORDER_WAIT_PAY:
+                //待支付
                 tvStatusTime.setVisibility(View.GONE);
                 llCountDown.setVisibility(View.VISIBLE);
                 startCountDown(orderDetailsBean.getWaitPayTimeMilli(), 1000, new OnCountDownListener() {
@@ -205,11 +204,13 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnSee.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
                 btnRemind.setVisibility(View.GONE);
+                btnExamine.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.VISIBLE);
                 btmCancel.setVisibility(View.VISIBLE);
 
                 break;
             case ORDER_WAIT_SHIP:
+                //待发货
                 tvStatusTime.setText("该商品预计于" + 5 + "个工作日内发货");
                 tvStatusTime.setVisibility(View.VISIBLE);
                 llCountDown.setVisibility(View.GONE);
@@ -226,9 +227,29 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnRemind.setVisibility(View.VISIBLE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
+                btnExamine.setVisibility(View.GONE);
+                break;
+            case ORDER_WAIT_AUDIT:
+                //待审核
+                tvStatusTime.setText("喜领客服尽快处理订单审核");
+                tvStatusTime.setVisibility(View.VISIBLE);
+                llCountDown.setVisibility(View.GONE);
+                relStatus.setBackgroundResource(R.drawable.bg_order_audit);
+                tvStatusTitle.setText("等待订单审核");
+
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
+                tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
+
+                btnSee.setVisibility(View.GONE);
+                btnConfirm.setVisibility(View.GONE);
+                btnRemind.setVisibility(View.GONE);
+                btnPayment.setVisibility(View.GONE);
+                btmCancel.setVisibility(View.GONE);
+                btnExamine.setVisibility(View.VISIBLE);
                 break;
             case ORDER_WAIT_RECEIVED:
-
+                //待收货
                 String shipDate = orderDetailsBean.getShipDate();
                 if (!TextUtils.isEmpty(shipDate)) {
                     long countDownTimne = DateUtils.getOrderFinishTime(shipDate);
@@ -247,7 +268,6 @@ public class XLOrderDetailsActivity extends BaseActivity {
 
                 relStatus.setBackgroundResource(R.drawable.bg_order_ship);
                 tvStatusTitle.setText("等待买家验收");
-
                 tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
@@ -258,31 +278,38 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnRemind.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
+                btnExamine.setVisibility(View.GONE);
                 break;
-
             default:
-                tvStatusTime.setText("感谢您的支持");
+                //订单已关闭
                 tvStatusTime.setVisibility(View.VISIBLE);
-
+                if (!TextUtils.isEmpty(orderDetailsBean.getBuyerRemark())) {
+                    tvStatusTime.setText(orderDetailsBean.getBuyerRemark());
+                } else {
+                    tvStatusTime.setText("感谢您的支持");
+                }
                 llCountDown.setVisibility(View.GONE);
                 relStatus.setBackgroundResource(R.drawable.bg_order_complete);
                 tvStatusTitle.setText("订单已完成");
 
-                relStatus.setBackgroundResource(R.drawable.bg_order_ship);
-                tvStatusTitle.setText("等待买家验收");
-
                 tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
-                tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressId());
-                tvOrderCompleteTime.setText("完成时间：" + orderDetailsBean.getDoneTime());
+
+                if (orderDetailsBean.getExpressId() != 0) {
+                    tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressId());
+                }
+                if (!TextUtils.isEmpty(orderDetailsBean.getDoneTime())) {
+                    tvOrderCompleteTime.setText("完成时间：" + orderDetailsBean.getDoneTime());
+                }
+
 
                 btnSee.setVisibility(View.VISIBLE);
                 btnConfirm.setVisibility(View.GONE);
                 btnRemind.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
-
+                btnExamine.setVisibility(View.GONE);
                 break;
         }
     }
@@ -313,7 +340,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
         void onTick(long l);
     }
 
-    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment})
+    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment, R.id.btn_examine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_see:
@@ -336,8 +363,34 @@ public class XLOrderDetailsActivity extends BaseActivity {
             case R.id.btn_payment:
                 XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, orderDetailsBean.getPayMoney(), orderDetailsBean.getWaitPayTimeMilli(), orderDetailsBean.getOrderId());
                 break;
+            case R.id.btn_examine:
+                //提醒审核
+                remindAudit(orderDetailsBean.getOrderCode());
+                break;
         }
     }
+
+    /**
+     * 提醒审核
+     */
+    private void remindAudit(String orderCode) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("orderCode", orderCode);
+        APIManager.startRequest(mOrderService.remindAudit(APIManager.buildJsonBody(params)), new BaseRequestListener<Object>(this) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                ToastUtil.success("提醒成功");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
 
     /**
      * 订单-确认收货
@@ -435,4 +488,15 @@ public class XLOrderDetailsActivity extends BaseActivity {
             countDownTimer.cancel();
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(EventMessage message) {
+        switch (message.getEvent()) {
+            case FINISH_ORDER:
+                //付款完成，更新数据
+                getOrderDetails();
+                break;
+        }
+    }
+
 }

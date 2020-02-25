@@ -20,6 +20,7 @@ import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.constant.Key;
+import com.xiling.shared.util.ToastUtil;
 
 import java.util.List;
 
@@ -84,6 +85,13 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
                 Intent intent = new Intent(mContext, DDProductDetailActivity.class);
                 intent.putExtra(Key.SPU_ID, item.getProductId());
                 mContext.startActivity(intent);
+            }
+        });
+
+        helper.setOnClickListener(R.id.btn_go_card, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToastUtil.error("加入购物车");
             }
         });
 

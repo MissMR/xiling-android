@@ -47,6 +47,7 @@ public class SkuSelectParentAdapter extends BaseQuickAdapter<ProductNewBean.Prop
             mChildRecyclerView.setLayoutManager(childLayoutManager);
             mChildRecyclerView.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(mContext, 10), ScreenUtils.dip2px(mContext, 10)));
             childAdapter = new SkuSelectChildAdapter(R.layout.item_product_sku_tag_group_layout, childList);
+
             childAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

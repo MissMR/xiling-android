@@ -66,10 +66,10 @@ public class UserManager {
         spUtils.putString(USER_MYUSER, gson.toJson(user));
     }
 
-    public void loginSuccess(Context context,NewUserBean user) {
+    public void loginSuccess(Context context, NewUserBean user) {
         spUtils.putString(USER_MYUSER, gson.toJson(user));
         EventBus.getDefault().post(new EventMessage(Event.LOGIN_SUCCESS));
-        PushManager.setJPushInfo(context,user);
+        PushManager.setJPushInfo(context, user);
     }
 
     /**
@@ -78,7 +78,7 @@ public class UserManager {
     public void loginOut(Context context) {
         spUtils.remove(Key.OAUTH);
         spUtils.remove(USER_MYUSER);
-        PushManager.setJPushInfo(context,null);
+        PushManager.setJPushInfo(context, null);
         EventBus.getDefault().post(new EventMessage(Event.LOGIN_OUT));
     }
 
@@ -95,9 +95,6 @@ public class UserManager {
         }
         return null;
     }
-
-
-
 
 
     public boolean isLogin() {
@@ -132,7 +129,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice/100;
+        return mPrice / 100;
     }
 
     /**
@@ -156,17 +153,18 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice/100;
+        return mPrice / 100;
     }
+
     /**
      * 根据用户等级，获取商品价格
      *
      * @return
      */
-    public double getPriceForUser( ProductNewBean.SkusBean item) {
+    public double getPriceForUser(ProductNewBean.SkusBean item) {
         double mPrice = item.getLevel10Price();
         NewUserBean userBean = getUser();
-        if (userBean != null) {
+        if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
                 case 10:
                     mPrice = item.getLevel10Price();
@@ -179,9 +177,8 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice/100;
+        return mPrice / 100;
     }
-
 
 
     //校验用户信息，保证用户信息的正确性

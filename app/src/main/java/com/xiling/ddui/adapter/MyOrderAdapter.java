@@ -15,6 +15,7 @@ import com.xiling.ddui.tools.NumberHandler;
 import java.util.List;
 
 import static com.xiling.shared.Constants.ORDER_IS_RECEIVED;
+import static com.xiling.shared.Constants.ORDER_WAIT_AUDIT;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
@@ -111,6 +112,15 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
             }
         });
 
+        helper.setOnClickListener(R.id.btn_examine,new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (onButtomItemClickListener != null) {
+                    onButtomItemClickListener.onExamineClickListener(item);
+                }
+            }
+        });
+
 
     }
 
@@ -123,7 +133,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btn_remind, false);
                 helper.setVisible(R.id.btm_cancel, true);
                 helper.setVisible(R.id.btn_payment, true);
-
+                helper.setVisible(R.id.btn_examine, false);
                 break;
             case ORDER_WAIT_SHIP:
                 helper.setVisible(R.id.btn_see, false);
@@ -131,6 +141,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btn_remind, true);
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
+                helper.setVisible(R.id.btn_examine, false);
                 break;
             case ORDER_WAIT_RECEIVED:
                 helper.setVisible(R.id.btn_see, true);
@@ -138,6 +149,15 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btn_remind, false);
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
+                helper.setVisible(R.id.btn_examine, false);
+                break;
+            case ORDER_WAIT_AUDIT:
+                helper.setVisible(R.id.btn_see, false);
+                helper.setVisible(R.id.btn_confirm, false);
+                helper.setVisible(R.id.btn_remind, false);
+                helper.setVisible(R.id.btm_cancel, false);
+                helper.setVisible(R.id.btn_payment, false);
+                helper.setVisible(R.id.btn_examine, true);
                 break;
 
             default:
@@ -146,6 +166,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btn_remind, false);
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
+                helper.setVisible(R.id.btn_examine, false);
                 break;
         }
     }
@@ -163,6 +184,8 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
         void onPaymentClickListerer(XLOrderDetailsBean recordsBean);
 
         void onItemClickListerer(XLOrderDetailsBean recordsBean);
+
+        void onExamineClickListener(XLOrderDetailsBean recordsBean);
 
     }
 

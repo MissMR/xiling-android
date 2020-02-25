@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,9 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.adapter.SkuSelectChildAdapter;
@@ -33,7 +30,6 @@ import com.xiling.shared.util.ToastUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,6 +63,8 @@ public class SkuSelectorDialog extends Dialog {
     TextView tvSkuName;
 
     protected ProductNewBean mSpuInfo;
+    @BindView(R.id.tv_stock)
+    TextView tvStock;
     private OnSelectListener mSelectListener;
     List<ProductNewBean.SkusBean> skusBeanList;
     private ProductNewBean.SkusBean skuBean;
@@ -161,6 +159,7 @@ public class SkuSelectorDialog extends Dialog {
             //划线价
             tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getMarketPrice() * selectCount));
             mNumberField.setLimit(1, skuBean.getStock());
+            tvStock.setText("库存" + skuBean.getStock() + "件");
         } else {
             setSkuName("");
             GlideUtils.loadImage(getContext(), mThumbIv, mSpuInfo.getThumbUrl());
@@ -170,6 +169,8 @@ public class SkuSelectorDialog extends Dialog {
             tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinPrice() * selectCount));
             //划线价
             tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinMarketPrice() * selectCount));
+            tvStock.setText("");
+            mNumberField.setLimit(0,0);
         }
     }
 
@@ -268,7 +269,7 @@ public class SkuSelectorDialog extends Dialog {
         mNumberField.setOnChangeListener(new OnValueChangeLister() {
             @Override
             public void changed(int value) {
-                if (selectCount != value){
+                if (selectCount != value && value > 0) {
                     selectCount = value;
                     upDateSku();
                 }
@@ -317,6 +318,7 @@ public class SkuSelectorDialog extends Dialog {
         });
 
         mParentRecyclerView.setAdapter(parentAdapter);
+
     }
 
 

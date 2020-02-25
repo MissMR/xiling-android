@@ -217,7 +217,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
         if (UserManager.getInstance().isLogin(context)) {
-            EventBus.getDefault().post(new EventMessage(Event.goToLogin));
             requestAddCart(skuId, size);
         }
     }
@@ -254,24 +253,19 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
 
     private void requestUpDataShopCardCount() {
-        if (UserManager.getInstance().isLogin()) {
-            APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
-                @Override
-                public void onSuccess(Integer result) {
-                    super.onSuccess(result);
-                    EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
-                }
+        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+            @Override
+            public void onSuccess(Integer result) {
+                super.onSuccess(result);
+                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+            }
 
-                @Override
-                public void onError(Throwable e) {
-                    super.onError(e);
-                    ToastUtil.error(e.getMessage());
-                }
-            });
-        } else {
-            EventBus.getDefault().post(new EventMessage(cartAmountUpdate, 0));
-        }
-
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
     }
 
 

@@ -28,18 +28,18 @@
 
     <uses-permission android:name="org.simalliance.openmobileap" />
 
-   <!-- &lt;!&ndash; 极光推送 &ndash;&gt;
-    <permission android:protectionLevel="signature" android:name=".permission.JPUSH_MESSAGE"/>
-    <uses-permission android:name="com.example.myapplication.permission.JPUSH_MESSAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
+    <!-- &lt;!&ndash; 极光推送 &ndash;&gt;
+     <permission android:protectionLevel="signature" android:name=".permission.JPUSH_MESSAGE"/>
+     <uses-permission android:name="com.example.myapplication.permission.JPUSH_MESSAGE"/>
+     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+     <uses-permission android:name="android.permission.INTERNET"/>
+     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
 
 
     <application
@@ -669,13 +669,27 @@
         <activity android:name=".ddui.activity.MyBankCardActivity" />
         <activity
             android:name=".ddui.activity.XLAddBankActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ddui.activity.XLCashierActivity" />
-        <activity android:name=".ddui.activity.XLOrderDetailsActivity" />
-        <activity android:name=".ddui.activity.OrderListActivit" />
-        <activity android:name=".ddui.activity.IdentificationInputActivity" />
-        <activity android:name=".ddui.activity.IdentificationUploadActivity" />
-        <activity android:name=".ddui.activity.UpdatePhoneIdentityActivity" />
+        <activity
+            android:name=".ddui.activity.XLCashierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.XLOrderDetailsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.OrderListActivit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.IdentificationInputActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.IdentificationUploadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ddui.activity.UpdatePhoneIdentityActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

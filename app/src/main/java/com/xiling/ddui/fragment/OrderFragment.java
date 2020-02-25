@@ -36,6 +36,8 @@ import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +48,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.xiling.ddui.config.H5UrlConfig.WEB_URL_EXPRESS;
+import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.CANCEL_ORDER;
 import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
@@ -99,7 +102,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order, container, false);
-
+        EventBus.getDefault().register(this);
 
         unbinder = ButterKnife.bind(this, view);
         smartRefreshLayout.setEnableLoadMore(true);
@@ -143,13 +146,18 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onPaymentClickListerer(XLOrderDetailsBean recordsBean) {
                 //立即付款
-                XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_ORDER, recordsBean.getPayMoney(),recordsBean.getWaitPayTimeMilli(),recordsBean.getOrderId());
+                XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_ORDER, recordsBean.getPayMoney(), recordsBean.getWaitPayTimeMilli(), recordsBean.getOrderId());
             }
 
             @Override
             public void onItemClickListerer(XLOrderDetailsBean recordsBean) {
                 //item点击事件
                 XLOrderDetailsActivity.jumpOrderDetailsActivity(mContext, recordsBean.getOrderId());
+            }
+
+            @Override
+            public void onExamineClickListener(XLOrderDetailsBean recordsBean) {
+                remindAudit(recordsBean.getOrderCode());
             }
         });
         getOrderList();
@@ -221,6 +229,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -306,6 +315,28 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
         });
     }
 
+    /**
+     * 提醒审核
+     */
+    private void remindAudit(String orderCode) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("orderCode", orderCode);
+        APIManager.startRequest(mOrderService.remindAudit(APIManager.buildJsonBody(params)), new BaseRequestListener<Object>(mContext) {
+            @Override
+            public void onSuccess(Object result) {
+                super.onSuccess(result);
+                ToastUtil.success("提醒成功");
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
 
     /**
      * 订单-确认收货
@@ -326,6 +357,17 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
                 ToastUtil.error(e.getMessage());
             }
         });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateData(EventMessage message) {
+        switch (message.getEvent()) {
+            case FINISH_ORDER:
+                //付款完成，更新数据
+                getOrderList();
+                break;
+        }
     }
 
 }
