@@ -378,7 +378,7 @@
                 android:paddingTop="@dimen/dp_10"
                 android:paddingRight="@dimen/dp_12"
                 android:paddingBottom="@dimen/dp_10"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/btn_my_client"
@@ -481,7 +481,7 @@
                     <ImageView
                         android:id="@+id/btn_financial_management"
                         android:layout_width="@dimen/dp_110"
-                        android:layout_height="@dimen/dp_51"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:background="@drawable/bg_financial_management" />
 

@@ -108,6 +108,17 @@ public class UserManager {
         return getUser() != null;
     }
 
+
+    public int getUserLevel() {
+        int level = 0;
+        NewUserBean userBean = getUser();
+        if (userBean != null && userBean.getAuthStatus() == 2) {
+            level = userBean.getRole().getRoleLevel();
+        }
+        return level;
+    }
+
+
     /**
      * 根据用户等级，获取商品价格
      *
@@ -116,7 +127,7 @@ public class UserManager {
     public double getPriceForUser(ProductNewBean item) {
         double mPrice = item.getLevel10Price();
         NewUserBean userBean = getUser();
-        if (userBean != null) {
+        if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
                 case 10:
                     mPrice = item.getLevel10Price();
@@ -140,7 +151,7 @@ public class UserManager {
     public double getPriceForUser(HomeRecommendDataBean.DatasBean item) {
         double mPrice = item.getLevel10Price();
         NewUserBean userBean = getUser();
-        if (userBean != null) {
+        if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
                 case 10:
                     mPrice = item.getLevel10Price();

@@ -17,11 +17,13 @@ import com.xiling.ddui.adapter.SkuOrderAdapter;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
 import com.xiling.ddui.tools.NumberHandler;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.community.DateUtils;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -111,6 +113,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView tvWarehouseName;
     @BindView(R.id.btn_examine)
     TextView btnExamine;
+    @BindView(R.id.tv_identity_price)
+    TextView tvIdentityPrice;
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -159,6 +163,25 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 SkuOrderAdapter skuAdapter = new SkuOrderAdapter();
                 recyclerSku.setAdapter(skuAdapter);
                 skuAdapter.setNewData(result.getDetails());
+                switch (UserManager.getInstance().getUserLevel()) {
+                    case 0:
+                        //注册会员
+                        tvIdentityPrice.setText("优惠价");
+                        break;
+                    case 10:
+                        //普通会员
+                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_ordinary);
+                        break;
+                    case 20:
+                        //vip会员
+                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_vip);
+                        break;
+                    case 30:
+                        //黑卡会员
+                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black);
+                        break;
+                }
+
 
                 tvPriceTotal.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
                 tvPriceFreight.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
@@ -215,7 +238,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvStatusTime.setVisibility(View.VISIBLE);
                 llCountDown.setVisibility(View.GONE);
 
-                relStatus.setBackgroundResource(R.drawable.bg_order_ship);
+                relStatus.setBackgroundResource(R.drawable.bg_order_deliver_goods);
                 tvStatusTitle.setText("等待平台发货");
 
                 tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
@@ -280,8 +303,31 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btmCancel.setVisibility(View.GONE);
                 btnExamine.setVisibility(View.GONE);
                 break;
+            case ORDER_CLOSED:
+                //订单关闭
+                tvStatusTime.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(orderDetailsBean.getBuyerRemark())) {
+                    tvStatusTime.setText(orderDetailsBean.getBuyerRemark());
+                } else {
+                    tvStatusTime.setText("感谢您的支持");
+                }
+                llCountDown.setVisibility(View.GONE);
+                relStatus.setBackgroundResource(R.drawable.bg_order_complete);
+                tvStatusTitle.setText("订单已关闭");
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
+                tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
+
+                btnSee.setVisibility(View.GONE);
+                btnConfirm.setVisibility(View.GONE);
+                btnRemind.setVisibility(View.GONE);
+                btnPayment.setVisibility(View.GONE);
+                btmCancel.setVisibility(View.GONE);
+                btnExamine.setVisibility(View.GONE);
+
+                break;
             default:
-                //订单已关闭
+                //订单已完成
                 tvStatusTime.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(orderDetailsBean.getBuyerRemark())) {
                     tvStatusTime.setText(orderDetailsBean.getBuyerRemark());
