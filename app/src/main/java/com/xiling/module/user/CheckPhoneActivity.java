@@ -4,27 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
-import com.xiling.BuildConfig;
 import com.xiling.R;
+import com.xiling.ddui.config.H5UrlConfig;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
-import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.WeChatLoginModel;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
-import com.xiling.shared.manager.APIManager;
-import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.service.contract.IUserService;
 import com.xiling.shared.util.ToastUtil;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -104,17 +98,6 @@ public class CheckPhoneActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.ib_next)
-    public void onViewClicked() {
-        if (!mCbAgreement.isChecked()) {
-            ToastUtil.error("请勾选\"我已经认真阅读并同意《喜领服务协议》及《隐私协议》\"");
-            return;
-        }
-
-        goNextStep();
-    }
-
-
     private void goNextStep() {
         Intent intent = new Intent(CheckPhoneActivity.this, CaptchaActivity.class);
         intent.putExtra(Constants.Extras.LOGINTYPE,
@@ -123,4 +106,23 @@ public class CheckPhoneActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick({R.id.tv_agreement, R.id.btn_ysfw, R.id.ib_next})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_agreement:
+                WebViewActivity.jumpUrl(context,"喜领服务协议", H5UrlConfig.SERVICE_AGREEMENT);
+                break;
+            case R.id.btn_ysfw:
+                WebViewActivity.jumpUrl(context,"隐私协议", H5UrlConfig.PRIVACY_AGREEMENT);
+                break;
+            case R.id.ib_next:
+                if (!mCbAgreement.isChecked()) {
+                    ToastUtil.error("请勾选\"我已经认真阅读并同意《喜领服务协议》及《隐私协议》\"");
+                    return;
+                }
+
+                goNextStep();
+                break;
+        }
+    }
 }

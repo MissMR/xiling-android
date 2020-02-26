@@ -42,7 +42,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalPrice() {
-        return goodsTotalPrice;
+        return goodsTotalPrice/100;
     }
 
     public void setGoodsTotalPrice(double goodsTotalPrice) {

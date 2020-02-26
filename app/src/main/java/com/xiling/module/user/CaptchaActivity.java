@@ -14,7 +14,9 @@ import com.blankj.utilcode.utils.AppUtils;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.dduis.magnager.UserManager;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseBean;
@@ -135,11 +137,6 @@ public class CaptchaActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.tv_captcha)
-    protected void onClickCaptcha() {
-        getCaptcha(ICaptchaService.TYPE_MESSAGE);
-    }
-
     private void getCaptcha(int type) {
         getphoneCode(type);
     }
@@ -204,6 +201,23 @@ public class CaptchaActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.tv_captcha)
+    protected void onClickCaptcha() {
+        getCaptcha(ICaptchaService.TYPE_MESSAGE);
+    }
+
+    @OnClick({R.id.tv_agreement, R.id.btn_ysfw})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_agreement:
+                WebViewActivity.jumpUrl(context, "喜领服务协议", H5UrlConfig.SERVICE_AGREEMENT);
+                break;
+            case R.id.btn_ysfw:
+                WebViewActivity.jumpUrl(context, "隐私协议", H5UrlConfig.PRIVACY_AGREEMENT);
+                break;
+        }
+    }
+
     /**
      * 验证手机验证码
      */
@@ -221,7 +235,7 @@ public class CaptchaActivity extends BaseActivity {
                     public void onSuccess(NewUserBean result) {
                         super.onSuccess(result);
                         //登录成功
-                        UserManager.getInstance().loginSuccess(context,result);
+                        UserManager.getInstance().loginSuccess(context, result);
                     }
 
                     @Override
@@ -341,10 +355,10 @@ public class CaptchaActivity extends BaseActivity {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
                 //手机号绑定微信，跳转绑定邀请码
-             //  if (result) {
-                    Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
-                    startActivity(intent);
-               // }
+                //  if (result) {
+                Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
+                startActivity(intent);
+                // }
             }
 
             @Override

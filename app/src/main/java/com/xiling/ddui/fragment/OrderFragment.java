@@ -120,9 +120,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
                 //查看物流
                 String url = WEB_URL_EXPRESS.replace("@expressCode", recordsBean.getExpressCode());
                 url = url.replace("@expressId", recordsBean.getExpressId() + "");
-                startActivity(new Intent(getActivity(), WebViewActivity.class)
-                        .putExtra(Constants.Extras.WEB_URL, url)
-                );
+                WebViewActivity.jumpUrl(mContext, "查看物流", url);
             }
 
             @Override

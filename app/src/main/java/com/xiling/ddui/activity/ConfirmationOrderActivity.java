@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.adapter.OrderSkuAdapter;
-import com.xiling.ddui.adapter.SkuOrderAdapter;
 import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AddressListBean;
 import com.xiling.ddui.bean.CouponBean;
@@ -27,6 +26,7 @@ import com.xiling.ddui.custom.popupwindow.CouponSelectorDialog;
 import com.xiling.ddui.custom.popupwindow.PayPopWindow;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -87,6 +87,8 @@ public class ConfirmationOrderActivity extends BaseActivity {
     TextView balance;
     @BindView(R.id.switch_balance)
     ImageView switchBalance;
+    @BindView(R.id.tv_identity_price)
+    TextView tvIdentityPrice;
     private String mCouponId = "";
 
 
@@ -191,8 +193,10 @@ public class ConfirmationOrderActivity extends BaseActivity {
         if (isBalance) {
             tvBalanceUse.setText("使用 ¥" + useBalance);
             NumberHandler.setPriceText(totlaPrice - useBalance, tvNeedPrice, tvNeedPriceDecimal);
+            tvBalancePrice.setText("-¥" + useBalance);
         } else {
-            tvBalanceUse.setText("使用 ¥" + 0);
+            tvBalanceUse.setText("使用 ¥" + NumberHandler.reservedDecimalFor2(0));
+            tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(0));
             NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
         }
     }
@@ -217,20 +221,40 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     useBalance = result.getTotalPrice();
                     totlaPrice = result.getTotalPrice();
                     if (accountInfo != null) {
+                        accountInfo.setBalance(1000);
                         //如果余额小于商品总价，使用金额为余额
                         if (useBalance > accountInfo.getBalance()) {
                             useBalance = accountInfo.getBalance();
                         }
-                        upDataBalance();
+
                     } else {
                         NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
                     }
+                    upDataBalance();
+                    switch (UserManager.getInstance().getUserLevel()) {
+                        case 0:
+                            //注册会员
+                            tvIdentityPrice.setText("优惠价");
+                            break;
+                        case 10:
+                            //普通会员
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_ordinary);
+                            break;
+                        case 20:
+                            //vip会员
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_vip);
+                            break;
+                        case 30:
+                            //黑卡会员
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black);
+                            break;
+                    }
 
                     tvGoodsPrice.setText("¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
-                    tvDiscountPrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalDiscountPrice()));
+                    tvDiscountPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                     tvCouponPrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getCouponReductionPrice()));
                     tvFreightPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getFreight()));
-                    tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getTotalPrice()));
+                   // tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(useBalance));
 
                 }
             }
@@ -422,7 +446,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 super.onSuccess(result);
                 if (result.getOrderStatusUs().equals(ORDER_WAIT_PAY)) {
                     //如果是待支付，跳转收银台
-                    XLCashierActivity.jumpCashierActivity(context,PAY_TYPE_ORDER, result.getPayMoney(),result.getWaitPayTimeMilli(),result.getOrderId());
+                    XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, result.getPayMoney(), result.getWaitPayTimeMilli(), result.getOrderId());
                 } else {
                     //已支付，跳转订单详情
                     XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);

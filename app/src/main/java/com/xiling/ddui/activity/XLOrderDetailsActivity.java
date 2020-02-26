@@ -163,7 +163,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 SkuOrderAdapter skuAdapter = new SkuOrderAdapter();
                 recyclerSku.setAdapter(skuAdapter);
                 skuAdapter.setNewData(result.getDetails());
-                switch (UserManager.getInstance().getUserLevel()) {
+             /*   产品改来改去，先保留
+                    switch (UserManager.getInstance().getUserLevel()) {
                     case 0:
                         //注册会员
                         tvIdentityPrice.setText("优惠价");
@@ -180,12 +181,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
                         //黑卡会员
                         tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black);
                         break;
-                }
-
+                }*/
+                tvIdentityPrice.setText("优惠价");
 
                 tvPriceTotal.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
                 tvPriceFreight.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
-                tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountPrice()));
+                tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                 tvPriceCoupon.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));
             }
@@ -393,9 +394,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 //查看物流
                 String url = WEB_URL_EXPRESS.replace("@expressCode", orderDetailsBean.getExpressCode());
                 url = url.replace("@expressId", orderDetailsBean.getExpressId() + "");
-                startActivity(new Intent(this, WebViewActivity.class)
-                        .putExtra(Constants.Extras.WEB_URL, url)
-                );
+                WebViewActivity.jumpUrl(context, "查看物流", url);
                 break;
             case R.id.btn_confirm:
                 confirmReceived(orderId);

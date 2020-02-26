@@ -71,7 +71,7 @@ public class XLSettingActivity extends BaseActivity {
                 startActivity(new Intent(context, MyBankCardActivity.class));
                 break;
             case R.id.rel_about_us: //关于我们
-                WebViewActivity.jumpUrl(context, H5UrlConfig.ABOUT_US);
+                WebViewActivity.jumpUrl(context, "关于我们", H5UrlConfig.ABOUT_US);
                 break;
             case R.id.rel_clear_cache://清除缓存
                 ToastUtil.error("清除成功");

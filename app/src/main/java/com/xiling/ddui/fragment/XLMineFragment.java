@@ -36,6 +36,7 @@ import com.xiling.ddui.adapter.MineServiceAdapter;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.NumberHandler;
@@ -43,6 +44,7 @@ import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.address.AddressListActivity;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.MyStatus;
@@ -270,13 +272,13 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                         startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
                         break;
                     case "政策":
-                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        WebViewActivity.jumpUrl(mContext, "政策", H5UrlConfig.POLICY);
                         break;
                     case "帮助与客服":
-                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        WebViewActivity.jumpUrl(mContext, "帮助与客服", H5UrlConfig.HELP);
                         break;
                     case "规则中心":
-                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        WebViewActivity.jumpUrl(mContext, "规则中心", H5UrlConfig.RULES_CENTER);
                         break;
                     case "活动报名":
                         ToastUtil.success(serviceBeanList.get(position).getTitle());

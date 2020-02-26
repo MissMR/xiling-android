@@ -47,6 +47,12 @@ public class XLOrderDetailsBean implements Parcelable {
     private int totalQuantity;
     private double totalPrice;
     private double goodsTotalRetailPrice;
+
+    public double getGoodsTotalPrice() {
+        return goodsTotalPrice/100;
+    }
+
+    private double goodsTotalPrice;
     private String createTime;
     private String updateTime;
     private boolean canRemindDelivery;
@@ -367,6 +373,7 @@ public class XLOrderDetailsBean implements Parcelable {
         dest.writeList(this.details);
         dest.writeDouble(this.receiptsIndices);
         dest.writeString(this.buyerRemark);
+        dest.writeDouble(this.goodsTotalPrice);
     }
 
     public XLOrderDetailsBean() {
@@ -405,6 +412,7 @@ public class XLOrderDetailsBean implements Parcelable {
         this.waitPayTimeMilli = in.readLong();
         this.details = new ArrayList<DetailsBean>();
         this.buyerRemark = in.readString();
+        this.goodsTotalPrice = in.readDouble();
         in.readList(this.details, DetailsBean.class.getClassLoader());
     }
 

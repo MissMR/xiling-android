@@ -304,10 +304,10 @@
                     android:paddingRight="@dimen/dp_20">
 
                     <TextView
+                        android:id="@+id/tv_identity_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="会员优惠"
                         android:textColor="#ff202020"
                         android:textSize="@dimen/dp_13" />
 

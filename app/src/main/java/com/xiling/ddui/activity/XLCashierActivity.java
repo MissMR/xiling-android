@@ -153,9 +153,9 @@ public class XLCashierActivity extends BaseActivity {
             weekSize = getIntent().getStringExtra("weekSize");
         }
 
-        if (type.equals(PAY_TYPE_WEEK_CARD)){
+        if (type.equals(PAY_TYPE_WEEK_CARD)) {
             btnPayType.setVisibility(View.GONE);
-        }else{
+        } else {
             btnPayType.setVisibility(View.VISIBLE);
         }
 
@@ -255,12 +255,12 @@ public class XLCashierActivity extends BaseActivity {
                 break;
             case R.id.btn_add_bank:
                 int blankMaxSize = 3;
-                if (Config.systemConfigBean != null){
+                if (Config.systemConfigBean != null) {
                     blankMaxSize = Config.systemConfigBean.getPayCardNumber();
                 }
-                if (bankListBeans != null && bankListBeans.size() < blankMaxSize){
+                if (bankListBeans != null && bankListBeans.size() < blankMaxSize) {
                     startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
-                }else{
+                } else {
                     ToastUtil.error("银行卡已经添加到最大数量了");
                 }
 
@@ -411,12 +411,12 @@ public class XLCashierActivity extends BaseActivity {
                 } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
                     EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
                 }
-                ToastUtil.showSuccessToast(context,"支付成功");
+                ToastUtil.showSuccessToast(context, "支付成功");
                 finish();
                 break;
             case PayMsg.ACTION_WXPAY_FAIL:
             case PayMsg.ACTION_ALIPAY_FAIL:
-                ToastUtil.showFailToast(context,"支付失败");
+                ToastUtil.showFailToast(context, "支付失败");
                 break;
             default:
         }
