@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -23,6 +25,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
+import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
+import com.xiling.ddui.manager.AutoClickManager;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.dduis.adapter.HomeActivityAdapter;
 import com.xiling.dduis.adapter.HomeBrandAdapter;
@@ -46,6 +50,8 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerClickListener;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -68,7 +74,6 @@ import static com.xiling.shared.constant.Event.viewCenter;
 public class DDHomeMainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
     Unbinder unbinder;
     DDHomeService homeService;
-
 
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
@@ -131,7 +136,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         unbinder = ButterKnife.bind(this, view);
         initView();
         checkUserInfo();
+        showNewComerDialog();
         return view;
+    }
+
+    private void showNewComerDialog() {
+        NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
+        newcomerDiscountDialog.show();
     }
 
     private void initView() {
@@ -200,7 +211,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
         APIManager.startRequest(homeService.getHomeData(), new BaseRequestListener<HomeDataBean>() {
             @Override
-            public void onSuccess(HomeDataBean result) {
+            public void onSuccess(final HomeDataBean result) {
                 super.onSuccess(result);
                 smartRefreshLayout.finishRefresh();
                 smartRefreshLayout.finishLoadMore();
@@ -226,6 +237,14 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                             }
                         }
                     }
+
+                    banner.setOnBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                            AutoClickManager.pars(mContext, result.getBannerList().get(position));
+                        }
+                    });
+
                     BannerManager.startBanner(banner, bannerList);
 
                     //tab
@@ -234,14 +253,24 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         tabListBeanList = result.getTabList();
                     }
                     homeTabAdapter.setNewData(tabListBeanList);
-
+                    homeTabAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            AutoClickManager.pars(mContext, tabListBeanList.get(position));
+                        }
+                    });
                     //activity
                     activityBeanList.clear();
                     if (result.getActivityList() != null) {
                         activityBeanList = result.getActivityList();
                     }
                     activityAdapter.setNewData(activityBeanList);
-
+                    activityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            AutoClickManager.pars(mContext, activityBeanList.get(position));
+                        }
+                    });
                     //brand
 
                     if (result.getBrandHotSaleList() != null) {
@@ -256,13 +285,22 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         relBrandHead.setVisibility(View.VISIBLE);
                         brandAdapter.setNewData(brandList);
                         brandSize = brandList.size();
-                        //  brandPosition = bannerLayoutManager.findFirstVisibleItemPosition();
                         tvBrandPosition.setText(brandPosition + "");
                         tvBrandSize.setText(brandSize + "");
                     } else {
                         recyclerViewBrand.setVisibility(View.GONE);
                         relBrandHead.setVisibility(View.GONE);
                     }
+
+                    brandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            AutoClickManager.pars(mContext, brandList.get(position));
+
+                        }
+                    });
+
+
                 }
             }
 

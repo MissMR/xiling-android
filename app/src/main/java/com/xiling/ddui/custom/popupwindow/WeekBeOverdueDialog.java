@@ -42,6 +42,7 @@ public class WeekBeOverdueDialog extends Dialog {
         setContentView(R.layout.dialog_week_beoverdue);
         ButterKnife.bind(this);
         setCancelable(false);
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
 
     @OnClick({R.id.btn_open, R.id.btn_know})

@@ -1,11 +1,13 @@
 package com.xiling.dduis.bean;
 
+import com.xiling.ddui.bean.AutoClickBean;
+
 import java.util.List;
 
 /**
- * @data 2019/12/24
  * @author pt
  * 首页集合实体
+ * @data 2019/12/24
  */
 public class HomeDataBean {
 
@@ -92,7 +94,7 @@ public class HomeDataBean {
         }
     }
 
-    public static class BannerListBean {
+    public static class BannerListBean implements AutoClickBean {
         /**
          * localtion : 2bbc886c94f448679e870cb10394b463
          * event : native
@@ -148,7 +150,7 @@ public class HomeDataBean {
         }
     }
 
-    public static class TabListBean {
+    public static class TabListBean implements AutoClickBean {
         /**
          * indexActivityId : 13
          * localtion : 1
@@ -234,7 +236,7 @@ public class HomeDataBean {
         }
     }
 
-    public static class ActivityListBean {
+    public static class ActivityListBean implements AutoClickBean {
         /**
          * indexActivityId : 17
          * localtion : 2
@@ -320,7 +322,7 @@ public class HomeDataBean {
         }
     }
 
-    public static class BrandHotSaleListBean {
+    public static class BrandHotSaleListBean implements AutoClickBean {
         /**
          * indexActivityId : 20
          * localtion : 3
