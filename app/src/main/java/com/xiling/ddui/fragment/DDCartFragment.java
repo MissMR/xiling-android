@@ -173,7 +173,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
-        LinearLayoutManager recommendLayoutManager = new LinearLayoutManager(getActivity()) {
+        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
@@ -185,7 +185,8 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             }
         };
         recyclerRecommend.setLayoutManager(recommendLayoutManager);
-        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
+        recyclerRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
+        recommendAdapter = new ShopListAdapter(R.layout.item_old_home_recommend, recommendDataList);
         recyclerRecommend.setAdapter(recommendAdapter);
 
 

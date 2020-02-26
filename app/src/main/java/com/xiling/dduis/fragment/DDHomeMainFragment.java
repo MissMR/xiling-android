@@ -175,14 +175,20 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         };
         snapHelper.attachToRecyclerView(recyclerViewBrand);
 
-        LinearLayoutManager recommendLayoutManager = new LinearLayoutManager(getActivity()) {
+        GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
+        recyclerViewRecommend.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 12), ScreenUtils.dip2px(getActivity(), 12)));
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
-        recommendAdapter = new ShopListAdapter(R.layout.item_home_recommend, recommendDataList);
+        recommendAdapter = new ShopListAdapter(R.layout.item_old_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
     }
 

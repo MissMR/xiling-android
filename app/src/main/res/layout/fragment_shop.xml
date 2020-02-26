@@ -16,6 +16,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/btn_go_card"
             android:layout_width="@dimen/dp_50"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -30,13 +31,15 @@
                 android:background="@drawable/bg_suspension_card" />
 
             <TextView
+                android:id="@+id/tv_cart_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/bg_oval_read"
-                android:text="99"
                 android:textColor="#ffffffff"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
 
 
         </RelativeLayout>

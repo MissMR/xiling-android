@@ -340,9 +340,8 @@
                     android:id="@+id/recyclerView_recommend"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_12"
                     android:layout_marginTop="@dimen/dp_18"
-                    android:layout_marginRight="@dimen/dp_12" />
+                  />
 
             </LinearLayout>
 

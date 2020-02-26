@@ -1,8 +1,8 @@
 package com.xiling.ddui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,22 +10,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
-import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+import com.xiling.module.MainActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IProductService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +38,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
+import static com.xiling.shared.constant.Event.viewCart;
 
 /**
  * @author pt
@@ -48,6 +55,8 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     SmartRefreshLayout smartRefreshLayout;
 
     Unbinder unbinder;
+    @BindView(R.id.tv_cart_badge)
+    TextView tvCartBadge;
     private IProductService mProductService;
 
     private int pageOffset = 1;
@@ -109,6 +118,8 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        ShopCardManager.getInstance().requestUpDataShopCardCount();
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         unbinder = ButterKnife.bind(this, view);
         smartRefreshLayout.setEnableLoadMore(true);
@@ -131,12 +142,12 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     public void requestShopFill(String minPrice, String maxPrice, int isShippingFree, int orderBy, int orderType, String keyWord) {
         Bundle arguments = getArguments();
         if (arguments != null) {
-            arguments.putString("minPrice",minPrice);
-            arguments.putString("maxPrice",maxPrice);
-            arguments.putString("keyWord",keyWord);
-            arguments.putInt("isShippingFree",isShippingFree);
-            arguments.putInt("orderBy",orderBy);
-            arguments.putInt("orderType",orderType);
+            arguments.putString("minPrice", minPrice);
+            arguments.putString("maxPrice", maxPrice);
+            arguments.putString("keyWord", keyWord);
+            arguments.putInt("isShippingFree", isShippingFree);
+            arguments.putInt("orderBy", orderBy);
+            arguments.putInt("orderType", orderType);
         }
         this.pageOffset = 1;
         this.minPrice = minPrice;
@@ -151,7 +162,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         }
 
         if (!TextUtils.isEmpty(secondCategoryId)) {
-            requestMap.put("secondCategoryIdList", secondCategoryId+"");
+            requestMap.put("secondCategoryIdList", secondCategoryId + "");
         }
 
         if (!TextUtils.isEmpty(brandId)) {
@@ -175,7 +186,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         requestMap.put("pageOffset", pageOffset + "");
         requestMap.put("pageSize", pageSize + "");
         Log.d("requestJSON", "request map = " + requestMap.toString());
-        if (mProductService != null && getActivity() != null){
+        if (mProductService != null && getActivity() != null) {
             APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>(getActivity()) {
                 @Override
                 public void onSuccess(HomeRecommendDataBean result) {
@@ -224,12 +235,12 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     public void requestShop(String minPrice, String maxPrice, int isShippingFree, int orderBy, int orderType, String keyWord) {
         Bundle arguments = getArguments();
         if (arguments != null) {
-            arguments.putString("minPrice",minPrice);
-            arguments.putString("maxPrice",maxPrice);
-            arguments.putString("keyWord",keyWord);
-            arguments.putInt("isShippingFree",isShippingFree);
-            arguments.putInt("orderBy",orderBy);
-            arguments.putInt("orderType",orderType);
+            arguments.putString("minPrice", minPrice);
+            arguments.putString("maxPrice", maxPrice);
+            arguments.putString("keyWord", keyWord);
+            arguments.putInt("isShippingFree", isShippingFree);
+            arguments.putInt("orderBy", orderBy);
+            arguments.putInt("orderType", orderType);
         }
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
@@ -243,7 +254,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         }
 
         if (!TextUtils.isEmpty(secondCategoryId)) {
-            requestMap.put("secondCategoryIdList", secondCategoryId+"");
+            requestMap.put("secondCategoryIdList", secondCategoryId + "");
         }
 
         if (!TextUtils.isEmpty(brandId)) {
@@ -267,7 +278,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         requestMap.put("pageOffset", pageOffset + "");
         requestMap.put("pageSize", pageSize + "");
         Log.d("requestJSON", "request map = " + requestMap.toString());
-        if (mProductService != null && getActivity() != null){
+        if (mProductService != null && getActivity() != null) {
             APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>(getActivity()) {
                 @Override
                 public void onSuccess(HomeRecommendDataBean result) {
@@ -316,7 +327,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         //上拉加载
-        if (pageOffset < totalPage){
+        if (pageOffset < totalPage) {
             pageOffset++;
             requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
         }
@@ -330,9 +341,32 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
     }
 
+    /**
+     * 接收购物车数量变更
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBus(EventMessage message) {
+        switch (message.getEvent()) {
+            case cartAmountUpdate:
+                int total = (int) message.getData();
+                tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
+                tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+                break;
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @OnClick(R.id.btn_go_card)
+    public void onViewClicked() {
+        startActivity(new Intent(mContext, MainActivity.class));
+        EventBus.getDefault().post(new EventMessage(viewCart));
     }
 }
