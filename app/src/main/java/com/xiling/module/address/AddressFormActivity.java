@@ -56,7 +56,7 @@ import rx.Observer;
 
 /**
  * @author 逄涛
- * 收货地址
+ * 添加收货地址
  */
 public class AddressFormActivity extends BaseActivity {
 
@@ -105,6 +105,9 @@ public class AddressFormActivity extends BaseActivity {
             isEditAddress = action != null && action.equals(Key.EDIT_ADDRESS);
             addressId = intent.getExtras().getString("addressId");
         }
+        if (TextUtils.isEmpty(addressId)){
+            autoLocationCity();
+        }
         setTitle("收货地址");
         initHeaderButtons();
         if (isEditAddress && !TextUtils.isEmpty(addressId)) {
@@ -113,6 +116,82 @@ public class AddressFormActivity extends BaseActivity {
         picker = new AddressPicker(context);
     }
 
+    /**
+     * 定位到当前城市
+     */
+    private void autoLocationCity() {
+        AMapLocation mAMapLocation = MyApplication.mAMapLocation;
+        if (mAMapLocation == null) {
+            return;
+        }
+        if (mAMapLocation.getErrorCode() != 0) {
+            return;
+        }
+        final String provinceName = mAMapLocation.getProvince();
+        final String cityName = mAMapLocation.getCity();
+        final String distinctName = mAMapLocation.getDistrict();
+
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("" + mAMapLocation.getStreet());
+        stringBuffer.append("" + mAMapLocation.getStreetNum());
+        stringBuffer.append("" + mAMapLocation.getPoiName());
+        final String addressValue = stringBuffer.toString();
+
+        convertMapData(provinceName, cityName, distinctName, addressValue);
+    }
+
+    /**
+     * 转化地图数据为系统内部编码可识别的数据
+     */
+    public void convertMapData(final String provinceName, final String cityName, final String distinctName, final String addressValue) {
+        final AddressPicker picker = new AddressPicker(context);
+        picker.setDataLoadListener(new AddressPicker.AddressDataLoadListener() {
+            @Override
+            public void onLoadFinish() {
+                AddressPicker.Province province = picker.getProvinceByName(provinceName);
+                if (province != null) {
+
+                    mAddress.setProvinceId(province.getCode());
+                    mAddress.setProvinceName(province.getName());
+
+                    int pIndex = picker.getProvinceIndex(province);
+                    if (pIndex > -1) {
+                        AddressPicker.City city = picker.getCityByName(pIndex, cityName);
+                        if (city != null) {
+
+                            mAddress.setCityId(city.getCode());
+                            mAddress.setCityName( city.getName());
+
+                            int cIndex = picker.getCityIndex(pIndex, city);
+                            if (cIndex > -1) {
+                                AddressPicker.Area area = picker.getAreaByName(pIndex, cIndex, distinctName);
+                                if (area != null) {
+
+                                    mAddress.setDistrictId(area.getCode());
+                                    mAddress.setDistrictName(area.getName());
+
+                                    DLog.i("=================================");
+                                    DLog.d("命中！");
+                                    DLog.d("" + province);
+                                    DLog.d("" + city);
+                                    DLog.d("" + area);
+                                    DLog.i("=================================");
+
+                                    setPCAText(mAddress.getFullRegion());
+                                    mDetailEt.setText("" + addressValue);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        picker.readData();
+    }
+
+
+
+
     private void getAddressInfo(final String addressId) {
         APIManager.startRequest(mAddressService.getAddressDetail(addressId), new BaseRequestListener<AddressListBean.DatasBean>(this) {
             @Override
@@ -120,11 +199,8 @@ public class AddressFormActivity extends BaseActivity {
                 mAddress = address;
                 mContactsEt.setText(mAddress.getContact());
                 mContactsEt.setSelection(mContactsEt.getText().length());
-
                 mPhoneEt.setText(mAddress.getPhone());
-
                 setPCAText(mAddress.getFullRegion());
-
                 mDetailEt.setText(mAddress.getDetail());
                 mDefaultSwitch.setSelected(mAddress.getIsDefault() == 1);
             }
@@ -184,17 +260,13 @@ public class AddressFormActivity extends BaseActivity {
 
     @OnClick(R.id.regionLayout)
     protected void showRegionSelector() {
-
         hideKeyboard();
-
         picker.setDefaultData(mAddress.getProvinceId(), mAddress.getCityId(), mAddress.getDistrictId());
         picker.setListener(new AddressPicker.AddressPickerListener() {
             @Override
             public void onAddressSelected(AddressPicker.Province province, AddressPicker.City city, AddressPicker.Area area) {
-
                 DLog.d("fullAddress:" + province + " " + city + " " + area);
                 DLog.d("ids:" + province.getCode() + "," + city.getCode() + "," + area.getCode());
-
                 if (province != null) {
                     mAddress.setProvinceId(province.getCode());
                     mAddress.setProvinceName(province.getName());
@@ -229,7 +301,7 @@ public class AddressFormActivity extends BaseActivity {
             return;
         }
 
-        if (!phone.startsWith("1") || phone.length() != 11){
+        if (!phone.startsWith("1") || phone.length() != 11) {
             ToastUtil.error("请填写正确的手机号码哦～");
             return;
         }
@@ -258,7 +330,7 @@ public class AddressFormActivity extends BaseActivity {
         Observable<RequestResult<Object>> resultObservable;
         if (isEditAddress) {
             params.put("addressId", addressId);
-            resultObservable = mAddressService.editAddress( params);
+            resultObservable = mAddressService.editAddress(params);
         } else {
             resultObservable = mAddressService.createAddress(params);
         }

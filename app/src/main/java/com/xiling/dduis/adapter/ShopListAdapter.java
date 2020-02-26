@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,9 +18,11 @@ import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ShopUtils;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.util.ToastUtil;
 
@@ -83,6 +86,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ViewUtil.setViewClickedDelay(view);
                 Intent intent = new Intent(mContext, DDProductDetailActivity.class);
                 intent.putExtra(Key.SPU_ID, item.getProductId());
                 mContext.startActivity(intent);
@@ -92,7 +96,17 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         helper.setOnClickListener(R.id.btn_go_card, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1,false);
+                if (item.getStock() > 0) {
+                    ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1, false, new BaseRequestListener() {
+                        @Override
+                        public void onSuccess(Object result) {
+                            item.setStock(item.getStock() - 1);
+                        }
+                    });
+                } else {
+                    ToastUtil.error("该商品已售罄");
+                }
+
             }
         });
 

@@ -58,6 +58,29 @@ public class ShopCardManager {
     }
 
     /**
+     * 添加购物车
+     */
+    public void requestAddCart(String skuId, final int quantity, boolean cover, final BaseRequestListener baseRequestListener) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("skuId", skuId);
+        params.put("quantity", quantity);
+        params.put("cover", cover);
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
+            @Override
+            public void onSuccess(Boolean result) {
+                super.onSuccess(result);
+                    if (baseRequestListener != null){
+                        baseRequestListener.onSuccess(result);
+                    }
+                    ToastUtil.success("成功加入购物车");
+                    requestUpDataShopCardCount();
+
+            }
+        });
+    }
+
+
+    /**
      * 查看购物车数量
      */
     public void requestUpDataShopCardCount() {
@@ -71,6 +94,7 @@ public class ShopCardManager {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                ToastUtil.error(e.getMessage());
             }
         });
     }

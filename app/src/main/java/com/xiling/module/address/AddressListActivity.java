@@ -33,6 +33,10 @@ import butterknife.OnClick;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
 
+/**
+ * pt
+ * 收货地址列表
+ */
 public class AddressListActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.refreshLayout)

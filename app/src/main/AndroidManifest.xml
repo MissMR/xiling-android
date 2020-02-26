@@ -157,8 +157,7 @@
 
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </receiver> <!-- 高德定位 - 旧Key -->
-        <!-- 956db2062431116bb6f193a1d8ef3583 -->
+        </receiver>
         <!-- 高德定位 - 新Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
