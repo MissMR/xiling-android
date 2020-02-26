@@ -7,6 +7,10 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.xiling.R;
+import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.constant.Event;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,6 +40,8 @@ public class NewcomerDiscountDialog extends Dialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_content:
+                EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+                dismiss();
                 break;
             case R.id.btn_close:
                 dismiss();
