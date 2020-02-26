@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
+import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ShopUtils;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -91,7 +92,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         helper.setOnClickListener(R.id.btn_go_card, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ToastUtil.error("加入购物车");
+                ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1,false);
             }
         });
 

@@ -101,6 +101,16 @@ public class HomeRecommendDataBean {
         private float level10Price;
         private float level20Price;
         private float level30Price;
+
+        public String getSkuId() {
+            return skuId;
+        }
+
+        public void setSkuId(String skuId) {
+            this.skuId = skuId;
+        }
+
+        private String skuId;
         private List<String> productTags;
 
         public String getProductId() {

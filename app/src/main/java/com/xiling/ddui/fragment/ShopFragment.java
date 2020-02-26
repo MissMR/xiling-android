@@ -121,11 +121,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         recyclerShop.setLayoutManager(shopLayoutManager);
         shopAdapter = new ShopListAdapter(R.layout.item_home_recommend, shopDataList);
         recyclerShop.setAdapter(shopAdapter);
-
-
         requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
-
-
         return view;
     }
 

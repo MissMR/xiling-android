@@ -25,6 +25,7 @@ import com.xiling.ddui.adapter.CardExpandableAdapter;
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
+import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -219,7 +220,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
             @Override
             public void onShopChange(CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean, int quantity) {
-                requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity, cardExpandableBean);
+                ShopCardManager.getInstance().requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity,true);
             }
         });
 
@@ -259,7 +260,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     private void requestData() {
         if (UserManager.getInstance().isLogin()) {
-            requestUpDataShopCardCount();
+            ShopCardManager.getInstance().requestUpDataShopCardCount();
             requestCardData();
             requestRecommend();
         }
@@ -442,26 +443,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         }
     }
 
-
-    /**
-     * 添加购物车
-     */
-    private void requestAddCart(String skuId, final int quantity, final CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("skuId", skuId);
-        params.put("quantity", quantity);
-        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
-            @Override
-            public void onSuccess(Boolean result) {
-                super.onSuccess(result);
-                if (result) {
-                    requestUpDataShopCardCount();
-                }
-            }
-        });
-    }
-
-
     /**
      * 删除商品
      */
@@ -474,23 +455,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 super.onSuccess(result);
                 // requestCardData();
                 isEdit = false;
-                requestUpDataShopCardCount();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
-        });
-    }
-
-
-    private void requestUpDataShopCardCount() {
-        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
-            @Override
-            public void onSuccess(Integer result) {
-                super.onSuccess(result);
-                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+                ShopCardManager.getInstance().requestUpDataShopCardCount();
             }
 
             @Override
