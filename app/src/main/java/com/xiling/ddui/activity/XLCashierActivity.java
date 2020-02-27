@@ -243,7 +243,7 @@ public class XLCashierActivity extends BaseActivity {
 
     @OnClick({R.id.btn_pay, R.id.btn_add_bank, R.id.btn_pay_type})
     public void onViewClicked(View view) {
-        ViewUtil.setViewClickedDelay(view);
+        ViewUtil.setViewClickedDelay(view,2000);
         switch (view.getId()) {
             case R.id.btn_pay:
                 if (mBankBean.getBankName().equals("微信支付")) {
@@ -291,10 +291,8 @@ public class XLCashierActivity extends BaseActivity {
              */
             String str = data.getExtras().getString("pay_result");
             if (str.equalsIgnoreCase("success")) {
-                msg = "支付成功！";
                 EventBus.getDefault().post(new PayMsg(PayMsg.ACTION_BANK_SUCCEED));
             } else if (str.equalsIgnoreCase("fail")) {
-                msg = "支付失败！";
                 EventBus.getDefault().post(new PayMsg(PayMsg.ACTION_BANK_FAIL, msg));
             } else if (str.equalsIgnoreCase("cancel")) {
                 msg = "用户取消了支付";
@@ -402,6 +400,7 @@ public class XLCashierActivity extends BaseActivity {
         switch (msgStatus.getAction()) {
             case PayMsg.ACTION_WXPAY_SUCCEED:
             case PayMsg.ACTION_ALIPAY_SUCCEED:
+            case PayMsg.ACTION_BANK_SUCCEED:
                 if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
@@ -416,6 +415,7 @@ public class XLCashierActivity extends BaseActivity {
                 break;
             case PayMsg.ACTION_WXPAY_FAIL:
             case PayMsg.ACTION_ALIPAY_FAIL:
+            case PayMsg.ACTION_BANK_FAIL:
                 ToastUtil.showFailToast(context, "支付失败");
                 break;
             default:
