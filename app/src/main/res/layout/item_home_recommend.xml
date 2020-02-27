@@ -40,10 +40,11 @@
 
             <ImageView
                 android:id="@+id/iv_bgdge"
-                android:layout_width="@dimen/dp_60"
-                android:layout_height="@dimen/dp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_14"
                 android:layout_marginLeft="@dimen/dp_3"
-                android:layout_marginRight="@dimen/dp_3" />
+                android:layout_marginRight="@dimen/dp_3"
+                />
 
         </RelativeLayout>
 
@@ -102,13 +103,13 @@
                         android:textColor="#ffa6251a"
                         android:textSize="@dimen/sp_12" />
 
-                    <!--  <TextView
+                      <TextView
                           android:layout_width="@dimen/dp_38"
                           android:layout_height="@dimen/dp_13"
                           android:gravity="center"
-                          android:text="优惠价"
+                          android:background="@drawable/bg_special_price"
                           android:textColor="#fffdddab"
-                          android:textSize="@dimen/sp_10" />-->
+                          android:textSize="@dimen/sp_10" />
                 </LinearLayout>
 
                 <LinearLayout

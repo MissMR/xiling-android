@@ -187,7 +187,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         requestMap.put("pageSize", pageSize + "");
         Log.d("requestJSON", "request map = " + requestMap.toString());
         if (mProductService != null && getActivity() != null) {
-            APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>(getActivity()) {
+            APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>() {
                 @Override
                 public void onSuccess(HomeRecommendDataBean result) {
                     super.onSuccess(result);
@@ -279,7 +279,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         requestMap.put("pageSize", pageSize + "");
         Log.d("requestJSON", "request map = " + requestMap.toString());
         if (mProductService != null && getActivity() != null) {
-            APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>(getActivity()) {
+            APIManager.startRequest(mProductService.getProductList(requestMap), new BaseRequestListener<HomeRecommendDataBean>() {
                 @Override
                 public void onSuccess(HomeRecommendDataBean result) {
                     super.onSuccess(result);
