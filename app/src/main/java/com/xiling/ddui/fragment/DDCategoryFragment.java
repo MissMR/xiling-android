@@ -134,10 +134,10 @@ public class DDCategoryFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (topCategoryList != null && secondCategoryList != null) {
-                    CategorySecondActivity.jumpCategorySecondActivity(mContext, topCategoryList.get(childPosition).getCategoryName(),
-                            topCategoryList.get(childPosition).getCategoryId(), secondCategoryList, position);
+                    String parentId = topCategoryList.get(childPosition).getCategoryId();
+                    String childId = secondCategoryList.get(position).getCategoryId();
+                    CategorySecondActivity.jumpCategorySecondActivity(mContext,parentId ,childId);
                 }
-
             }
         });
 
@@ -151,7 +151,6 @@ public class DDCategoryFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (topCategoryList != null && brandBeanListBeanList != null) {
-                    Log.d("pangtao","childPosition = " +childPosition);
                     BrandActivity.jumpBrandActivity(mContext, topCategoryList.get(childPosition).getCategoryId(),
                             brandBeanListBeanList.get(position).getBrandId(), brandBeanListBeanList.get(position).getBrandName());
                 }
@@ -185,7 +184,7 @@ public class DDCategoryFragment extends BaseFragment {
                 super.onSuccess(result);
                 topCategoryList = result;
                 mCategoryNavigationAdapter.setNewData(result);
-                childPosition =mCategoryNavigationAdapter.getmActiveIndex();
+                childPosition = mCategoryNavigationAdapter.getmActiveIndex();
 
                 if (topCategoryList.size() > childPosition) {
                     getSecondCategory(topCategoryList.get(childPosition).getCategoryId());

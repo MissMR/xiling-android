@@ -21,6 +21,7 @@
         <!--解决双击问题，取消透明，隐藏标题栏 at 20190114 by hanQ-->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
 </resources>

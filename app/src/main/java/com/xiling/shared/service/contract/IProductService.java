@@ -6,6 +6,7 @@ import com.xiling.ddui.bean.DDSkuListBean;
 import com.xiling.ddui.bean.ListResultBean;
 import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.bean.SecondCategoryBean;
+import com.xiling.ddui.bean.SecondClassificationBean;
 import com.xiling.ddui.bean.TopCategoryBean;
 import com.xiling.dduis.bean.DDProductBean;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -45,10 +46,16 @@ public interface IProductService {
     @GET("home/getTopCategory")
     Observable<RequestResult<ArrayList<TopCategoryBean>>> getTopCategory();
 
-    // 二级分类接口
+    // 二级分类和品牌接口
     @FormUrlEncoded
     @POST("secondLevel/getSecondCategory")
     Observable<RequestResult<SecondCategoryBean>> getSecondCategory(@Field("nodeId") String nodeId);
+
+    //获取二级类目列表
+    @FormUrlEncoded
+    @POST("secondLevel/getSecondCategory")
+    Observable<RequestResult<SecondClassificationBean>> getSecondClassification(@Field("nodeId") String nodeId);
+
 
     // 获取商品列表接口
     @FormUrlEncoded

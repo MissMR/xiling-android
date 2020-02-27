@@ -24,6 +24,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
 import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.manager.AutoClickManager;
@@ -227,6 +228,14 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     }
 
                     hotAdapter.setNewData(hots);
+                    hotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                           CategorySecondActivity.jumpCategorySecondActivity(mContext,hots.get(position).getParentId(),hots.get(position).getCategoryId());
+                        }
+                    });
+
+
 
                     //轮播图
                     bannerList.clear();

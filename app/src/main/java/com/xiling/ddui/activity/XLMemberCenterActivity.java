@@ -30,6 +30,7 @@ import com.xiling.ddui.service.IMemberService;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.MainActivity;
 import com.xiling.module.community.DateUtils;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
@@ -138,6 +139,10 @@ public class XLMemberCenterActivity extends BaseActivity {
                         startActivity(new Intent(context, InviteFriendsActivity.class));
                         break;
                     case 2:
+                        Intent mainIntent = new Intent(context, MainActivity.class);
+                        mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(mainIntent);
+                        finish();
                         break;
                 }
             }

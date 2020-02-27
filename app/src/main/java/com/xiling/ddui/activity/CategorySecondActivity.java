@@ -9,13 +9,19 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.xiling.R;
 import com.xiling.ddui.bean.SecondCategoryBean;
+import com.xiling.ddui.bean.SecondClassificationBean;
 import com.xiling.ddui.custom.ScreeningView;
 import com.xiling.ddui.custom.popupwindow.ScreeningPopupWindow;
 import com.xiling.ddui.fragment.ShopFragment;
 import com.xiling.shared.basic.BaseActivity;
+import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.component.HeaderLayout;
+import com.xiling.shared.manager.APIManager;
+import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.IProductService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +35,12 @@ import butterknife.Unbinder;
  * 二级分类页面
  */
 public class CategorySecondActivity extends BaseActivity {
+    IProductService iProductService;
 
     @BindView(R.id.headerLayout)
     HeaderLayout mHeaderLayout;
     Unbinder unbinder;
 
-    public static final String SECOND_CATEGORY_LIST = "secondCategoryList";
     @BindView(R.id.sliding_tab)
     SlidingTabLayout slidingTab;
     @BindView(R.id.viewpager_shop)
@@ -52,7 +58,8 @@ public class CategorySecondActivity extends BaseActivity {
 
     // 当前在第几个分类
     private int mPosition = 0;
-    private ArrayList<SecondCategoryBean.SecondCategoryListBean> secondCategoryList;
+    private String mParentId;
+    private List<SecondCategoryBean.SecondCategoryListBean> secondCategoryList = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
 
     private String minPrice, maxPrice;
@@ -74,12 +81,10 @@ public class CategorySecondActivity extends BaseActivity {
     private String keyWord = "";
 
 
-    public static void jumpCategorySecondActivity(Context mContext, String parentName, String categoryId, ArrayList<SecondCategoryBean.SecondCategoryListBean> secondCategoryList, int childPosition) {
+    public static void jumpCategorySecondActivity(Context mContext,String parentId, String categoryId) {
         Intent intent = new Intent(mContext, CategorySecondActivity.class);
-        intent.putParcelableArrayListExtra(SECOND_CATEGORY_LIST, secondCategoryList);
-        intent.putExtra("parentName", parentName);
         intent.putExtra("categoryId", categoryId);
-        intent.putExtra("mPosition", childPosition);
+        intent.putExtra("parentId",parentId);
         mContext.startActivity(intent);
     }
 
@@ -89,28 +94,48 @@ public class CategorySecondActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_second);
         unbinder = ButterKnife.bind(this);
-
+        iProductService = ServiceManager.getInstance().createService(IProductService.class);
         if (getIntent() != null) {
-            parentName = getIntent().getStringExtra("parentName");
             categoryId = getIntent().getStringExtra("categoryId");
-            mPosition = getIntent().getIntExtra("mPosition", 0);
-            secondCategoryList = getIntent().getParcelableArrayListExtra(SECOND_CATEGORY_LIST);
-
-            if (secondCategoryList != null) {
-                fragments.clear();
-                childNames.clear();
-                for (SecondCategoryBean.SecondCategoryListBean secondCategoryListBean : secondCategoryList) {
-                    childNames.add(secondCategoryListBean.getCategoryName());
-                    fragments.add(ShopFragment.newInstance(categoryId, secondCategoryListBean.getCategoryId(), "", minPrice, maxPrice, isShippingFree, orderBy, orderType, ""));
-                }
-            }
-
+            mParentId =  getIntent().getStringExtra("parentId");
         }
+        getSecondClassification();
 
-        initView();
     }
 
-    private void initView() {
+
+    private void getSecondClassification() {
+        APIManager.startRequest(iProductService.getSecondClassification(mParentId), new BaseRequestListener<SecondClassificationBean>() {
+            @Override
+            public void onSuccess(SecondClassificationBean result) {
+                super.onSuccess(result);
+                secondCategoryList = result.getSecondCategoryList();
+                if (secondCategoryList != null) {
+                    fragments.clear();
+                    childNames.clear();
+                    for (int i = 0; i < secondCategoryList.size(); i++) {
+                        SecondCategoryBean.SecondCategoryListBean secondCategoryListBean = secondCategoryList.get(i);
+                        if (secondCategoryListBean.getCategoryId().equals(categoryId)) {
+                            mPosition = i;
+                            parentName = secondCategoryListBean.getCategoryName();
+                        }
+                        childNames.add(secondCategoryListBean.getCategoryName());
+                        fragments.add(ShopFragment.newInstance(mParentId, secondCategoryListBean.getCategoryId(), "", minPrice, maxPrice, isShippingFree, orderBy, orderType, ""));
+                    }
+                }
+
+                initView();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
+
+    public void initView() {
         mHeaderLayout.setTitle(parentName);
         mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
         mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
@@ -121,6 +146,24 @@ public class CategorySecondActivity extends BaseActivity {
         });
 
         slidingTab.setViewPager(viewpagerShop, childNames.toArray(new String[childNames.size()]), this, fragments);
+        viewpagerShop.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                parentName =secondCategoryList.get(position).getCategoryName();
+                mHeaderLayout.setTitle(parentName);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         if (mPosition > 0) {
             viewpagerShop.setCurrentItem(mPosition);
