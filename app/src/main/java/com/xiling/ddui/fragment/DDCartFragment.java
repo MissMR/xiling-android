@@ -221,7 +221,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
             @Override
             public void onShopChange(CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean, int quantity) {
-                ShopCardManager.getInstance().requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity,true);
+                ShopCardManager.getInstance().requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity,true,false);
             }
         });
 

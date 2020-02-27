@@ -218,7 +218,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
         if (UserManager.getInstance().isLogin(context)) {
-            ShopCardManager.getInstance().requestAddCart(skuId, size, false);
+            ShopCardManager.getInstance().requestAddCart(skuId, size, false,true);
         }
     }
 

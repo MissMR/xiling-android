@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.shared.component.dialog.EditNumberDialog;
 import com.xiling.shared.contracts.OnValueChangeLister;
 import com.xiling.shared.util.ConvertUtil;
@@ -107,8 +108,8 @@ public class NumberField extends LinearLayout {
     }
 
     private void setButtonsEnabled() {
-        this.mMinusBtn.setEnabled(mMin < this.mValue);
-        this.mPlusBtn.setEnabled(mMax > this.mValue);
+        this.mMinusBtn.setEnabled(mMin != this.mValue);
+        this.mPlusBtn.setEnabled(mMax != this.mValue);
     }
 
     public void setOnChangeListener(OnValueChangeLister listener) {
@@ -126,13 +127,15 @@ public class NumberField extends LinearLayout {
     }
 
     @OnClick(R.id.minusBtn)
-    protected void onMinus() {
+    protected void onMinus(View view) {
+        ViewUtil.setViewClickedDelay(view);
         this.mValue--;
         setValue(this.mValue);
     }
 
     @OnClick(R.id.plusBtn)
-    protected void onPlus() {
+    protected void onPlus(View view) {
+        ViewUtil.setViewClickedDelay(view);
         this.mValue++;
         setValue(this.mValue);
     }

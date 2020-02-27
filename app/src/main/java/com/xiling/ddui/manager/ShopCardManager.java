@@ -40,7 +40,7 @@ public class ShopCardManager {
     /**
      * 添加购物车
      */
-    public void requestAddCart(String skuId, final int quantity,boolean cover) {
+    public void requestAddCart(String skuId, final int quantity, boolean cover, final boolean isToast) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuId", skuId);
         params.put("quantity", quantity);
@@ -50,7 +50,9 @@ public class ShopCardManager {
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
                 if (result) {
-                    ToastUtil.success("成功加入购物车");
+                    if (isToast){
+                        ToastUtil.success("成功加入购物车");
+                    }
                     requestUpDataShopCardCount();
                 }
             }

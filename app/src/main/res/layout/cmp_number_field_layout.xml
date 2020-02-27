@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/valueTv"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:clickable="true"
@@ -29,6 +29,7 @@
             android:minWidth="33dp"
             android:text="1"
             android:textColor="@color/default_text_color"
+            android:background="@mipmap/icon_number"
             android:textSize="14sp" />
 
         <ImageView
