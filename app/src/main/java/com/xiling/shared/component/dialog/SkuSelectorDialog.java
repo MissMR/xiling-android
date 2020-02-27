@@ -277,8 +277,8 @@ public class SkuSelectorDialog extends Dialog {
         });
         tvMinMarketPrice.getPaint().setAntiAlias(true);//抗锯齿
         tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        upDateSku();
         initRecyclerView();
+        upDateSku();
         getWindow().setWindowAnimations(R.style.ActionSheetDialogAnimation);
     }
 
@@ -291,8 +291,17 @@ public class SkuSelectorDialog extends Dialog {
         mParentRecyclerView.setNestedScrollingEnabled(false);
         mParentRecyclerView.setLayoutManager(parentLayoutManager);
         parentAdapter = new SkuSelectParentAdapter(R.layout.item_sku_select_parent, parentList);
+        /**
+         * 如果是单规格，默认选中
+         */
+        if (parentList.size() == 1){
+            if (parentList.get(0).getPropertyValues().size() > 0){
+                parentAdapter.setSelectChildId(parentList.get(0).getPropertyValues().get(0).getPropertyValueId());
+                selectMap.put(parentList.get(0).getPropertyId(), parentList.get(0).getPropertyValues().get(0));
+                matchSkuBean();
+            }
+        }
         mParentRecyclerView.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getContext(), 10), ScreenUtils.dip2px(getContext(), 10)));
-
         parentAdapter.setOnSelectListener(new SkuSelectParentAdapter.OnSelectListener() {
             @Override
             public void selectItem(ProductNewBean.PropertiesBean parentBean, ProductNewBean.PropertiesBean.PropertyValuesBean childBean, SkuSelectChildAdapter childAdapter) {

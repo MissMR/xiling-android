@@ -60,6 +60,7 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
+ * pt
  * 收银台
  */
 public class XLCashierActivity extends BaseActivity {
@@ -364,7 +365,6 @@ public class XLCashierActivity extends BaseActivity {
         });
     }
 
-
     private void pay(String orderCode, final String channel) {
         APIManager.startRequest(mPayService.pay(orderCode), new BaseRequestListener<String>() {
 
@@ -381,7 +381,7 @@ public class XLCashierActivity extends BaseActivity {
                         break;
                     case CHANNEL_UNION_PAY:
                         //银联支付
-                        UPPayAssistEx.startPay(context, null, null, result, "01");
+                        UPPayAssistEx.startPay(context, null, null, result, "00");
                         break;
                 }
 

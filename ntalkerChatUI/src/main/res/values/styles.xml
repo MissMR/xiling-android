@@ -1,6 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <style name="AppTheme" parent="android:Theme.Material.Light" />
+    <style name="AppTheme" parent="android:Theme.Material.Light">
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+
     
     <style name="DialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
