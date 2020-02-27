@@ -35,6 +35,10 @@ public class AutofitViewPager extends ViewPager {
             result = view.getMeasuredHeight();
         }
 
+        //此处，为了解决viewpager内容为空时，无法滑动
+        if (result == 0){
+            result = LayoutParams.MATCH_PARENT;
+        }
 
         return result;
     }

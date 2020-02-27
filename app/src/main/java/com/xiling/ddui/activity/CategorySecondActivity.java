@@ -144,7 +144,6 @@ public class CategorySecondActivity extends BaseActivity {
                 finish();
             }
         });
-        viewpagerShop.setOffscreenPageLimit(fragments.size());
         slidingTab.setViewPager(viewpagerShop, childNames.toArray(new String[childNames.size()]), this, fragments);
         viewpagerShop.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -156,6 +155,7 @@ public class CategorySecondActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 parentName =secondCategoryList.get(position).getCategoryName();
                 mHeaderLayout.setTitle(parentName);
+                viewpagerShop.requestLayout();
             }
 
             @Override

@@ -36,7 +36,7 @@
       android:layout_height="@dimen/dp_50"/>
 
 
-    <android.support.v4.view.ViewPager
+    <com.xiling.ddui.view.AutofitViewPager
         android:id="@+id/viewpager_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
