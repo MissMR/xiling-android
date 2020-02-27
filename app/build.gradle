@@ -47,22 +47,17 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("../dodomall.jks")
-            storePassword "dodomall123"
-            keyAlias "dodomall"
-            keyPassword "dodomall123"
+            storeFile file("../store_xiling.jks")
+            storePassword "xiling"
+            keyAlias "xiling"
+            keyPassword "xiling"
         }
 
         debug {
-            storeFile file("../dodomall.jks")
-            storePassword "dodomall123"
-            keyAlias "dodomall"
-            keyPassword "dodomall123"
-
-//            storeFile file("../Test.jks")
-//            storePassword "123456"
-//            keyAlias "HANQ"
-//            keyPassword "123456"
+            storeFile file("../store_xiling.jks")
+            storePassword "xiling"
+            keyAlias "xiling"
+            keyPassword "xiling"
         }
     }
 
@@ -70,10 +65,10 @@ android {
         variant.outputs.all { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                // 输出apk名称为dodomall_v1.0.1_15333134123412.apk
+                // 输出apk名称为xiling_v1.0.1_15333134123412.apk
                 def version = "v${versionName}"
                 def date = new Date().getTime()
-                def fileName = "dodomall_${version}_${variant.productFlavors[0].name}_${date}.apk"
+                def fileName = "xiling_${version}_${variant.productFlavors[0].name}.apk"
                 outputFileName = fileName
             }
         }
@@ -246,14 +241,14 @@ android {
             ]
 
             // 生产环境
-            buildConfigField("String", "BASE_URL", "\"https://store.dodomall.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
 
             //H5页服务器地址
             buildConfigField("String", "H5_URL", "\"https://h5.dodomall.com/\"")
             //H5的附加版本号
             buildConfigField("String", "H5_FUNC", "\"5\"")
 
-            buildConfigField("String", "WX_APP_ID", "\"wx1fa673166a365d6b\"")
+            buildConfigField("String", "WX_APP_ID", "\"wxf10b84ba54f558d5\"")
 
             buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
 

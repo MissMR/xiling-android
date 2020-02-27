@@ -171,7 +171,7 @@
         <!-- 高德定位 - 新Key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="6a436979b59a3ae84b3e658d5557cc5f" />
+            android:value="fd80f6cb3dba87d4695209298242cd17" />
 
         <activity
             android:name=".ddui.activity.DDSplashActivity"

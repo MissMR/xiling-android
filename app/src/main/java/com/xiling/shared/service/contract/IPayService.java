@@ -51,6 +51,12 @@ public interface IPayService {
     @POST("pay/add")
     Observable<RequestResult<String>> addPay(@Body RequestBody body);
 
+    /**
+     * 微信/支付宝支付
+     */
+    @GET("pay/app-pay")
+    Observable<RequestResult<String>> pay(@Query("id") String orderCode);
+
 
     /**
      * 聚合支付-线下支付-上传凭证
@@ -58,11 +64,7 @@ public interface IPayService {
     @GET("pay/callback/{id}/notify")
     Observable<RequestResult<Boolean>> payOffline(@Path("id") String flowCode,@Query("name") String name,@Query("account") String account,@Query("payDate") String payDate,@Query("image") String image,@Query("mark") String mark);
 
-    /**
-     * 微信/支付宝支付
-     */
-    @GET("pay/app-pay")
-    Observable<RequestResult<String>> pay(@Query("id") String orderCode);
+
 
 
     @POST("https://api.mch.weixin.qq.com/pay/unifiedorder")
