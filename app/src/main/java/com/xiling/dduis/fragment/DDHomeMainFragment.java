@@ -17,12 +17,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.SPUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.sobot.chat.utils.ScreenUtils;
+import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
@@ -41,6 +43,7 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.BannerManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.search.SearchActivity;
+import com.xiling.module.splash.SplashActivity;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.MyStatus;
@@ -142,8 +145,14 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     }
 
     private void showNewComerDialog() {
-        NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
-        newcomerDiscountDialog.show();
+        SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
+        if (!spUtils.getBoolean("oneStart")) {
+            NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
+            newcomerDiscountDialog.show();
+            spUtils.putBoolean("oneStart", true);
+        }
+
+
     }
 
     private void initView() {
@@ -231,10 +240,9 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     hotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                           CategorySecondActivity.jumpCategorySecondActivity(mContext,hots.get(position).getParentId(),hots.get(position).getCategoryId());
+                            CategorySecondActivity.jumpCategorySecondActivity(mContext, hots.get(position).getParentId(), hots.get(position).getCategoryId());
                         }
                     });
-
 
 
                     //轮播图

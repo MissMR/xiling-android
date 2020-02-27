@@ -1,6 +1,7 @@
 package com.xiling.shared.manager;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.blankj.utilcode.utils.LogUtils;
 import com.xiling.BuildConfig;
@@ -19,9 +20,6 @@ public class PushManager {
     }
 
     public static void setJPushInfo(Context context, NewUserBean user) {
-        if (BuildConfig.DEBUG) {
-            addTestTag(context);
-        }
         if (user == null) {
             JPushInterface.deleteAlias(context, 1);
             LogUtils.e("清空推送 Alias");
@@ -31,12 +29,6 @@ public class PushManager {
             JPushInterface.setAlias(context, 1, user.getMemberId());
             LogUtils.e("设置推送 Alias   " + user.getMemberId());
         }
-    }
-
-    private static void addTestTag(Context context) {
-        Set<String> set = new HashSet<String>();
-        set.add("test");
-        JPushInterface.setTags(context, 1, set);
     }
 
 }

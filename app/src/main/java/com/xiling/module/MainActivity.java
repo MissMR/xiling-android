@@ -50,6 +50,7 @@ import com.xiling.shared.component.NoScrollViewPager;
 import com.xiling.shared.component.dialog.WJDialog;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
+import com.xiling.shared.manager.PushManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IAdService;
 import com.xiling.shared.service.contract.IMessageService;
@@ -136,6 +137,11 @@ public class MainActivity extends BaseActivity {
         } else {
             DLog.d("MSG-PERMISSION", "已经授权推送");
         }
+
+        if (UserManager.getInstance().isLogin()){
+            PushManager.setJPushInfo(context,UserManager.getInstance().getUser());
+        }
+
 
         initSplash();
 

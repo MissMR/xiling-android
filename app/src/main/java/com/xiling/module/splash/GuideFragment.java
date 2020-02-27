@@ -89,8 +89,6 @@ public class GuideFragment extends BaseFragment {
 
     @OnClick(R.id.ivGoMain)
     public void onViewClicked() {
-        SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
-        spUtils.putBoolean("oneStart", true);
         startActivity(new Intent(getContext(), MainActivity.class));
         getActivity().finish();
     }
