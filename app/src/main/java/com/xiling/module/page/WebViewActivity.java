@@ -48,10 +48,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author JayChan <voidea@foxmail.com>
- * @version 1.0
- * @package com.tengchi.zxyjsc.module.page
- * @since 2017-07-05
+ * @author 逄涛
+ * 嵌套H5页面
  */
 public class WebViewActivity extends BaseActivity {
 

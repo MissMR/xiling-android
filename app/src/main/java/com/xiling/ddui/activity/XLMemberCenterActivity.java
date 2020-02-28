@@ -54,7 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * pt
+ * @author 逄涛
  * 会员中心
  */
 public class XLMemberCenterActivity extends BaseActivity {

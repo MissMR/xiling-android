@@ -37,6 +37,7 @@ import butterknife.OnClick;
 import static com.xiling.shared.constant.Event.UPDATE_AVATAR;
 
 /**
+ * @author 逄涛
  * 个人资料
  */
 public class PersonalDataActivity extends BaseActivity {

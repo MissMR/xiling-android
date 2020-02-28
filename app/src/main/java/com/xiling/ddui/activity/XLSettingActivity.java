@@ -28,6 +28,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author 逄涛
+ * 设置页面
+ */
 public class XLSettingActivity extends BaseActivity {
 
     NewUserBean userBean;

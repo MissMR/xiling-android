@@ -31,6 +31,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author 逄涛
+ * 添加银行卡
+ */
 public class AddBankCardActivity extends BaseActivity {
 
     @BindView(R.id.tv_user_name)
