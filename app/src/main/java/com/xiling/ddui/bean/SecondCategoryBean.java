@@ -193,6 +193,7 @@ public class SecondCategoryBean {
          */
 
         private String brandId;
+        private String categoryUrl;
         private String categoryId;
         private String brandName;
         private String iconUrl;
@@ -280,6 +281,7 @@ public class SecondCategoryBean {
             dest.writeString(this.createDate);
             dest.writeString(this.updateDate);
             dest.writeInt(this.deleteFlag);
+            dest.writeString(this.categoryUrl);
         }
 
         public BrandBeanListBean() {
@@ -294,6 +296,7 @@ public class SecondCategoryBean {
             this.createDate = in.readString();
             this.updateDate = in.readString();
             this.deleteFlag = in.readInt();
+            this.categoryUrl = in.readString();
         }
 
         public static final Parcelable.Creator<BrandBeanListBean> CREATOR = new Parcelable.Creator<BrandBeanListBean>() {
@@ -307,5 +310,13 @@ public class SecondCategoryBean {
                 return new BrandBeanListBean[size];
             }
         };
+
+        public String getCategoryUrl() {
+            return categoryUrl;
+        }
+
+        public void setCategoryUrl(String categoryUrl) {
+            this.categoryUrl = categoryUrl;
+        }
     }
 }

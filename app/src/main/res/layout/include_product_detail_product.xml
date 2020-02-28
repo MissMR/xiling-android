@@ -164,7 +164,6 @@
             android:layout_marginRight="3dp"
             android:layout_toLeftOf="@id/tv_become_master"
             android:layout_toRightOf="@id/iv_anchor_left"
-            android:text="开通黑卡会员，享受最低价¥100.00"
             android:textColor="#DCB982"
             android:textSize="12sp" />
     </RelativeLayout>

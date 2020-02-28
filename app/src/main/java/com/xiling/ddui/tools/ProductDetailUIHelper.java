@@ -220,6 +220,8 @@ public class ProductDetailUIHelper {
                 rlBecomeMasterGuide.setVisibility(View.VISIBLE);
                 tvRewardGuide.setText("开通黑卡会员，享受最低价¥" + mSpuInfo.getLevel30Price());
             }
+        } else {
+            rlBecomeMasterGuide.setVisibility(View.GONE);
         }
 
 

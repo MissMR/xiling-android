@@ -221,12 +221,10 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     useBalance = result.getTotalPrice();
                     totlaPrice = result.getTotalPrice();
                     if (accountInfo != null) {
-                        accountInfo.setBalance(1000);
                         //如果余额小于商品总价，使用金额为余额
                         if (useBalance > accountInfo.getBalance()) {
                             useBalance = accountInfo.getBalance();
                         }
-
                     } else {
                         NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
                     }
@@ -292,9 +290,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
 
     private void switchBalance(View view) {
-        isBalance = !isBalance;
-        view.setSelected(isBalance);
-        upDataBalance();
+            isBalance = !isBalance;
+            view.setSelected(isBalance);
+            upDataBalance();
     }
 
 
@@ -339,6 +337,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 startActivityForResult(intent, 0);
                 break;
             case R.id.switch_balance: // 使用账户余额
+                if (accountInfo.getBalance() == 0){
+                    return;
+                }
                 if (!isBalance) {
                     //打开
                     //先校验是否有支付密码，如果没有跳转设置密码的界面

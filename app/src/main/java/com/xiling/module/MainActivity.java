@@ -130,6 +130,26 @@ public class MainActivity extends BaseActivity {
 
         getSavedInstanceState(savedInstanceState);
 
+
+        //检查权限
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        ).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                if (!aBoolean) {
+                    ToastUtil.error("请允许 app 获取相关权限，否则将导致部分功能无法使用");
+                }
+            }
+        });
+
+
         if (!AppTools.isEnableNotification(this)) {
             DLog.d("MSG-PERMISSION", "未授权消息推送");
             //显示消息的权限提示
@@ -271,23 +291,7 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         ToastUtil.hideLoading();
-        //检查权限
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        ).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if (!aBoolean) {
-                    ToastUtil.error("请允许 app 获取相关权限，否则将导致部分功能无法使用");
-                }
-            }
-        });
+
     }
 
     private long exitTime = 0;

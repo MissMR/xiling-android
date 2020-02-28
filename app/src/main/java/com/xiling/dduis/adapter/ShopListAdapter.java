@@ -1,18 +1,23 @@
 package com.xiling.dduis.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.manager.ShopCardManager;
@@ -22,6 +27,7 @@ import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.MainActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.util.ToastUtil;
@@ -32,15 +38,36 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
 
     ShopListTagsAdapter tagsAdapter;
 
-
     public ShopListAdapter(int layoutResId, @Nullable List<HomeRecommendDataBean.DatasBean> data) {
         super(layoutResId, data);
     }
 
+
+    private void setImageView(Bitmap myBitmap, ImageView imageView) {
+        int imageWidth = myBitmap.getWidth();
+        int imageHeight = myBitmap.getHeight();
+        ViewGroup.LayoutParams para = imageView.getLayoutParams();
+        int height = ScreenUtils.dip2px(mContext, 14);
+        int width = (int) (imageWidth / (Double.valueOf(imageHeight) / Double.valueOf(height)));
+        para.height = height;
+        para.width = width;
+        imageView.setLayoutParams(para);
+        imageView.setImageBitmap(myBitmap);
+    }
+
     @Override
-    protected void convert(BaseViewHolder helper, final HomeRecommendDataBean.DatasBean item) {
+    protected void convert(final BaseViewHolder helper, final HomeRecommendDataBean.DatasBean item) {
         if (!TextUtils.isEmpty(item.getBadgeImg())) {
-            GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_bgdge), item.getBadgeImg());
+            GlideUtils.getBitmap(mContext, item.getBadgeImg(), new GlideUtils.OnBitmapGet() {
+
+                @Override
+                public void getBitmap(Bitmap bitmap) {
+                    if (bitmap != null) {
+                        setImageView(bitmap, (ImageView) helper.getView(R.id.iv_bgdge));
+                    }
+                }
+            });
+            //   GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_bgdge), item.getBadgeImg(),true);
         }
 
         if (!TextUtils.isEmpty(item.getThumbUrl())) {

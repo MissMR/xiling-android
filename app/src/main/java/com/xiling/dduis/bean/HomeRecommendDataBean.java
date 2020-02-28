@@ -194,7 +194,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel10Price() {
-            return level10Price;
+            return level10Price/100;
         }
 
         public void setLevel10Price(float level10Price) {
@@ -202,7 +202,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel20Price() {
-            return level20Price;
+            return level20Price/100;
         }
 
         public void setLevel20Price(float level20Price) {
@@ -210,7 +210,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel30Price() {
-            return level30Price;
+            return level30Price/100;
         }
 
         public void setLevel30Price(float level30Price) {

@@ -2,6 +2,7 @@ package com.xiling.ddui.manager;
 
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.XLCardListBean;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
@@ -86,19 +87,21 @@ public class ShopCardManager {
      * 查看购物车数量
      */
     public void requestUpDataShopCardCount() {
-        APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
-            @Override
-            public void onSuccess(Integer result) {
-                super.onSuccess(result);
-                EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
-            }
+        if (UserManager.getInstance().isLogin()){
+            APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+                @Override
+                public void onSuccess(Integer result) {
+                    super.onSuccess(result);
+                    EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+                }
 
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-            }
-        });
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    ToastUtil.error(e.getMessage());
+                }
+            });
+        }
     }
 
 }

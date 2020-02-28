@@ -1,16 +1,30 @@
 package com.xiling.image;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.AsyncTask;
 import android.os.Looper;
-import android.util.Log;
+import android.support.annotation.UiThread;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 
-import cn.bumptech.xnglide.load.resource.bitmap.CircleCrop;
+import java.util.concurrent.ExecutionException;
+
 import cn.bumptech.xnglide.request.RequestOptions;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -25,6 +39,57 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .placeholder(R.drawable.bg_image_def)
                 .into(imageView);
+    }
+
+    public static void loadImage(Context context, ImageView imageView, String url) {
+        Glide.with(context).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .placeholder(R.drawable.bg_image_def)
+                .fitCenter()
+                .into(imageView);
+    }
+
+    public static void getBitmap(final Context context, final String url, final OnBitmapGet bitmapGet) {
+
+        try {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+
+                new AsyncTask<Void,String,Bitmap>(){
+
+                    @Override
+                    protected Bitmap doInBackground(Void... voids) {
+                        Bitmap myBitmap = null;
+                        try {
+                             myBitmap = Glide.with(context)
+                                    .load(url)
+                                    .asBitmap()
+                                    .centerCrop()
+                                    .into(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+                                    .get();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        return myBitmap;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Bitmap aVoid) {
+                        super.onPostExecute(aVoid);
+                        bitmapGet.getBitmap(aVoid);
+                    }
+                }.execute();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public interface OnBitmapGet{
+        void getBitmap(Bitmap bitmap);
     }
 
 
@@ -71,23 +136,15 @@ public class GlideUtils {
     }
 
 
-    public static void loadImage(Context context, ImageView imageView, String url) {
-        Glide.with(context).load(url)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(imageView);
-    }
+
 
     public static void loadImage(Context context, ImageView imageView, int url) {
         Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.bg_image_def)
                 .into(imageView);
     }
 
-    public static void loadImageOpenDisk(Context context, ImageView imageView, String url) {
-        Glide.with(context)
-                .load(url)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .into(imageView);
-    }
+
 
 }

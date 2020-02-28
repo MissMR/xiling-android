@@ -140,7 +140,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice / 100;
+        return mPrice;
     }
 
     /**
@@ -164,7 +164,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice / 100;
+        return mPrice;
     }
 
     /**
@@ -188,7 +188,7 @@ public class UserManager {
                     break;
             }
         }
-        return mPrice / 100;
+        return mPrice;
     }
 
 

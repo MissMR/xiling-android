@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -14,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,7 +54,6 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,7 +70,6 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.xiling.shared.Constants.PAGE_SIZE;
-import static com.xiling.shared.constant.Event.viewCart;
 import static com.xiling.shared.constant.Event.viewCenter;
 
 
@@ -127,6 +125,12 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     CircleImageView ivHeadIcon;
     @BindView(R.id.iv_message)
     ImageView ivMessage;
+    @BindView(R.id.ll_tab)
+    LinearLayout llTab;
+    @BindView(R.id.ll_activity)
+    LinearLayout llActivity;
+    @BindView(R.id.ll_brand)
+    LinearLayout llBrand;
     private LinearLayoutManager bannerLayoutManager;
 
     @Nullable
@@ -269,6 +273,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     if (result.getTabList() != null) {
                         tabListBeanList = result.getTabList();
                     }
+
+                    if (tabListBeanList.size() > 0) {
+                        llTab.setVisibility(View.VISIBLE);
+                    } else {
+                        llTab.setVisibility(View.GONE);
+                    }
+
                     homeTabAdapter.setNewData(tabListBeanList);
                     homeTabAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
@@ -279,8 +290,21 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     //activity
                     activityBeanList.clear();
                     if (result.getActivityList() != null) {
-                        activityBeanList = result.getActivityList();
+                        if (result.getActivityList().size() >= 3) {
+                            //超过三个取前三个
+                            for (int i = 0; i < 3; i++) {
+                                HomeDataBean.ActivityListBean activityListBean = result.getActivityList().get(i);
+                                activityBeanList.add(activityListBean);
+                            }
+                        }
                     }
+
+                    if (activityBeanList.size() == 0) {
+                        llActivity.setVisibility(View.GONE);
+                    } else {
+                        llActivity.setVisibility(View.VISIBLE);
+                    }
+
                     activityAdapter.setNewData(activityBeanList);
                     activityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
@@ -298,15 +322,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         brandList = new ArrayList<>();
                     }
                     if (brandList.size() > 0) {
-                        recyclerViewBrand.setVisibility(View.VISIBLE);
-                        relBrandHead.setVisibility(View.VISIBLE);
+                        llBrand.setVisibility(View.VISIBLE);
                         brandAdapter.setNewData(brandList);
                         brandSize = brandList.size();
                         tvBrandPosition.setText(brandPosition + "");
                         tvBrandSize.setText(brandSize + "");
                     } else {
-                        recyclerViewBrand.setVisibility(View.GONE);
-                        relBrandHead.setVisibility(View.GONE);
+                        llBrand.setVisibility(View.GONE);
                     }
 
                     brandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

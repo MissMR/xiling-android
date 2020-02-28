@@ -43,9 +43,9 @@ public class ProductNewBean {
     private String imageStr;
     private String storeId;
     private String storeName;
-    private int level10Price;
-    private int level20Price;
-    private int level30Price;
+    private double level10Price;
+    private double level20Price;
+    private double level30Price;
     private List<String> productTags;
     private List<PropertiesBean> properties;
     private List<SkusBean> skus;
@@ -171,24 +171,24 @@ public class ProductNewBean {
         this.storeName = storeName;
     }
 
-    public int getLevel10Price() {
-        return level10Price;
+    public double getLevel10Price() {
+        return level10Price/100;
     }
 
     public void setLevel10Price(int level10Price) {
         this.level10Price = level10Price;
     }
 
-    public int getLevel20Price() {
-        return level20Price;
+    public double getLevel20Price() {
+        return level20Price/100;
     }
 
     public void setLevel20Price(int level20Price) {
         this.level20Price = level20Price;
     }
 
-    public int getLevel30Price() {
-        return level30Price;
+    public double getLevel30Price() {
+        return level30Price/100;
     }
 
     public void setLevel30Price(int level30Price) {
@@ -343,9 +343,9 @@ public class ProductNewBean {
         private String propertyValues;
         private String propertyIds;
         private int costPrice;
-        private int level10Price;
-        private int level20Price;
-        private int level30Price;
+        private double level10Price;
+        private double level20Price;
+        private double level30Price;
 
         public String getSkuId() {
             return skuId;
@@ -451,24 +451,24 @@ public class ProductNewBean {
             this.costPrice = costPrice;
         }
 
-        public int getLevel10Price() {
-            return level10Price;
+        public double getLevel10Price() {
+            return level10Price/100;
         }
 
         public void setLevel10Price(int level10Price) {
             this.level10Price = level10Price;
         }
 
-        public int getLevel20Price() {
-            return level20Price;
+        public double getLevel20Price() {
+            return level20Price/100;
         }
 
         public void setLevel20Price(int level20Price) {
             this.level20Price = level20Price;
         }
 
-        public int getLevel30Price() {
-            return level30Price;
+        public double getLevel30Price() {
+            return level30Price/100;
         }
 
         public void setLevel30Price(int level30Price) {

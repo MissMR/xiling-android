@@ -21,7 +21,7 @@ public class CategoryBrandAdapter extends BaseQuickAdapter<SecondCategoryBean.Br
     @Override
     protected void convert(BaseViewHolder helper, final SecondCategoryBean.BrandBeanListBean item) {
         helper.setText(R.id.tv_title,item.getBrandName());
-        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon),item.getIconUrl());
+        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon),item.getCategoryUrl());
     }
 
 
