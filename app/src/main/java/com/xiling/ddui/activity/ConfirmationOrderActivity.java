@@ -234,7 +234,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     switch (UserManager.getInstance().getUserLevel()) {
                         case 0:
                             //注册会员
-                            tvIdentityPrice.setText("优惠价");
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_register);
                             break;
                         case 10:
                             //普通会员

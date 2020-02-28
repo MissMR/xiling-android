@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.xiling.ddui.activity.XLNewsGroupActivity;
 import com.xiling.module.MainActivity;
+import com.xiling.module.auth.event.MsgStatus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
@@ -20,8 +23,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
 
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
-        Log.e(TAG, "[onMessage] " + customMessage);
-        processCustomMessage(context, customMessage);
+        EventBus.getDefault().post(new MsgStatus(MsgStatus.ReloadMsgCount));
     }
 
     @Override

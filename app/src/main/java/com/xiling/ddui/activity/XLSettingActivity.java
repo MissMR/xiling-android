@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
@@ -74,7 +75,9 @@ public class XLSettingActivity extends BaseActivity {
                 WebViewActivity.jumpUrl(context, "关于我们", H5UrlConfig.ABOUT_US);
                 break;
             case R.id.rel_clear_cache://清除缓存
-                ToastUtil.error("清除成功");
+               GlideUtils.clearImageCache(context);
+                ToastUtil.showSuccessToast(context,"清除成功");
+
                 break;
         }
     }

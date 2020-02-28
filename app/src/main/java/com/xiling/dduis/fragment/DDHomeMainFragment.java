@@ -495,7 +495,11 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
                 GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
-                switch (user.getRole().getRoleLevel()) {
+                switch (UserManager.getInstance().getUserLevel()) {
+                    case 0:
+                        //注册用户
+                        tvGrade.setBackgroundResource(R.drawable.bg_home_register);
+                        break;
                     case 10:
                         tvGrade.setBackgroundResource(R.drawable.bg_home_user);
                         break;
