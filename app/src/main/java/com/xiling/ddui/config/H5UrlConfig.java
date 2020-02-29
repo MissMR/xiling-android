@@ -23,4 +23,7 @@ public class H5UrlConfig {
     public static final String PRIVACY_AGREEMENT = BuildConfig.BASE_URL + "privacyAgreement";
     //服务协议
     public static final String SERVICE_AGREEMENT = BuildConfig.BASE_URL + "serverAgreement";
+    //大额支付
+    public static final String LARGE_PAYMENT  =BuildConfig.BASE_URL +"/voucher?orderId=";
+
 }

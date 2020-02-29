@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.utils.SPUtils;
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.BuildConfig;
 import com.xiling.MyApplication;
@@ -25,6 +26,7 @@ import com.xiling.ddui.api.MApiActivity;
 import com.xiling.ddui.bean.UnReadMessageCountBean;
 import com.xiling.ddui.config.UIConfig;
 import com.xiling.ddui.custom.DDPermissionDialog;
+import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
@@ -38,6 +40,7 @@ import com.xiling.module.auth.event.MsgStatus;
 import com.xiling.module.publish.PublishDialog;
 import com.xiling.module.publish.PublishHisActivity;
 import com.xiling.module.publish.PublishPicActivity;
+import com.xiling.module.splash.SplashActivity;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
@@ -130,24 +133,26 @@ public class MainActivity extends BaseActivity {
 
         getSavedInstanceState(savedInstanceState);
 
-
-        //检查权限
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        ).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if (!aBoolean) {
-                    ToastUtil.error("请允许 app 获取相关权限，否则将导致部分功能无法使用");
+        SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
+        if (!spUtils.getBoolean("oneStart")) {
+            //检查权限
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            ).subscribe(new Action1<Boolean>() {
+                @Override
+                public void call(Boolean aBoolean) {
+                    if (!aBoolean) {
+                        ToastUtil.error("请允许 app 获取相关权限，否则将导致部分功能无法使用");
+                    }
                 }
-            }
-        });
+            });
+        }
 
 
         if (!AppTools.isEnableNotification(this)) {
@@ -158,8 +163,8 @@ public class MainActivity extends BaseActivity {
             DLog.d("MSG-PERMISSION", "已经授权推送");
         }
 
-        if (UserManager.getInstance().isLogin()){
-            PushManager.setJPushInfo(context,UserManager.getInstance().getUser());
+        if (UserManager.getInstance().isLogin()) {
+            PushManager.setJPushInfo(context, UserManager.getInstance().getUser());
         }
 
 

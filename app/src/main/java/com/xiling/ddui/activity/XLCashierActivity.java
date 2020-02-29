@@ -118,7 +118,14 @@ public class XLCashierActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        D3ialogTools.showAlertDialog(context, "是否要放弃支付  订单会保留45分钟，请尽快支付", "继续支付", new View.OnClickListener() {
+        String message = "";
+        if (type.equals(PAY_TYPE_WEEK_CARD) ){
+            message = "是否要放弃付款？";
+        }else{
+            message = "是否要放弃支付  订单会保留45分钟，请尽快支付";
+        }
+
+        D3ialogTools.showAlertDialog(context, message, "继续支付", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

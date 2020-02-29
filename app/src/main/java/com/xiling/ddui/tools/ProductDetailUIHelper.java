@@ -274,7 +274,15 @@ public class ProductDetailUIHelper {
         recyclerTag.setLayoutManager(tagManager);
         shopListTagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_detail_tag, spuInfo.getProductTags());
         recyclerTag.setAdapter(shopListTagsAdapter);
-        updateSkuViews("");
+
+
+        String skuName = "";
+
+        if (spuInfo.getProperties().size() == 1 && spuInfo.getProperties().get(0).getPropertyValues().size() == 1) {
+            skuName = spuInfo.getProperties().get(0).getPropertyValues().get(0).getPropertyValue();
+        }
+
+        updateSkuViews(skuName);
 
 
         loadDetailWebView(spuInfo.getContent());

@@ -24,6 +24,7 @@ import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ShopUtils;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.ddui.view.AutoLayoutManager;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
@@ -80,14 +81,9 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
 
         if (item.getProductTags() != null && item.getProductTags().size() > 0) {
             RecyclerView recyclerView = helper.getView(R.id.recycler_tags);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            recyclerView.setLayoutManager(linearLayoutManager);
+            AutoLayoutManager autoLayoutManager = new AutoLayoutManager();
+            autoLayoutManager.setAutoMeasureEnabled(true);
+            recyclerView.setLayoutManager(autoLayoutManager);
             tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, item.getProductTags());
             recyclerView.setAdapter(tagsAdapter);
         }

@@ -192,16 +192,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewBrand.setLayoutManager(bannerLayoutManager);
         brandAdapter = new HomeBrandAdapter(mContext);
         recyclerViewBrand.setAdapter(brandAdapter);
-      /*  PagerSnapHelper snapHelper = new PagerSnapHelper() {
-            @Override
-            public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
-                int targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
-                //监听滑动到第几个
-
-            }
-        };
-        snapHelper.attachToRecyclerView(recyclerViewBrand);*/
-
+        //修改为无限滑动
         RPagerSnapHelper rPagerSnapHelper = new RPagerSnapHelper();
         rPagerSnapHelper.setOnPageListener(new RPagerSnapHelper.OnPageListener() {
             @Override
@@ -210,7 +201,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 if (position < 0) {
                     position = brandList.size() + position;
                 }
-                brandPosition = position+1;
+                brandPosition = position + 1;
                 tvBrandPosition.setText(brandPosition + "");
             }
         });
@@ -494,8 +485,8 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
                             }
                         });
-                    }else{
-                        startActivity(new Intent(mContext,XLMemberCenterActivity.class));
+                    } else {
+                        startActivity(new Intent(mContext, XLMemberCenterActivity.class));
                     }
                 }
                 break;
@@ -552,7 +543,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             if (!TextUtils.isEmpty(user.getNickName())) {
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
-                GlideUtils.loadHead(mContext, ivHeadIcon,"http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132");
+                GlideUtils.loadHead(mContext, ivHeadIcon, "http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132");
 
                 switch (UserManager.getInstance().getUserLevel()) {
                     case 0:

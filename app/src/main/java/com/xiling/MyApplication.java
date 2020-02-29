@@ -118,22 +118,7 @@ public class MyApplication extends MultiDexApplication {
     public static AMapLocation mAMapLocation;
 
     public static void startLocation(Activity activity) {
-        RxPermissions rxPermissions = new RxPermissions(activity);
-        rxPermissions.request(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if (aBoolean) {
-                    setLocationSetting();
-                    mLocationClient.startLocation();
-                } else {
-                    ToastUtil.error("缺少定位权限");
-                }
-            }
-        });
+
     }
 
     private static void setLocationSetting() {

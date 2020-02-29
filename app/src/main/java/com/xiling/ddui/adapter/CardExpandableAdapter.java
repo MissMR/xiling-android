@@ -1,5 +1,6 @@
 package com.xiling.ddui.adapter;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -11,12 +12,14 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
+import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ShopUtils;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.component.NumberField;
+import com.xiling.shared.constant.Key;
 import com.xiling.shared.contracts.OnValueChangeLister;
 
 import java.util.ArrayList;
@@ -66,6 +69,14 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 helper.setText(R.id.tv_store_name, item.getParentName());
                 break;
             case CardExpandableBean.CHILD:
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, DDProductDetailActivity.class);
+                        intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
+                        mContext.startActivity(intent);
+                    }
+                });
                 XLCardListBean.SkuProductListBean skuProductListBean = item.getBean();
                 GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon), skuProductListBean.getThumbUrl());
                 NumberField mNumberField = helper.getView(R.id.numberField);
