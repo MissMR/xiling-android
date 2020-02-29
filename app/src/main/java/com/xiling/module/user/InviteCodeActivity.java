@@ -1,61 +1,41 @@
 package com.xiling.module.user;
 
-import android.Manifest;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.xiling.MyApplication;
 import com.xiling.R;
-import com.xiling.ddui.tools.DLog;
+import com.xiling.ddui.bean.InviterInfoBean;
 import com.xiling.dduis.magnager.UserManager;
-import com.xiling.module.qrcode.DDMScanActivity;
-import com.xiling.shared.Constants;
+import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
-import com.xiling.shared.basic.BaseBean;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.NewUserBean;
-import com.xiling.shared.bean.User;
-import com.xiling.shared.bean.WeChatLoginModel;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.component.dialog.DDMDialog;
 import com.xiling.shared.component.dialog.DDMHintDialog;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
-import com.xiling.shared.service.UserService;
-import com.xiling.shared.service.contract.IUserService;
-import com.xiling.shared.util.FrescoUtil;
 import com.xiling.shared.util.ToastUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.functions.Action1;
 
 /**
- * @author Jigsaw
- * @date 2018/8/24
+ * @author 逄涛
  * 邀请码界面  注册的最后流程
  */
 public class InviteCodeActivity extends BaseActivity {
@@ -66,6 +46,17 @@ public class InviteCodeActivity extends BaseActivity {
     PinEntryEditText mPeEditText;
     @BindView(R.id.tv_confirm)
     TextView mTvConfirm;
+
+    @BindView(R.id.iv_head)
+    ImageView ivHead;
+    @BindView(R.id.tv_inviter_name)
+    TextView tvInviterName;
+    @BindView(R.id.tv_inviter_phone)
+    TextView tvInviterPhone;
+    @BindView(R.id.iv_inviter_level)
+    ImageView ivInviterLevel;
+    @BindView(R.id.ll_inviter_info)
+    LinearLayout llInviterInfo;
 
     private INewUserService mUserService;
     private DDMHintDialog mDDMHintDialog;
@@ -108,7 +99,11 @@ public class InviteCodeActivity extends BaseActivity {
                 if (charSequence.length() == 6) {
                     KeyboardUtils.hideSoftInput(InviteCodeActivity.this);
                     mTvConfirm.setEnabled(true);
+                    //请求接口 根据邀请码获取用户信息
+                    getAccountInfoForInvite(charSequence.toString());
+
                 } else {
+                    llInviterInfo.setVisibility(View.INVISIBLE);
                     mTvConfirm.setEnabled(false);
                 }
             }
@@ -140,6 +135,46 @@ public class InviteCodeActivity extends BaseActivity {
         bindInviteCode(code);
     }
 
+    private void getAccountInfoForInvite(String inviteCode) {
+        APIManager.startRequest(mUserService.getAccountInfoForInvite(inviteCode),
+                new BaseRequestListener<InviterInfoBean>(this) {
+                    @Override
+                    public void onSuccess(InviterInfoBean result) {
+                        super.onSuccess(result);
+                        if (result != null) {
+                            llInviterInfo.setVisibility(View.VISIBLE);
+                            GlideUtils.loadHead(context, ivHead, result.getHeadImage());
+                            tvInviterName.setText(result.getNickName());
+                            tvInviterPhone.setText(result.getPhone());
+                            switch (result.getRole()) {
+                                case 0:
+                                    ivInviterLevel.setImageResource(R.drawable.bg_home_register);
+                                    break;
+                                case 1:
+                                    ivInviterLevel.setImageResource(R.drawable.bg_home_user);
+                                    break;
+                                case 2:
+                                    ivInviterLevel.setImageResource(R.drawable.bg_home_vip);
+                                    break;
+                                case 3:
+                                    ivInviterLevel.setImageResource(R.drawable.bg_home_back);
+                                    break;
+                            }
+
+                        } else {
+                            llInviterInfo.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        llInviterInfo.setVisibility(View.INVISIBLE);
+                        //ToastUtil.error(e.getMessage());
+                    }
+                });
+    }
+
 
     /**
      * 绑定邀请码
@@ -151,7 +186,7 @@ public class InviteCodeActivity extends BaseActivity {
                     public void onSuccess(NewUserBean result) {
                         super.onSuccess(result);
                         //登录成功
-                        UserManager.getInstance().loginSuccess(context,result);
+                        UserManager.getInstance().loginSuccess(context, result);
                     }
 
                     @Override

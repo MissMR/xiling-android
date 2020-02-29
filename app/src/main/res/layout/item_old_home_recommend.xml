@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_160"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_14">
+           >
 
             <ImageView
                 android:id="@+id/iv_thumb"

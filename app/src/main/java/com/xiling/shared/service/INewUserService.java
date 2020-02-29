@@ -4,6 +4,7 @@ import com.xiling.ddui.bean.AccountInfo;
 import com.xiling.ddui.bean.AccountManagerBean;
 import com.xiling.ddui.bean.BalanceDetailsBean;
 import com.xiling.ddui.bean.BalanceTypeBean;
+import com.xiling.ddui.bean.InviterInfoBean;
 import com.xiling.ddui.bean.MyClientListBean;
 import com.xiling.ddui.bean.MyManagerBean;
 import com.xiling.ddui.bean.PlatformBean;
@@ -112,6 +113,12 @@ public interface INewUserService {
     @GET("account/getInfo")
     Observable<RequestResult<AccountInfo>> getAccountInfo();
 
+
+    /**
+     * 根据邀请码获取用户基本信息
+     */
+    @GET("user/invite-code")
+    Observable<RequestResult<InviterInfoBean>> getAccountInfoForInvite(@Query("inviteCode") String inviteCode);
 
     /**
      * 校验是否设置余额密码
@@ -234,9 +241,9 @@ public interface INewUserService {
      * 我的客户列表
      * 会员级别 : 1-普通,2-金牌,3-钻石
      */
-    @Headers({"Content-Type: application/json", "Accept: application/json"})
+    @FormUrlEncoded
     @POST("user/customer/getCustomerList")
-    Observable<RequestResult<MyClientListBean>> getCustomerList(@Body RequestBody body);
+    Observable<RequestResult<MyClientListBean>> getCustomerList(@FieldMap HashMap<String,String> map);
 
 
     /**

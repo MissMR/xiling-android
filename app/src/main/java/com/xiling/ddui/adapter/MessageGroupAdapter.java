@@ -20,13 +20,12 @@ public class MessageGroupAdapter extends BaseQuickAdapter<MessageGroupBean, Base
 
     @Override
     protected void convert(BaseViewHolder helper, MessageGroupBean item) {
-
         helper.setText(R.id.tv_title, item.getTitle());
         helper.setText(R.id.tv_sub_title, item.getMsgTitle());
         helper.setText(R.id.tv_badge, item.getNoReadNum());
         helper.setVisible(R.id.tv_badge, !(TextUtils.isEmpty(item.getNoReadNum()) || Integer.valueOf(item.getNoReadNum()) == 0));
         GlideUtils.loadHead(mContext, (ImageView) helper.getView(R.id.sdv_img), item.getImg());
-        helper.setVisible(R.id.fgx, helper.getAdapterPosition()+1 % 2 == 0);
+        helper.setVisible(R.id.fgx, helper.getLayoutPosition() == 1);
     }
 
 

@@ -134,7 +134,7 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
 
         map.put("pageOffset", pageOffset + "");
         map.put("pageSize", pageSize + "");
-        APIManager.startRequest(iNewUserService.getCustomerList(APIManager.buildJsonBody(map)), new BaseRequestListener<MyClientListBean>() {
+        APIManager.startRequest(iNewUserService.getCustomerList(map), new BaseRequestListener<MyClientListBean>() {
             @Override
             public void onSuccess(MyClientListBean result) {
                 super.onSuccess(result);
@@ -200,11 +200,18 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        //上拉加载
+        if (pageOffset < totalPage) {
+            pageOffset++;
+            getCustomerList(type, searchString);
+        }
+
 
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        pageOffset = 1;
+        getCustomerList(type, searchString);
     }
 }

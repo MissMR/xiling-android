@@ -407,7 +407,7 @@ public class XLMemberCenterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record, R.id.btn_recharge, R.id.btn_my_week_card_package, R.id.btn_growth})
+    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record, R.id.btn_recharge, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -436,6 +436,10 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.btn_growth:
                 WebViewActivity.jumpUrl(context, "成长值说明", H5UrlConfig.GROWTH_INTRO);
+                break;
+            case R.id.ll_coupon:
+                //优惠券
+                startActivity(new Intent(context, XLCouponActivity.class));
                 break;
         }
     }

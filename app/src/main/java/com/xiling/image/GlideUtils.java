@@ -35,6 +35,8 @@ public class GlideUtils {
         RequestOptions mRequestOptions = RequestOptions.circleCropTransform();
         Glide.with(context)
                 .load(url)
+               //此处深坑，glide bug 不加此属性，app第一次进入，图片加载不出来
+                .dontAnimate()
                 .bitmapTransform(new CropCircleTransformation(context))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .placeholder(R.drawable.bg_image_def)
@@ -43,6 +45,7 @@ public class GlideUtils {
 
     public static void loadImage(Context context, ImageView imageView, String url) {
         Glide.with(context).load(url)
+                .dontAnimate()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .placeholder(R.drawable.bg_image_def)
                 .fitCenter()

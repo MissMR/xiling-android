@@ -38,7 +38,7 @@ public class InviteFriendsActivity extends BaseActivity {
     ViewPager viewpagerImage;
     @BindView(R.id.parentView)
     LinearLayout parentView;
-
+    String sharedTitle = "标题", sharedDes = "测试", sharedThumb = "", sharedUrl = "";
     private List<Fragment> fragmentList = new ArrayList<>();
 
     /**
@@ -61,9 +61,12 @@ public class InviteFriendsActivity extends BaseActivity {
     private void getInviteFriendsImage() {
         APIManager.startRequest(iNewUserService.getInviteFriendsImage(), new BaseRequestListener<List<String>>() {
             @Override
-            public void onSuccess(List<String> result) {
+            public void onSuccess(final List<String> result) {
                 super.onSuccess(result);
                 fragmentList.clear();
+                if (result.size() >0){
+                    sharedThumb = result.get(0);
+                }
                 for (String url : result) {
                     fragmentList.add(InviteFriendsFragment.newInstance(url));
                 }
@@ -76,6 +79,23 @@ public class InviteFriendsActivity extends BaseActivity {
                     @Override
                     public int getCount() {
                         return fragmentList.size();
+                    }
+                });
+
+                viewpagerImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        sharedThumb = result.get(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
                     }
                 });
             }
@@ -100,9 +120,8 @@ public class InviteFriendsActivity extends BaseActivity {
                 }
                 break;
             case R.id.llShareWechat:
-                String sharedTitle = "", sharedDes = "", sharedThumb = "", sharedUrl = "";
-
-                ShareUtils.share(this, sharedTitle, sharedDes, sharedThumb, sharedUrl, new UMShareListener() {
+                ShareUtils.shareTo3rdPlatform(this, parentView, SHARE_MEDIA.WEIXIN, "friend");
+               /* ShareUtils.share(this, sharedTitle, sharedDes, sharedThumb, sharedUrl, new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
 
@@ -122,10 +141,10 @@ public class InviteFriendsActivity extends BaseActivity {
                     public void onCancel(SHARE_MEDIA share_media) {
 
                     }
-                });
+                });*/
                 break;
             case R.id.llShareWechatCircle:
-                ShareUtils.shareTo3rdPlatform(this, parentView, SHARE_MEDIA.WEIXIN_CIRCLE, "");
+                ShareUtils.shareTo3rdPlatform(this, parentView, SHARE_MEDIA.WEIXIN_CIRCLE, "friend");
                 break;
             case R.id.llShareDisk:
                 ShareUtils.saveDiskShare(this, parentView, "");

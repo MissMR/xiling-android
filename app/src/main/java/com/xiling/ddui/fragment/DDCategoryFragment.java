@@ -225,14 +225,12 @@ public class DDCategoryFragment extends BaseFragment {
                         }
 
                         if (result.getBrandBeanList() != null && result.getBrandBeanList().size() > 0) {
-                            brandBeanListBeanList = result.getBrandBeanList();
                             llBrand.setVisibility(View.VISIBLE);
-                            categoryBrandAdapter.setNewData(brandBeanListBeanList);
                         } else {
                             llBrand.setVisibility(View.GONE);
                         }
-
-
+                        brandBeanListBeanList = result.getBrandBeanList();
+                        categoryBrandAdapter.setNewData(brandBeanListBeanList);
                     }
 
 

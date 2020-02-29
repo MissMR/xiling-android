@@ -331,7 +331,6 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
             pageOffset++;
             requestShop(minPrice, maxPrice, isShippingFree, orderBy, orderType, keyWord);
         }
-
     }
 
     @Override

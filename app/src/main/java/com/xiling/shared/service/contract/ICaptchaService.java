@@ -28,10 +28,6 @@ public interface ICaptchaService {
     int TYPE_MESSAGE = 0;
     int TYPE_VOICE = 1;
 
-
-
-
-
     /**
      * 根据邀请码获取用户基本信息
      */

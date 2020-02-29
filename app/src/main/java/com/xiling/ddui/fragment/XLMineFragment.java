@@ -180,7 +180,6 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             @Override
             public void onSuccess(RealAuthBean result) {
                 super.onSuccess(result);
-                //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
                 initView(result, newUserBean);
             }
 
@@ -207,7 +206,8 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                     @Override
                     public void onClick(View view) {
                         String message = "";
-                        if (result.getAuthStatus() == 1) {
+                        //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
+                        if (result.getAuthStatus() == 0) {
                             message = "请先实名认证\n认证当前商户信息";
                         } else {
                             message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";

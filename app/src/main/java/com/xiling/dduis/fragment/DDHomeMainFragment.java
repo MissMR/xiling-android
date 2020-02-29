@@ -27,10 +27,15 @@ import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.ddui.activity.CategorySecondActivity;
+import com.xiling.ddui.activity.RealAuthActivity;
+import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.manager.AutoClickManager;
 import com.xiling.ddui.tools.DLog;
+import com.xiling.ddui.view.RLoopRecyclerView;
+import com.xiling.ddui.view.RPagerSnapHelper;
 import com.xiling.dduis.adapter.HomeActivityAdapter;
 import com.xiling.dduis.adapter.HomeBrandAdapter;
 import com.xiling.dduis.adapter.HomeHotAdapter;
@@ -49,7 +54,6 @@ import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.MyStatus;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
@@ -101,7 +105,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     HomeActivityAdapter activityAdapter;
 
     @BindView(R.id.recyclerView_brand)
-    RecyclerView recyclerViewBrand;
+    RLoopRecyclerView recyclerViewBrand;
     List<HomeDataBean.BrandHotSaleListBean> brandList = new ArrayList<>();
     HomeBrandAdapter brandAdapter;
     int brandPosition = 1, brandSize = 0;
@@ -186,19 +190,31 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         bannerLayoutManager = new LinearLayoutManager(getActivity());
         bannerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewBrand.setLayoutManager(bannerLayoutManager);
-        brandAdapter = new HomeBrandAdapter(R.layout.item_home_brand, brandList);
+        brandAdapter = new HomeBrandAdapter(mContext);
         recyclerViewBrand.setAdapter(brandAdapter);
-        PagerSnapHelper snapHelper = new PagerSnapHelper() {
+      /*  PagerSnapHelper snapHelper = new PagerSnapHelper() {
             @Override
             public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
                 int targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
                 //监听滑动到第几个
-                brandPosition = targetPos + 1;
-                tvBrandPosition.setText(brandPosition + "");
-                return targetPos;
+
             }
         };
-        snapHelper.attachToRecyclerView(recyclerViewBrand);
+        snapHelper.attachToRecyclerView(recyclerViewBrand);*/
+
+        RPagerSnapHelper rPagerSnapHelper = new RPagerSnapHelper();
+        rPagerSnapHelper.setOnPageListener(new RPagerSnapHelper.OnPageListener() {
+            @Override
+            public void onPageSelector(int position) {
+                position %= brandList.size();
+                if (position < 0) {
+                    position = brandList.size() + position;
+                }
+                brandPosition = position+1;
+                tvBrandPosition.setText(brandPosition + "");
+            }
+        });
+        rPagerSnapHelper.attachToRecyclerView(recyclerViewBrand);
 
         GridLayoutManager recommendLayoutManager = new GridLayoutManager(getActivity(), 2) {
             @Override
@@ -330,13 +346,17 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     } else {
                         llBrand.setVisibility(View.GONE);
                     }
-
-                    brandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    recyclerViewBrand.scrollToPosition(brandAdapter.getItemRawCount() * 10000);//开始时的偏移量
+                    brandAdapter.setOnItemClickListener(new HomeBrandAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        public void onItemClickListener(HomeDataBean.BrandHotSaleListBean bean, int position) {
                             AutoClickManager.pars(mContext, brandList.get(position));
-
                         }
+
+                       /* @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                        }*/
                     });
 
 
@@ -457,12 +477,26 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         checkUserInfo();
     }
 
-    @OnClick({R.id.btn_login, R.id.rel_search, R.id.btn_message, R.id.iv_headIcon})
+    @OnClick({R.id.btn_user, R.id.rel_search, R.id.btn_message, R.id.iv_headIcon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btn_login:
-                if (!UserManager.getInstance().isLogin()) {
-                    EventBus.getDefault().post(new EventMessage(Event.goToLogin));
+            case R.id.btn_user:
+                if (UserManager.getInstance().isLogin(mContext)) {
+                    if (UserManager.getInstance().getUserLevel() == 0) {
+                        D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(mContext, RealAuthActivity.class));
+                            }
+                        }, "取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+                    }else{
+                        startActivity(new Intent(mContext,XLMemberCenterActivity.class));
+                    }
                 }
                 break;
             case R.id.rel_search:
@@ -474,7 +508,9 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 break;
             case R.id.iv_headIcon:
                 //头像点击进入个人中心
-                EventBus.getDefault().post(new EventMessage(viewCenter));
+                if (UserManager.getInstance().isLogin(mContext)) {
+                    EventBus.getDefault().post(new EventMessage(viewCenter));
+                }
                 break;
         }
 
@@ -511,12 +547,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
     private void updateUserInfo() {
         //登录成功
-        NewUserBean user = UserManager.getInstance().getUser();
+        final NewUserBean user = UserManager.getInstance().getUser();
         if (user != null) {
             if (!TextUtils.isEmpty(user.getNickName())) {
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
-                GlideUtils.loadImage(mContext, ivHeadIcon, user.getHeadImage());
+                GlideUtils.loadHead(mContext, ivHeadIcon,"http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132");
+
                 switch (UserManager.getInstance().getUserLevel()) {
                     case 0:
                         //注册用户
