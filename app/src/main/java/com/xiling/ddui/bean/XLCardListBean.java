@@ -42,20 +42,22 @@ public class XLCardListBean {
     }
 
     public static class SkuProductListBean {
+
+
         /**
          * storeId : 0270f3a9ba0545e3bc62be5ea00ac48d
          * storeName : 喜领
-         * productId : 269a548ffc344e85883c702ef0a90f8d
-         * productName : 24年老国货依风凡士林润肤霜250g 防干防裂 软化死皮
-         * thumbUrl :
-         * skuId : ad40d372566d4211b074703999a55f8f
-         * skuName : 0283 24年老国货依风凡士林润肤霜250g 防干防裂 软化死皮
-         * price : 1590
-         * marketPrice : 2900
-         * retailPrice : 1790
-         * stock : 4578
-         * quantity : 99
-         * properties :
+         * productId : 9bb42459744c4090be97db34fee9d0ee
+         * productName : test07
+         * thumbUrl : http://oss.xilingbm.com/product/2020-02/20200217015752912VJ.jpg
+         * skuId : e9219255bfe44217851806c3df49c534
+         * skuName : test07
+         * price : 1
+         * marketPrice : 5699
+         * retailPrice : 5555
+         * stock : 246
+         * quantity : 2
+         * properties : 60粒/盒;
          * status : 1
          */
 
@@ -66,13 +68,18 @@ public class XLCardListBean {
         private String thumbUrl;
         private String skuId;
         private String skuName;
-        private double price;
-        private double marketPrice;
-        private double retailPrice;
+        private int price;
+        private int marketPrice;
+        private int retailPrice;
         private int stock;
         private int quantity;
         private String properties;
         private int status;
+
+        @Override
+        public boolean equals(Object obj) {
+            return this.getSkuId().equals(((SkuProductListBean)obj).getSkuId());
+        }
 
         public String getStoreId() {
             return storeId;
@@ -130,27 +137,27 @@ public class XLCardListBean {
             this.skuName = skuName;
         }
 
-        public double getPrice() {
-            return price/100;
+        public int getPrice() {
+            return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(int price) {
             this.price = price;
         }
 
-        public double getMarketPrice() {
+        public int getMarketPrice() {
             return marketPrice;
         }
 
-        public void setMarketPrice(double marketPrice) {
+        public void setMarketPrice(int marketPrice) {
             this.marketPrice = marketPrice;
         }
 
-        public double getRetailPrice() {
-            return retailPrice/100;
+        public int getRetailPrice() {
+            return retailPrice;
         }
 
-        public void setRetailPrice(double retailPrice) {
+        public void setRetailPrice(int retailPrice) {
             this.retailPrice = retailPrice;
         }
 
@@ -184,11 +191,6 @@ public class XLCardListBean {
 
         public void setStatus(int status) {
             this.status = status;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return this.getSkuId().equals(((SkuProductListBean)obj).getSkuId());
         }
     }
 }

@@ -9,6 +9,7 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.SessionUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -32,7 +33,7 @@ public class BindPhoneNumberActivity extends BaseActivity {
         setContentView(R.layout.activity_bind_phone_number);
         ButterKnife.bind(this);
         showHeader("我的手机号", true);
-        tvPhoneNumber.setText(UserManager.getInstance().getUser().getPhone());
+        tvPhoneNumber.setText(PhoneNumberUtil.getSecretPhoneNumber(UserManager.getInstance().getUser().getPhone()));
     }
 
     @OnClick(R.id.tv_btn_change_phone)

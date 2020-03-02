@@ -42,7 +42,9 @@
                     android:background="@drawable/order_badge"
                     android:gravity="center"
                     android:textColor="#ffffffff"
-                    android:textSize="@dimen/sp_11" />
+                    android:textSize="@dimen/sp_11"
+                    android:visibility="gone"
+                    />
 
 
             </FrameLayout>

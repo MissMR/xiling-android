@@ -15,15 +15,13 @@ import android.widget.TextView;
 import com.xiling.R;
 import com.xiling.ddui.adapter.SkuOrderAdapter;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
 import com.xiling.ddui.tools.NumberHandler;
-import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.community.DateUtils;
 import com.xiling.module.page.WebViewActivity;
-import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -115,6 +113,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView btnExamine;
     @BindView(R.id.tv_identity_price)
     TextView tvIdentityPrice;
+    @BindView(R.id.tv_contact_phone)
+    TextView tvContactPhone;
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -157,6 +157,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvWarehouseName.setText(orderDetailsBean.getStoreName());
                 setStatus(result.getOrderStatusUs(), result);
                 tvContactName.setText(result.getContactUsername());
+                tvContactPhone.setText(result.getContactPhone());
                 tvContactAddress.setText(result.getAddress());
                 tvContactAddressDetails.setText(result.getContactDetail());
                 recyclerSku.setLayoutManager(new LinearLayoutManager(context));
@@ -387,7 +388,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
         void onTick(long l);
     }
 
-    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment, R.id.btn_examine})
+    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment, R.id.btn_examine, R.id.tv_order_pay_type})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_see:
@@ -411,6 +412,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
             case R.id.btn_examine:
                 //提醒审核
                 remindAudit(orderDetailsBean.getOrderCode());
+                break;
+            case R.id.tv_order_pay_type:
+                //大额支付
+                if (orderDetailsBean.getPayType().equals("大额支付")) {
+                    WebViewActivity.jumpUrl(context, "凭证信息", H5UrlConfig.LARGE_PAYMENT + orderId);
+                }
                 break;
         }
     }

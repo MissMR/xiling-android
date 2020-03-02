@@ -153,11 +153,11 @@ public class SkuSelectorDialog extends Dialog {
             setSkuName(skuBean.getPropertyValues());
             GlideUtils.loadImage(getContext(), mThumbIv, skuBean.getThumbUrlForShopNow());
             //优惠价，需要根据用户等级展示不同价格
-            NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(skuBean) * selectCount, tvDiscountPrice, tvDiscountPriceDecimal);
+            NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(skuBean), tvDiscountPrice, tvDiscountPriceDecimal);
             //售价
-            tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getRetailPrice() * selectCount));
+            tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getRetailPrice()));
             //划线价
-            tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getMarketPrice() * selectCount));
+            tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getMarketPrice()));
             mNumberField.setLimit(1, skuBean.getStock());
             tvStock.setText("库存" + skuBean.getStock() + "件");
         } else {
@@ -166,11 +166,11 @@ public class SkuSelectorDialog extends Dialog {
             //优惠价，需要根据用户等级展示不同价格
             NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(mSpuInfo), tvDiscountPrice, tvDiscountPriceDecimal);
             //售价
-            tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinPrice() * selectCount));
+            tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinPrice()));
             //划线价
-            tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinMarketPrice() * selectCount));
+            tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(mSpuInfo.getMinMarketPrice()));
             tvStock.setText("");
-            mNumberField.setLimit(0,0);
+            mNumberField.setLimit(0, 0);
         }
     }
 
@@ -294,8 +294,8 @@ public class SkuSelectorDialog extends Dialog {
         /**
          * 如果是单规格，默认选中
          */
-        if (parentList.size() == 1){
-            if (parentList.get(0).getPropertyValues().size() > 0){
+        if (parentList.size() == 1) {
+            if (parentList.get(0).getPropertyValues().size() > 0) {
                 parentAdapter.setSelectChildId(parentList.get(0).getPropertyValues().get(0).getPropertyValueId());
                 selectMap.put(parentList.get(0).getPropertyId(), parentList.get(0).getPropertyValues().get(0));
                 matchSkuBean();

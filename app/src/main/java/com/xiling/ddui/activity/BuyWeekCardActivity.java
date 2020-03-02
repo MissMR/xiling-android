@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
+import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
@@ -133,7 +134,7 @@ public class BuyWeekCardActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void eventBus(EventMessage message) {
-        if (message.getEvent() == WEEK_CARD_OPEN) {
+        if (message.getEvent() == WEEK_CARD_PAY) {
             finish();
         }
     }

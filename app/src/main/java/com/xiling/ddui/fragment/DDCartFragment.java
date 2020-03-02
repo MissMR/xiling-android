@@ -476,11 +476,13 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn, R.id.tvGoMain})
     public void onViewClicked(View view) {
-        ViewUtil.setViewClickedDelay(view);
+        if (view.getId() != R.id.checkAll){
+            ViewUtil.setViewClickedDelay(view);
+        }
         switch (view.getId()) {
             case R.id.checkAll:
                 if (cardExpandableAdapter != null) {
-                    if (cardExpandableAdapter.isAllSelect()) {
+                    if (!cardExpandableAdapter.isAllSelect()) {
                         checkAll.setSelected(true);
                         cardExpandableAdapter.selectAll();
                         checkAll.setText("全不选");

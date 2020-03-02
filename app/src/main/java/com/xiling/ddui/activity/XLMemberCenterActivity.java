@@ -107,6 +107,7 @@ public class XLMemberCenterActivity extends BaseActivity {
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
     WeekCardInfo weekCardInfo;
+    boolean isOpenWeekCard = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,10 +177,14 @@ public class XLMemberCenterActivity extends BaseActivity {
                                 fragments.add(WeekCardConfigFragment.newInstance(weekCardConfigBean));
                             }
                         }
-
+                    }
+                    if (!isOpenWeekCard) {
+                        slidingTab.setViewPager(viewpagerOrder, childNames.toArray(new String[childNames.size()]), XLMemberCenterActivity.this, fragments);
+                    } else {
+                        slidingTab.notifyDataSetChanged();
+                        isOpenWeekCard = false;
                     }
 
-                    slidingTab.setViewPager(viewpagerOrder, childNames.toArray(new String[childNames.size()]), XLMemberCenterActivity.this, fragments);
                     viewpagerOrder.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -457,6 +462,7 @@ public class XLMemberCenterActivity extends BaseActivity {
         switch (message.getEvent()) {
             case WEEK_CARD_OPEN:
                 //开通了周卡,刷新
+                isOpenWeekCard = true;
                 getMemberCenterInfo();
                 break;
         }

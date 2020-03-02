@@ -101,7 +101,9 @@
                 android:id="@+id/iv_inviter_level"
                 android:layout_width="@dimen/dp_64"
                 android:layout_height="@dimen/dp_24"
-                android:layout_marginTop="@dimen/dp_5" />
+                android:layout_marginTop="@dimen/dp_5"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 

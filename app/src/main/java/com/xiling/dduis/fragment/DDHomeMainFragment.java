@@ -33,6 +33,7 @@ import com.xiling.ddui.activity.XLNewsGroupActivity;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.manager.AutoClickManager;
+import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.view.RLoopRecyclerView;
 import com.xiling.ddui.view.RPagerSnapHelper;
@@ -381,6 +382,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 }
             });
         } else {
+            updateUserInfo();
             requestData();
         }
 
@@ -495,7 +497,9 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 startActivity(intent);
                 break;
             case R.id.btn_message:
-                startActivity(new Intent(mContext, XLNewsGroupActivity.class));
+                if (UserManager.getInstance().isLogin(mContext)) {
+                    startActivity(new Intent(mContext, XLNewsGroupActivity.class));
+                }
                 break;
             case R.id.iv_headIcon:
                 //头像点击进入个人中心
@@ -512,7 +516,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         switch (message.getEvent()) {
             case LOGIN_SUCCESS:
             case LOGIN_OUT:
-                updateUserInfo();
+                checkUserInfo();
                 break;
             case UPDATE_AVATAR:
                 GlideUtils.loadHead(mContext, ivHeadIcon, (String) message.getData());
@@ -540,11 +544,11 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         //登录成功
         final NewUserBean user = UserManager.getInstance().getUser();
         if (user != null) {
+            XLMessageManager.loadUserStatus();
             if (!TextUtils.isEmpty(user.getNickName())) {
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
                 GlideUtils.loadHead(mContext, ivHeadIcon, "http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132");
-
                 switch (UserManager.getInstance().getUserLevel()) {
                     case 0:
                         //注册用户
@@ -560,13 +564,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                         tvGrade.setBackgroundResource(R.drawable.bg_home_back);
                         break;
                 }
-
             }
         } else {
             //退出登录
             btnLogin.setText("登录/注册");
             tvGrade.setVisibility(View.GONE);
             ivHeadIcon.setImageResource(R.drawable.bg_circle_head);
+            ivMessage.setVisibility(View.INVISIBLE);
         }
     }
 

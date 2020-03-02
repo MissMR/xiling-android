@@ -23,7 +23,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 
 /**
- * pt
+ * @author 逄涛
  * 客户订单
  */
 public class CustomerOrderActivity extends BaseActivity {

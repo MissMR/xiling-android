@@ -46,7 +46,27 @@ public class CustomterOrderAdapter extends BaseQuickAdapter<CustomerOrderBean.Or
         SkuOrderAdapter skuAdapter = new SkuOrderAdapter();
         skuRecyclerView.setAdapter(skuAdapter);
         skuAdapter.setNewData(details);
-        helper.setText(R.id.itemStatusTv, item.getOrderStatus());
+
+        switch (item.getOrderStatus()) {
+            case "10":
+                helper.setText(R.id.itemStatusTv, "待支付");
+                break;
+            case "15":
+                helper.setText(R.id.itemStatusTv, "待审核");
+                break;
+            case "20":
+                helper.setText(R.id.itemStatusTv, "待发货");
+                break;
+            case "30":
+                helper.setText(R.id.itemStatusTv, "待收货");
+                break;
+            case "40":
+                helper.setText(R.id.itemStatusTv, "已收货");
+                break;
+            case "50":
+                helper.setText(R.id.itemStatusTv, "已关闭");
+                break;
+        }
         skuAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

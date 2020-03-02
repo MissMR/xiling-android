@@ -26,4 +26,5 @@ public class ShopListTagsAdapter extends BaseQuickAdapter<String, BaseViewHolder
             helper.setText(R.id.tv_title,item);
         }
     }
+
 }

@@ -82,7 +82,7 @@ public class CustomerOrderBean {
         }
 
         public double getReceiptsIndices() {
-            return receiptsIndices;
+            return receiptsIndices/100;
         }
 
         public void setReceiptsIndices(double receiptsIndices) {

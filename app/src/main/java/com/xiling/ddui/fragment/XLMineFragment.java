@@ -45,6 +45,7 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.module.page.WebViewActivity;
+import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.MyStatus;
@@ -56,6 +57,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.IOrderService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -312,7 +314,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                 if (newUserBean != null) {
                     GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
                     tvName.setText(newUserBean.getNickName());
-                    tvPhone.setText(newUserBean.getPhone());
+                    tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(newUserBean.getPhone()));
                     switch (newUserBean.getRole().getRoleLevel()) {
                         case 10:
                             ivLevel.setBackgroundResource(R.drawable.icon_user);
@@ -346,28 +348,32 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             @Override
             public void onSuccess(List<OrderCount> result) {
                 super.onSuccess(result);
-
-                for (OrderCount orderCount : result) {
-                    switch (orderCount.getOrderStatus()) {
-                        case 10:
-                            oriderWaitPay.setBadge(orderCount.getOrderCount());
-                            break;
-                        case 20:
-                            oriderWaitShip.setBadge(orderCount.getOrderCount());
-                            break;
-                        case 30:
-                            oriderWaitReceived.setBadge(orderCount.getOrderCount());
-                            break;
+                if (result.size() > 0) {
+                    for (OrderCount orderCount : result) {
+                        switch (orderCount.getOrderStatus()) {
+                            case 10:
+                                oriderWaitPay.setBadge(orderCount.getOrderCount());
+                                break;
+                            case 20:
+                                oriderWaitShip.setBadge(orderCount.getOrderCount());
+                                break;
+                            case 30:
+                                oriderWaitReceived.setBadge(orderCount.getOrderCount());
+                                break;
+                        }
                     }
+                } else {
+                    oriderWaitPay.setBadge(0);
+                    oriderWaitShip.setBadge(0);
+                    oriderWaitReceived.setBadge(0);
                 }
-
-
             }
 
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                ToastUtil.error(e.getMessage());
             }
 
 
@@ -434,7 +440,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     }
 
     @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip, R.id.ll_custom, R.id.btn_my_client
-            , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management, R.id.rel_message
+            , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management, R.id.rel_message, R.id.btn_order_see_all
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -486,6 +492,10 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
             case R.id.btn_financial_management:
                 // 财务管理
                 startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
+                break;
+            case R.id.btn_order_see_all:
+                //查看全部订单
+                jumpOrderList(Constants.ORDER_ALL);
                 break;
         }
     }

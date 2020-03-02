@@ -286,6 +286,7 @@
                     android:textSize="@dimen/sp_16" />
 
                 <TextView
+                    android:id="@+id/btn_order_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

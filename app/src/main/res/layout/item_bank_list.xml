@@ -47,7 +47,7 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_14"
         android:textColor="#ffffffff"
-        android:textSize="@dimen/sp_20" />
+        android:textSize="@dimen/sp_16" />
 
 
     <TextView

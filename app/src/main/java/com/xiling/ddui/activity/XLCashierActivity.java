@@ -52,6 +52,7 @@ import butterknife.OnClick;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
+import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_WE_CHAT_PAY;
@@ -415,7 +416,7 @@ public class XLCashierActivity extends BaseActivity {
                 } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
                     EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
                 } else if (type.equals(PAY_TYPE_WEEK_CARD)) {
-                    EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
+                    EventBus.getDefault().post(new EventMessage(WEEK_CARD_PAY));
                 }
                 ToastUtil.showSuccessToast(context, "支付成功");
                 finish();

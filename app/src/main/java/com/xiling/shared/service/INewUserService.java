@@ -44,7 +44,7 @@ public interface INewUserService {
      */
     @Headers({"Content-Type: application/json", "Accept: application/json"})
     @POST("user/bind-phone")
-    Observable<RequestResult<Boolean>> bindPhone(@Body RequestBody body);
+    Observable<RequestResult<Object>> bindPhone(@Body RequestBody body);
 
     /**
      * 微信登录，绑定邀请码

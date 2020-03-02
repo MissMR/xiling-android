@@ -22,6 +22,7 @@ import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.manager.UploadManager;
 import com.xiling.shared.service.INewUserService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,7 +64,7 @@ public class PersonalDataActivity extends BaseActivity {
         mUser = UserManager.getInstance().getUser();
         GlideUtils.loadHead(context, ivHead, mUser.getHeadImage());
         tvName.setText(mUser.getNickName());
-        tvPhone.setText(mUser.getPhone());
+        tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(mUser.getPhone()));
     }
 
     @OnClick({R.id.btn_head, R.id.btn_name, R.id.btn_phone})

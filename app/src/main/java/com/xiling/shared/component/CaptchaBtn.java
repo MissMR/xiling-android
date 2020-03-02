@@ -59,7 +59,7 @@ public class CaptchaBtn extends AppCompatTextView {
     }
 
     public void start() {
-        setText(String.format("%s s", mCountTime / 1000));
+        setText(String.format("%s s 后重新发送", mCountTime / 1000));
         setEnabled(false);
         setClickable(false);
         if (countdownTimer != null){
@@ -70,7 +70,7 @@ public class CaptchaBtn extends AppCompatTextView {
 
             @Override
             public void onTick(long millisUntilFinished, int percent) {
-                setText(String.format("%s s", millisUntilFinished / 1000));
+                setText(String.format("%s s 后重新发送", millisUntilFinished / 1000));
                 if (millisUntilFinished / 1000 == 0) {
                     onFinish();
                 }

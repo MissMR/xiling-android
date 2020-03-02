@@ -14,6 +14,7 @@ import com.blankj.utilcode.utils.KeyboardUtils;
 import com.xiling.MyApplication;
 import com.xiling.R;
 import com.xiling.ddui.bean.InviterInfoBean;
+import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
@@ -25,6 +26,7 @@ import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -145,7 +147,7 @@ public class InviteCodeActivity extends BaseActivity {
                             llInviterInfo.setVisibility(View.VISIBLE);
                             GlideUtils.loadHead(context, ivHead, result.getHeadImage());
                             tvInviterName.setText(result.getNickName());
-                            tvInviterPhone.setText(result.getPhone());
+                            tvInviterPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(result.getPhone()));
                             switch (result.getRole()) {
                                 case 0:
                                     ivInviterLevel.setImageResource(R.drawable.bg_home_register);

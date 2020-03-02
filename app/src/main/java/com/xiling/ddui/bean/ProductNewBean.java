@@ -35,7 +35,7 @@ public class ProductNewBean {
     private float minMarketPrice;
     private float minPrice;
     private String content;
-    private String saleCount;
+    private double saleCount;
     private int stock;
     private int status;
     private String tagsStr;
@@ -107,11 +107,11 @@ public class ProductNewBean {
         this.content = content;
     }
 
-    public String getSaleCount() {
+    public double getSaleCount() {
         return saleCount;
     }
 
-    public void setSaleCount(String saleCount) {
+    public void setSaleCount(double saleCount) {
         this.saleCount = saleCount;
     }
 

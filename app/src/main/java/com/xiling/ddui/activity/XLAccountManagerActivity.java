@@ -1,5 +1,6 @@
 package com.xiling.ddui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import java.util.List;
@@ -29,6 +31,7 @@ import butterknife.OnClick;
 import cn.jiguang.net.HttpRequest;
 
 /**
+ * @author 逄涛
  * 账户管理
  */
 public class XLAccountManagerActivity extends BaseActivity {
@@ -106,8 +109,14 @@ public class XLAccountManagerActivity extends BaseActivity {
         protected void convert(BaseViewHolder helper, AccountManagerBean item) {
             GlideUtils.loadHead(context, (ImageView) helper.getView(R.id.iv_head),item.getHeadImage());
             helper.setText(R.id.tv_name,item.getNickName());
-            helper.setText(R.id.tv_phone,item.getPhone());
-            helper.setVisible(R.id.tv_auth,item.getAuthStatus()==2);
+            helper.setText(R.id.tv_phone, PhoneNumberUtil.getSecretPhoneNumber(item.getPhone()));
+            if (item.getAuthStatus()==2){
+                helper.setText(R.id.tv_auth,"已实名认证");
+                helper.setTextColor(R.id.tv_auth,Color.parseColor("#C6C6C6"));
+            }else{
+                helper.setText(R.id.tv_auth,"未实名认证");
+                helper.setTextColor(R.id.tv_auth,Color.parseColor("#DCB982"));
+            }
         }
     }
 

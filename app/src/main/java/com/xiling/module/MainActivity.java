@@ -31,6 +31,7 @@ import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
 import com.xiling.ddui.fragment.XLMineFragment;
+import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.AppTools;
 import com.xiling.ddui.tools.DLog;
@@ -257,7 +258,7 @@ public class MainActivity extends BaseActivity {
 //        new AppUpgradeManager(context).check(false);
 
         //获取消息条数
-        loadUserStatus();
+        XLMessageManager.loadUserStatus();
 
         //加载本地缓存的购物车数量
         // CartAmountManager.share().reload();
@@ -389,7 +390,7 @@ public class MainActivity extends BaseActivity {
             //获取当前界面的tabName
             mCurrentTab = mTabNames.get(index);
             mCurrentIndex = index;
-            loadUserStatus();
+            XLMessageManager.loadUserStatus();
         }
 
     }
@@ -530,44 +531,13 @@ public class MainActivity extends BaseActivity {
                 onClickTabItems(mTabs.get(1));
                 break;
             case MsgStatus.ReloadMsgCount:
-                loadUserStatus();
+                XLMessageManager.loadUserStatus();
                 break;
             default:
         }
     }
 
-    /**
-     * 用来读取未读消息条数
-     */
-    public void loadUserStatus() {
-        if (!UserManager.getInstance().isLogin()) {
-            return;
-        }
 
-        IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<String>() {
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                if (!TextUtils.isEmpty(result)) {
-                    MyStatus status = new MyStatus();
-                    status.messageCount = Integer.valueOf(result);
-                    EventBus.getDefault().post(status);
-                } else {
-                    MyStatus status = new MyStatus();
-                    status.messageCount = 0;
-                    EventBus.getDefault().post(status);
-                }
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-            }
-        });
-    }
 
     private void toLogin() {
         Intent intent = new Intent(this, LoginActivity.class);

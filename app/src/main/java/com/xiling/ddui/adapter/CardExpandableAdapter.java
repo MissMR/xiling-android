@@ -94,9 +94,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 } else {
                     helper.setVisible(R.id.tv_status, false);
                     helper.setVisible(R.id.itemSelectorIv, true);
-                    helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#AAAAAA"));
-                    helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#AAAAAA"));
-                    helper.setTextColor(R.id.tv_rmb, Color.parseColor("#AAAAAA"));
+                    helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
+                    helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
+                    helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
                     mNumberField.setLimit(1, skuProductListBean.getStock());
                     mNumberField.setValue(item.getBean().getQuantity());
                     mNumberField.setOnChangeListener(new OnValueChangeLister() {
@@ -114,7 +114,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 }
 
                 if (!TextUtils.isEmpty(skuProductListBean.getSkuName())) {
-                    helper.setText(R.id.tv_product_des, skuProductListBean.getSkuName());
+                    helper.setText(R.id.tv_product_des, skuProductListBean.getProperties());
                 }
 
                 helper.setText(R.id.tv_price, "¥" + NumberHandler.reservedDecimalFor2(skuProductListBean.getRetailPrice()));

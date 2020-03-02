@@ -218,7 +218,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
         if (UserManager.getInstance().isLogin(context)) {
-            ShopCardManager.getInstance().requestAddCart(skuId, size, false,true);
+            ShopCardManager.getInstance().requestAddCart(skuId, size, false, true);
         }
     }
 
@@ -296,10 +296,18 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void imageUploadHandler(EventMessage message) {
-        if (message.getEvent().equals(cartAmountUpdate)) {
-            int total = (int) message.getData();
-            tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
-            tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+        switch (message.getEvent()) {
+            case cartAmountUpdate:
+                int total = (int) message.getData();
+                tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
+                tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+                break;
+            case LOGIN_SUCCESS:
+            case LOGIN_OUT:
+                getProductInfo(mSpuId);
+                break;
+
         }
+
     }
 }

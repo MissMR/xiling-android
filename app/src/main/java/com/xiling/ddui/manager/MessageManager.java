@@ -94,8 +94,8 @@ public class MessageManager {
             case MessageType.SYS_TEAM_IP_VIP:
             case MessageType.SYS_TEAM_UP_ALERT:
                 // 店主中心
-                intent.setClass(context, MainActivity.class);
-                intent.putExtra(Constants.Extras.TAB_INDEX, 1);
+               // intent.setClass(context, MainActivity.class);
+               // intent.putExtra(Constants.Extras.TAB_INDEX, 1);
                 break;
             case MessageType.PRODUCT_DETAIL:
                 intent.setClass(context, DDProductDetailActivity.class);

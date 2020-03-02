@@ -19,6 +19,7 @@ import com.xiling.ddui.activity.MessageGroupActivity;
 import com.xiling.ddui.activity.UserSettingsActivity;
 import com.xiling.ddui.bean.UnReadMessageCountBean;
 import com.xiling.ddui.custom.NestScrollView;
+import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.UITools;
@@ -295,9 +296,7 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
     @Override
     public void onResume() {
         super.onResume();
-        if (mUser != null && SessionUtil.getInstance().isLogin()) {
-            loadOrderStats();
-        }
+
     }
 
     @Override
@@ -326,7 +325,6 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
                 onRefresh();
                 break;
             case paySuccess:
-                loadOrderStats();
                 break;
             default:
                 break;
@@ -343,55 +341,12 @@ public class DDMineFragment extends BaseFragment implements NestScrollView.OnScr
                 SessionUtil.getInstance().setLoginUser(user);
                 mUser = user;
                 setUserData();
-                loadUnReadMsgCount();
-                loadOrderStats();
+                XLMessageManager.loadUserStatus();
             }
         });
     }
 
-    /**
-     * 获取未读消息数量
-     */
-    void loadUnReadMsgCount() {
-        IMessageService messageService = ServiceManager.getInstance().createService(IMessageService.class);
-        APIManager.startRequest(messageService.getUnReadCount(), new BaseRequestListener<String>() {
-            @Override
-            public void onSuccess(String result) {
-                super.onSuccess(result);
-                if (!TextUtils.isEmpty(result)) {
-                    DLog.i("DDMineFragment.getNum:" + result);
-                    MyStatus status = new MyStatus();
-                    status.messageCount = Integer.valueOf(result);
-                    EventBus.getDefault().post(status);
-                }
-            }
-        });
-    }
 
-    void loadOrderStats() {
-      /*  APIManager.startRequest(mOrderService.getOrderCount(), new BaseRequestListener<OrderCount>() {
-
-            @Override
-            public void onSuccess(OrderCount orderCount) {
-                waitPayItem.setBadge(orderCount.waitPay);
-                waitSendItem.setBadge(orderCount.waitShip);
-                waitReceiveItem.setBadge(orderCount.hasShip);
-//                waitCommitItem.setBadge(orderCount.waitComment);
-                waitServiceItem.setBadge(orderCount.afterSales);
-//                waitPayItem.setBadge(1);
-//                waitSendItem.setBadge(0);
-//                waitReceiveItem.setBadge(10);
-//                waitCommitItem.setBadge(999);
-//                waitServiceItem.setBadge(3000);
-            }
-
-            @Override
-            public void onComplete() {
-                super.onComplete();
-                mPullRefresh.refreshComplete();
-            }
-        });*/
-    }
 
     /**
      * 设置用户数据到界面

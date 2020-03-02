@@ -221,7 +221,8 @@ public class ProductDetailUIHelper {
                 tvRewardGuide.setText("开通黑卡会员，享受最低价¥" + mSpuInfo.getLevel30Price());
             }
         } else {
-            rlBecomeMasterGuide.setVisibility(View.GONE);
+            rlBecomeMasterGuide.setVisibility(View.VISIBLE);
+            tvRewardGuide.setText("开通黑卡会员，享受最低价¥" + mSpuInfo.getLevel30Price());
         }
 
 
@@ -262,7 +263,7 @@ public class ProductDetailUIHelper {
         tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinMarketPrice()));
         tvMinMarketPrice.getPaint().setAntiAlias(true);//抗锯齿
         tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        tvSaleSize.setText("已售" + spuInfo.getSaleCount());
+        tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount()/10000)+"万");
 
         LinearLayoutManager tagManager = new LinearLayoutManager(mContext) {
             @Override

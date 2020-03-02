@@ -169,7 +169,7 @@ public class CaptchaActivity extends BaseActivity {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                ToastUtil.error("获取验证码失败");
+                ToastUtil.error(e.getMessage());
             }
         });
     }
@@ -259,12 +259,12 @@ public class CaptchaActivity extends BaseActivity {
             e.printStackTrace();
         }
         APIManager.startRequest(iNewUserService.bindPhone(APIManager.getRequestBody(jsonObject.toString())),
-                new BaseRequestListener<Boolean>(this) {
+                new BaseRequestListener<Object>(this) {
                     @Override
-                    public void onSuccess(Boolean result) {
+                    public void onSuccess(Object result) {
                         super.onSuccess(result);
                         //微信绑定手机号成功，跳转绑定邀请码
-                        if (result) {
+                        if (result != null){
                             Intent intent = new Intent(CaptchaActivity.this, InviteCodeActivity.class);
                             intent.putExtra(Constants.Extras.WECHAT_USER, getIntent().getSerializableExtra(Constants.Extras.WECHAT_USER));
                             intent.putExtra(Constants.Extras.PHONE_NUMBER, mPhoneNumber);

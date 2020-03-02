@@ -30,9 +30,15 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.MainActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.DatasBean, BaseViewHolder> {
@@ -41,6 +47,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
 
     public ShopListAdapter(int layoutResId, @Nullable List<HomeRecommendDataBean.DatasBean> data) {
         super(layoutResId, data);
+        EventBus.getDefault().register(this);
     }
 
 
@@ -80,11 +87,20 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         }
 
         if (item.getProductTags() != null && item.getProductTags().size() > 0) {
+            List<String> tags = new ArrayList<>();
+            if (item.getProductTags().size() <= 2) {
+                tags = item.getProductTags();
+            } else {
+                for (int i = 0; i < 2; i++) {
+                    tags.add(item.getProductTags().get(i));
+                }
+            }
+
             RecyclerView recyclerView = helper.getView(R.id.recycler_tags);
             AutoLayoutManager autoLayoutManager = new AutoLayoutManager();
             autoLayoutManager.setAutoMeasureEnabled(true);
             recyclerView.setLayoutManager(autoLayoutManager);
-            tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, item.getProductTags());
+            tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, tags);
             recyclerView.setAdapter(tagsAdapter);
         }
         //优惠价，需要根据用户等级展示不同价格
@@ -119,19 +135,32 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         helper.setOnClickListener(R.id.btn_go_card, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (item.getStock() > 0) {
-                    ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1, false, new BaseRequestListener() {
-                        @Override
-                        public void onSuccess(Object result) {
-                            item.setStock(item.getStock() - 1);
-                        }
-                    });
-                } else {
-                    ToastUtil.error("该商品已售罄");
+                if (UserManager.getInstance().isLogin(mContext)) {
+                    if (item.getStock() > 0) {
+                        ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1, false, new BaseRequestListener() {
+                            @Override
+                            public void onSuccess(Object result) {
+                                item.setStock(item.getStock() - 1);
+                            }
+                        });
+                    } else {
+                        ToastUtil.error("该商品已售罄");
+                    }
                 }
-
             }
         });
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLogin(EventMessage message) {
+        switch (message.getEvent()) {
+            case LOGIN_SUCCESS:
+            case LOGIN_OUT:
+                this.notifyDataSetChanged();
+                break;
+
+        }
+    }
+
 }
