@@ -27,7 +27,7 @@ public class AccountInfo {
     }
 
     public double getBalance() {
-        return balance/1000;
+        return balance/100;
     }
 
     public void setBalance(int balance) {

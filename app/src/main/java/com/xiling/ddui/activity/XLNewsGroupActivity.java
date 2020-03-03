@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 逄涛
+ * @auth 宋秉经
  * 消息中心-类型
  */
 public class XLNewsGroupActivity extends BaseActivity implements OnRefreshListener {

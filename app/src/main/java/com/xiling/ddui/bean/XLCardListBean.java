@@ -68,7 +68,7 @@ public class XLCardListBean {
         private String thumbUrl;
         private String skuId;
         private String skuName;
-        private int price;
+        private double price;
         private int marketPrice;
         private int retailPrice;
         private int stock;
@@ -137,11 +137,11 @@ public class XLCardListBean {
             this.skuName = skuName;
         }
 
-        public int getPrice() {
-            return price;
+        public double getPrice() {
+            return price/100;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 

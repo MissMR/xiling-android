@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * @auth 宋秉经
  * 收益指数
  */
 public class IncomeIndexActivity extends BaseActivity {

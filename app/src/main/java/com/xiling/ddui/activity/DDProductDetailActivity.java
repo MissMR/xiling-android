@@ -56,7 +56,7 @@ import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewCart;
 
 /**
- * @author 逄涛
+ * @auth 宋秉经
  * 商品详情
  */
 public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener {
@@ -66,7 +66,6 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     private ProductDetailUIHelper mProductDetailUIHelper;
     private String mSpuId;
     private IProductService mProductService;
-    private ICartService mCartService;
     private INewUserService iNewUserService;
 
     private ProductNewBean mSpuInfo;
@@ -129,10 +128,8 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         getIntentData();
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mProductService = ServiceManager.getInstance().createService(IProductService.class);
-        mCartService = ServiceManager.getInstance().createService(ICartService.class);
         getProductInfo(mSpuId);
         ShopCardManager.getInstance().requestUpDataShopCardCount();
-
     }
 
     private void getIntentData() {
@@ -304,6 +301,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
                 break;
             case LOGIN_SUCCESS:
             case LOGIN_OUT:
+                ShopCardManager.getInstance().requestUpDataShopCardCount();
                 getProductInfo(mSpuId);
                 break;
 

@@ -19,7 +19,7 @@
         android:drawablePadding="3dp"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_8"
-        android:text="搜索品类/单品/分类"
+        android:text="输入你要搜索的产品名称"
         android:textColor="#AAAAAA"
         android:textSize="@dimen/sp_13" />
 
@@ -51,16 +51,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.facebook.drawee.view.SimpleDraweeView
+                    <ImageView
                         android:id="@+id/sdv_category_banner"
-                        style="@style/DefaultSimpleDraweeView"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_83"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_12"
                         android:layout_marginTop="@dimen/dp_12"
                         android:layout_marginRight="@dimen/dp_12"
-                        app:actualImageScaleType="fitXY"
-                        app:roundedCornerRadius="@dimen/category_radius" />
+                        android:scaleType="fitCenter" />
 
 
                     <LinearLayout
@@ -99,8 +97,7 @@
                         android:background="#F5F5F5"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:visibility="gone"
-                        >
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"

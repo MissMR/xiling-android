@@ -61,7 +61,7 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
- * pt
+ * @auth 宋秉经
  * 收银台
  */
 public class XLCashierActivity extends BaseActivity {

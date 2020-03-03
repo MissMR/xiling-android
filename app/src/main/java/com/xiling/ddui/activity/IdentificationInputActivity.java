@@ -38,6 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * @auth 宋秉经
  * 实名认证-信息录入
  */
 public class IdentificationInputActivity extends BaseActivity {

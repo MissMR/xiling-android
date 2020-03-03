@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,6 +39,7 @@ import com.xiling.ddui.bean.UserCostomBean;
 import com.xiling.ddui.bean.UserInComeBean;
 import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.D3ialogTools;
+import com.xiling.ddui.custom.NestScrollView;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
@@ -81,7 +83,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 /**
  * 个人中心
  */
-public class XLMineFragment extends BaseFragment implements OnRefreshListener {
+public class XLMineFragment extends BaseFragment implements OnRefreshListener, NestScrollView.OnScrollChangedCallback {
 
     INewUserService iNewUserService;
     IOrderService mOrderService;
@@ -154,6 +156,18 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
     @BindView(R.id.iv_message)
     ImageView ivMessage;
 
+
+    @BindView(R.id.title_name)
+    TextView titleName;
+    @BindView(R.id.rel_title)
+    RelativeLayout relTitle;
+    @BindView(R.id.title_message)
+    ImageView titleMessage;
+    @BindView(R.id.scroll_view)
+    NestScrollView scrollView;
+    float titleBarHeight = 0;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -162,7 +176,9 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         unbinder = ButterKnife.bind(this, view);
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mOrderService = ServiceManager.getInstance().createService(IOrderService.class);
-
+        //设置拉动事件监听
+        titleBarHeight = getResources().getDimension(R.dimen.dp_187);
+        scrollView.setOnScrollChangedCallback(this);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(this);
@@ -210,19 +226,29 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
                         String message = "";
                         //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
                         if (result.getAuthStatus() == 0) {
-                            message = "请先实名认证\n认证当前商户信息";
+                            D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    startActivity(new Intent(mContext, RealAuthActivity.class));
+                                }
+                            }, "取消", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            });
+
                         } else {
                             message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";
+                            D3ialogTools.showSingleAlertDialog(mContext, "",
+                                    message, "我知道了",
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            // startActivity(new Intent(mContext, RealAuthActivity.class));
+                                        }
+                                    });
                         }
-
-                        D3ialogTools.showSingleAlertDialog(mContext, "",
-                                message, "我知道了",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        startActivity(new Intent(mContext, RealAuthActivity.class));
-                                    }
-                                });
                     }
                 });
                 break;
@@ -306,37 +332,40 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
      * 获取用户信息
      */
     private void requestUserInfo() {
-        getOrderCount();
-        UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
-            @Override
-            public void onCheckUserInfoSucess(NewUserBean newUserBean) {
-                refreshLayout.finishRefresh();
-                if (newUserBean != null) {
-                    GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
-                    tvName.setText(newUserBean.getNickName());
-                    tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(newUserBean.getPhone()));
-                    switch (newUserBean.getRole().getRoleLevel()) {
-                        case 10:
-                            ivLevel.setBackgroundResource(R.drawable.icon_user);
-                            break;
-                        case 20:
-                            ivLevel.setBackgroundResource(R.drawable.icon_vip);
-                            break;
-                        case 30:
-                            ivLevel.setBackgroundResource(R.drawable.icon_black);
-                            break;
+        if (UserManager.getInstance().isLogin()) {
+            getOrderCount();
+            UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {
+                @Override
+                public void onCheckUserInfoSucess(NewUserBean newUserBean) {
+                    refreshLayout.finishRefresh();
+                    if (newUserBean != null) {
+                        GlideUtils.loadHead(mContext, avatarIv, newUserBean.getHeadImage());
+                        tvName.setText(newUserBean.getNickName());
+                        titleName.setText(newUserBean.getNickName());
+                        tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(newUserBean.getPhone()));
+                        switch (newUserBean.getRole().getRoleLevel()) {
+                            case 10:
+                                ivLevel.setBackgroundResource(R.drawable.icon_user);
+                                break;
+                            case 20:
+                                ivLevel.setBackgroundResource(R.drawable.icon_vip);
+                                break;
+                            case 30:
+                                ivLevel.setBackgroundResource(R.drawable.icon_black);
+                                break;
+                        }
+
+
+                        getAuth(newUserBean);
                     }
-
-
-                    getAuth(newUserBean);
                 }
-            }
 
-            @Override
-            public void onCheckUserInfoFail() {
-                refreshLayout.finishRefresh();
-            }
-        });
+                @Override
+                public void onCheckUserInfoFail() {
+                    refreshLayout.finishRefresh();
+                }
+            });
+        }
     }
 
     /**
@@ -439,15 +468,17 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         requestUserInfo();
     }
 
-    @OnClick({R.id.iv_setting, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip, R.id.ll_custom, R.id.btn_my_client
+    @OnClick({R.id.iv_setting, R.id.title_setting, R.id.title_rel_message, R.id.orider_wait_pay, R.id.orider_wait_ship, R.id.orider_wait_received, R.id.orider_closed, R.id.ll_user_vip, R.id.rel_user_vip, R.id.ll_custom, R.id.btn_my_client
             , R.id.btn_invite_friends, R.id.btn_my_housekeeper, R.id.btn_financial_management, R.id.rel_message, R.id.btn_order_see_all
     })
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting:
+            case R.id.title_setting:
                 startActivity(new Intent(mContext, XLSettingActivity.class));
                 break;
             case R.id.rel_message:
+            case R.id.title_rel_message:
                 //消息
                 startActivity(new Intent(mContext, XLNewsGroupActivity.class));
                 break;
@@ -532,9 +563,34 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener {
         if (status != null) {
             if (status.messageCount > 0) {
                 ivMessage.setVisibility(View.VISIBLE);
+                titleMessage.setVisibility(View.VISIBLE);
             } else {
                 ivMessage.setVisibility(View.INVISIBLE);
+                titleMessage.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+
+    @Override
+    public void onScroll(int dx, int dy) {
+        refreshLayout.setEnabled(dy == 0);
+
+        float alpha = 0;
+        if (dy > titleBarHeight) {
+            //标题栏完全显示
+            alpha = 1;
+        } else {
+            if (dy == 0) {
+                //隐藏标题栏颜色
+                alpha = 0;
+            } else {
+                //修改状态栏颜色透明度
+                alpha = (float) ((dy * 1.0) / titleBarHeight);
+            }
+        }
+
+        relTitle.setAlpha(alpha);
+
     }
 }

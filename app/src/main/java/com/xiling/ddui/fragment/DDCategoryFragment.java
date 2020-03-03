@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -68,7 +69,7 @@ public class DDCategoryFragment extends BaseFragment {
 
     Unbinder unbinder;
     @BindView(R.id.sdv_category_banner)
-    SimpleDraweeView sdvCategoryBanner;
+    ImageView sdvCategoryBanner;
     @BindView(R.id.tv_category)
     TextView tvCategory;
     @BindView(R.id.ll_brand)

@@ -39,7 +39,6 @@ import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.util.ShareUtils;
 import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
@@ -54,7 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author 逄涛
+ * @auth 宋秉经
  * 会员中心
  */
 public class XLMemberCenterActivity extends BaseActivity {
@@ -103,6 +102,8 @@ public class XLMemberCenterActivity extends BaseActivity {
     LinearLayout llBlackRecharge;
     @BindView(R.id.rel_week_record)
     RelativeLayout relWeekRecord;
+    @BindView(R.id.rel_title)
+    RelativeLayout relTitle;
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
@@ -256,16 +257,19 @@ public class XLMemberCenterActivity extends BaseActivity {
                     case 10:
                         //普通会员
                         relBackgroudHead.setBackgroundResource(R.drawable.bg_member_head_ordinary);
+                        relTitle.setBackgroundResource(R.drawable.bg_member_head_ordinary);
                         ivRoleLevel.setBackgroundResource(R.drawable.icon_member_ordinary);
                         break;
                     case 20:
                         //vip会员
                         relBackgroudHead.setBackgroundResource(R.drawable.bg_member_head_vip);
+                        relTitle.setBackgroundResource(R.drawable.bg_member_head_vip);
                         ivRoleLevel.setBackgroundResource(R.drawable.icon_member_vip);
                         break;
                     case 30:
                         //黑卡会员
                         relBackgroudHead.setBackgroundResource(R.drawable.bg_member_head_black);
+                        relTitle.setBackgroundResource(R.drawable.bg_member_head_black);
                         ivRoleLevel.setBackgroundResource(R.drawable.icon_member_black);
                         break;
                 }
@@ -412,7 +416,8 @@ public class XLMemberCenterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record, R.id.btn_recharge, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon})
+    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.rel_week_record, R.id.btn_recharge, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon,
+            R.id.btn_growth_detailed})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -424,7 +429,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.rel_week_record:
                 //我的周卡记录
-                WebViewActivity.jumpUrl(context, "购买记录", H5UrlConfig.WEEK_CARD_RECORD);
+                WebViewActivity.jumpUrl(context, "周卡记录", H5UrlConfig.WEEKLY_BLACK);
                 break;
             case R.id.btn_recharge:
                 //立即充值
@@ -441,6 +446,9 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.btn_growth:
                 WebViewActivity.jumpUrl(context, "成长值说明", H5UrlConfig.GROWTH_INTRO);
+                break;
+            case R.id.btn_growth_detailed:
+                WebViewActivity.jumpUrl(context, "成长值明细", H5UrlConfig.GROWTH_DETAILED);
                 break;
             case R.id.ll_coupon:
                 //优惠券

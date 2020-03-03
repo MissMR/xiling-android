@@ -5,12 +5,16 @@ import com.xiling.BuildConfig;
 public class H5UrlConfig {
     //购买记录
     public static final String WEEK_CARD_RECORD = BuildConfig.BASE_URL + "weekCardRecord";
+    //周卡包-黑卡会员
+    public static final String WEEKLY_BLACK = BuildConfig.BASE_URL + "wallet";
     //查看物流
     public static final String WEB_URL_EXPRESS = BuildConfig.BASE_URL + "logisticsDetail?expressCode=@expressCode&expressId=@expressId";
     //会员规则
     public static final String MEMBER_EXPLAIN = BuildConfig.BASE_URL + "memberExplain";
     //成长值说明
     public static final String GROWTH_INTRO = BuildConfig.BASE_URL + "growthIntro";
+    //成长值明细
+    public static final String GROWTH_DETAILED = BuildConfig.BASE_URL + "growthList";
     //关于我们
     public static final String ABOUT_US = BuildConfig.BASE_URL + "aboutUs";
     //规则中心

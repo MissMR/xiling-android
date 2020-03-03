@@ -91,7 +91,6 @@ public class NewPhoneActivity extends BaseActivity implements CaptchaBtn.OnCount
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.cb_captcha:
-                cbCaptcha.start();
                 phone = etPhoneNumber.getText().toString();
                 getMemberInfoChangeMsg(phone, "0");
                 break;
@@ -139,6 +138,7 @@ public class NewPhoneActivity extends BaseActivity implements CaptchaBtn.OnCount
             @Override
             public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
+                cbCaptcha.start();
                 ToastUtil.success(message);
             }
 

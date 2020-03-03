@@ -80,7 +80,7 @@ public class UserInComeBean implements Parcelable {
     }
 
     public double getIncomeDay() {
-        return incomeDay;
+        return incomeDay/100;
     }
 
     public void setIncomeDay(double incomeDay) {
@@ -88,7 +88,7 @@ public class UserInComeBean implements Parcelable {
     }
 
     public double getIncomeMonth() {
-        return incomeMonth;
+        return incomeMonth/100;
     }
 
     public void setIncomeMonth(double incomeMonth) {
@@ -96,7 +96,7 @@ public class UserInComeBean implements Parcelable {
     }
 
     public double getIncomeTotal() {
-        return incomeTotal;
+        return incomeTotal/100;
     }
 
     public void setIncomeTotal(double incomeTotal) {
@@ -104,7 +104,7 @@ public class UserInComeBean implements Parcelable {
     }
 
     public double getBalanceGrow() {
-        return balanceGrow;
+        return balanceGrow/100;
     }
 
     public void setBalanceGrow(double balanceGrow) {

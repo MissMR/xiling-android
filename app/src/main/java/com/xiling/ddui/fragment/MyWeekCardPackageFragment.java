@@ -115,7 +115,6 @@ public class MyWeekCardPackageFragment extends BaseFragment {
             //已有一张周卡
             message = "当前已经有一张周卡在使用\n确认要替换当前周卡身份吗？";
         }
-
         D3ialogTools.showAlertDialog(mContext, message, "确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {

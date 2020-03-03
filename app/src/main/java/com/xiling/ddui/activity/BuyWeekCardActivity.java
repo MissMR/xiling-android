@@ -33,7 +33,7 @@ import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
- * pt
+ * @author 宋秉经
  * 购买周卡
  */
 public class BuyWeekCardActivity extends BaseActivity {

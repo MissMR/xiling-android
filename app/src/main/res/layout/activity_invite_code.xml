@@ -58,7 +58,7 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_12"
         android:paddingRight="@dimen/dp_12"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/iv_head"
@@ -80,10 +80,11 @@
 
                 <TextView
                     android:id="@+id/tv_inviter_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLength="10"
+                    android:lines="1"
                     android:textColor="#ff333333"
                     android:textSize="@dimen/sp_16" />
 
@@ -92,6 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_3"
+                    android:text="18354232734"
                     android:textColor="#ff999999"
                     android:textSize="@dimen/sp_12" />
 
@@ -102,8 +104,7 @@
                 android:layout_width="@dimen/dp_64"
                 android:layout_height="@dimen/dp_24"
                 android:layout_marginTop="@dimen/dp_5"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
         </LinearLayout>
 

@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * pt
+ * @auth 宋秉经
  * 邀请好友viewpager搭载的fregment
  */
 public class InviteFriendsFragment extends BaseFragment {

@@ -22,6 +22,8 @@ import com.xiling.shared.util.StringUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,5 +91,13 @@ public class UpdatePhoneIdentityActivity extends BaseActivity {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdata(EventMessage message) {
+        switch (message.getEvent()) {
+            case UPDATEE_PHONE:
+                finish();
+                break;
+        }
+    }
 
 }

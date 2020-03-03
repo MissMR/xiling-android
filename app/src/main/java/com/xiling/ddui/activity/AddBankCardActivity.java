@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author 逄涛
+ * @author 宋秉经
  * 添加银行卡
  */
 public class AddBankCardActivity extends BaseActivity {
@@ -48,11 +48,9 @@ public class AddBankCardActivity extends BaseActivity {
     @BindView(R.id.tv_btn_next)
     TextView tvBtnNext;
 
-
     private IUserService mIUserService;
     private UserAuthBean mUserAuthBean;
     private List<CardItemModel> mList;
-
     private String mSelectBankId;
 
     @Override

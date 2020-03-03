@@ -2,6 +2,7 @@ package com.xiling.dduis.adapter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Message;
@@ -75,7 +76,6 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
                     }
                 }
             });
-            //   GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_bgdge), item.getBadgeImg(),true);
         }
 
         if (!TextUtils.isEmpty(item.getThumbUrl())) {
@@ -85,9 +85,9 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         if (!TextUtils.isEmpty(item.getProductName())) {
             helper.setText(R.id.tv_title, item.getProductName());
         }
-
+        List<String> tags = new ArrayList<>();
         if (item.getProductTags() != null && item.getProductTags().size() > 0) {
-            List<String> tags = new ArrayList<>();
+
             if (item.getProductTags().size() <= 2) {
                 tags = item.getProductTags();
             } else {
@@ -95,22 +95,33 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
                     tags.add(item.getProductTags().get(i));
                 }
             }
-
-            RecyclerView recyclerView = helper.getView(R.id.recycler_tags);
-            AutoLayoutManager autoLayoutManager = new AutoLayoutManager();
-            autoLayoutManager.setAutoMeasureEnabled(true);
-            recyclerView.setLayoutManager(autoLayoutManager);
-            tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, tags);
-            recyclerView.setAdapter(tagsAdapter);
         }
+
+        RecyclerView recyclerView = helper.getView(R.id.recycler_tags);
+        AutoLayoutManager autoLayoutManager = new AutoLayoutManager();
+        autoLayoutManager.setAutoMeasureEnabled(true);
+        recyclerView.setLayoutManager(autoLayoutManager);
+        tagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, tags);
+        recyclerView.setAdapter(tagsAdapter);
+
         //优惠价，需要根据用户等级展示不同价格
         NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(item), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
         String mStatus = ShopUtils.checkShopStatus(item.getStatus(), item.getStock());
         if (!TextUtils.isEmpty(mStatus)) {
             helper.setText(R.id.tv_status, mStatus);
             helper.setVisible(R.id.tv_status, true);
+            helper.setBackgroundRes(R.id.iv_rate, R.drawable.bg_special_price_out);
+            helper.setTextColor(R.id.tv_rmb, Color.parseColor("#999999"));
+            helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
+            helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
+            helper.setTextColor(R.id.tv_minPrice,Color.parseColor("#999999"));
         } else {
             helper.setVisible(R.id.tv_status, false);
+            helper.setBackgroundRes(R.id.iv_rate, R.drawable.bg_special_price);
+            helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
+            helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
+            helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
+            helper.setTextColor(R.id.tv_minPrice,Color.parseColor("#202020"));
         }
 
 

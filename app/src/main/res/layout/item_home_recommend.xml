@@ -26,25 +26,26 @@
                 android:layout_height="match_parent"
                 android:background="#F6F6F6" />
 
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#50202020"
-                android:gravity="center"
-                android:text="已下架"
-                android:textColor="#ffffffff"
-                android:textSize="@dimen/sp_16"
-                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_bgdge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_3"
-                android:layout_marginRight="@dimen/dp_3"
-                />
+                android:layout_marginRight="@dimen/dp_3" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="#60202020"
+                android:gravity="center"
+                android:text="已下架"
+                android:textStyle="bold"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -67,7 +68,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_tags"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_16"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title"
                 android:layout_marginTop="@dimen/dp_5" />
 
@@ -83,6 +84,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_rmb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="¥"
@@ -103,13 +105,14 @@
                         android:textColor="#ffa6251a"
                         android:textSize="@dimen/sp_12" />
 
-                      <TextView
-                          android:layout_width="@dimen/dp_38"
-                          android:layout_height="@dimen/dp_13"
-                          android:gravity="center"
-                          android:background="@drawable/bg_special_price"
-                          android:textColor="#fffdddab"
-                          android:textSize="@dimen/sp_10" />
+                    <TextView
+                        android:id="@+id/iv_rate"
+                        android:layout_width="@dimen/dp_38"
+                        android:layout_height="@dimen/dp_13"
+                        android:background="@drawable/bg_special_price"
+                        android:gravity="center"
+                        android:textColor="#fffdddab"
+                        android:textSize="@dimen/sp_10" />
                 </LinearLayout>
 
                 <LinearLayout

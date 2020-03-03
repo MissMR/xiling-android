@@ -148,6 +148,11 @@ public class ProductDetailUIHelper {
     @BindView(R.id.tv_reward_guide)
     TextView tvRewardGuide;
 
+    @BindView(R.id.tv_rmb)
+    TextView tvRmb;
+    @BindView(R.id.iv_rate)
+    TextView ivRate;
+
     private OnActionListener mOnActionListener;
 
     private DDProductDetailActivity mContext;
@@ -243,6 +248,12 @@ public class ProductDetailUIHelper {
             tvBtnBuyNormal.setClickable(false);
             mTvSkuInfo.setClickable(false);
             relSkuInfo.setClickable(false);
+
+            ivRate.setBackgroundResource(R.drawable.bg_special_price_out);
+            tvRmb.setTextColor( Color.parseColor("#999999"));
+            tvDiscountPrice.setTextColor( Color.parseColor("#999999"));
+            tvDiscountPriceDecimal.setTextColor( Color.parseColor("#999999"));
+            tvMinPrice.setTextColor(Color.parseColor("#999999"));
         } else {
             mTvSoldOut.setVisibility(View.GONE);
             tvBtnAddCart.setTextColor(Color.parseColor("#202020"));
@@ -252,6 +263,12 @@ public class ProductDetailUIHelper {
             mTvSkuInfo.setTextColor(Color.parseColor("#202020"));
             mTvSkuInfo.setClickable(true);
             relSkuInfo.setClickable(true);
+
+            ivRate.setBackgroundResource(R.drawable.bg_special_price);
+            tvRmb.setTextColor( Color.parseColor("#ffa6251a"));
+            tvDiscountPrice.setTextColor( Color.parseColor("#ffa6251a"));
+            tvDiscountPriceDecimal.setTextColor( Color.parseColor("#ffa6251a"));
+            tvMinPrice.setTextColor(Color.parseColor("#202020"));
         }
 
         //优惠价，需要根据用户等级展示不同价格

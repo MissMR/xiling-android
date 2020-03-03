@@ -30,6 +30,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @auth 宋秉经
+ * 邀请好友
+ */
 public class InviteFriendsActivity extends BaseActivity {
     INewUserService iNewUserService;
     @BindView(R.id.tv_invite_code)

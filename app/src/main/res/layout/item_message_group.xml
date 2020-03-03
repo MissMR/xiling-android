@@ -1,72 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/dp_70"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/sdv_img"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="19dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginBottom="11dp"
-        android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tv_badge"
-        android:layout_width="wrap_content"
-        android:layout_height="14dp"
-        android:layout_alignParentRight="true"
+    <RelativeLayout
+        android:id="@+id/rel_head"
+        android:layout_width="@dimen/dp_43"
+        android:layout_height="@dimen/dp_43"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/badge_bg_red"
-        android:gravity="center"
-        android:minWidth="14dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="10sp" />
+        android:layout_marginLeft="@dimen/dp_20">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/sdv_img"
-        android:layout_toLeftOf="@id/tv_badge"
-        android:layout_toRightOf="@id/sdv_img"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_3"
+            android:layout_marginRight="@dimen/dp_3"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/tv_sub_title"
-        android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/tv_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/badge_bg_red"
+            android:gravity="center"
+            android:minWidth="14dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_10" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/sdv_img"
-        android:layout_toLeftOf="@id/tv_badge"
-        android:layout_toRightOf="@id/sdv_img"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/ddm_gray_dark"
-        android:textSize="12sp" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_toRightOf="@id/rel_head"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="#ff202020"
+                android:textSize="@dimen/sp_13" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="#ffaaaaaa"
+                android:textSize="@dimen/sp_12" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/sdv_img"
-        android:background="@color/ddm_gray_light" />
-
-    <View
-        android:id="@+id/fgx"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_10"
-        android:layout_below="@id/sdv_img"
-        android:background="@color/ddm_gray_light"
-        android:visibility="gone"
-        />
+        android:layout_height="@dimen/dp_1"
+        android:layout_alignParentBottom="true"
+        android:background="#F5F5F5"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12" />
 
 </RelativeLayout>

@@ -74,6 +74,47 @@ public class DateUtils {
 
 
     /**
+     * 判断是否为今天(效率比较高)
+     *
+     * @param day 传入的 时间  "2016-06-28 10:10:30" "2016-06-28" 都可以
+     * @return true今天 false不是
+     * @throws ParseException
+     */
+    public static boolean IsToday(String day) {
+        try {
+            Calendar pre = Calendar.getInstance();
+            Date predate = new Date(System.currentTimeMillis());
+            pre.setTime(predate);
+            Calendar cal = Calendar.getInstance();
+            Date date = null;
+            date = getDateFormat().parse(day);
+            cal.setTime(date);
+            if (cal.get(Calendar.YEAR) == (pre.get(Calendar.YEAR))) {
+                int diffDay = cal.get(Calendar.DAY_OF_YEAR)
+                        - pre.get(Calendar.DAY_OF_YEAR);
+
+                if (diffDay == 0) {
+                    return true;
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    private static ThreadLocal<SimpleDateFormat> DateLocal = new ThreadLocal<SimpleDateFormat>();
+
+    public static SimpleDateFormat getDateFormat() {
+        if (null == DateLocal.get()) {
+            DateLocal.set(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA));
+        }
+        return DateLocal.get();
+    }
+
+
+    /**
      * 倒计时专用
      */
     public static void setCountDownTimeStrng(long time, TextView tvHour, TextView tvMinute, TextView tvSecond) {
@@ -118,7 +159,7 @@ public class DateUtils {
     public static String getDayForTime(long countDownTimne) {
         int day = (int) (countDownTimne / (1000 * 60 * 60 * 24));
         int hour = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-        int seconds = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24 - hour*1000 * 60 * 60) / (1000 * 60));
+        int seconds = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24 - hour * 1000 * 60 * 60) / (1000 * 60));
         int min = (int) ((countDownTimne - day * 1000 * 60 * 60 * 24 - hour * 1000 * 60 * 60 - seconds * 60 * 1000) / (1000));
 
         String result = "";

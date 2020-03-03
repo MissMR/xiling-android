@@ -23,7 +23,6 @@ public class MemberCenterInfo {
     private double growValueTotle;
     private int couponCount;
     private String couponDate;
-    private WeekCardBean weekCard;
 
     public String getMemberId() {
         return memberId;
@@ -97,13 +96,7 @@ public class MemberCenterInfo {
         this.couponDate = couponDate;
     }
 
-    public WeekCardBean getWeekCard() {
-        return weekCard;
-    }
 
-    public void setWeekCard(WeekCardBean weekCard) {
-        this.weekCard = weekCard;
-    }
 
     public static class MemberRoleBean {
         /**
@@ -171,39 +164,4 @@ public class MemberCenterInfo {
         }
     }
 
-    public static class WeekCardBean {
-        /**
-         * cardName : VIP卡
-         * cardType : 1
-         * cardPrice : 45000
-         */
-
-        private String cardName;
-        private int cardType;
-        private int cardPrice;
-
-        public String getCardName() {
-            return cardName;
-        }
-
-        public void setCardName(String cardName) {
-            this.cardName = cardName;
-        }
-
-        public int getCardType() {
-            return cardType;
-        }
-
-        public void setCardType(int cardType) {
-            this.cardType = cardType;
-        }
-
-        public int getCardPrice() {
-            return cardPrice;
-        }
-
-        public void setCardPrice(int cardPrice) {
-            this.cardPrice = cardPrice;
-        }
-    }
 }

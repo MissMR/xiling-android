@@ -11,17 +11,20 @@ import android.widget.TextView;
 
 import com.xiling.BuildConfig;
 import com.xiling.R;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.CaptchaBtn;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.ICaptchaService;
+import com.xiling.shared.util.PhoneNumberUtil;
 import com.xiling.shared.util.StringUtil;
 import com.xiling.shared.util.ToastUtil;
 
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author 逄涛
+ * @author 宋秉经
  * 修改手机号  获取当前手机号的验证码页面
  */
 public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.OnCountDownListener {
@@ -60,7 +63,6 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         initData();
         initView();
-
     }
 
     private void initData() {
@@ -68,10 +70,11 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
     }
 
     private void initView() {
-        tvPhoneNumber.setHint(mPhoneNumber);
+        tvPhoneNumber.setHint(PhoneNumberUtil.getSecretPhoneNumber(mPhoneNumber));
         cbCaptcha.setOnCountDownListener(this);
         cbCaptcha.setOnCountDownListener(this);
         btnOk.setEnabled(false);
+
         editMobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -92,7 +95,6 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
 
             }
         });
-
     }
 
     @OnClick({R.id.cb_captcha, R.id.cb_btn_captcha_voice, R.id.tv_btn_next, R.id.btn_no_use})
@@ -109,7 +111,7 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
                 getMemberInfoChangeMsg(mPhoneNumber, "1");
                 break;
             case R.id.btn_no_use:
-                startActivity(new Intent(context,UpdatePhoneIdentityActivity.class));
+                getAuth();
                 break;
             case R.id.tv_btn_next:
                 checkMember(editMobile.getText().toString());
@@ -122,6 +124,54 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
     public void onCountDownFinish(CaptchaBtn view) {
         cbCaptchaVoice.setVisibility(View.VISIBLE);
         view.setText("重新获取");
+    }
+
+    /**
+     * 获取实名认证信息
+     */
+    private void getAuth() {
+        APIManager.startRequest(mUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
+            @Override
+            public void onSuccess(RealAuthBean result) {
+                super.onSuccess(result);
+
+                if (result.getAuthStatus() == 2) {
+                    // 已实名认证
+                    startActivity(new Intent(context, UpdatePhoneIdentityActivity.class));
+                } else {
+                    if (result.getAuthStatus() == 1) {
+                        //认证中
+                        D3ialogTools.showSingleAlertDialog(context, "",
+                                "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~", "我知道了",
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // startActivity(new Intent(mContext, RealAuthActivity.class));
+                                    }
+                                });
+                    } else {
+                        D3ialogTools.showAlertDialog(context, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(context, RealAuthActivity.class));
+                            }
+                        }, "取消", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+
+            }
+        });
     }
 
 

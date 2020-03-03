@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="账户指数余额"
+            android:text="账户余额"
             android:textColor="#ff202020"
             android:textSize="@dimen/sp_16" />
 

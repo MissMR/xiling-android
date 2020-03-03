@@ -50,7 +50,7 @@ import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
- * @author 逄涛
+ * @auth 宋秉经
  * 订单详情
  */
 public class XLOrderDetailsActivity extends BaseActivity {

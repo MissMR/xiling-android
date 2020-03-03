@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * pt
+ * @author 宋秉经
  * 余额明细
  */
 public class BalanceDetailsActivity extends BaseActivity {
@@ -73,6 +73,5 @@ public class BalanceDetailsActivity extends BaseActivity {
 
         });
     }
-
 
 }

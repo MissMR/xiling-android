@@ -17,6 +17,7 @@ import com.xiling.ddui.activity.XLCashierActivity;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.dduis.magnager.UserManager;
+import com.xiling.module.auth.Config;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IPayService;
 import com.xiling.shared.util.ToastUtil;
@@ -43,6 +44,7 @@ public class RechargeDialog extends Dialog {
     IPayService iPayService;
     @BindView(R.id.tv_account)
     TextView tvAccount;
+    int minRecharge = 1000;
 
     public RechargeDialog(@NonNull Context context) {
         this(context, R.style.DDMDialog);
@@ -72,12 +74,17 @@ public class RechargeDialog extends Dialog {
         setContentView(R.layout.dialog_recharge);
         ButterKnife.bind(this);
         iPayService = ServiceManager.getInstance().createService(IPayService.class);
+        if (Config.systemConfigBean != null){
+            minRecharge = Config.systemConfigBean.getMinRecharge();
+        }
+
         initView();
     }
 
 
     private void initView() {
         initWindow();
+        etAmount.setText(minRecharge+"");
         tvAccount.setText(UserManager.getInstance().getUser().getPhone());
     }
 
@@ -103,8 +110,8 @@ public class RechargeDialog extends Dialog {
                 double amount = 0;
                 try {
                     amount = Integer.valueOf(etAmount.getText().toString());
-                    if (amount < 1000) {
-                        ToastUtil.error("最小充值金额1000元");
+                    if (amount < minRecharge) {
+                        ToastUtil.error("最小充值金额"+minRecharge+"元");
                         return;
                     }
                     //跳转收银台

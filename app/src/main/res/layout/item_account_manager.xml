@@ -61,4 +61,19 @@
     </RelativeLayout>
 
 
+    <TextView
+        android:id="@+id/tv_ing"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_26"
+        android:text="当前账号"
+        android:textColor="#ffdcb982"
+        android:gravity="center"
+        android:textSize="@dimen/sp_12"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:visibility="gone"
+        android:background="@drawable/stroke_568_radius_2"
+        />
+
 </RelativeLayout>

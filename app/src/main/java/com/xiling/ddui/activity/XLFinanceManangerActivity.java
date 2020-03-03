@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 
 /**
- * @author pt
+ * @auth 宋秉经
  * 财务管理
  */
 public class XLFinanceManangerActivity extends BaseActivity {
@@ -57,7 +57,7 @@ public class XLFinanceManangerActivity extends BaseActivity {
             public void onSuccess(AccountInfo result) {
                 super.onSuccess(result);
                 if (result != null) {
-                    tvBalace.setText(NumberHandler.reservedDecimalFor2(result.getBalance()/100));
+                    tvBalace.setText(NumberHandler.reservedDecimalFor2(result.getBalance()));
                 }
             }
 

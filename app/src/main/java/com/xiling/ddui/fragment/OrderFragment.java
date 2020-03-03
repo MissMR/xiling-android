@@ -55,16 +55,14 @@ import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
+ * @auth 宋秉经
  * 我的订单
  */
 public class OrderFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
-
-
     @BindView(R.id.recycler_order)
     RecyclerView recyclerOrder;
     @BindView(R.id.smart_refresh_layout)
     SmartRefreshLayout smartRefreshLayout;
-
 
     IOrderService mOrderService;
     public static final String ORDER_STATUS = "order_status";
@@ -162,6 +160,17 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
 
         return view;
     }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isAdded() && getContext() != null) {
+            pageOffset = 1;
+            getOrderList();
+        }
+    }
+
 
     /**
      * 获取订单列表

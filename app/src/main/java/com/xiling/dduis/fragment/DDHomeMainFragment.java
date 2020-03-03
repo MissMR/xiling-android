@@ -548,7 +548,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             if (!TextUtils.isEmpty(user.getNickName())) {
                 btnLogin.setText(user.getNickName());
                 tvGrade.setVisibility(View.VISIBLE);
-                GlideUtils.loadHead(mContext, ivHeadIcon, "http://thirdwx.qlogo.cn/mmopen/vi_32/H4VAG1DFhicZyg1cicT9gXIQlzFvibR3Atd0kM9ibJqPN8ZtFv85Eecejxqdq182xYnfZnygFlXRFQTsAAfVZiaMOkQ/132");
+                GlideUtils.loadHead(mContext, ivHeadIcon, user.getHeadImage());
                 switch (UserManager.getInstance().getUserLevel()) {
                     case 0:
                         //注册用户

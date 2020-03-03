@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * @auth 宋秉经
  * 实名认证-上传身份证
  */
 public class IdentificationUploadActivity extends BaseActivity {

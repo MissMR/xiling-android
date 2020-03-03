@@ -101,7 +101,7 @@ public class CustomerOrderFragment extends BaseFragment implements OnRefreshList
             public void onItemClickListerer(CustomerOrderBean.OrderDetailsBean recordsBean) {
                 //点击事件
                 Intent intent = new Intent(getActivity(), CustomerOrderDetailsActivity.class);
-                intent.putExtra("recordsBean",recordsBean);
+                intent.putExtra("orderCode",recordsBean.getOrderCode());
                 startActivity(intent);
             }
         });

@@ -16,6 +16,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @auth 宋秉经
+ * 优惠券列表
+ */
 public class XLCouponActivity extends BaseActivity {
 
     @BindView(R.id.sliding_tab)

@@ -23,7 +23,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
 
     @Override
     public void onMessage(Context context, CustomMessage customMessage) {
-        EventBus.getDefault().post(new MsgStatus(MsgStatus.ReloadMsgCount));
+
     }
 
     @Override
@@ -68,6 +68,7 @@ public class MyJPushMessageReceiver extends JPushMessageReceiver {
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage message) {
         Log.e(TAG, "[onNotifyMessageArrived] " + message);
+        EventBus.getDefault().post(new MsgStatus(MsgStatus.ReloadMsgCount));
     }
 
     @Override
