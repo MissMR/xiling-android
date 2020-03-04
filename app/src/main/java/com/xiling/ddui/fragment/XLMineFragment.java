@@ -225,32 +225,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
                 ivUserOrdinary.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String message = "";
-                        //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
-                        if (result.getAuthStatus() == 0) {
-                            D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    startActivity(new Intent(mContext, RealAuthActivity.class));
-                                }
-                            }, "取消", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                }
-                            });
-
-                        } else {
-                            message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";
-                            D3ialogTools.showSingleAlertDialog(mContext, "",
-                                    message, "我知道了",
-                                    new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            // startActivity(new Intent(mContext, RealAuthActivity.class));
-                                        }
-                                    });
-                        }
+                        UserManager.getInstance().isRealAuth(mContext, result.getAuthStatus());
                     }
                 });
                 break;

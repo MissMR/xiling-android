@@ -88,7 +88,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setVisible(R.id.itemSelectorIv, isEdit);
                     helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#A6251A"));
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#A6251A"));
-                    helper.setTextColor(R.id.tv_rmb, Color.parseColor("#A6251A"));
+                    helper.setTextColor(R.id.tv_rmb, Color.parseColor("#999999"));
+                    helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
+                    helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
                     mNumberField.setLimit(0, 0);
 
                 } else {
@@ -97,8 +99,10 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
                     helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
+                    helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
+                    helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
                     mNumberField.setLimit(1, skuProductListBean.getStock());
-                    mNumberField.setValue(item.getBean().getQuantity(),false);
+                    mNumberField.setValue(item.getBean().getQuantity(), false);
                     mNumberField.setOnChangeListener(new OnValueChangeLister() {
                         @Override
                         public void changed(int value) {
@@ -306,7 +310,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     allData.add(cardBean);
                 }
             }
-            if (getSelectList().size() > 0){
+            if (getSelectList().size() > 0) {
                 isAllSelect = getSelectList().size() == allData.size();
             }
         } else {
@@ -318,7 +322,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 }
             }
             int slectSize = getSelectList().size();
-            if (slectSize > 0){
+            if (slectSize > 0) {
                 isAllSelect = slectSize == allData.size();
             }
 

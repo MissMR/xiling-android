@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.SPUtils;
 import com.google.gson.Gson;
 import com.xiling.R;
+import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.module.user.LoginActivity;
@@ -232,6 +235,39 @@ public class UserManager {
         void onCheckUserInfoSucess(NewUserBean newUserBean);
 
         void onCheckUserInfoFail();
+    }
+
+
+    /**
+     * 判断实名认证
+     * 认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
+     */
+    public void isRealAuth(final Context mContext, int status) {
+        String message = "";
+        //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
+        if (status == 1) {
+            message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";
+            D3ialogTools.showSingleAlertDialog(mContext, "",
+                    message, "我知道了",
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // startActivity(new Intent(mContext, RealAuthActivity.class));
+                        }
+                    });
+        } else {
+            D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mContext.startActivity(new Intent(mContext, RealAuthActivity.class));
+                }
+            }, "取消", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        }
     }
 
 

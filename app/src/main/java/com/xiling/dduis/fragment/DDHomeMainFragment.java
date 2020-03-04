@@ -476,17 +476,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             case R.id.btn_user:
                 if (UserManager.getInstance().isLogin(mContext)) {
                     if (UserManager.getInstance().getUserLevel() == 0) {
-                        D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(mContext, RealAuthActivity.class));
-                            }
-                        }, "取消", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
+                        UserManager.getInstance().isRealAuth(mContext,UserManager.getInstance().getUser().getAuthStatus());
                     } else {
                         startActivity(new Intent(mContext, XLMemberCenterActivity.class));
                     }
