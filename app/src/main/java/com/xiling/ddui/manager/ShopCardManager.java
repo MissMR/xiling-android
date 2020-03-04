@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.HashMap;
 
 import static com.xiling.shared.constant.Event.cartAmountUpdate;
+import static com.xiling.shared.constant.Event.cartListUpdate;
 
 /**
  * 购物管理
@@ -56,7 +57,7 @@ public class ShopCardManager {
                     if (isToast) {
                         ToastUtil.show("成功加入购物车", 1000);
                     }
-                    requestUpDataShopCardCount();
+                    requestUpDataShopCardCount(!isToast);
                 }
             }
         });
@@ -95,6 +96,31 @@ public class ShopCardManager {
                 public void onSuccess(Integer result) {
                     super.onSuccess(result);
                     EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+                    EventBus.getDefault().post(new EventMessage(cartListUpdate, result));
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    super.onError(e);
+                    ToastUtil.error(e.getMessage());
+                }
+            });
+        }
+    }
+
+    /**
+     * 查看购物车数量
+     */
+    public void requestUpDataShopCardCount(final boolean isCart) {
+        if (UserManager.getInstance().isLogin()) {
+            APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
+                @Override
+                public void onSuccess(Integer result) {
+                    super.onSuccess(result);
+                    EventBus.getDefault().post(new EventMessage(cartAmountUpdate, result));
+                    if (!isCart){
+                        EventBus.getDefault().post(new EventMessage(cartListUpdate, result));
+                    }
                 }
 
                 @Override

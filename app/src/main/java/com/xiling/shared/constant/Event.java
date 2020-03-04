@@ -18,6 +18,7 @@ public enum Event {
     inviterUpdate,
     showLoading,
     cartAmountUpdate,
+    cartListUpdate,
     updateAvatar,
     updateNickname,
     selectAddress,

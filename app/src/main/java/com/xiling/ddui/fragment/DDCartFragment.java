@@ -308,7 +308,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-
                 layoutNodata.setVisibility(View.VISIBLE);
                 cardExpandableAdapter.setNewData(new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>());
             }
@@ -435,7 +434,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateData(EventMessage message) {
         switch (message.getEvent()) {
-            case cartAmountUpdate:
+            case cartListUpdate:
             case FINISH_ORDER:
                 requestCardData();
 

@@ -57,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/dp_14"
         android:layout_marginBottom="@dimen/dp_19"
-        android:background="@drawable/btn_strok_password"
+        android:background="@drawable/white_strke_radus_3"
         android:gravity="center"
         android:text="解 绑"
         android:textColor="#ffffffff"

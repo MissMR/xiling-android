@@ -56,22 +56,6 @@ public class NumberField extends LinearLayout {
     private void initView() {
         View view = inflate(getContext(), R.layout.cmp_number_field_layout, this);
         ButterKnife.bind(this, view);
-       /* mMinusBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewUtil.setViewClickedDelay(view);
-                    mValue--;
-                    setValue(mValue);
-            }
-        });
-        mPlusBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ViewUtil.setViewClickedDelay(view);
-                mValue++;
-                setValue(mValue);
-            }
-        });*/
 
         mValueTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,14 +144,12 @@ public class NumberField extends LinearLayout {
         setButtonsEnabled();
     }
 
+    /**
+     * adapter 刷新时用
+     * @param value
+     * @param isListener
+     */
     public void setValue(int value, boolean isListener) {
-        if (value > mMax) {
-            ToastUtil.error("商品数量已经达到最大值");
-        }
-        if (value < mMin) {
-            ToastUtil.error("商品数量已经达到最小值");
-        }
-
         value = value < mMin ? mMin : value;
         this.mValue = value <= mMax ? value : mMax;
 
@@ -186,12 +168,6 @@ public class NumberField extends LinearLayout {
 
     public void setOnChangeListener(OnValueChangeLister listener) {
         this.mListener = listener;
-    }
-
-    public void setValues(int value, int min, int max) {
-        this.mMin = min;
-        this.mMax = max;
-        this.setValue(value);
     }
 
     public void setEditable(boolean editable) {

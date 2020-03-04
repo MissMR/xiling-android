@@ -295,7 +295,7 @@ public class ProductDetailUIHelper {
         };
         tagManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerTag.setLayoutManager(tagManager);
-        shopListTagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_detail_tag, spuInfo.getProductTags());
+        shopListTagsAdapter = new ShopListTagsAdapter(R.layout.item_shop_list_tag, spuInfo.getProductTags());
         recyclerTag.setAdapter(shopListTagsAdapter);
 
 
