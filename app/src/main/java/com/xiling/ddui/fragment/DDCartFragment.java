@@ -216,12 +216,11 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     checkAll.setSelected(false);
                     checkAll.setText("全选");
                 }
-
             }
 
             @Override
             public void onShopChange(CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean, int quantity) {
-                ShopCardManager.getInstance().requestAddCart(cardExpandableBean.getBean().getSkuId(), quantity,true,false);
+                ShopCardManager.getInstance().requestAddCart(mContext, cardExpandableBean.getBean().getSkuId(), quantity, true, false);
             }
         });
 
@@ -476,7 +475,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn, R.id.tvGoMain})
     public void onViewClicked(View view) {
-        if (view.getId() != R.id.checkAll){
+        if (view.getId() != R.id.checkAll) {
             ViewUtil.setViewClickedDelay(view);
         }
         switch (view.getId()) {

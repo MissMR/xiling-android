@@ -245,6 +245,14 @@ public interface INewUserService {
     @POST("user/customer/getCustomerList")
     Observable<RequestResult<MyClientListBean>> getCustomerList(@FieldMap HashMap<String,String> map);
 
+    /**
+     * 我的客户列表
+     * 会员级别 : 1-普通,2-金牌,3-钻石
+     */
+    @FormUrlEncoded
+    @POST("user/customer/getCustomerDetail")
+    Observable<RequestResult<MyClientListBean.DataBean>> getCustomerDetail(@Field("memberId") String memberId );
+
 
     /**
      * 获取我下属会员数量

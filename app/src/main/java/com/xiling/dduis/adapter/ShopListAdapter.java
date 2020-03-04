@@ -114,14 +114,14 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
             helper.setTextColor(R.id.tv_rmb, Color.parseColor("#999999"));
             helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
             helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
-            helper.setTextColor(R.id.tv_minPrice,Color.parseColor("#999999"));
+            helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#999999"));
         } else {
             helper.setVisible(R.id.tv_status, false);
             helper.setBackgroundRes(R.id.iv_rate, R.drawable.bg_special_price);
             helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
             helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
             helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
-            helper.setTextColor(R.id.tv_minPrice,Color.parseColor("#202020"));
+            helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#202020"));
         }
 
 

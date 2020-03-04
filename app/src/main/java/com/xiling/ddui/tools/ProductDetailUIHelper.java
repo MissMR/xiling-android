@@ -305,7 +305,7 @@ public class ProductDetailUIHelper {
 
         loadDetailWebView(spuInfo.getContent());
 
-        GlideUtils.loadImage(mContext, ivBottom, "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1922673126,3860003593&fm=26&gp=0.jpg");
+        GlideUtils.loadImage(mContext, ivBottom, spuInfo.getConsumerNoticeUrl());
 
 
     }

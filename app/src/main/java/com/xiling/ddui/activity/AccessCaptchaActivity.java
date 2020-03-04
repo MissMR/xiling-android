@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author 宋秉经
+ * @author 逄涛
  * 修改手机号  获取当前手机号的验证码页面
  */
 public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.OnCountDownListener {

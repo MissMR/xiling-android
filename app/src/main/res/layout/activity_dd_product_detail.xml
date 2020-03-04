@@ -35,8 +35,8 @@
 
                 <TextView
                     android:id="@+id/tv_cart_badge"
-                    android:layout_width="@dimen/dp_14"
-                    android:layout_height="@dimen/dp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_35"
                     android:layout_marginTop="@dimen/dp_4"
                     android:background="@drawable/order_badge"

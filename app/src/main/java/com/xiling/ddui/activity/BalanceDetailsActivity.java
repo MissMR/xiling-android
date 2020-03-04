@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author 宋秉经
+ * @author 逄涛
  * 余额明细
  */
 public class BalanceDetailsActivity extends BaseActivity {

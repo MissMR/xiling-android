@@ -152,6 +152,7 @@ public class MyWeekCardPackageFragment extends BaseFragment {
             @Override
             public void onSuccess(List<WeekCardBean> result) {
                 super.onSuccess(result);
+
                 if (result.size() > 0) {
                     recyclerWeekPackage.setVisibility(View.VISIBLE);
                     noDataLayout.setVisibility(View.GONE);

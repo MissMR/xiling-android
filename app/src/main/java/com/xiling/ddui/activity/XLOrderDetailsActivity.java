@@ -50,7 +50,7 @@ import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 订单详情
  */
 public class XLOrderDetailsActivity extends BaseActivity {
@@ -156,6 +156,10 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 orderDetailsBean = result;
                 tvWarehouseName.setText(orderDetailsBean.getStoreName());
                 setStatus(result.getOrderStatusUs(), result);
+
+                btnExamine.setEnabled(!orderDetailsBean.isCanRemindAudit());
+                btnRemind.setEnabled(!orderDetailsBean.isCanRemindDelivery());
+
                 tvContactName.setText(result.getContactUsername());
                 tvContactPhone.setText(result.getContactPhone());
                 tvContactAddress.setText(result.getAddress());
@@ -223,7 +227,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 relStatus.setBackgroundResource(R.drawable.bg_order_pay);
                 tvStatusTitle.setText("等待买家付款");
 
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
 
                 btnSee.setVisibility(View.GONE);
@@ -296,7 +300,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
-                tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressId());
+                tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressCode());
 
                 btnSee.setVisibility(View.VISIBLE);
                 btnConfirm.setVisibility(View.VISIBLE);
@@ -401,7 +405,11 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 confirmReceived(orderId);
                 break;
             case R.id.btn_remind:
-                remindDelivery(orderId);
+                if (orderDetailsBean.isCanRemindDelivery()) {
+                    orderDetailsBean.setCanRemindDelivery(true);
+                    remindDelivery(orderDetailsBean.getOrderCode());
+                    btnRemind.setEnabled(false);
+                }
                 break;
             case R.id.btm_cancel:
                 cancelOrder(orderId);
@@ -411,7 +419,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 break;
             case R.id.btn_examine:
                 //提醒审核
-                remindAudit(orderDetailsBean.getOrderCode());
+                if (!orderDetailsBean.isCanRemindAudit()) {
+                    orderDetailsBean.setCanRemindAudit(true);
+                    remindAudit(orderDetailsBean.getOrderCode());
+                    btnExamine.setEnabled(false);
+                }
+
                 break;
             case R.id.tv_order_pay_type:
                 //大额支付
@@ -476,7 +489,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
-                ToastUtil.success("已提醒");
+                ToastUtil.success("提醒成功");
             }
 
             @Override

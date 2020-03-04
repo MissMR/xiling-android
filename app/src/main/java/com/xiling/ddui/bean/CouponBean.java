@@ -1,6 +1,9 @@
 package com.xiling.ddui.bean;
 
-public class CouponBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CouponBean implements Parcelable {
     /**
      * id : 559
      * couponId : 1
@@ -30,9 +33,9 @@ public class CouponBean {
     private String invalidDate;
     private int type;
     private String typeName;
-    private int conditions;
+    private double conditions;
     private boolean hasConditions;
-    private int reducedPrice;
+    private double reducedPrice;
     private String description;
 
     public String getId() {
@@ -123,11 +126,11 @@ public class CouponBean {
         this.typeName = typeName;
     }
 
-    public int getConditions() {
+    public double getConditions() {
         return conditions;
     }
 
-    public void setConditions(int conditions) {
+    public void setConditions(double conditions) {
         this.conditions = conditions;
     }
 
@@ -139,7 +142,7 @@ public class CouponBean {
         this.hasConditions = hasConditions;
     }
 
-    public int getReducedPrice() {
+    public double getReducedPrice() {
         return reducedPrice;
     }
 
@@ -154,4 +157,61 @@ public class CouponBean {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeInt(this.couponId);
+        dest.writeString(this.name);
+        dest.writeString(this.start);
+        dest.writeString(this.end);
+        dest.writeInt(this.effectiveTime);
+        dest.writeByte(this.limitEffectiveTime ? (byte) 1 : (byte) 0);
+        dest.writeString(this.getDate);
+        dest.writeString(this.invalidDate);
+        dest.writeInt(this.type);
+        dest.writeString(this.typeName);
+        dest.writeDouble(this.conditions);
+        dest.writeByte(this.hasConditions ? (byte) 1 : (byte) 0);
+        dest.writeDouble(this.reducedPrice);
+        dest.writeString(this.description);
+    }
+
+    public CouponBean() {
+    }
+
+    protected CouponBean(Parcel in) {
+        this.id = in.readString();
+        this.couponId = in.readInt();
+        this.name = in.readString();
+        this.start = in.readString();
+        this.end = in.readString();
+        this.effectiveTime = in.readInt();
+        this.limitEffectiveTime = in.readByte() != 0;
+        this.getDate = in.readString();
+        this.invalidDate = in.readString();
+        this.type = in.readInt();
+        this.typeName = in.readString();
+        this.conditions = in.readDouble();
+        this.hasConditions = in.readByte() != 0;
+        this.reducedPrice = in.readDouble();
+        this.description = in.readString();
+    }
+
+    public static final Parcelable.Creator<CouponBean> CREATOR = new Parcelable.Creator<CouponBean>() {
+        @Override
+        public CouponBean createFromParcel(Parcel source) {
+            return new CouponBean(source);
+        }
+
+        @Override
+        public CouponBean[] newArray(int size) {
+            return new CouponBean[size];
+        }
+    };
 }

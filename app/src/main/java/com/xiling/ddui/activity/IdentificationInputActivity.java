@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 实名认证-信息录入
  */
 public class IdentificationInputActivity extends BaseActivity {
@@ -103,9 +103,9 @@ public class IdentificationInputActivity extends BaseActivity {
             return "请输入公司名称";
         }
 
-        if (TextUtils.isEmpty(businessLicense)) {
+      /*  if (TextUtils.isEmpty(businessLicense)) {
             return "请上传营业执照";
-        }
+        }*/
 
 
         return "";

@@ -28,7 +28,7 @@ import butterknife.OnClick;
 import static com.xiling.ddui.activity.XLCashierActivity.ADD_BAND_CODE;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 添加银行卡
  */
 public class XLAddBankActivity extends BaseActivity {

@@ -22,6 +22,7 @@ import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ProductDetailUIHelper;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.MainActivity;
 import com.xiling.module.page.WebViewActivity;
@@ -56,7 +57,7 @@ import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewCart;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 商品详情
  */
 public class DDProductDetailActivity extends BaseActivity implements ProductDetailUIHelper.OnActionListener {
@@ -215,7 +216,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onAddCart(String skuId, int size) {
         // 加入购物车 业务逻辑
         if (UserManager.getInstance().isLogin(context)) {
-            ShopCardManager.getInstance().requestAddCart(skuId, size, false, true);
+            ShopCardManager.getInstance().requestAddCart(context, skuId, size, false, true);
         }
     }
 
@@ -296,8 +297,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         switch (message.getEvent()) {
             case cartAmountUpdate:
                 int total = (int) message.getData();
-                tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
-                tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+                ViewUtil.setCartBadge(total, tvCartBadge);
                 break;
             case LOGIN_SUCCESS:
             case LOGIN_OUT:

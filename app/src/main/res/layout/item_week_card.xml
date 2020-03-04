@@ -1,102 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rel_week_card_backgroud"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_101"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/dp_12"
     android:layout_marginTop="@dimen/dp_12"
-    android:layout_marginRight="@dimen/dp_12"
- >
-
+    android:layout_marginRight="@dimen/dp_12">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_24">
+        android:id="@+id/rel_week_card_backgroud"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_101">
 
-        <TextView
-            android:id="@+id/tv_week_card_name"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffffff"
-            android:textSize="@dimen/sp_20" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_24">
 
-        <TextView
-            android:layout_width="@dimen/dp_44"
-            android:layout_height="@dimen/dp_20"
-            android:layout_marginLeft="@dimen/dp_3"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_toRightOf="@id/tv_week_card_name"
-            android:background="@drawable/white_bg_radius_2_80"
-            android:gravity="center"
-            android:text="体验卡"
-            android:textColor="#ffc0a388"
-            android:textSize="@dimen/sp_11" />
+            <TextView
+                android:id="@+id/tv_week_card_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_20" />
 
-        <TextView
-            android:id="@+id/tv_week_remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_week_card_name"
-            android:layout_marginTop="@dimen/dp_5"
-            android:textColor="#ffffffff"
-            android:textSize="@dimen/sp_12" />
+            <TextView
+                android:layout_width="@dimen/dp_44"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_toRightOf="@id/tv_week_card_name"
+                android:background="@drawable/white_bg_radius_2_80"
+                android:gravity="center"
+                android:text="体验卡"
+                android:textColor="#ffc0a388"
+                android:textSize="@dimen/sp_11" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_week_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_week_card_name"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textColor="#ffffffff"
+                android:textSize="@dimen/sp_12" />
 
+        </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/dp_37"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_37"
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥"
-                android:textColor="#ffffffff"
-                android:textSize="@dimen/sp_15" />
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/sp_15" />
+
+                <TextView
+                    android:id="@+id/tv_week_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:textColor="#ffffffff"
+                    android:textSize="@dimen/sp_22" />
+
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tv_week_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:textColor="#ffffffff"
-                android:textSize="@dimen/sp_22" />
-
+                android:id="@+id/btn_Opening"
+                android:layout_width="@dimen/dp_76"
+                android:layout_height="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_11"
+                android:background="@drawable/btn_white_radius_10"
+                android:gravity="center"
+                android:text="立即开通"
+                android:textColor="#ffdcb982"
+                android:textSize="@dimen/sp_14" />
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/bg_status"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_invalid"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_31"
+        android:layout_below="@id/rel_week_card_backgroud"
+        android:background="@drawable/white_bg_radius_4_bottom"
+        android:visibility="gone"
+        >
 
         <TextView
-            android:id="@+id/btn_Opening"
-            android:layout_width="@dimen/dp_76"
-            android:layout_height="@dimen/dp_22"
-            android:layout_marginTop="@dimen/dp_11"
-            android:background="@drawable/btn_white_radius_10"
-            android:gravity="center"
-            android:text="立即开通"
-            android:textColor="#ffdcb982"
-            android:textSize="@dimen/sp_14" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="已通过升级成为更高等级会员周卡费用转存到账户余额"
+            android:textColor="#ffaaaaaa"
+            android:textSize="@dimen/sp_12" />
 
-    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/bg_status"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
-        android:layout_alignParentRight="true"
-        />
-
+    </RelativeLayout>
 </RelativeLayout>

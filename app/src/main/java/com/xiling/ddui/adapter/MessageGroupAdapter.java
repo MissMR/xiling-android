@@ -12,7 +12,7 @@ import com.xiling.image.GlideUtils;
 import com.xiling.module.community.DateUtils;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 消息父级Adapter列表
  */
 public class MessageGroupAdapter extends BaseQuickAdapter<MessageGroupBean, BaseViewHolder> {

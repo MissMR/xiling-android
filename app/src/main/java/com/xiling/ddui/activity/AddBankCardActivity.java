@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @author 宋秉经
+ * @author 逄涛
  * 添加银行卡
  */
 public class AddBankCardActivity extends BaseActivity {

@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseFragment;
+import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.service.contract.IFootService;
 import com.xiling.shared.util.ShareUtils;
 import com.xiling.shared.util.ToastUtil;
 
@@ -20,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 邀请好友viewpager搭载的fregment
  */
 public class InviteFriendsFragment extends BaseFragment {
@@ -32,6 +35,12 @@ public class InviteFriendsFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.iv_qr)
     ImageView ivQr;
+    @BindView(R.id.iv_head)
+    ImageView ivHead;
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
+    @BindView(R.id.tv_invite_code)
+    TextView tvInviteCode;
 
     public static InviteFriendsFragment newInstance(String url) {
         InviteFriendsFragment fragment = new InviteFriendsFragment();
@@ -55,8 +64,23 @@ public class InviteFriendsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_invite_friends, container, false);
         unbinder = ButterKnife.bind(this, view);
-        GlideUtils.loadImage(mContext, ivImage, url);
+        initView();
+        return view;
+    }
 
+    private void initView() {
+        GlideUtils.loadImageALL(mContext, ivImage, url);
+        NewUserBean userBean = UserManager.getInstance().getUser();
+        if (userBean != null) {
+            GlideUtils.loadHead(mContext, ivHead, userBean.getHeadImage());
+            String mName = userBean.getNickName();
+            if (mName.length() > 6) {
+                mName = mName.substring(0, 6);
+            }
+            mName = mName+"邀请你注册喜领商城";
+            tvUserName.setText(mName);
+            tvInviteCode.setText(userBean.getInviteCode());
+        }
         ShareUtils.createQRImage(mContext, shareUrl, new ShareUtils.OnQRImageListener() {
             @Override
             public void onCreatQR(Bitmap bitmap) {
@@ -68,9 +92,7 @@ public class InviteFriendsFragment extends BaseFragment {
             }
         });
 
-        return view;
     }
-
 
     @Override
     public void onDestroyView() {

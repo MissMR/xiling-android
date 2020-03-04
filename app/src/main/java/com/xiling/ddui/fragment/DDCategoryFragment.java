@@ -137,7 +137,7 @@ public class DDCategoryFragment extends BaseFragment {
                 if (topCategoryList != null && secondCategoryList != null) {
                     String parentId = topCategoryList.get(childPosition).getCategoryId();
                     String childId = secondCategoryList.get(position).getCategoryId();
-                    CategorySecondActivity.jumpCategorySecondActivity(mContext,parentId ,childId);
+                    CategorySecondActivity.jumpCategorySecondActivity(mContext, parentId, childId);
                 }
             }
         });
@@ -153,7 +153,7 @@ public class DDCategoryFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (topCategoryList != null && brandBeanListBeanList != null) {
                     BrandActivity.jumpBrandActivity(mContext, topCategoryList.get(childPosition).getCategoryId(),
-                            brandBeanListBeanList.get(position).getBrandId(), brandBeanListBeanList.get(position).getBrandName());
+                            brandBeanListBeanList.get(position).getBrandId());
                 }
 
             }
@@ -256,14 +256,11 @@ public class DDCategoryFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-
+        if (isVisibleToUser && isAdded() && getContext() != null) {
+            getTopCategory();
+        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getTopCategory();
-    }
 
     @Override
     public void onDestroyView() {

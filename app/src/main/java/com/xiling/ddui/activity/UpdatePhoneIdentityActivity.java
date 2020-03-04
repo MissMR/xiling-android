@@ -44,7 +44,7 @@ public class UpdatePhoneIdentityActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_phone_identity);
         ButterKnife.bind(this);
-        setTitle("修改昵称");
+        setTitle("身份验证");
         setLeftBlack();
         mNicknameEt.addTextChangedListener(new TextWatcher() {
             @Override

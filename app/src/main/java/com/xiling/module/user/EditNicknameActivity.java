@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.common.base.Strings;
 import com.xiling.R;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
@@ -80,6 +81,7 @@ public class EditNicknameActivity extends BaseActivity {
         APIManager.startRequest(userService.editNickname(nickName), new BaseRequestListener<Object>(this) {
             @Override
             public void onSuccess(Object result) {
+                UserManager.getInstance().setNickName(nickName);
                 EventBus.getDefault().post(new EventMessage(Event.UPDATE_NICK, nickName));
                 finish();
             }

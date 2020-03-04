@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 邀请好友
  */
 public class InviteFriendsActivity extends BaseActivity {

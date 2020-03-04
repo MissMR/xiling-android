@@ -166,14 +166,20 @@ public class DateUtils {
 
         if (day > 0) {
             result += day + "天";
+        } else {
+            result += "00天";
         }
 
         if (hour > 0) {
             result += hour + "时";
+        } else {
+            result += "00时";
         }
 
         if (seconds > 0) {
             result += seconds + "分";
+        } else {
+            result += "00分";
         }
         result += min + "秒";
         return result;

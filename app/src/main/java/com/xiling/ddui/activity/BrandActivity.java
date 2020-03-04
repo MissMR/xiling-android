@@ -69,11 +69,10 @@ public class BrandActivity extends BaseActivity {
     private ShopFragment shopFragment;
     ScreeningPopupWindow screeningPopupWindow;
 
-    public static void jumpBrandActivity(Context context, String categoryId, String brandId, String brandName) {
+    public static void jumpBrandActivity(Context context, String categoryId, String brandId) {
         Intent intent = new Intent(context, BrandActivity.class);
         intent.putExtra("categoryId", categoryId);
         intent.putExtra("brandId", brandId);
-        intent.putExtra("brandName", brandName);
         context.startActivity(intent);
     }
 
@@ -81,7 +80,6 @@ public class BrandActivity extends BaseActivity {
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("categoryId");
             brandId = getIntent().getStringExtra("brandId");
-            brandName = getIntent().getStringExtra("brandName");
         }
     }
 
@@ -98,7 +96,6 @@ public class BrandActivity extends BaseActivity {
     }
 
     private void initView() {
-        mHeaderLayout.setTitle(brandName);
         mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
         mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +133,8 @@ public class BrandActivity extends BaseActivity {
             public void onSuccess(BrandBean result) {
                 super.onSuccess(result);
                 if (result != null) {
+                    brandName = result.getBrandName();
+                    mHeaderLayout.setTitle(brandName);
                     if (!TextUtils.isEmpty(result.getIconUrl())) {
                         ivHead.setVisibility(View.VISIBLE);
                         GlideUtils.loadImage(context, ivHead, result.getIconUrl());

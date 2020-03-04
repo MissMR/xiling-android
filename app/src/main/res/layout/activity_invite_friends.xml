@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parentView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:orientation="vertical">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_33"
-        android:paddingLeft="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_20"
         android:background="#202020"
-        >
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="您的邀请码"
             android:textColor="#ffdcb982"
-            android:textSize="@dimen/sp_13"
-            android:layout_centerVertical="true"
-            />
+            android:textSize="@dimen/sp_13" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,25 +36,20 @@
                 android:layout_height="wrap_content"
                 android:text="86567888"
                 android:textColor="#ffdcb982"
-                android:textSize="@dimen/sp_13"
-                />
+                android:textSize="@dimen/sp_13" />
 
             <TextView
                 android:id="@+id/btn_cope"
                 android:layout_width="@dimen/dp_32"
-                android:layout_height="@dimen/dp_18"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:background="@drawable/btn_strok_password"
+                android:gravity="center"
                 android:text="复 制"
                 android:textColor="#ffdcb982"
-                android:textSize="@dimen/sp_10"
-                android:gravity="center"
-                android:background="@drawable/btn_strok_password"
-                android:layout_marginLeft="@dimen/dp_12"
-                />
+                android:textSize="@dimen/sp_10" />
 
         </LinearLayout>
-
-
-
 
 
     </RelativeLayout>
@@ -64,20 +57,19 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_width="@dimen/dp_333"
+        android:layout_height="@dimen/dp_500"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
-        android:layout_weight="1"/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_140"
         android:layout_marginTop="@dimen/dp_15"
-        android:paddingTop="@dimen/dp_26"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_26">
 
         <LinearLayout
             android:id="@+id/llShareWechat"

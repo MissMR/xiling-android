@@ -1,5 +1,7 @@
 package com.xiling.ddui.manager;
 
+import android.content.Context;
+
 import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.dduis.magnager.UserManager;
@@ -41,12 +43,12 @@ public class ShopCardManager {
     /**
      * 添加购物车
      */
-    public void requestAddCart(String skuId, final int quantity, boolean cover, final boolean isToast) {
+    public void requestAddCart(Context context,String skuId, final int quantity, boolean cover, final boolean isToast) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuId", skuId);
         params.put("quantity", quantity);
         params.put("cover", cover);
-        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(context) {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);

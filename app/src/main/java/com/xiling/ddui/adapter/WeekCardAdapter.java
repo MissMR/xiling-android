@@ -46,23 +46,20 @@ public class WeekCardAdapter extends BaseQuickAdapter<WeekCardBean, BaseViewHold
 
         //如果未使用，显示 立即开通按钮，否则隐藏
         helper.setVisible(R.id.btn_Opening, item.getUseStatus() == 1);
-
-        switch (item.getUseStatus()){
+        helper.setVisible(R.id.rel_invalid, item.getUseStatus() == 3);
+        switch (item.getUseStatus()) {
             case 1:
                 //未使用
                 break;
             case 2:
                 //已使用
-                helper.setBackgroundRes(R.id.bg_status,R.drawable.bg_already_used);
+                helper.setBackgroundRes(R.id.bg_status, R.drawable.bg_already_used);
                 break;
             case 3:
                 //已失效
-                helper.setBackgroundRes(R.id.bg_status,R.drawable.bg_failure);
+                helper.setBackgroundRes(R.id.bg_status, R.drawable.bg_failure);
                 break;
         }
-
-
-
 
 
     }

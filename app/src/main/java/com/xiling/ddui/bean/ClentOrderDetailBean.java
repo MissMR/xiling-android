@@ -21,7 +21,7 @@ public class ClentOrderDetailBean {
     private String orderStatus;
     private String headImage;
     private String nickName;
-    private int receiptsIndices;
+    private double receiptsIndices;
     private String createDate;
     private String payDate;
     private String receivedDate;
@@ -67,11 +67,11 @@ public class ClentOrderDetailBean {
         this.nickName = nickName;
     }
 
-    public int getReceiptsIndices() {
-        return receiptsIndices;
+    public double getReceiptsIndices() {
+        return receiptsIndices/100;
     }
 
-    public void setReceiptsIndices(int receiptsIndices) {
+    public void setReceiptsIndices(double receiptsIndices) {
         this.receiptsIndices = receiptsIndices;
     }
 

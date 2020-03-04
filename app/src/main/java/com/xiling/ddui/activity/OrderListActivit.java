@@ -28,7 +28,7 @@ import static com.xiling.shared.Constants.ORDER_WAIT_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 
 /**
- * @author  pt
+ * @author pt
  * 我的订单列表
  */
 public class OrderListActivit extends BaseActivity {
@@ -62,8 +62,9 @@ public class OrderListActivit extends BaseActivity {
      * 刷新全部订单的数据
      */
     public void refreshAllData() {
-        OrderFragment allFragment = (OrderFragment) fragments.get(0);
-        allFragment.getOrderList();
+        for (Fragment fragment : fragments) {
+            ((OrderFragment) fragment).getOrderList();
+        }
     }
 
 

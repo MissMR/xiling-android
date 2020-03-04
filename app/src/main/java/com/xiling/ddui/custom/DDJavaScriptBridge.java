@@ -366,6 +366,19 @@ public class DDJavaScriptBridge {
         }
     }
 
+    /**
+     * 拨打电话
+     * @param phoneNum
+     */
+    @JavascriptInterface
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        mActivity.startActivity(intent);
+    }
+
+
     @JavascriptInterface
     public void openApp(String appName, String schema) {
         try {

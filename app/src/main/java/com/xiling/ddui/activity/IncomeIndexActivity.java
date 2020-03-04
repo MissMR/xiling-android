@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 收益指数
  */
 public class IncomeIndexActivity extends BaseActivity {
@@ -68,7 +68,7 @@ public class IncomeIndexActivity extends BaseActivity {
     private void initData() {
         childNames.clear();
         fragments.clear();
-        childNames.add("收益");
+        childNames.add("全部");
         childNames.add("提现");
         fragments.add(IncomeIndexFragment.newInstance("收益"));
         fragments.add(IncomeIndexFragment.newInstance("提现"));
@@ -79,12 +79,12 @@ public class IncomeIndexActivity extends BaseActivity {
     public void onViewClicked() {
         //提现按钮
         D3ialogTools.showSingleAlertDialog(this, "温馨提示",
-                "提现功能我们会下一版上线使用尽情期待", "我知道了",
+                "提现功能我们会下一版上线使用\n敬请期待", "我知道了",
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
-            }
-        });
+                    }
+                });
     }
 }

@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 财务管理
  */
 public class XLFinanceManangerActivity extends BaseActivity {

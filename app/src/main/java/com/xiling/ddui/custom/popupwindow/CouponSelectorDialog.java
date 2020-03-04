@@ -47,8 +47,7 @@ public class CouponSelectorDialog extends Dialog {
 
     private List<CouponBean> mCouponBeanList;
     private OnCouponSelectListener mOnCouponSelectListener;
-    ArrayList<SkuListBean> skuList;
-    ICouponService mCouponService;
+
     Context mContext;
 
     public void setSelectId(String selectId) {
@@ -57,17 +56,17 @@ public class CouponSelectorDialog extends Dialog {
 
     String selectId = "";
 
-    public CouponSelectorDialog(@NonNull Context context, ArrayList<SkuListBean> skuList) {
+    public CouponSelectorDialog(@NonNull Context context, List<CouponBean> mCouponBeanList) {
         this(context, R.style.DDMDialog);
         mContext = context;
-        this.skuList = skuList;
+        this.mCouponBeanList = mCouponBeanList;
     }
 
 
-    public CouponSelectorDialog(@NonNull Context context, ArrayList<SkuListBean> skuList, String selectId) {
+    public CouponSelectorDialog(@NonNull Context context, List<CouponBean> mCouponBeanList, String selectId) {
         this(context, R.style.DDMDialog);
         mContext = context;
-        this.skuList = skuList;
+        this.mCouponBeanList = mCouponBeanList;
         this.selectId = selectId;
     }
 
@@ -87,9 +86,9 @@ public class CouponSelectorDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_coupon_selector);
         ButterKnife.bind(this);
-        mCouponService = ServiceManager.getInstance().createService(ICouponService.class);
+
         initView();
-        getCouponList();
+
     }
 
     public CouponSelectorDialog setOnCouponSelectListener(OnCouponSelectListener listener) {
@@ -115,6 +114,17 @@ public class CouponSelectorDialog extends Dialog {
                 dismiss();
             }
         });
+
+
+        if (mCouponBeanList.size() > 0) {
+            tvTitle.setText("可用优惠券(" + mCouponBeanList.size() + ")");
+        } else {
+            tvTitle.setText("可用优惠券");
+        }
+
+        mAdapter.replaceData(mCouponBeanList);
+
+
     }
 
     private void initWindow() {
@@ -137,30 +147,6 @@ public class CouponSelectorDialog extends Dialog {
 
     public interface OnCouponSelectListener {
         void onCouponSelected(CouponBean couponBean);
-    }
-
-    private void getCouponList() {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("products", skuList);
-
-        APIManager.startRequest(mCouponService.getCouponList(APIManager.buildJsonBody(params)), new BaseRequestListener<List<CouponBean>>(mContext) {
-            @Override
-            public void onSuccess(List<CouponBean> result) {
-                mCouponBeanList = result;
-                if (result.size() > 0){
-                    tvTitle.setText("可用优惠券("+result.size()+")");
-                }else{
-                    tvTitle.setText("可用优惠券");
-                }
-
-                mAdapter.replaceData(mCouponBeanList);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
     }
 
 }

@@ -49,13 +49,23 @@ public class XLOrderDetailsBean implements Parcelable {
     private double goodsTotalRetailPrice;
 
     public double getGoodsTotalPrice() {
-        return goodsTotalPrice/100;
+        return goodsTotalPrice / 100;
     }
 
     private double goodsTotalPrice;
     private String createTime;
     private String updateTime;
     private boolean canRemindDelivery;
+
+    public boolean isCanRemindAudit() {
+        return canRemindAudit;
+    }
+
+    public void setCanRemindAudit(boolean canRemindAudit) {
+        this.canRemindAudit = canRemindAudit;
+    }
+
+    private boolean canRemindAudit;
     private String contactUsername;
     private String contactPhone;
     private String contactProvince;
@@ -351,6 +361,7 @@ public class XLOrderDetailsBean implements Parcelable {
         dest.writeString(this.createTime);
         dest.writeString(this.updateTime);
         dest.writeByte(this.canRemindDelivery ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.canRemindAudit ? (byte) 1 : (byte) 0);
         dest.writeString(this.contactUsername);
         dest.writeString(this.contactPhone);
         dest.writeString(this.contactProvince);
@@ -391,6 +402,7 @@ public class XLOrderDetailsBean implements Parcelable {
         this.createTime = in.readString();
         this.updateTime = in.readString();
         this.canRemindDelivery = in.readByte() != 0;
+        this.canRemindAudit = in.readByte() != 0;
         this.contactUsername = in.readString();
         this.contactPhone = in.readString();
         this.contactProvince = in.readString();

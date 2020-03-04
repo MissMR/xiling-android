@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 优惠券列表
  */
 public class XLCouponActivity extends BaseActivity {

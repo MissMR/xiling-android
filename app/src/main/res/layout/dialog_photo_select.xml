@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_351"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_101"
+        android:background="@drawable/white_bg_radius_4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_photo"
+            android:layout_width="@dimen/dp_351"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="center"
+            android:text="拍照"
+            android:textSize="@dimen/dp_18" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#F5F5F5" />
+
+        <TextView
+            android:id="@+id/btn_album"
+            android:layout_width="@dimen/dp_351"
+            android:layout_height="@dimen/dp_50"
+            android:gravity="center"
+            android:text="从相册选择"
+            android:textSize="@dimen/dp_18" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="@dimen/dp_351"
+        android:layout_height="@dimen/dp_50"
+        android:background="@drawable/white_bg_radius_4"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_5"
+        android:text="取消"
+        android:textSize="@dimen/dp_18" />
+
+
+</LinearLayout>

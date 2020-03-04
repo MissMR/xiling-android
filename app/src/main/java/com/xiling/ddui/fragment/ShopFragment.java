@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xiling.R;
 import com.xiling.ddui.manager.ShopCardManager;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.module.MainActivity;
@@ -350,8 +351,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         switch (message.getEvent()) {
             case cartAmountUpdate:
                 int total = (int) message.getData();
-                tvCartBadge.setText(total > 99 ? "99+" : String.valueOf(total));
-                tvCartBadge.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+                ViewUtil.setCartBadge(total, tvCartBadge);
                 break;
         }
     }

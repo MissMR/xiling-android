@@ -50,7 +50,7 @@ public class PhoneNumberUtil {
         if (TextUtils.isEmpty(cardNumber)) {
             return "请输入银行卡号";
         } else {
-            if (cardNumber.length() != 19) {
+            if (cardNumber.length() < 16) {
                 return "卡号输入不正确";
             }
         }

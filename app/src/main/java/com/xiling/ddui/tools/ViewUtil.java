@@ -1,6 +1,9 @@
 package com.xiling.ddui.tools;
 
 import android.view.View;
+import android.widget.TextView;
+
+import com.xiling.R;
 
 /**
  * created by Jigsaw at 2018/11/25
@@ -27,4 +30,16 @@ public class ViewUtil {
             }
         }, delayTime);
     }
+
+
+    public static void setCartBadge(int messageSize, TextView tvCartBadge) {
+        if (messageSize < 10) {
+            tvCartBadge.setBackgroundResource(R.drawable.bg_oval_read);
+        } else {
+            tvCartBadge.setBackgroundResource(R.drawable.bg_oval_read_more);
+        }
+        tvCartBadge.setText(messageSize > 99 ? "99" : String.valueOf(messageSize));
+        tvCartBadge.setVisibility(messageSize > 0 ? View.VISIBLE : View.GONE);
+    }
+
 }

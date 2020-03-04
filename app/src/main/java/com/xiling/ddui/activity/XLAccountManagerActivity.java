@@ -1,5 +1,6 @@
 package com.xiling.ddui.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,9 +13,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.bean.AccountManagerBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
+import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.manager.APIManager;
@@ -31,7 +34,7 @@ import butterknife.OnClick;
 import cn.jiguang.net.HttpRequest;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 账户管理
  */
 public class XLAccountManagerActivity extends BaseActivity {
@@ -91,8 +94,19 @@ public class XLAccountManagerActivity extends BaseActivity {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_account_out:
-                UserManager.getInstance().loginOut(context);
-                finish();
+                D3ialogTools.showAlertDialog(context, "确定退出当前账户?", "确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        UserManager.getInstance().loginOut(context);
+                        startActivity(new Intent(context, LoginActivity.class));
+                        finish();
+                    }
+                }, "取消", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 break;
             case R.id.btn_account_add:
                 break;

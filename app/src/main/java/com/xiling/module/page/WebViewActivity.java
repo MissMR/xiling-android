@@ -335,10 +335,8 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (TextUtils.isEmpty(backFinishFunc)) {
+        if (!mAgentWeb.back()){
             super.onBackPressed();
-        } else {
-            ddJsb.callback(backFinishFunc);
         }
     }
 

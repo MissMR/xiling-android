@@ -14,6 +14,7 @@ import com.xiling.ddui.tools.NumberHandler;
 
 import java.util.List;
 
+import static com.xiling.shared.Constants.ORDER_CLOSED;
 import static com.xiling.shared.Constants.ORDER_IS_RECEIVED;
 import static com.xiling.shared.Constants.ORDER_WAIT_AUDIT;
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
@@ -84,12 +85,17 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 }
             }
         });
-
+        helper.getView(R.id.btn_remind).setEnabled(!item.isCanRemindDelivery());
         helper.setOnClickListener(R.id.btn_remind, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onButtomItemClickListener != null) {
-                    onButtomItemClickListener.onRemindClickListerer(item);
+                if (!item.isCanRemindDelivery()) {
+                    //如果可以点击
+                    if (onButtomItemClickListener != null) {
+                        onButtomItemClickListener.onRemindClickListerer(item);
+                        item.setCanRemindDelivery(true);
+                        notifyDataSetChanged();
+                    }
                 }
             }
         });
@@ -112,12 +118,19 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
             }
         });
 
-        helper.setOnClickListener(R.id.btn_examine,new View.OnClickListener(){
+        helper.getView(R.id.btn_examine).setEnabled(!item.isCanRemindAudit());
+        helper.setOnClickListener(R.id.btn_examine, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onButtomItemClickListener != null) {
-                    onButtomItemClickListener.onExamineClickListener(item);
+                if (!item.isCanRemindAudit()) {
+                    //如果可以点击
+                    if (onButtomItemClickListener != null) {
+                        onButtomItemClickListener.onExamineClickListener(item);
+                    }
+                    item.setCanRemindAudit(true);
+                    notifyDataSetChanged();
                 }
+
             }
         });
 
@@ -158,6 +171,14 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
                 helper.setVisible(R.id.btn_examine, true);
+                break;
+            case ORDER_CLOSED:
+                helper.setVisible(R.id.btn_see, false);
+                helper.setVisible(R.id.btn_confirm, false);
+                helper.setVisible(R.id.btn_remind, false);
+                helper.setVisible(R.id.btm_cancel, false);
+                helper.setVisible(R.id.btn_payment, false);
+                helper.setVisible(R.id.btn_examine, false);
                 break;
 
             default:

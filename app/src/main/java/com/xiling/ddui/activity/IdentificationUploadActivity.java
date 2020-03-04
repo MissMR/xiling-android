@@ -9,9 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
 import com.xiling.ddui.custom.camera.DDIDCardActivity;
+import com.xiling.ddui.custom.popupwindow.PhotoSelectDialog;
 import com.xiling.ddui.tools.DLog;
+import com.xiling.ddui.tools.GlideEngine;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -24,12 +28,14 @@ import com.xiling.shared.util.ToastUtil;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 实名认证-上传身份证
  */
 public class IdentificationUploadActivity extends BaseActivity {
@@ -52,7 +58,7 @@ public class IdentificationUploadActivity extends BaseActivity {
     SimpleDraweeView ivBack;
     @BindView(R.id.iv_back_default)
     ImageView ivBackDefault;
-
+    PhotoSelectDialog photoSelectDialog;
     private String[] mImgURL = new String[2];
 
     @Override
@@ -70,12 +76,43 @@ public class IdentificationUploadActivity extends BaseActivity {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
             case R.id.btn_upload_just:
-                mType = UploadManager.IDENTITY_CARD_FRONT;
-                selectImage(REQUEST_CODE_ID_CARD_FRONT);
+                if (photoSelectDialog == null) {
+                    photoSelectDialog = new PhotoSelectDialog(context);
+                }
+                photoSelectDialog.show();
+                photoSelectDialog.setOnPhotoSelectListener(new PhotoSelectDialog.OnPhotoSelectListener() {
+                    @Override
+                    public void onPhoto() {
+                        mType = UploadManager.IDENTITY_CARD_FRONT;
+                        selectImage(REQUEST_CODE_ID_CARD_FRONT);
+                    }
+
+                    @Override
+                    public void onAlbum() {
+                        mType = UploadManager.IDENTITY_CARD_FRONT;
+                        openAlbum();
+                    }
+                });
                 break;
             case R.id.btn_upload_back:
-                mType = UploadManager.IDENTITY_CARD_BEHIND;
-                selectImage(REQUEST_CODE_ID_CARD_BEHIND);
+                if (photoSelectDialog == null) {
+                    photoSelectDialog = new PhotoSelectDialog(context);
+                }
+                photoSelectDialog.show();
+                photoSelectDialog.setOnPhotoSelectListener(new PhotoSelectDialog.OnPhotoSelectListener() {
+                    @Override
+                    public void onPhoto() {
+                        mType = UploadManager.IDENTITY_CARD_BEHIND;
+                        selectImage(REQUEST_CODE_ID_CARD_BEHIND);
+                    }
+
+                    @Override
+                    public void onAlbum() {
+                        mType = UploadManager.IDENTITY_CARD_BEHIND;
+                        openAlbum();
+                    }
+                });
+
                 break;
             case R.id.btn_next:
                 startActivity(new Intent(context, IdentificationInputActivity.class));
@@ -122,29 +159,37 @@ public class IdentificationUploadActivity extends BaseActivity {
         });
     }
 
+    public void openAlbum() {
+        EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
+                .setFileProviderAuthority("com.xiling.fileProvider")
+                .start(10010);
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_CODE_ID_CARD_FRONT:
-                    mType = UploadManager.IDENTITY_CARD_FRONT;
-                    break;
-                case REQUEST_CODE_ID_CARD_BEHIND:
-                    mType = UploadManager.IDENTITY_CARD_BEHIND;
-                    break;
+            if (requestCode == 10010) {
+                if (data != null) {
+                    ArrayList<Photo> resultPhotos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                    String imagePath = resultPhotos.get(0).path;
+                    Uri imageUri = Uri.parse(imagePath);
+                    switch (mType) {
+                        case UploadManager.IDENTITY_CARD_FRONT:
+                            updateImage(REQUEST_CODE_ID_CARD_FRONT, imageUri);
+                            break;
+                        case UploadManager.IDENTITY_CARD_BEHIND:
+                            updateImage(REQUEST_CODE_ID_CARD_BEHIND, imageUri);
+                            break;
+                    }
+                }
+            } else {
+                String imagePath = data.getStringExtra("result");
+                DLog.i("get:" + imagePath);
+                Uri imageUri = Uri.parse(imagePath);
+                updateImage(requestCode, imageUri);
             }
-
-            String imagePath = data.getStringExtra("result");
-            DLog.i("get:" + imagePath);
-            Uri imageUri = Uri.parse(imagePath);
-            updateImage(requestCode, imageUri);
-
-        } else if (resultCode == RESULT_CANCELED) {
-            DLog.d("用户取消拍照");
-        } else {
-            ToastUtil.error("拍照失败");
-            DLog.e("拍照失败");
         }
     }
 

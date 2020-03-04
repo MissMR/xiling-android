@@ -50,9 +50,6 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.tv_version)
-    TextView mTvVersion;
-
     @BindView(R.id.ll_btn_login_phone)
     LinearLayout mLlBtnLoginPhone;
 

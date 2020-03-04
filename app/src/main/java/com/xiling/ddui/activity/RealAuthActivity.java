@@ -79,7 +79,7 @@ public class RealAuthActivity extends BaseActivity {
                     case 1:
                         emptyView.setVisibility(View.VISIBLE);
                         btnSet.setVisibility(View.GONE);
-                        tvTitle.setText("周一至周五9:00-17:00（工作时 间）提交将在2小时内审核完毕， 非工作时间将顺延至工作时间 处理，请耐心等待，喜领客服稍 微将致电与您验证商户信息注意 接听 ");
+                        tvTitle.setText("周一至周五9:00-17:00（工作时\n间）提交将在2小时内审核完毕,\n非工作时间将顺延至工作时间\n处理，请耐心等待，喜领客服稍\n微将致电与您验证商户信息注意\n接听 ");
                         break;
                     case 2:
                         List<RealAuthBean> realAuthBeanList = new ArrayList<>();
@@ -92,7 +92,7 @@ public class RealAuthActivity extends BaseActivity {
                     case 4:
                         emptyView.setVisibility(View.VISIBLE);
                         btnSet.setVisibility(View.VISIBLE);
-                        tvTitle.setText("您的实名认证信息审核失败 填写的身份证号与身份证的证件号不匹配 ");
+                        tvTitle.setText("您的实名认证信息审核失败\n填写的身份证号与身份证的证件号不匹配 ");
                         btnSet.setText("重新提交实名认证");
                         break;
                 }

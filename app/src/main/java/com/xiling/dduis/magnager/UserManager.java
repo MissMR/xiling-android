@@ -191,6 +191,15 @@ public class UserManager {
         return mPrice;
     }
 
+    /**
+     * 设置昵称
+     */
+    public void setNickName(String nickName) {
+        NewUserBean userBean = getUser();
+        userBean.setNickName(nickName);
+        setUser(userBean);
+    }
+
 
     //校验用户信息，保证用户信息的正确性
     public void checkUserInfo(final OnCheckUserInfoLisense onCheckUserInfoLisense) {

@@ -77,7 +77,6 @@ public class RechargeDialog extends Dialog {
         if (Config.systemConfigBean != null){
             minRecharge = Config.systemConfigBean.getMinRecharge();
         }
-
         initView();
     }
 
@@ -116,16 +115,11 @@ public class RechargeDialog extends Dialog {
                     }
                     //跳转收银台
                     XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_CHARGE_MONEY, amount, 45 * 60 * 1000, (int) (amount * 100) + "");
-
-
                 } catch (Exception e) {
                     ToastUtil.error("充值金额必须为整数");
                 }
-
-
                 break;
         }
-
         dismiss();
     }
 

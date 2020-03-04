@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 设置页面
  */
 public class XLSettingActivity extends BaseActivity {

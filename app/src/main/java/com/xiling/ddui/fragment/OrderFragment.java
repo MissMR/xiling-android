@@ -55,7 +55,7 @@ import static com.xiling.shared.constant.Event.ORDER_RECEIVED_GOODS;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 我的订单
  */
 public class OrderFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
@@ -111,7 +111,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
         recyclerOrder.setLayoutManager(new LinearLayoutManager(mContext));
         orderAdapter = new MyOrderAdapter();
         recyclerOrder.setAdapter(orderAdapter);
-        noDataLayout.setTextView("还没有订单");
+        noDataLayout.setTextView("您暂时没有此类订单信息");
         orderAdapter.setOnButtomItemClickListener(new MyOrderAdapter.OnButtomItemClickListener() {
             @Override
             public void onSeeClickListerer(XLOrderDetailsBean recordsBean) {
@@ -171,6 +171,12 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        pageOffset = 1;
+        getOrderList();
+    }
 
     /**
      * 获取订单列表
@@ -266,7 +272,6 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             cancelOrderDialog.setOnReasonSelectListener(new CancelOrderDialog.OnReasonSelectListener() {
                 @Override
                 public void onReasonSelected(String reason) {
-                    ToastUtil.success(reason);
                     requestCancelOrder(orderCode, reason);
                 }
             });
@@ -289,6 +294,7 @@ public class OrderFragment extends BaseFragment implements OnRefreshListener, On
             @Override
             public void onSuccess(Object result) {
                 super.onSuccess(result);
+                ToastUtil.error("取消订单成功");
                 EventBus.getDefault().post(new EventMessage(CANCEL_ORDER));
             }
 

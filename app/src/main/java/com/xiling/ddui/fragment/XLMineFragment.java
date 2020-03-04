@@ -264,20 +264,20 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
         serviceBeanList.clear();
         if (result.getAuthStatus() == 2) {
             //普通用户
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_paihang, "排行榜"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名",false));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_paihang, "排行榜",false));
         } else {
             // 注册用户
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_finance, "财务管理"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服"));
-            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名"));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "优惠券",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_finance, "财务管理",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服",true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名",false));
         }
 
 
@@ -309,10 +309,10 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
                         WebViewActivity.jumpUrl(mContext, "规则中心", H5UrlConfig.RULES_CENTER);
                         break;
                     case "活动报名":
-                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                       // ToastUtil.success(serviceBeanList.get(position).getTitle());
                         break;
                     case "排行榜":
-                        ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        //ToastUtil.success(serviceBeanList.get(position).getTitle());
                         break;
                 }
             }
@@ -326,6 +326,12 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
         if (isVisibleToUser) {
             requestUserInfo();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestUserInfo();
     }
 
     /**

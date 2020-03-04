@@ -87,9 +87,13 @@ public class IncomeIndexFragment extends BaseFragment implements OnRefreshListen
         recyclerOrder.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerOrder.setAdapter(balanceAdapter);
         recyclerOrder.addItemDecoration(new SpacesItemDecoration(0, 1));
-        if (balanceType.equals("收益")){
+
+        if (balanceType.equals("收益")) {
             getBalanceDeteil();
-        }else{
+        } else {
+            //暂不支持下拉刷新
+            smartRefreshLayout.setEnableLoadMore(false);
+            smartRefreshLayout.setEnableRefresh(false);
             noDataLayout.setVisibility(View.VISIBLE);
         }
 
@@ -98,6 +102,8 @@ public class IncomeIndexFragment extends BaseFragment implements OnRefreshListen
 
     private void getBalanceDeteil() {
         if (!isAdded()) {
+            smartRefreshLayout.finishLoadMore();
+            smartRefreshLayout.finishRefresh();
             return;
         }
         APIManager.startRequest(iNewUserService.getIncomeList(pageOffset, pageSize), new BaseRequestListener<BalanceDetailsBean>() {

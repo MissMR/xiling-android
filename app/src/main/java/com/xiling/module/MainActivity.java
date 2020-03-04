@@ -35,6 +35,7 @@ import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.AppTools;
 import com.xiling.ddui.tools.DLog;
+import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.fragment.DDHomeMainFragment;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.event.MsgStatus;
@@ -479,8 +480,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case cartAmountUpdate:
                 int total = (int) message.getData();
-                mCartBadgeTv.setText(total > 99 ? "99+" : String.valueOf(total));
-                mCartBadgeTv.setVisibility(total > 0 ? View.VISIBLE : View.GONE);
+                ViewUtil.setCartBadge(total,mCartBadgeTv);
                 break;
             case LOGIN_OUT:
                 mCartBadgeTv.setText("");

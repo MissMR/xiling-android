@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 import com.xiling.ddui.bean.BankListBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
@@ -36,7 +37,7 @@ import butterknife.OnClick;
 import static com.xiling.ddui.activity.XLCashierActivity.ADD_BAND_CODE;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 我的银行卡
  */
 public class MyBankCardActivity extends BaseActivity {
@@ -119,12 +120,12 @@ public class MyBankCardActivity extends BaseActivity {
     @OnClick(R.id.btn_add)
     public void onViewClicked(View view) {
         ViewUtil.setViewClickedDelay(view);
-        if (Config.systemConfigBean != null){
+        if (Config.systemConfigBean != null) {
             blankMaxSize = Config.systemConfigBean.getPayCardNumber();
         }
-        if (bankList != null && bankList.size() < blankMaxSize){
+        if (bankList != null && bankList.size() < blankMaxSize) {
             startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
-        }else{
+        } else {
             ToastUtil.error("银行卡已经添加到最大数量了");
         }
 
@@ -148,7 +149,18 @@ public class MyBankCardActivity extends BaseActivity {
             helper.setOnClickListener(R.id.btn_untying, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deleteBank(item.getId());
+                    D3ialogTools.showAlertDialog(context, "是否确认解绑银行卡信息", "确认", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            deleteBank(item.getId());
+                        }
+                    }, "取消", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+
                 }
             });
         }

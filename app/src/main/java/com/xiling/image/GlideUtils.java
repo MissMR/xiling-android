@@ -52,6 +52,15 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+    public static void loadImageALL(Context context, ImageView imageView, String url) {
+        Glide.with(context).load(url)
+                .dontAnimate()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .placeholder(R.drawable.bg_image_def)
+                .into(imageView);
+    }
+
+
     public static void getBitmap(final Context context, final String url, final OnBitmapGet bitmapGet) {
 
         try {

@@ -30,12 +30,14 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.Coupon;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.IAddressService;
+import com.xiling.shared.service.contract.ICouponService;
 import com.xiling.shared.service.contract.IOrderService;
 import com.xiling.shared.util.ToastUtil;
 
@@ -45,6 +47,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -252,7 +255,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     tvDiscountPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                     tvCouponPrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getCouponReductionPrice()));
                     tvFreightPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getFreight()));
-                   // tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(useBalance));
+                    // tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(useBalance));
 
                 }
             }
@@ -290,9 +293,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
 
     private void switchBalance(View view) {
-            isBalance = !isBalance;
-            view.setSelected(isBalance);
-            upDataBalance();
+        isBalance = !isBalance;
+        view.setSelected(isBalance);
+        upDataBalance();
     }
 
 
@@ -337,7 +340,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 startActivityForResult(intent, 0);
                 break;
             case R.id.switch_balance: // 使用账户余额
-                if (accountInfo.getBalance() == 0){
+                if (accountInfo.getBalance() == 0) {
                     return;
                 }
                 if (!isBalance) {
@@ -352,21 +355,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
                 break;
             case R.id.btn_coupon:// 选择优惠券
-                CouponSelectorDialog dialog = new CouponSelectorDialog(this, skuList);
-                if (!TextUtils.isEmpty(mCouponId)) {
-                    dialog.setSelectId(mCouponId);
-                }
-
-                dialog.setOnCouponSelectListener(new CouponSelectorDialog.OnCouponSelectListener() {
-                    @Override
-                    public void onCouponSelected(CouponBean couponBean) {
-                        mCouponId = couponBean.getId();
-                        getConfirmOrder(accountInfo);
-                        tvCoupon.setText(couponBean.getName());
-                    }
-                });
-                dialog.show();
-
+                getCouponList();
                 break;
             case R.id.btn_send:
                 //提交订单
@@ -376,6 +365,73 @@ public class ConfirmationOrderActivity extends BaseActivity {
         }
 
     }
+
+    ICouponService mCouponService;
+
+    private void getCouponList() {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("products", skuList);
+        if (mCouponService == null) {
+            mCouponService = ServiceManager.getInstance().createService(ICouponService.class);
+        }
+        APIManager.startRequest(mCouponService.getCouponList(APIManager.buildJsonBody(params)), new BaseRequestListener<List<CouponBean>>() {
+            @Override
+            public void onSuccess(List<CouponBean> result) {
+                /**
+                 * id : 559
+                 * couponId : 1
+                 * name : 注册送券2599-260
+                 * start : 2019-12-01 00:00:00
+                 * end : 2020-12-01 00:00:00
+                 * effectiveTime : 30
+                 * limitEffectiveTime : true
+                 * getDate :
+                 * invalidDate : 2020-12-12 14:53:39
+                 * type : 3
+                 * typeName : 满减
+                 * conditions : 100
+                 * hasConditions : true
+                 * reducedPrice : 10
+                 * description : 注册送券2599-260*2
+                 */
+                for (int i = 0; i < 3;i++){
+                    CouponBean couponBean = new CouponBean();
+                    couponBean.setId("559");
+                    couponBean.setName("注册送券2599-260");
+                    couponBean.setEnd("2019-12-01 00:00:00");
+                    couponBean.setReducedPrice(1000);
+                    couponBean.setConditions(10000);
+                    result.add(couponBean);
+                }
+
+
+                if (result != null && result.size() > 0) {
+                    CouponSelectorDialog dialog = new CouponSelectorDialog(context, result);
+                    if (!TextUtils.isEmpty(mCouponId)) {
+                        dialog.setSelectId(mCouponId);
+                    }
+
+                    dialog.setOnCouponSelectListener(new CouponSelectorDialog.OnCouponSelectListener() {
+                        @Override
+                        public void onCouponSelected(CouponBean couponBean) {
+                            mCouponId = couponBean.getId();
+                            getConfirmOrder(accountInfo);
+                            tvCoupon.setText(couponBean.getName());
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    ToastUtil.error("暂无可用优惠券");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
 
     /**
      * 提交订单
@@ -389,7 +445,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
         HashMap<String, Object> params = new HashMap<>();
         params.put("useBalance", isBalance);
-        params.put("balance", isBalance ? useBalance : 0);
+        params.put("balance", isBalance ? useBalance * 100 : 0);
         if (isBalance) {
             params.put("balancePassword", balancePassword);
         }

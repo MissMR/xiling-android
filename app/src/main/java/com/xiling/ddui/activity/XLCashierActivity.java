@@ -61,7 +61,7 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 收银台
  */
 public class XLCashierActivity extends BaseActivity {
@@ -120,10 +120,10 @@ public class XLCashierActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         String message = "";
-        if (type.equals(PAY_TYPE_WEEK_CARD) ){
-            message = "是否要放弃付款？";
-        }else{
+        if (type.equals(PAY_TYPE_ORDER) ){
             message = "是否要放弃支付  订单会保留45分钟，请尽快支付";
+        }else{
+            message = "是否要放弃付款？";
         }
 
         D3ialogTools.showAlertDialog(context, message, "继续支付", new View.OnClickListener() {
@@ -134,6 +134,10 @@ public class XLCashierActivity extends BaseActivity {
         }, "确认离开", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (type.equals(PAY_TYPE_ORDER)) {
+                    //发送订单完成广播，通知页面关闭
+                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                }
                 finish();
             }
         });

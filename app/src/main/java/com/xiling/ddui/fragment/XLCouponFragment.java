@@ -32,7 +32,7 @@ import butterknife.Unbinder;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 
 /**
- * @auth 宋秉经
+ * @auth 逄涛
  * 优惠券列表
  */
 public class XLCouponFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
