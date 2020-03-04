@@ -86,7 +86,7 @@ class CartItemAdapter extends BaseAdapter<CartItem, CartItemAdapter.ViewHolder> 
             mItemTitleTv.setText(cartItem.name);
             mItemPropertyTv.setText(cartItem.properties);
             mItemPriceTv.setText(ConvertUtil.centToCurrency(context, cartItem));
-            mItemNumberField.setValues(cartItem.amount, 1, cartItem.stock);
+            mItemNumberField.setLimit( 1, cartItem.stock);
             mItemSelectorIv.setSelected(cartItem.isSelected);
 
             itemView.setOnClickListener(new View.OnClickListener() {

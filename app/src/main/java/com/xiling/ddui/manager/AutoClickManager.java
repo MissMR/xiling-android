@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.xiling.ddui.activity.BrandActivity;
+import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.bean.AutoClickBean;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.module.cart.CartActivity;
@@ -34,7 +35,6 @@ public class AutoClickManager {
                 break;
             case "native":
                 compileNative(context, autoClickBean.getTarget());
-
                 break;
         }
     }
@@ -45,6 +45,9 @@ public class AutoClickManager {
         switch (parse.getHost()) {
             case "brand":
                 BrandActivity.jumpBrandActivity(context, "", parse.getQueryParameter("brandid"));
+                break;
+            case "spuDetail":
+                DDProductDetailActivity.start(context, parse.getQueryParameter("spuId"));
                 break;
             default:
                 break;

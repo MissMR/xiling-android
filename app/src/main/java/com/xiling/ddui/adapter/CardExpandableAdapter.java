@@ -98,7 +98,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
                     helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
                     mNumberField.setLimit(1, skuProductListBean.getStock());
-                    mNumberField.setValue(item.getBean().getQuantity());
+                    mNumberField.setValue(item.getBean().getQuantity(),false);
                     mNumberField.setOnChangeListener(new OnValueChangeLister() {
                         @Override
                         public void changed(int value) {

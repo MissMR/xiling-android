@@ -43,7 +43,7 @@ public class SkuSelectParentAdapter extends BaseQuickAdapter<ProductNewBean.Prop
 
     @Override
     protected void convert(final BaseViewHolder helper, final ProductNewBean.PropertiesBean item) {
-        helper.setText(R.id.tv_title, item.getPropertyName());
+        helper.setText(R.id.tv_title, "请选择商品"+item.getPropertyName());
         RecyclerView mChildRecyclerView = helper.getView(R.id.recycler_sku_child);
 
 

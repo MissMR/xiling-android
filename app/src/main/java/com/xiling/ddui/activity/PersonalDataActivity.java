@@ -146,7 +146,7 @@ public class PersonalDataActivity extends BaseActivity {
                 tvName.setText((String)message.getData());
                 break;
             case UPDATEE_PHONE:
-                tvPhone.setText((String)message.getData());
+                tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber((String) message.getData()));
                 break;
         }
     }

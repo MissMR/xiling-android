@@ -101,7 +101,7 @@ public class MyClientListBean {
         }
 
         public double getMonthlyConsumption() {
-            return monthlyConsumption;
+            return monthlyConsumption/100;
         }
 
         public void setMonthlyConsumption(double monthlyConsumption) {

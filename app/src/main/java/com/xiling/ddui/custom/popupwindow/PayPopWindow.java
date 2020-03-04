@@ -2,6 +2,7 @@ package com.xiling.ddui.custom.popupwindow;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -17,9 +19,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
+import com.xiling.ddui.activity.TransactionPasswordActivity;
 import com.xiling.ddui.adapter.EditAdapter;
 import com.xiling.ddui.adapter.KeyAdapter;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -154,9 +158,17 @@ public class PayPopWindow extends Dialog {
         }
     }
 
-    @OnClick(R.id.iv_close)
-    public void onViewClicked() {
-        dismiss();
+    @OnClick({R.id.iv_close, R.id.btn_forget})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_close:
+                dismiss();
+                break;
+            case R.id.btn_forget:
+                mContext.startActivity(new Intent(mContext, TransactionPasswordActivity.class));
+                break;
+        }
+
     }
 
 

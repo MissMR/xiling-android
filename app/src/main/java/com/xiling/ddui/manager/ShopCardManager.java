@@ -43,18 +43,18 @@ public class ShopCardManager {
     /**
      * 添加购物车
      */
-    public void requestAddCart(Context context,String skuId, final int quantity, boolean cover, final boolean isToast) {
+    public void requestAddCart(Context context, String skuId, final int quantity, boolean cover, final boolean isToast) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuId", skuId);
         params.put("quantity", quantity);
         params.put("cover", cover);
-        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>(context) {
+        APIManager.startRequest(mCartService.addShopCart(APIManager.buildJsonBody(params)), new BaseRequestListener<Boolean>() {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
                 if (result) {
-                    if (isToast){
-                        ToastUtil.success("成功加入购物车");
+                    if (isToast) {
+                        ToastUtil.show("成功加入购物车", 1000);
                     }
                     requestUpDataShopCardCount();
                 }
@@ -65,7 +65,7 @@ public class ShopCardManager {
     /**
      * 添加购物车
      */
-    public void requestAddCart(String skuId, final int quantity, boolean cover, final BaseRequestListener baseRequestListener) {
+    public void requestAddCart(Context context, String skuId, final int quantity, boolean cover, final BaseRequestListener baseRequestListener) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("skuId", skuId);
         params.put("quantity", quantity);
@@ -74,11 +74,11 @@ public class ShopCardManager {
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
-                    if (baseRequestListener != null){
-                        baseRequestListener.onSuccess(result);
-                    }
-                    ToastUtil.success("成功加入购物车");
-                    requestUpDataShopCardCount();
+                if (baseRequestListener != null) {
+                    baseRequestListener.onSuccess(result);
+                }
+                ToastUtil.show("成功加入购物车", 100);
+                requestUpDataShopCardCount();
 
             }
         });
@@ -89,7 +89,7 @@ public class ShopCardManager {
      * 查看购物车数量
      */
     public void requestUpDataShopCardCount() {
-        if (UserManager.getInstance().isLogin()){
+        if (UserManager.getInstance().isLogin()) {
             APIManager.startRequest(mCartService.getCardCount(), new BaseRequestListener<Integer>() {
                 @Override
                 public void onSuccess(Integer result) {

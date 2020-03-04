@@ -14,6 +14,9 @@ import com.xiling.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 相册、拍照
+ */
 public class PhotoSelectDialog extends Dialog {
 
     OnPhotoSelectListener onPhotoSelectListener;

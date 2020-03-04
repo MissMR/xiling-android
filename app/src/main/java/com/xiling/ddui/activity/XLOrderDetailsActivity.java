@@ -157,9 +157,6 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvWarehouseName.setText(orderDetailsBean.getStoreName());
                 setStatus(result.getOrderStatusUs(), result);
 
-                btnExamine.setEnabled(!orderDetailsBean.isCanRemindAudit());
-                btnRemind.setEnabled(!orderDetailsBean.isCanRemindDelivery());
-
                 tvContactName.setText(result.getContactUsername());
                 tvContactPhone.setText(result.getContactPhone());
                 tvContactAddress.setText(result.getAddress());
@@ -247,13 +244,14 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 relStatus.setBackgroundResource(R.drawable.bg_order_deliver_goods);
                 tvStatusTitle.setText("等待平台发货");
 
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
 
                 btnSee.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
-                btnRemind.setVisibility(View.VISIBLE);
+                //btnRemind.setVisibility(View.VISIBLE);
+                btnRemind.setVisibility(!orderDetailsBean.isCanRemindDelivery() ? View.VISIBLE : View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
                 btnExamine.setVisibility(View.GONE);
@@ -265,17 +263,16 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 llCountDown.setVisibility(View.GONE);
                 relStatus.setBackgroundResource(R.drawable.bg_order_audit);
                 tvStatusTitle.setText("等待订单审核");
-
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
-
                 btnSee.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
                 btnRemind.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
-                btnExamine.setVisibility(View.VISIBLE);
+                // btnExamine.setVisibility(View.VISIBLE);
+                btnExamine.setVisibility(!orderDetailsBean.isCanRemindAudit() ? View.VISIBLE : View.GONE);
                 break;
             case ORDER_WAIT_RECEIVED:
                 //待收货
@@ -297,7 +294,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
 
                 relStatus.setBackgroundResource(R.drawable.bg_order_ship);
                 tvStatusTitle.setText("等待买家验收");
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
                 tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressCode());
@@ -320,7 +317,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 llCountDown.setVisibility(View.GONE);
                 relStatus.setBackgroundResource(R.drawable.bg_order_complete);
                 tvStatusTitle.setText("订单已关闭");
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
 
@@ -344,12 +341,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 relStatus.setBackgroundResource(R.drawable.bg_order_complete);
                 tvStatusTitle.setText("订单已完成");
 
-                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderId());
+                tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
 
                 if (orderDetailsBean.getExpressId() != 0) {
-                    tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressId());
+                    tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressCode());
                 }
                 if (!TextUtils.isEmpty(orderDetailsBean.getDoneTime())) {
                     tvOrderCompleteTime.setText("完成时间：" + orderDetailsBean.getDoneTime());
@@ -402,7 +399,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 WebViewActivity.jumpUrl(context, "查看物流", url);
                 break;
             case R.id.btn_confirm:
-                confirmReceived(orderId);
+                confirmReceived(orderDetailsBean.getOrderCode());
                 break;
             case R.id.btn_remind:
                 if (orderDetailsBean.isCanRemindDelivery()) {
@@ -412,7 +409,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 }
                 break;
             case R.id.btm_cancel:
-                cancelOrder(orderId);
+                cancelOrder(orderDetailsBean.getOrderCode());
                 break;
             case R.id.btn_payment:
                 XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, orderDetailsBean.getPayMoney(), orderDetailsBean.getWaitPayTimeMilli(), orderDetailsBean.getOrderId());
@@ -511,7 +508,6 @@ public class XLOrderDetailsActivity extends BaseActivity {
             cancelOrderDialog.setOnReasonSelectListener(new CancelOrderDialog.OnReasonSelectListener() {
                 @Override
                 public void onReasonSelected(String reason) {
-                    ToastUtil.success(reason);
                     requestCancelOrder(orderCode, reason);
                 }
             });

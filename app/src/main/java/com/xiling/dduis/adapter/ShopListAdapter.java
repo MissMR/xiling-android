@@ -107,6 +107,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         //优惠价，需要根据用户等级展示不同价格
         NumberHandler.setPriceText(UserManager.getInstance().getPriceForUser(item), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
         String mStatus = ShopUtils.checkShopStatus(item.getStatus(), item.getStock());
+        helper.getView(R.id.iv_go_card).setEnabled(TextUtils.isEmpty(mStatus));
         if (!TextUtils.isEmpty(mStatus)) {
             helper.setText(R.id.tv_status, mStatus);
             helper.setVisible(R.id.tv_status, true);
@@ -114,16 +115,15 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
             helper.setTextColor(R.id.tv_rmb, Color.parseColor("#999999"));
             helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
             helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
-            helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#999999"));
+            //   helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#999999"));
         } else {
             helper.setVisible(R.id.tv_status, false);
             helper.setBackgroundRes(R.id.iv_rate, R.drawable.bg_special_price);
             helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
             helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
             helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
-            helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#202020"));
+            // helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#202020"));
         }
-
 
         //售价
         helper.setText(R.id.tv_minPrice, "¥" + NumberHandler.reservedDecimalFor2(item.getMinPrice()));
@@ -148,7 +148,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
             public void onClick(View view) {
                 if (UserManager.getInstance().isLogin(mContext)) {
                     if (item.getStock() > 0) {
-                        ShopCardManager.getInstance().requestAddCart(item.getSkuId(), 1, false, new BaseRequestListener() {
+                        ShopCardManager.getInstance().requestAddCart(mContext, item.getSkuId(), 1, false, new BaseRequestListener() {
                             @Override
                             public void onSuccess(Object result) {
                                 item.setStock(item.getStock() - 1);

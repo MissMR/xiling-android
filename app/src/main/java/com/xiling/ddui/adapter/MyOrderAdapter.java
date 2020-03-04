@@ -50,7 +50,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
         skuRecyclerView.setAdapter(skuAdapter);
         skuAdapter.setNewData(details);
         helper.setText(R.id.itemStatusTv, item.getOrderStatus());
-        setStatus(helper, item.getOrderStatusUs());
+        setStatus(helper, item.getOrderStatusUs(),item);
         skuAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -85,7 +85,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 }
             }
         });
-        helper.getView(R.id.btn_remind).setEnabled(!item.isCanRemindDelivery());
+
         helper.setOnClickListener(R.id.btn_remind, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,7 +118,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
             }
         });
 
-        helper.getView(R.id.btn_examine).setEnabled(!item.isCanRemindAudit());
+
         helper.setOnClickListener(R.id.btn_examine, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +138,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
     }
 
 
-    private void setStatus(BaseViewHolder helper, String status) {
+    private void setStatus(BaseViewHolder helper, String status,XLOrderDetailsBean item) {
         switch (status) {
             case ORDER_WAIT_PAY:
                 helper.setVisible(R.id.btn_see, false);
@@ -151,7 +151,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
             case ORDER_WAIT_SHIP:
                 helper.setVisible(R.id.btn_see, false);
                 helper.setVisible(R.id.btn_confirm, false);
-                helper.setVisible(R.id.btn_remind, true);
+                helper.setVisible(R.id.btn_remind, !item.isCanRemindDelivery());
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
                 helper.setVisible(R.id.btn_examine, false);
@@ -170,7 +170,7 @@ public class MyOrderAdapter extends BaseQuickAdapter<XLOrderDetailsBean, BaseVie
                 helper.setVisible(R.id.btn_remind, false);
                 helper.setVisible(R.id.btm_cancel, false);
                 helper.setVisible(R.id.btn_payment, false);
-                helper.setVisible(R.id.btn_examine, true);
+                helper.setVisible(R.id.btn_examine, !item.isCanRemindAudit());
                 break;
             case ORDER_CLOSED:
                 helper.setVisible(R.id.btn_see, false);

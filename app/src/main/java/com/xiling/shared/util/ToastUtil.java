@@ -72,6 +72,24 @@ public class ToastUtil {
         toast.show();
     }
 
+    public static void show(String message,int duration) {
+        Context context = MyApplication.getInstance().getApplicationContext();
+//        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.toast_layout, null);
+//        layout.setBackgroundResource(backgroundRes);
+//        TextView messageTv = (TextView) layout.findViewById(R.id.toastMessageTv);
+//        messageTv.setTextColor(context.getResources().getColor(textColor));
+//        messageTv.setText(message);
+//        Toast toast = new Toast(context);
+//        toast.setGravity(Gravity.TOP, 0, 6);
+//        toast.setDuration(Toast.LENGTH_SHORT);
+//        toast.setView(layout);
+//        toast.show();
+        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        toast.setDuration(duration);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
     @SuppressLint("InflateParams")
     public static void showLoading(Context context) {
         if (context == null) {

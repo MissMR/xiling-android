@@ -22,37 +22,33 @@ public class MessageGroupAdapter extends BaseQuickAdapter<MessageGroupBean, Base
 
     @Override
     protected void convert(BaseViewHolder helper, MessageGroupBean item) {
-
         GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_head), item.getImg());
         helper.setText(R.id.tv_badge, item.getNoReadNum());
+        helper.setVisible(R.id.view_interval, helper.getAdapterPosition() % 2 == 1);
         helper.setVisible(R.id.tv_badge, !(TextUtils.isEmpty(item.getNoReadNum()) || Integer.valueOf(item.getNoReadNum()) == 0));
+
         if (!TextUtils.isEmpty(item.getTitle())) {
             helper.setVisible(R.id.tv_title, true);
             helper.setText(R.id.tv_title, item.getTitle());
         } else {
             helper.setVisible(R.id.tv_title, false);
         }
-
-        if (!TextUtils.isEmpty(item.getTitle())) {
+        if (!TextUtils.isEmpty(item.getMsgTitle())) {
             helper.setVisible(R.id.tv_message, true);
             helper.setText(R.id.tv_message, item.getMsgTitle());
         } else {
-            helper.setVisible(R.id.tv_message, false);
+            helper.setText(R.id.tv_message,"您还没有任何消息");
+            //   helper.setVisible(R.id.tv_message, false);
         }
-
-        if (!TextUtils.isEmpty(item.getTitle())) {
+        if (!TextUtils.isEmpty(item.getMsgDate())) {
             helper.setVisible(R.id.tv_time, true);
-
-
-            if (DateUtils.IsToday( item.getMsgDate())){
+            if (DateUtils.IsToday(item.getMsgDate())) {
                 //如果是今天，显示时分
-                helper.setText(R.id.tv_time,DateUtils.timeStamp2Date(DateUtils.date2TimeStampLong(item.getMsgDate(),""),"HH:mm"));
-            }else{
+                helper.setText(R.id.tv_time, DateUtils.timeStamp2Date(DateUtils.date2TimeStampLong(item.getMsgDate(), ""), "HH:mm"));
+            } else {
                 //如果是今天，显示时分
-                helper.setText(R.id.tv_time,DateUtils.timeStamp2Date(DateUtils.date2TimeStampLong(item.getMsgDate(),""),"yyyy-MM-dd"));
+                helper.setText(R.id.tv_time, DateUtils.timeStamp2Date(DateUtils.date2TimeStampLong(item.getMsgDate(), ""), "yyyy-MM-dd"));
             }
-
-
         } else {
             helper.setVisible(R.id.tv_time, false);
         }

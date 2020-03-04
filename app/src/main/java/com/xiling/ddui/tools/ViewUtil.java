@@ -20,12 +20,12 @@ public class ViewUtil {
             return;
         }
 
-        view.setEnabled(false);
+        view.setClickable(false);
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (view != null) {
-                    view.setEnabled(true);
+                    view.setClickable(true);
                 }
             }
         }, delayTime);

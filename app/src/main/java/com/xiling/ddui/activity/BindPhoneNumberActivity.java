@@ -45,7 +45,7 @@ public class BindPhoneNumberActivity extends BaseActivity {
     public void onUpdata(EventMessage message) {
         switch (message.getEvent()) {
             case UPDATEE_PHONE:
-                tvPhoneNumber.setText((String)message.getData());
+                tvPhoneNumber.setText(PhoneNumberUtil.getSecretPhoneNumber((String) message.getData()));
                 break;
         }
     }

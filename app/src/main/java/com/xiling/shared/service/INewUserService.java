@@ -130,7 +130,7 @@ public interface INewUserService {
      * 校验余额支付密码
      */
     @POST("account/check-balance-password")
-    Observable<RequestResult<Boolean>> checkBalancePassword(@Query("password") String password);
+    Observable<RequestResult<Object>> checkBalancePassword(@Query("password") String password);
 
 
     /**

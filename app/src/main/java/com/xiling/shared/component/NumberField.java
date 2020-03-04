@@ -1,9 +1,14 @@
 package com.xiling.shared.component;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +31,7 @@ public class NumberField extends LinearLayout {
     @BindView(R.id.plusBtn)
     protected ImageView mPlusBtn;
     @BindView(R.id.valueTv)
-    protected TextView mValueTv;
+    protected EditText mValueTv;
 
     private int mMin = 1;
     private int mMax = 999;
@@ -51,6 +56,49 @@ public class NumberField extends LinearLayout {
     private void initView() {
         View view = inflate(getContext(), R.layout.cmp_number_field_layout, this);
         ButterKnife.bind(this, view);
+       /* mMinusBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtil.setViewClickedDelay(view);
+                    mValue--;
+                    setValue(mValue);
+            }
+        });
+        mPlusBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtil.setViewClickedDelay(view);
+                mValue++;
+                setValue(mValue);
+            }
+        });*/
+
+        mValueTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String size = charSequence.toString();
+                int mSize = 0;
+                if (!TextUtils.isEmpty(size)) {
+                    mSize = Integer.valueOf(size);
+                }
+
+                if (mSize != mValue) {
+                    setValue(mSize);
+                    mValueTv.setSelection(mValueTv.getText().length());//将光标移至文字末尾
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         setButtonsEnabled();
     }
 
@@ -77,6 +125,7 @@ public class NumberField extends LinearLayout {
         setButtonsEnabled();
     }
 
+
     /**
      * 设置数据有效区间
      */
@@ -88,28 +137,51 @@ public class NumberField extends LinearLayout {
         } else if (mValue < mMin) {
             mValue = mMin;
         }
-        setValue(mValue);
+        mValueTv.setText("" + this.mValue);
+        //   setValue(mValue);
         setButtonsEnabled();
     }
 
     public void setValue(int value) {
-            if (value > mMax) {
-                ToastUtil.error("数量超出范围");
-            }
+        if (value > mMax) {
+            ToastUtil.error("商品数量已经达到最大值");
+        }
+        if (value < mMin) {
+            ToastUtil.error("商品数量已经达到最小值");
+        }
 
-            value = value < mMin ? mMin : value;
-            this.mValue = value <= mMax ? value : mMax;
+        value = value < mMin ? mMin : value;
+        this.mValue = value <= mMax ? value : mMax;
 
-            mValueTv.setText("" + this.mValue);
-            if (this.mListener != null) {
-                this.mListener.changed(this.mValue);
-            }
-            setButtonsEnabled();
+        mValueTv.setText("" + this.mValue);
+        if (this.mListener != null) {
+            this.mListener.changed(this.mValue);
+        }
+        setButtonsEnabled();
     }
 
+    public void setValue(int value, boolean isListener) {
+        if (value > mMax) {
+            ToastUtil.error("商品数量已经达到最大值");
+        }
+        if (value < mMin) {
+            ToastUtil.error("商品数量已经达到最小值");
+        }
+
+        value = value < mMin ? mMin : value;
+        this.mValue = value <= mMax ? value : mMax;
+
+        mValueTv.setText("" + this.mValue);
+        if (isListener && this.mListener != null) {
+            this.mListener.changed(this.mValue);
+        }
+        setButtonsEnabled();
+    }
+
+
     private void setButtonsEnabled() {
-        this.mMinusBtn.setEnabled(mMin != this.mValue);
-        this.mPlusBtn.setEnabled(mMax != this.mValue);
+        this.mMinusBtn.setEnabled(this.mValue > mMin);
+        this.mPlusBtn.setEnabled(this.mValue < mMax);
     }
 
     public void setOnChangeListener(OnValueChangeLister listener) {
@@ -127,32 +199,15 @@ public class NumberField extends LinearLayout {
     }
 
     @OnClick(R.id.minusBtn)
-    protected void onMinus(View view) {
-        ViewUtil.setViewClickedDelay(view);
-        this.mValue--;
-        setValue(this.mValue);
+    protected void onMinus() {
+        mValue--;
+        setValue(mValue);
     }
 
     @OnClick(R.id.plusBtn)
-    protected void onPlus(View view) {
-        ViewUtil.setViewClickedDelay(view);
-        this.mValue++;
-        setValue(this.mValue);
-    }
-
-    @OnClick(R.id.valueTv)
-    protected void showEditTextDialog() {
-        if (mMax > 1) {
-            EditNumberDialog dialog = new EditNumberDialog(getContext(), this.mValue, this.mMin, this.mMax);
-            dialog.setOnChangeListener(new OnValueChangeLister() {
-                @Override
-                public void changed(int value) {
-                    setValue(value);
-                }
-            });
-            dialog.show();
-        }
-
+    protected void onPlus() {
+        mValue++;
+        setValue(mValue);
     }
 
 }

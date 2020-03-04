@@ -69,8 +69,8 @@ public class XLCardListBean {
         private String skuId;
         private String skuName;
         private double price;
-        private int marketPrice;
-        private int retailPrice;
+        private double marketPrice;
+        private double retailPrice;
         private int stock;
         private int quantity;
         private String properties;
@@ -145,7 +145,7 @@ public class XLCardListBean {
             this.price = price;
         }
 
-        public int getMarketPrice() {
+        public double getMarketPrice() {
             return marketPrice;
         }
 
@@ -153,8 +153,8 @@ public class XLCardListBean {
             this.marketPrice = marketPrice;
         }
 
-        public int getRetailPrice() {
-            return retailPrice;
+        public double getRetailPrice() {
+            return retailPrice/100;
         }
 
         public void setRetailPrice(int retailPrice) {

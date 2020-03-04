@@ -194,11 +194,13 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
     private void upDataBalance() {
         if (isBalance) {
+            tvBalanceUse.setVisibility(View.VISIBLE);
             tvBalanceUse.setText("使用 ¥" + useBalance);
             NumberHandler.setPriceText(totlaPrice - useBalance, tvNeedPrice, tvNeedPriceDecimal);
             tvBalancePrice.setText("-¥" + useBalance);
         } else {
             tvBalanceUse.setText("使用 ¥" + NumberHandler.reservedDecimalFor2(0));
+            tvBalanceUse.setVisibility(View.GONE);
             tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(0));
             NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
         }
@@ -252,7 +254,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     }
 
                     tvGoodsPrice.setText("¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
-                    tvDiscountPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
+                    tvDiscountPrice.setText("¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                     tvCouponPrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getCouponReductionPrice()));
                     tvFreightPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getFreight()));
                     // tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(useBalance));
@@ -377,34 +379,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
         APIManager.startRequest(mCouponService.getCouponList(APIManager.buildJsonBody(params)), new BaseRequestListener<List<CouponBean>>() {
             @Override
             public void onSuccess(List<CouponBean> result) {
-                /**
-                 * id : 559
-                 * couponId : 1
-                 * name : 注册送券2599-260
-                 * start : 2019-12-01 00:00:00
-                 * end : 2020-12-01 00:00:00
-                 * effectiveTime : 30
-                 * limitEffectiveTime : true
-                 * getDate :
-                 * invalidDate : 2020-12-12 14:53:39
-                 * type : 3
-                 * typeName : 满减
-                 * conditions : 100
-                 * hasConditions : true
-                 * reducedPrice : 10
-                 * description : 注册送券2599-260*2
-                 */
-                for (int i = 0; i < 3;i++){
-                    CouponBean couponBean = new CouponBean();
-                    couponBean.setId("559");
-                    couponBean.setName("注册送券2599-260");
-                    couponBean.setEnd("2019-12-01 00:00:00");
-                    couponBean.setReducedPrice(1000);
-                    couponBean.setConditions(10000);
-                    result.add(couponBean);
-                }
-
-
                 if (result != null && result.size() > 0) {
                     CouponSelectorDialog dialog = new CouponSelectorDialog(context, result);
                     if (!TextUtils.isEmpty(mCouponId)) {
@@ -492,8 +466,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
             }
         });
-
-
     }
 
     private void getOrderDetails(final String orderId) {
@@ -538,16 +510,12 @@ public class ConfirmationOrderActivity extends BaseActivity {
      * @param password
      */
     private void checkPassword(final String password, final View switchView) {
-        APIManager.startRequest(mUserService.checkBalancePassword(password), new BaseRequestListener<Boolean>(context) {
+        APIManager.startRequest(mUserService.checkBalancePassword(password), new BaseRequestListener<Object>(context) {
             @Override
-            public void onSuccess(Boolean result, String message) {
+            public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
-                if (result) {
-                    switchBalance(switchView);
-                    balancePassword = password;
-                } else {
-                    balancePassword = "";
-                }
+                switchBalance(switchView);
+                balancePassword = password;
             }
 
             @Override

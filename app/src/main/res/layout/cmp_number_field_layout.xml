@@ -19,12 +19,13 @@
             android:scaleType="centerInside"
             android:src="@drawable/icon_num_minus_selector" />
 
-        <TextView
+        <EditText
             android:id="@+id/valueTv"
             android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:clickable="true"
+            android:inputType="number"
             android:gravity="center"
             android:minWidth="33dp"
             android:text="1"

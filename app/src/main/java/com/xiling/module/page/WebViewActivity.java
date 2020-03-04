@@ -335,7 +335,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (!mAgentWeb.back()){
+        if (!mAgentWeb.back()) {
             super.onBackPressed();
         }
     }
@@ -437,8 +437,8 @@ public class WebViewActivity extends BaseActivity {
 
                     @Override
                     public void onPageFinished(WebView view, String url) {
+                        view.loadUrl("javascript:sessionStorage.setItem('xl_from', '2')");
                         super.onPageFinished(view, url);
-
                     }
                 })
                 .setReceivedTitleCallback(new ChromeClientCallbackManager.ReceivedTitleCallback() {
@@ -459,6 +459,7 @@ public class WebViewActivity extends BaseActivity {
         ddJsb.setWebView(mAgentWeb.getWebCreator().get());
         //增加JSB
         mAgentWeb.getJsInterfaceHolder().addJavaObject(DDJavaScriptBridge.NAME, ddJsb);
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

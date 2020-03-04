@@ -31,7 +31,7 @@ public class CouponAdapter extends BaseQuickAdapter<CouponBean, BaseViewHolder> 
         helper.setText(R.id.tv_conditions, "全场满¥" + item.getConditions()/100);
         helper.setText(R.id.tv_name, item.getName());
         if (!TextUtils.isEmpty(item.getEnd())) {
-            String data = DateUtils.date2TimeStamp(item.getEnd(), null);
+            String data = DateUtils.date2TimeStamp(item.getInvalidDate(), null);
             String endTime = DateUtils.timeStamp2Date(Long.valueOf(data), "yyyy.MM.dd");
             helper.setText(R.id.tv_time, "有效期至" + endTime);
         }

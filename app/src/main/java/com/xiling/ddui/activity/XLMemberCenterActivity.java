@@ -250,7 +250,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     double progress = Double.valueOf(result.getGrowValueTotle());
                     progressBar.setProgress((int) progress);
                     tvGrowthMessage.setText("差" + NumberHandler.reservedDecimalFor2(Double.valueOf(result.getNextMemberRole().getGrowValue()) - Double.valueOf(result.getGrowValueTotle()))
-                            + "成长值升级成为" + result.getNextMemberRole().getRoleName() + "(享受" + Double.valueOf(result.getNextMemberRole().getRoleDiscount()) / 10 + "折优惠)");
+                            + "成长值升级成为终身" + result.getNextMemberRole().getRoleName() + "(享受" + Double.valueOf(result.getNextMemberRole().getRoleDiscount()) / 10 + "折优惠)");
                 }
 
                 switch (Integer.valueOf(result.getMemberRole().getRoleLevel())) {

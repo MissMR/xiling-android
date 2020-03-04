@@ -155,9 +155,10 @@
         android:paddingBottom="@dimen/dp_12">
 
         <ImageView
+            android:id="@+id/iv_go_card"
             android:layout_width="@dimen/dp_19"
             android:layout_height="@dimen/dp_18"
-            android:background="@drawable/icon_shop_card" />
+            android:background="@drawable/bt_add_sjop_selector"  />
 
     </RelativeLayout>
 

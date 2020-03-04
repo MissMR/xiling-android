@@ -253,7 +253,7 @@ public class ProductDetailUIHelper {
             tvRmb.setTextColor( Color.parseColor("#999999"));
             tvDiscountPrice.setTextColor( Color.parseColor("#999999"));
             tvDiscountPriceDecimal.setTextColor( Color.parseColor("#999999"));
-            tvMinPrice.setTextColor(Color.parseColor("#999999"));
+           // tvMinPrice.setTextColor(Color.parseColor("#999999"));
         } else {
             mTvSoldOut.setVisibility(View.GONE);
             tvBtnAddCart.setTextColor(Color.parseColor("#202020"));
@@ -268,7 +268,7 @@ public class ProductDetailUIHelper {
             tvRmb.setTextColor( Color.parseColor("#ffa6251a"));
             tvDiscountPrice.setTextColor( Color.parseColor("#ffa6251a"));
             tvDiscountPriceDecimal.setTextColor( Color.parseColor("#ffa6251a"));
-            tvMinPrice.setTextColor(Color.parseColor("#202020"));
+          //  tvMinPrice.setTextColor(Color.parseColor("#202020"));
         }
 
         //优惠价，需要根据用户等级展示不同价格
@@ -280,7 +280,12 @@ public class ProductDetailUIHelper {
         tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinMarketPrice()));
         tvMinMarketPrice.getPaint().setAntiAlias(true);//抗锯齿
         tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount()/10000)+"万");
+        if (spuInfo.getSaleCount() >=10000){
+            tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount()/10000)+"万");
+        }else{
+            tvSaleSize.setText("已售" + spuInfo.getSaleCount());
+        }
+
 
         LinearLayoutManager tagManager = new LinearLayoutManager(mContext) {
             @Override
@@ -305,7 +310,7 @@ public class ProductDetailUIHelper {
 
         loadDetailWebView(spuInfo.getContent());
 
-        GlideUtils.loadImage(mContext, ivBottom, spuInfo.getConsumerNoticeUrl());
+        GlideUtils.loadIntoUseFitWidth(mContext, spuInfo.getConsumerNoticeUrl(),ivBottom);
 
 
     }

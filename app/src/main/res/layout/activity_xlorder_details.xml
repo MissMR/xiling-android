@@ -49,10 +49,10 @@
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
             android:layout_marginRight="@dimen/dp_12"
-            android:background="@drawable/bt_remind_selector"
+            android:background="@drawable/btn_shape_stroke_gray"
             android:gravity="center"
             android:text="提醒发货"
-            android:textColor="@color/btn_color_selector"
+            android:textColor="#333333"
             android:textSize="@dimen/sp_12"
             android:visibility="gone" />
 
@@ -87,10 +87,10 @@
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
             android:layout_marginRight="@dimen/dp_12"
-            android:background="@drawable/bt_remind_selector"
+            android:background="@drawable/bg_round_dcb982_3"
             android:gravity="center"
             android:text="提醒审核"
-            android:textColor="@color/btn_color_selector"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_12"
             android:visibility="gone" />
 
@@ -291,8 +291,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_20"
-                    android:textColor="#ff202020"
                     android:text="喜领仓库"
+                    android:textColor="#ff202020"
                     android:textSize="@dimen/sp_13" />
             </RelativeLayout>
 

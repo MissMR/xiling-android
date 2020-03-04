@@ -100,7 +100,7 @@ public class InviteCodeActivity extends BaseActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.length() == 6) {
                     KeyboardUtils.hideSoftInput(InviteCodeActivity.this);
-                    mTvConfirm.setEnabled(true);
+
                     //请求接口 根据邀请码获取用户信息
                     getAccountInfoForInvite(charSequence.toString());
 
@@ -148,6 +148,7 @@ public class InviteCodeActivity extends BaseActivity {
                             GlideUtils.loadHead(context, ivHead, result.getHeadImage());
                             tvInviterName.setText(result.getNickName());
                             tvInviterPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(result.getPhone()));
+                            mTvConfirm.setEnabled(true);
                             switch (result.getRole()) {
                                 case 0:
                                     ivInviterLevel.setImageResource(R.drawable.bg_home_register);
@@ -172,7 +173,7 @@ public class InviteCodeActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         super.onError(e);
                         llInviterInfo.setVisibility(View.INVISIBLE);
-                        //ToastUtil.error(e.getMessage());
+                        ToastUtil.error("验证码无效");
                     }
                 });
     }

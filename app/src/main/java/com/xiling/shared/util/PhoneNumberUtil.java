@@ -49,11 +49,11 @@ public class PhoneNumberUtil {
     public static String checkBankNumber(String cardNumber) {
         if (TextUtils.isEmpty(cardNumber)) {
             return "请输入银行卡号";
-        } else {
+        }/* else {
             if (cardNumber.length() < 16) {
                 return "卡号输入不正确";
             }
-        }
+        }*/
         return "";
     }
 
