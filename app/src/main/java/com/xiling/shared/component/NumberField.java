@@ -1,21 +1,19 @@
 package com.xiling.shared.component;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.xiling.R;
-import com.xiling.ddui.tools.ViewUtil;
-import com.xiling.shared.component.dialog.EditNumberDialog;
 import com.xiling.shared.contracts.OnValueChangeLister;
 import com.xiling.shared.util.ConvertUtil;
 import com.xiling.shared.util.ToastUtil;
@@ -32,6 +30,8 @@ public class NumberField extends LinearLayout {
     protected ImageView mPlusBtn;
     @BindView(R.id.valueTv)
     protected EditText mValueTv;
+    @BindView(R.id.parent_edit)
+    LinearLayout parentEdit;
 
     private int mMin = 1;
     private int mMax = 999;
@@ -56,6 +56,40 @@ public class NumberField extends LinearLayout {
     private void initView() {
         View view = inflate(getContext(), R.layout.cmp_number_field_layout, this);
         ButterKnife.bind(this, view);
+       /* mValueTv.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+
+                } else {
+
+                }
+            }
+        });*/
+
+        //监听软键盘是否显示或隐藏
+        parentEdit.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect r = new Rect();
+                        parentEdit.getWindowVisibleDisplayFrame(r);
+                        int screenHeight = parentEdit.getRootView()
+                                .getHeight();
+                        int heightDifference = screenHeight - (r.bottom);
+                        if (heightDifference > 200) {
+                            //软键盘显示
+
+                        } else {
+                            //软键盘隐藏
+                            if (mValue == 0) {
+                                mValue = 1;
+                                setValue(mValue);
+                            }
+                        }
+                    }
+
+                });
 
         mValueTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,11 +104,14 @@ public class NumberField extends LinearLayout {
                 if (!TextUtils.isEmpty(size)) {
                     mSize = Integer.valueOf(size);
                 }
-
-                if (mSize != mValue) {
+                if (mSize == 0){
+                    mValue = mSize;
+                }
+                if (mSize > 0 && mSize != mValue) {
                     setValue(mSize);
                     mValueTv.setSelection(mValueTv.getText().length());//将光标移至文字末尾
                 }
+
             }
 
             @Override
@@ -146,13 +183,14 @@ public class NumberField extends LinearLayout {
 
     /**
      * adapter 刷新时用
+     *
      * @param value
      * @param isListener
      */
     public void setValue(int value, boolean isListener) {
-       // value = value < mMin ? mMin : value;
-     //   this.mValue = value <= mMax ? value : mMax;
-
+        // value = value < mMin ? mMin : value;
+        //   this.mValue = value <= mMax ? value : mMax;
+        this.mValue = value;
         mValueTv.setText("" + this.mValue);
         if (isListener && this.mListener != null) {
             this.mListener.changed(this.mValue);

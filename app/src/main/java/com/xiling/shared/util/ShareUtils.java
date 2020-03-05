@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -216,7 +218,7 @@ public class ShareUtils {
      */
     public static void makeScreenShot(Context context, View relScreen, DDMProductQrCodeDialog.ScreenShotListener listener) {
         DLog.i("makeScreenShot");
-        Bitmap bitmap = getViewBitmap(context, relScreen);
+        Bitmap bitmap = loadBitmapFromView(relScreen);
         if (listener != null) {
             if (bitmap != null) {
                 listener.onScreenShotEnd(bitmap);
@@ -226,6 +228,20 @@ public class ShareUtils {
             }
         }
     }
+
+
+    public static Bitmap loadBitmapFromView(View v) {
+        if (v == null) {
+            return null;
+        }
+        Bitmap screenshot;
+        screenshot = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(screenshot);
+        c.translate(-v.getScrollX(), -v.getScrollY());
+        v.draw(c);
+        return screenshot;
+    }
+
 
     private static Bitmap getViewBitmap(Context context, View v) {
         DLog.i("getViewBitmap");
@@ -251,9 +267,9 @@ public class ShareUtils {
         return bitmap;
     }
 
-   public static void shareTo3rdPlatform(final Activity activity,View relScreen,final SHARE_MEDIA way, final String productId) {
+    public static void shareTo3rdPlatform(final Activity activity, View relScreen, final SHARE_MEDIA way, final String productId) {
         DLog.i("shareTo3rdPlatform：" + way);
-        makeScreenShot(activity,relScreen,new DDMProductQrCodeDialog.ScreenShotListener() {
+        makeScreenShot(activity, relScreen, new DDMProductQrCodeDialog.ScreenShotListener() {
             @Override
             public void onScreenShotEnd(Bitmap bitmap) {
                 String name = "" + System.currentTimeMillis();
@@ -318,15 +334,15 @@ public class ShareUtils {
             @Override
             protected void onPostExecute(Bitmap bitmap) {
                 ToastUtil.hideLoading();
-              if (onQRImageListener != null){
-                  onQRImageListener.onCreatQR(bitmap);
-              }
+                if (onQRImageListener != null) {
+                    onQRImageListener.onCreatQR(bitmap);
+                }
             }
         }.execute();
         return null;
     }
 
-    public interface OnQRImageListener{
+    public interface OnQRImageListener {
         void onCreatQR(Bitmap bitmap);
     }
 

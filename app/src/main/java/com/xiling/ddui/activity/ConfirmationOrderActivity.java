@@ -195,7 +195,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
     private void upDataBalance() {
         if (isBalance) {
             tvBalanceUse.setVisibility(View.VISIBLE);
-            tvBalanceUse.setText("使用 ¥" + useBalance);
+            tvBalanceUse.setText("使用 ¥" + NumberHandler.reservedDecimalFor2(useBalance));
             NumberHandler.setPriceText(totlaPrice - useBalance, tvNeedPrice, tvNeedPriceDecimal);
             tvBalancePrice.setText("-¥" + useBalance);
         } else {

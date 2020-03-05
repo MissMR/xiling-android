@@ -44,7 +44,7 @@ public class MessageAdapter extends BaseAdapter<XLMessageBean, MessageAdapter.Me
         holder.itemTimeTv.setText(message.getCreateDate());
         if (!TextUtils.isEmpty(message.getImage())) {
             holder.itemThumbIv.setVisibility(View.VISIBLE);
-            GlideUtils.loadHead(context, holder.itemThumbIv, message.getImage());
+            GlideUtils.loadImage(context, holder.itemThumbIv, message.getImage());
         } else {
             holder.itemThumbIv.setVisibility(View.GONE);
         }

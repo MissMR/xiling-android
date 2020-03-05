@@ -236,7 +236,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     tvCouponDate.setText(result.getCouponDate().split(" ")[0] + "到期");
                 }
                 growthValueCurrent.setText(NumberHandler.reservedDecimalFor2(Double.valueOf(result.getGrowValueTotle())));
-                if (newUserBean.getRole().getRoleLevel() == 30) {
+                if (newUserBean.getRoleId() == 3) {
                     progressBar.setProgress(100);
                     progressBar.setMax(100);
                     tvGrowthMessage.setText("您当前已是黑卡会员");

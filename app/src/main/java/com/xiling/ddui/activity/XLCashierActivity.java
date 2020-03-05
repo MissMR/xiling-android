@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.utils.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.unionpay.UPPayAssistEx;
@@ -51,7 +50,6 @@ import butterknife.OnClick;
 
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
-import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
 import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_A_LI_PAY;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_UNION_PAY;
@@ -70,6 +68,8 @@ public class XLCashierActivity extends BaseActivity {
     RelativeLayout relHead;
     @BindView(R.id.btn_pay_type)
     RelativeLayout btnPayType;
+    @BindView(R.id.btn_add_bank)
+    RelativeLayout btnAddBank;
     private IBankService mBankService;
     private IPayService mPayService;
 
@@ -97,6 +97,8 @@ public class XLCashierActivity extends BaseActivity {
     String key = "";
     String type;
     String weekSize;
+    int blankMaxSize = 3;
+
 
     public static void jumpCashierActivity(Context context, String type, double payMoney, long waitPayTimeMilli, String key) {
         Intent intent = new Intent(context, XLCashierActivity.class);
@@ -120,9 +122,9 @@ public class XLCashierActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         String message = "";
-        if (type.equals(PAY_TYPE_ORDER) ){
+        if (type.equals(PAY_TYPE_ORDER)) {
             message = "是否要放弃支付  订单会保留45分钟，请尽快支付";
-        }else{
+        } else {
             message = "是否要放弃付款？";
         }
 
@@ -158,6 +160,9 @@ public class XLCashierActivity extends BaseActivity {
         mBankService = ServiceManager.getInstance().createService(IBankService.class);
         mPayService = ServiceManager.getInstance().createService(IPayService.class);
 
+        if (Config.systemConfigBean != null) {
+            blankMaxSize = Config.systemConfigBean.getPayCardNumber();
+        }
         if (getIntent() != null) {
             type = getIntent().getStringExtra("type");
             payMoney = getIntent().getDoubleExtra("payMoney", 0);
@@ -239,6 +244,12 @@ public class XLCashierActivity extends BaseActivity {
                     bankAdapter.setSelectPosition(position);
                     mBankBean = bankListBeans.get(position);
                     btnPay.setText(bankListBeans.get(position).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(payMoney));
+
+                    if (result.size() >= blankMaxSize) {
+                        btnAddBank.setVisibility(View.GONE);
+                    } else {
+                        btnAddBank.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     btnPay.setText(bankListBeans.get(0).getBankName() + " ¥" + NumberHandler.reservedDecimalFor2(payMoney));
                     mBankBean = bankListBeans.get(0);
@@ -255,7 +266,7 @@ public class XLCashierActivity extends BaseActivity {
 
     @OnClick({R.id.btn_pay, R.id.btn_add_bank, R.id.btn_pay_type})
     public void onViewClicked(View view) {
-        ViewUtil.setViewClickedDelay(view,2000);
+        ViewUtil.setViewClickedDelay(view, 2000);
         switch (view.getId()) {
             case R.id.btn_pay:
                 if (mBankBean.getBankName().equals("微信支付")) {
@@ -267,11 +278,9 @@ public class XLCashierActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_add_bank:
-                int blankMaxSize = 3;
-                if (Config.systemConfigBean != null) {
-                    blankMaxSize = Config.systemConfigBean.getPayCardNumber();
-                }
-                if (bankListBeans != null && bankListBeans.size() < blankMaxSize) {
+
+                //  bankListBeans.size()  -2 代表银行卡数量，减去微信支付和支付宝支付
+                if (bankListBeans != null && bankListBeans.size() - 2 < blankMaxSize) {
                     startActivityForResult(new Intent(context, XLAddBankActivity.class), 0);
                 } else {
                     ToastUtil.error("银行卡已经添加到最大数量了");

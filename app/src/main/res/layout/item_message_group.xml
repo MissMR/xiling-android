@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_80"
-    android:background="@color/white">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -97,8 +98,7 @@
         android:id="@+id/view_interval"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_10"
-        android:layout_alignParentBottom="true"/>
-
-
-
-</RelativeLayout>
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        />
+</LinearLayout>

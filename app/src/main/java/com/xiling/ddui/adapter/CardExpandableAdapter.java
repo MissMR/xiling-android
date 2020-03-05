@@ -109,6 +109,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                             if (value != item.getBean().getQuantity() && onSelectChangeListener != null) {
                                 item.getBean().setQuantity(value);
                                 onSelectChangeListener.onShopChange(item, value);
+                                noticeSelectSize();
                             }
                             getSelectPrice();
                         }

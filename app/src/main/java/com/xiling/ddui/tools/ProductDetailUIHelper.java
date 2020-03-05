@@ -283,7 +283,7 @@ public class ProductDetailUIHelper {
         if (spuInfo.getSaleCount() >=10000){
             tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount()/10000)+"万");
         }else{
-            tvSaleSize.setText("已售" + spuInfo.getSaleCount());
+            tvSaleSize.setText("已售" +(int)spuInfo.getSaleCount());
         }
 
 

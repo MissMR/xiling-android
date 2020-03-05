@@ -35,7 +35,7 @@ public class GlideUtils {
         RequestOptions mRequestOptions = RequestOptions.circleCropTransform();
         Glide.with(context)
                 .load(url)
-               //此处深坑，glide bug 不加此属性，app第一次进入，图片加载不出来
+                //此处深坑，glide bug 不加此属性，app第一次进入，图片加载不出来
                 .dontAnimate()
                 .bitmapTransform(new CropCircleTransformation(context))
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
@@ -95,23 +95,22 @@ public class GlideUtils {
     }
 
 
-
     public static void getBitmap(final Context context, final String url, final OnBitmapGet bitmapGet) {
 
         try {
             if (Looper.myLooper() == Looper.getMainLooper()) {
 
-                new AsyncTask<Void,String,Bitmap>(){
+                new AsyncTask<Void, String, Bitmap>() {
 
                     @Override
                     protected Bitmap doInBackground(Void... voids) {
                         Bitmap myBitmap = null;
                         try {
-                             myBitmap = Glide.with(context)
+                            myBitmap = Glide.with(context)
                                     .load(url)
                                     .asBitmap()
                                     .centerCrop()
-                                    .into(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+                                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                                     .get();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -135,7 +134,7 @@ public class GlideUtils {
     }
 
 
-    public interface OnBitmapGet{
+    public interface OnBitmapGet {
         void getBitmap(Bitmap bitmap);
     }
 
@@ -183,15 +182,12 @@ public class GlideUtils {
     }
 
 
-
-
     public static void loadImage(Context context, ImageView imageView, int url) {
         Glide.with(context).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(R.drawable.bg_image_def)
                 .into(imageView);
     }
-
 
 
 }
