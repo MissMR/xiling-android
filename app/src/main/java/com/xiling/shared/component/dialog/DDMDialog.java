@@ -25,28 +25,18 @@ import butterknife.OnClick;
  */
 public class DDMDialog extends Dialog {
 
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
     @BindView(R.id.tv_content)
     TextView mTvContent;
-    @BindView(R.id.iv_close)
-    ImageView mIvClose;
     @BindView(R.id.tv_btn_confirm)
     TextView mTvBtnPositive;
     @BindView(R.id.tv_btn_cancel)
     TextView mTvBtnNegative;
-    @BindView(R.id.rl_title)
-    RelativeLayout mRlTitle;
-    @BindView(R.id.fl_content)
-    FrameLayout mFlContent;
 
     private AdvancedCountdownTimer mCountdownTimer;
     private long mCountTime = 6 * 1000;
     private long mInterval = 1000;
 
-    private String mTitle;
     private CharSequence mContent;
-
     private int mContentGravity = -1;
 
     private boolean mEnableClose = true;
@@ -80,25 +70,10 @@ public class DDMDialog extends Dialog {
     }
 
     private void initView() {
-        if (TextUtils.isEmpty(mTitle)) {
-            mRlTitle.setVisibility(View.GONE);
-            mTvContent.setGravity(Gravity.CENTER);
-        } else {
-            mTvTitle.setText(mTitle);
-        }
 
-        if (mContentView != null) {
-            mFlContent.addView(mContentView);
-            mTvContent.setVisibility(View.GONE);
-        } else {
+        if (!TextUtils.isEmpty(mContent)) {
             mTvContent.setText(mContent);
-            mTvContent.setVisibility(View.VISIBLE);
         }
-
-        if (mContentGravity > -1) {
-            mTvContent.setGravity(mContentGravity);
-        }
-        mIvClose.setVisibility(mEnableClose ? View.VISIBLE : View.GONE);
 
         if (null != mOnNegativeClickListener) {
             mTvBtnNegative.setText(mNegativeButtonName);
@@ -127,11 +102,6 @@ public class DDMDialog extends Dialog {
             mTvBtnPositive.setVisibility(View.GONE);
         }
 
-    }
-
-    public DDMDialog setTitle(String title) {
-        this.mTitle = title;
-        return this;
     }
 
     public DDMDialog setContent(CharSequence content) {
@@ -195,17 +165,16 @@ public class DDMDialog extends Dialog {
 
     }
 
+    public DDMDialog setTitle(String title){
+        return this;
+    }
+
     @Override
     public void dismiss() {
         super.dismiss();
         if (mCountdownTimer != null) {
             mCountdownTimer.cancel();
         }
-    }
-
-    @OnClick(R.id.iv_close)
-    public void onViewClicked() {
-        dismiss();
     }
 
 

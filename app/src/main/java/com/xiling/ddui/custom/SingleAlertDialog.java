@@ -18,8 +18,7 @@ import butterknife.ButterKnife;
  * 单个按钮的dialog
  */
 public class SingleAlertDialog extends Dialog {
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+
     @BindView(R.id.tv_message)
     TextView tvMessage;
     @BindView(R.id.btn_ok)
@@ -41,12 +40,7 @@ public class SingleAlertDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_single);
         ButterKnife.bind(this);
-        if (!TextUtils.isEmpty(title)){
-            tvTitle.setVisibility(View.VISIBLE);
-            tvTitle.setText(title);
-        }else{
-            tvTitle.setVisibility(View.GONE);
-        }
+
         if (!TextUtils.isEmpty(message)){
             tvMessage.setText(message);
         }

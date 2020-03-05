@@ -256,7 +256,7 @@ public class UserManager {
                         }
                     });
         } else {
-            D3ialogTools.showAlertDialog(mContext, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
+            D3ialogTools.showAlertDialog(mContext, "请先实名认证\n当前商户信息", "去认证", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mContext.startActivity(new Intent(mContext, RealAuthActivity.class));

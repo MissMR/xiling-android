@@ -80,9 +80,7 @@ public class D3ialogTools {
                 .setContent(message)
                 .setPositiveButton(posBtn, posClickListener)
                 .setNegativeButton(negBtn,negListener);
-
         dialog.show();
-
     }
 
 

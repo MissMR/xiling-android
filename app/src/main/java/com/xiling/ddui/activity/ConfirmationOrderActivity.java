@@ -447,17 +447,14 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
                 if (!TextUtils.isEmpty(businessCode)) {
                     if (businessCode.equals("un-auth")) {
-                        D3ialogTools.showAlertDialog(context, e.getMessage(), "实名认证", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(context, RealAuthActivity.class));
-                            }
-                        }, "取消下单", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
+                        UserManager.getInstance().isRealAuth(context,UserManager.getInstance().getUser().getAuthStatus());
+                    }else if (businessCode.equals("coupon")){
+                        //优惠券已使用
+                        ToastUtil.error(e.getMessage());
+                        mCouponId ="";
+                        getConfirmOrder(accountInfo);
+                        tvCoupon.setText("");
 
-                            }
-                        });
                     }
                 } else {
                     ToastUtil.error(e.getMessage());
