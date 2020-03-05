@@ -11,7 +11,9 @@ import com.blankj.utilcode.utils.SPUtils;
 import com.google.gson.Gson;
 import com.xiling.R;
 import com.xiling.ddui.activity.RealAuthActivity;
+import com.xiling.ddui.activity.UpdatePhoneIdentityActivity;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -25,6 +27,7 @@ import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.PushManager;
 import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.ICaptchaService;
 import com.xiling.shared.util.SessionUtil;
 import com.xiling.shared.util.SharedPreferenceUtil;
@@ -42,11 +45,13 @@ public class UserManager {
     public static final String USER_MYUSER = "user";
     private static Gson gson;
     ICaptchaService iCaptchaService;
+    INewUserService iNewUserService;
 
     private UserManager() {
         spUtils = new SPUtils(USER_TABLE);
         gson = new Gson();
         iCaptchaService = ServiceManager.getInstance().createService(ICaptchaService.class);
+        iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
     }
 
     public static UserManager getInstance() {
@@ -242,13 +247,36 @@ public class UserManager {
      * 判断实名认证
      * 认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
      */
-    public void isRealAuth(final Context mContext, int status) {
-        String message = "";
-        //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
-        if (status == 1) {
-            message = "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~";
+    public void isRealAuth(final Context mContext, final RealAuthListener realAuthListener) {
+        APIManager.startRequest(iNewUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
+            @Override
+            public void onSuccess(RealAuthBean result) {
+                super.onSuccess(result);
+                if (result.getAuthStatus() == 2) {
+                    // 已实名认证
+                    if (realAuthListener != null) {
+                        realAuthListener.onRealAuth();
+                    }
+                } else {
+                    showNoAuthDialog(mContext,result);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                ToastUtil.error(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 未实名认证
+     */
+    public void showNoAuthDialog(final Context mContext,RealAuthBean result){
+        if (result.getAuthStatus() == 1) {
             D3ialogTools.showSingleAlertDialog(mContext, "",
-                    message, "我知道了",
+                    "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~", "我知道了",
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -268,6 +296,14 @@ public class UserManager {
                 }
             });
         }
+    }
+
+
+    /**
+     *
+     */
+    public interface RealAuthListener {
+        void onRealAuth();
     }
 
 

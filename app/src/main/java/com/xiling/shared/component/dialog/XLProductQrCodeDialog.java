@@ -82,8 +82,9 @@ public class XLProductQrCodeDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_prodecu_qr_xl);
         unbinder = ButterKnife.bind(this);
-        CommonUtil.initDialogWindow(getWindow(), Gravity.CENTER);
+        CommonUtil.initDialogWindow(getWindow(), Gravity.BOTTOM);
         setCanceledOnTouchOutside(true);
+        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         initSharedData();
         initView();
     }

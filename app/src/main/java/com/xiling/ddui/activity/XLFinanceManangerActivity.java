@@ -77,7 +77,12 @@ public class XLFinanceManangerActivity extends BaseActivity {
                 startActivity(new Intent(context, BalanceDetailsActivity.class));
                 break;
             case R.id.btn_recharge:
-                new RechargeDialog(this).show();
+                UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
+                    @Override
+                    public void onRealAuth() {
+                        new RechargeDialog(context).show();
+                    }
+                });
                 break;
         }
     }

@@ -31,6 +31,9 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:ems="8"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_16" />
 
@@ -65,15 +68,14 @@
         android:id="@+id/tv_ing"
         android:layout_width="@dimen/dp_60"
         android:layout_height="@dimen/dp_26"
-        android:text="当前账号"
-        android:textColor="#ffdcb982"
-        android:gravity="center"
-        android:textSize="@dimen/sp_12"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dp_20"
-        android:visibility="gone"
         android:background="@drawable/stroke_568_radius_2"
-        />
+        android:gravity="center"
+        android:text="当前账号"
+        android:textColor="#ffdcb982"
+        android:textSize="@dimen/sp_12"
+        android:visibility="gone" />
 
 </RelativeLayout>

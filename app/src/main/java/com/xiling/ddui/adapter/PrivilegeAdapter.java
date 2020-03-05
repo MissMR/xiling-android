@@ -20,7 +20,8 @@ public class PrivilegeAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_title, "特权" + helper.getAdapterPosition() + 1);
+        int pos = helper.getAdapterPosition()+1;
+        helper.setText(R.id.tv_title, "特权" + pos );
         helper.setText(R.id.tv_message, item);
         if (helper.getAdapterPosition() == 0) {
             helper.setVisible(R.id.iv_hot, true);

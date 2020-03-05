@@ -130,46 +130,10 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
      * 获取实名认证信息
      */
     private void getAuth() {
-        APIManager.startRequest(mUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
+        UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
             @Override
-            public void onSuccess(RealAuthBean result) {
-                super.onSuccess(result);
-
-                if (result.getAuthStatus() == 2) {
-                    // 已实名认证
-                    startActivity(new Intent(context, UpdatePhoneIdentityActivity.class));
-                } else {
-                    if (result.getAuthStatus() == 1) {
-                        //认证中
-                        D3ialogTools.showSingleAlertDialog(context, "",
-                                "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~", "我知道了",
-                                new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        // startActivity(new Intent(mContext, RealAuthActivity.class));
-                                    }
-                                });
-                    } else {
-                        D3ialogTools.showAlertDialog(context, "请先实名认证当前商户信息", "去认证", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(context, RealAuthActivity.class));
-                            }
-                        }, "取消", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-
+            public void onRealAuth() {
+                startActivity(new Intent(context, UpdatePhoneIdentityActivity.class));
             }
         });
     }

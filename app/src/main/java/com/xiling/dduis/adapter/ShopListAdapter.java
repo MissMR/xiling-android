@@ -153,6 +153,11 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
                             public void onSuccess(Object result) {
                                 item.setStock(item.getStock() - 1);
                             }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                super.onError(e);
+                            }
                         });
                     } else {
                         ToastUtil.error("该商品已售罄");

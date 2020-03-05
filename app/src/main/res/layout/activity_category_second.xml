@@ -1,47 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ddui.activity.CategorySecondActivity"
-    android:orientation="vertical"
-    >
-    <com.xiling.shared.component.HeaderLayout
-        android:id="@+id/headerLayout"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/sliding_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        app:tl_indicator_width="@dimen/dp_26"
-        app:tl_indicator_color="#DCB982"
-        app:tl_indicator_height="3dp"
-        app:tl_textUnselectColor="#333333"
-        app:tl_textSelectColor="#DCB982"
-        app:tl_textsize="@dimen/sp_16"
-        android:background="@color/white"
-      />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#F5F5F5"/>
+        <com.xiling.shared.component.HeaderLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-  <com.xiling.ddui.custom.ScreeningView
-      android:id="@+id/screenView"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/dp_50"/>
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/sliding_tab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/white"
+            app:tl_indicator_color="#DCB982"
+            app:tl_indicator_height="3dp"
+            app:tl_indicator_width="@dimen/dp_26"
+            app:tl_textSelectColor="#DCB982"
+            app:tl_textUnselectColor="#333333"
+            app:tl_textsize="@dimen/sp_16" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#F5F5F5" />
 
-    <com.xiling.ddui.view.AutofitViewPager
-        android:id="@+id/viewpager_shop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
+        <com.xiling.ddui.custom.ScreeningView
+            android:id="@+id/screenView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50" />
 
 
-</LinearLayout>
+        <com.xiling.ddui.view.AutofitViewPager
+            android:id="@+id/viewpager_shop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/btn_go_card"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="37dp"
+        android:layout_marginBottom="@dimen/dp_30">
+
+
+        <ImageView
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:background="@drawable/bg_suspension_card" />
+
+        <TextView
+            android:id="@+id/tv_cart_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_oval_read"
+            android:textColor="#ffffffff"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

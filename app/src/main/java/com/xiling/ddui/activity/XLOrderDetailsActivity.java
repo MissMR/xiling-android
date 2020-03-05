@@ -250,8 +250,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
 
                 btnSee.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
-                //btnRemind.setVisibility(View.VISIBLE);
-                btnRemind.setVisibility(!orderDetailsBean.isCanRemindDelivery() ? View.VISIBLE : View.GONE);
+                btnRemind.setVisibility(View.VISIBLE);
+                //  btnRemind.setVisibility(!orderDetailsBean.isCanRemindDelivery() ? View.VISIBLE : View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
                 btnExamine.setVisibility(View.GONE);
@@ -271,8 +271,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnRemind.setVisibility(View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
-                // btnExamine.setVisibility(View.VISIBLE);
-                btnExamine.setVisibility(!orderDetailsBean.isCanRemindAudit() ? View.VISIBLE : View.GONE);
+                btnExamine.setVisibility(View.VISIBLE);
+                // btnExamine.setVisibility(!orderDetailsBean.isCanRemindAudit() ? View.VISIBLE : View.GONE);
                 break;
             case ORDER_WAIT_RECEIVED:
                 //待收货
@@ -405,7 +405,9 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 if (orderDetailsBean.isCanRemindDelivery()) {
                     orderDetailsBean.setCanRemindDelivery(true);
                     remindDelivery(orderDetailsBean.getOrderCode());
-                    btnRemind.setEnabled(false);
+                    // btnRemind.setEnabled(false);
+                } else {
+                    ToastUtil.error("您已提醒过了，请耐心等待~");
                 }
                 break;
             case R.id.btm_cancel:
@@ -419,7 +421,9 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 if (!orderDetailsBean.isCanRemindAudit()) {
                     orderDetailsBean.setCanRemindAudit(true);
                     remindAudit(orderDetailsBean.getOrderCode());
-                    btnExamine.setEnabled(false);
+                    //btnExamine.setEnabled(false);
+                } else {
+                    ToastUtil.error("您已提醒过了，请耐心等待~");
                 }
 
                 break;

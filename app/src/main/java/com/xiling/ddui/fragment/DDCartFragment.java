@@ -26,6 +26,7 @@ import com.xiling.ddui.bean.CardExpandableBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLCardListBean;
 import com.xiling.ddui.manager.ShopCardManager;
+import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
@@ -198,7 +199,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         cardExpandableAdapter.setOnSelectChangeListener(new CardExpandableAdapter.OnSelectChangeListener() {
             @Override
             public void onPriceChange(double price) {
-                totalTv.setText("¥" + price);
+                totalTv.setText("¥" + NumberHandler.reservedDecimalFor2(price));
             }
 
             @Override

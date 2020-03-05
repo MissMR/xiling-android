@@ -150,8 +150,8 @@ public class NumberField extends LinearLayout {
      * @param isListener
      */
     public void setValue(int value, boolean isListener) {
-        value = value < mMin ? mMin : value;
-        this.mValue = value <= mMax ? value : mMax;
+       // value = value < mMin ? mMin : value;
+     //   this.mValue = value <= mMax ? value : mMax;
 
         mValueTv.setText("" + this.mValue);
         if (isListener && this.mListener != null) {

@@ -12,8 +12,8 @@ import com.xiling.R;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.component.CaptchaBtn;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -39,6 +39,8 @@ public class PasswordMobilePhoneActivity extends BaseActivity {
     @BindView(R.id.edit_mobile)
     EditText editMobile;
     INewUserService mUserService;
+    @BindView(R.id.cb_captcha)
+    CaptchaBtn cbCaptcha;
 
     private String phone, code;
 
@@ -52,6 +54,12 @@ public class PasswordMobilePhoneActivity extends BaseActivity {
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         phone = UserManager.getInstance().getUser().getPhone();
         etPhoneNumber.setText(PhoneNumberUtil.getSecretPhoneNumber(phone));
+        cbCaptcha.setOnCountDownListener(new CaptchaBtn.OnCountDownListener() {
+            @Override
+            public void onCountDownFinish(CaptchaBtn view) {
+                cbCaptcha.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 
@@ -101,6 +109,7 @@ public class PasswordMobilePhoneActivity extends BaseActivity {
             @Override
             public void onSuccess(Object result, String message) {
                 super.onSuccess(result);
+                cbCaptcha.start();
                 ToastUtil.success(message);
             }
 

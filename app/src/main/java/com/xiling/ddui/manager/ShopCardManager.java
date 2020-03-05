@@ -82,7 +82,17 @@ public class ShopCardManager {
                 requestUpDataShopCardCount();
 
             }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (baseRequestListener != null) {
+                    baseRequestListener.onError(e);
+                }
+            }
         });
+
+
     }
 
 

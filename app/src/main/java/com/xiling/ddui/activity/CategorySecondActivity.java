@@ -6,29 +6,37 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.xiling.R;
 import com.xiling.ddui.bean.SecondCategoryBean;
 import com.xiling.ddui.bean.SecondClassificationBean;
 import com.xiling.ddui.custom.ScreeningView;
-import com.xiling.ddui.custom.popupwindow.ScreeningPopupWindow;
 import com.xiling.ddui.fragment.ShopFragment;
+import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.module.MainActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.HeaderLayout;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IProductService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.xiling.shared.constant.Event.viewCart;
 
 /**
  * @author pt
@@ -47,8 +55,8 @@ public class CategorySecondActivity extends BaseActivity {
     ViewPager viewpagerShop;
     @BindView(R.id.screenView)
     ScreeningView screenView;
-    @BindView(R.id.parentView)
-    LinearLayout parentView;
+    @BindView(R.id.tv_cart_badge)
+    TextView tvCartBadge;
 
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -81,10 +89,10 @@ public class CategorySecondActivity extends BaseActivity {
     private String keyWord = "";
 
 
-    public static void jumpCategorySecondActivity(Context mContext,String parentId, String categoryId) {
+    public static void jumpCategorySecondActivity(Context mContext, String parentId, String categoryId) {
         Intent intent = new Intent(mContext, CategorySecondActivity.class);
         intent.putExtra("categoryId", categoryId);
-        intent.putExtra("parentId",parentId);
+        intent.putExtra("parentId", parentId);
         mContext.startActivity(intent);
     }
 
@@ -97,7 +105,7 @@ public class CategorySecondActivity extends BaseActivity {
         iProductService = ServiceManager.getInstance().createService(IProductService.class);
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("categoryId");
-            mParentId =  getIntent().getStringExtra("parentId");
+            mParentId = getIntent().getStringExtra("parentId");
         }
         getSecondClassification();
 
@@ -153,7 +161,7 @@ public class CategorySecondActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                parentName =secondCategoryList.get(position).getCategoryName();
+                parentName = secondCategoryList.get(position).getCategoryName();
                 mHeaderLayout.setTitle(parentName);
                 viewpagerShop.requestLayout();
             }
@@ -192,6 +200,26 @@ public class CategorySecondActivity extends BaseActivity {
 
     }
 
+    /**
+     * 接收购物车数量变更
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBus(EventMessage message) {
+        switch (message.getEvent()) {
+            case cartAmountUpdate:
+                int total = (int) message.getData();
+                ViewUtil.setCartBadge(total, tvCartBadge);
+                break;
+        }
+    }
+
+    @OnClick(R.id.btn_go_card)
+    public void onViewClicked() {
+        startActivity(new Intent(context, MainActivity.class));
+        EventBus.getDefault().post(new EventMessage(viewCart));
+    }
 
     @Override
     protected void onDestroy() {

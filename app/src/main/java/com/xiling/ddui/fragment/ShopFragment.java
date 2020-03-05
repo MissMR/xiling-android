@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -58,6 +59,8 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
     Unbinder unbinder;
     @BindView(R.id.tv_cart_badge)
     TextView tvCartBadge;
+    @BindView(R.id.btn_go_card)
+    RelativeLayout btnGoCard;
     private IProductService mProductService;
 
     private int pageOffset = 1;
@@ -123,6 +126,7 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         ShopCardManager.getInstance().requestUpDataShopCardCount();
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
         unbinder = ButterKnife.bind(this, view);
+        btnGoCard.setVisibility(TextUtils.isEmpty(secondCategoryId)?View.VISIBLE:View.GONE);
         smartRefreshLayout.setEnableLoadMore(true);
         smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setOnLoadMoreListener(this);

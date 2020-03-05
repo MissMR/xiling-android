@@ -240,11 +240,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     progressBar.setProgress(100);
                     progressBar.setMax(100);
                     tvGrowthMessage.setText("您当前已是黑卡会员");
-                    llBlackRecharge.setVisibility(View.GONE);
-                    relWeekRecord.setVisibility(View.VISIBLE);
                 } else {
-                    llBlackRecharge.setVisibility(View.VISIBLE);
-                    relWeekRecord.setVisibility(View.GONE);
                     double max = Double.valueOf(result.getNextMemberRole().getGrowValue());
                     progressBar.setMax((int) max);
                     double progress = Double.valueOf(result.getGrowValueTotle());
@@ -274,12 +270,16 @@ public class XLMemberCenterActivity extends BaseActivity {
                         break;
                 }
 
-                if (newUserBean.getRole().getRoleLevel() == 30) {
+                if (newUserBean.getRoleId() == 3) {
                     // 已经是黑卡，不需要请求周卡信息
                     ToastUtil.hideLoading();
                     llWeekCardPackage.setVisibility(View.GONE);
                     setWeekCardStatus(null);
+                    llBlackRecharge.setVisibility(View.VISIBLE);
+                    relWeekRecord.setVisibility(View.VISIBLE);
                 } else {
+                    llBlackRecharge.setVisibility(View.GONE);
+                    relWeekRecord.setVisibility(View.GONE);
                     getWeekCardConfigList();
                     getWeekCardInfo();
                 }

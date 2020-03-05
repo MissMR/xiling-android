@@ -447,7 +447,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
                 if (!TextUtils.isEmpty(businessCode)) {
                     if (businessCode.equals("un-auth")) {
-                        UserManager.getInstance().isRealAuth(context,UserManager.getInstance().getUser().getAuthStatus());
+                        UserManager.getInstance().isRealAuth(context,null);
                     }else if (businessCode.equals("coupon")){
                         //优惠券已使用
                         ToastUtil.error(e.getMessage());

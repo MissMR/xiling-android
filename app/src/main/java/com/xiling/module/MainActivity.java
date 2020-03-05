@@ -31,6 +31,7 @@ import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
 import com.xiling.ddui.fragment.XLMineFragment;
+import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.ddui.tools.AppTools;
@@ -486,6 +487,9 @@ public class MainActivity extends BaseActivity {
                 mCartBadgeTv.setText("");
                 mCartBadgeTv.setVisibility(View.GONE);
                 onClickTabItems(mTabs.get(0));
+                break;
+            case LOGIN_SUCCESS:
+                ShopCardManager.getInstance().requestUpDataShopCardCount(true);
                 break;
             case goToLogin:
                 Logger.e("跳登录");

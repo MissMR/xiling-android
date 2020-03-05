@@ -79,8 +79,6 @@ public class WeekCardConfigFragment extends BaseFragment {
                 privilegeList.add("平台品牌商品厂家直直供");
                 privilegeList.add("专属客服一对一服务");
                 privilegeList.add("可参与每周频道活动、部分节假日品牌专享价");
-
-
                 break;
             case 2:
                 // 黑卡

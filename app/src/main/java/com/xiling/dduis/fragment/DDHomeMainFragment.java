@@ -475,11 +475,12 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         switch (view.getId()) {
             case R.id.btn_user:
                 if (UserManager.getInstance().isLogin(mContext)) {
-                    if (UserManager.getInstance().getUserLevel() == 0) {
-                        UserManager.getInstance().isRealAuth(mContext,UserManager.getInstance().getUser().getAuthStatus());
-                    } else {
-                        startActivity(new Intent(mContext, XLMemberCenterActivity.class));
-                    }
+                    UserManager.getInstance().isRealAuth(mContext, new UserManager.RealAuthListener() {
+                        @Override
+                        public void onRealAuth() {
+                            startActivity(new Intent(mContext, XLMemberCenterActivity.class));
+                        }
+                    });
                 }
                 break;
             case R.id.rel_search:
@@ -506,6 +507,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         switch (message.getEvent()) {
             case LOGIN_SUCCESS:
             case LOGIN_OUT:
+                pageOffset = 1;
                 checkUserInfo();
                 break;
             case UPDATE_AVATAR:
