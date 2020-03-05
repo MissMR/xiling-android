@@ -15,11 +15,10 @@
 
     <ImageView
         android:id="@+id/ivGoMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_180"
+        android:layout_height="@dimen/dp_40"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_guide3_btn"
+        android:layout_marginBottom="@dimen/dp_77"
         android:visibility="gone"
         tools:visibility="visible" />
 
