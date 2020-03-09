@@ -14,7 +14,6 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.bean.NewUserBean;
-import com.xiling.shared.service.contract.IFootService;
 import com.xiling.shared.util.ShareUtils;
 import com.xiling.shared.util.ToastUtil;
 

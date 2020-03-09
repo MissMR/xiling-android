@@ -173,7 +173,7 @@ public class InviteCodeActivity extends BaseActivity {
                     public void onError(Throwable e) {
                         super.onError(e);
                         llInviterInfo.setVisibility(View.INVISIBLE);
-                        ToastUtil.error("验证码无效");
+                        ToastUtil.error("邀请码不存在 请核实后重新输入");
                     }
                 });
     }

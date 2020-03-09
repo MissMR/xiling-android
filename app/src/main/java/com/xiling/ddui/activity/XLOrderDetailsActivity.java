@@ -189,7 +189,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvPriceTotal.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
                 tvPriceFreight.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
                 tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
-                tvPriceCoupon.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
+                tvPriceCoupon.setText("-¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));
             }
 
@@ -251,7 +251,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnSee.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
                 btnRemind.setVisibility(View.VISIBLE);
-                //  btnRemind.setVisibility(!orderDetailsBean.isCanRemindDelivery() ? View.VISIBLE : View.GONE);
+                btnRemind.setVisibility(!orderDetailsBean.isCanRemindDelivery() ? View.VISIBLE : View.GONE);
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
                 btnExamine.setVisibility(View.GONE);
@@ -272,7 +272,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 btnPayment.setVisibility(View.GONE);
                 btmCancel.setVisibility(View.GONE);
                 btnExamine.setVisibility(View.VISIBLE);
-                // btnExamine.setVisibility(!orderDetailsBean.isCanRemindAudit() ? View.VISIBLE : View.GONE);
+                btnExamine.setVisibility(!orderDetailsBean.isCanRemindAudit() ? View.VISIBLE : View.GONE);
                 break;
             case ORDER_WAIT_RECEIVED:
                 //待收货

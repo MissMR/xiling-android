@@ -350,7 +350,7 @@ public class SelectAddressMapActivity extends BaseActivity implements LocationSo
         //将地图中心点移动到当前用户的位置
         if (myLocation == null) {
             //如果进入地图没有定位成功则使用App级别的定位权限
-            myLocation = MyApplication.mAMapLocation;
+           // myLocation = MyApplication.mAMapLocation;
         }
         double myLat = myLocation.getLatitude();
         double myLng = myLocation.getLongitude();
@@ -557,9 +557,9 @@ public class SelectAddressMapActivity extends BaseActivity implements LocationSo
                     moveMapCenterToLatLng(geoAddress.getLatLonPoint());
                 } else {
                     ToastUtil.error("无法找到地址，自动使用当前定位");
-                    AMapLocation mAMapLocation = MyApplication.mAMapLocation;
-                    changeCallbackData(mAMapLocation);
-                    moveMapCenterToLatLng(mAMapLocation.getLatitude(), mAMapLocation.getLongitude());
+                  //  AMapLocation mAMapLocation = MyApplication.mAMapLocation;
+                   // changeCallbackData(mAMapLocation);
+                    //moveMapCenterToLatLng(mAMapLocation.getLatitude(), mAMapLocation.getLongitude());
                 }
             }
         });

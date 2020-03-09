@@ -75,6 +75,7 @@ public class XLCouponFragment extends BaseFragment implements OnRefreshListener,
         noDataLayout.setTextView("还没有优惠券");
         recyclerCoupon.setLayoutManager(new LinearLayoutManager(mContext));
         couponAdapter = new CouponAdapter(false);
+        couponAdapter.setStatus(status);
         recyclerCoupon.setAdapter(couponAdapter);
 
         smartRefreshLayout.setEnableLoadMore(true);

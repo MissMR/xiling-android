@@ -1,54 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/dp_333"
-    android:layout_height="@dimen/dp_500"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ddui.fragment.InviteFriendsFragment">
 
     <ImageView
         android:id="@+id/iv_image"
-        android:layout_width="@dimen/dp_333"
-        android:layout_height="@dimen/dp_500"
-        android:scaleType="fitXY" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        />
+<!--    app:layout_widthPercent="90%"-->
     <ImageView
         android:id="@+id/iv_qr"
-        android:layout_width="@dimen/dp_80"
-        android:layout_height="@dimen/dp_80"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="24%"
+        app:layout_heightPercent="16%"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_50" />
+        app:layout_marginBottomPercent="10%"
+         />
 
-    <LinearLayout
-        android:layout_width="@dimen/dp_233"
-        android:layout_height="@dimen/dp_30"
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="65%"
+        app:layout_heightPercent="6%"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_63"
-        android:orientation="horizontal">
+        app:layout_marginTopPercent="12.7%"
+        >
 
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_widthPercent="12%"
             android:layout_gravity="center_vertical" />
 
         <TextView
             android:id="@+id/tv_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:layout_marginStartPercent="3%"
+            android:layout_toRightOf="@id/iv_head"
             android:textColor="#ffffffff"
             android:textSize="@dimen/sp_12" />
-    </LinearLayout>
+    </android.support.percent.PercentRelativeLayout>
 
 
     <TextView
         android:id="@+id/tv_invite_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_184"
-        android:layout_marginTop="@dimen/dp_252"
-        android:textColor="#ffa13636"
+        app:layout_marginStartPercent="55%"
+        app:layout_marginTopPercent="50.5%"
+        android:textColor="#A13636"
         android:textSize="@dimen/sp_10" />
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>

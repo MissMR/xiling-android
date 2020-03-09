@@ -122,7 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="黄金会员"
+                android:text="VIP会员"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_13" />
 
@@ -146,7 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="钻石会员"
+                android:text="黑卡会员"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_13" />
 

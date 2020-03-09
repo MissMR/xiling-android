@@ -7,6 +7,7 @@
     android:layout_marginRight="@dimen/dp_12">
 
     <RelativeLayout
+        android:id="@+id/ll_status_bg"
         android:layout_width="@dimen/dp_351"
         android:layout_height="@dimen/dp_83"
         android:layout_gravity="center"

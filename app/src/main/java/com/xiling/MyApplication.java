@@ -110,34 +110,9 @@ public class MyApplication extends MultiDexApplication {
         initBugly();
         initUmengShare();
         initCS();
-
         ButterKnife.setDebug(AppConfig.DEBUG);
     }
 
-    private static AMapLocationClient mLocationClient;
-    public static AMapLocation mAMapLocation;
-
-    public static void startLocation(Activity activity) {
-
-    }
-
-    private static void setLocationSetting() {
-        mLocationClient = new AMapLocationClient(MyApplication.getInstance().getApplicationContext());
-        mLocationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                mAMapLocation = aMapLocation;
-            }
-        });
-        AMapLocationClientOption option = new AMapLocationClientOption();
-        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
-        option.setOnceLocation(false);
-        option.setNeedAddress(true);
-        option.setMockEnable(true);
-        option.setLocationCacheEnable(true);
-        option.setInterval(1000 * 60 * 10);
-        mLocationClient.setLocationOption(option);
-    }
 
     private void initCS() {
         CSManager.share().setDebug(BuildConfig.DEBUG).initSDK(this);

@@ -141,7 +141,7 @@ public class IdentificationInputActivity extends BaseActivity {
             }
 
         }
-        params.put("storeIdList", storeIds);
+        params.put("storeIds", storeIds);
 
         APIManager.startRequest(mUserService.editAuth(params), new BaseRequestListener<Object>() {
             @Override

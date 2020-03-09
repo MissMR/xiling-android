@@ -164,7 +164,7 @@ public class NumberField extends LinearLayout {
     }
 
     public void setValue(int value) {
-        if (value > mMax) {
+        if (mMax!= 0 &&value > mMax) {
             ToastUtil.error("商品数量已经达到最大值");
         }
         if (value < mMin) {

@@ -174,8 +174,6 @@ public class MainActivity extends BaseActivity {
         initSplash();
 
         ButterKnife.bind(this);
-        MyApplication.startLocation(this);
-
         darkStatusBar();
         clearViewHeight(statusBarBackgroundView);
 

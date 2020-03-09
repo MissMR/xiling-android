@@ -39,7 +39,7 @@ import butterknife.Unbinder;
 import static com.xiling.shared.constant.Event.viewCart;
 
 /**
- * @author pt
+ * @author 逄涛
  * 二级分类页面
  */
 public class CategorySecondActivity extends BaseActivity {

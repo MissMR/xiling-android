@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +37,6 @@ import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.component.HeaderLayout;
-import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.DDHomeService;
@@ -48,7 +47,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +59,6 @@ import butterknife.Unbinder;
 import static com.xiling.ddui.activity.ConfirmationOrderActivity.ORDER_SOURCE;
 import static com.xiling.ddui.activity.ConfirmationOrderActivity.SKULIST;
 import static com.xiling.shared.Constants.PAGE_SIZE;
-import static com.xiling.shared.constant.Event.cartAmountUpdate;
 import static com.xiling.shared.constant.Event.viewHome;
 
 /**
@@ -94,15 +91,18 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     TextView deleteBtn;
     @BindView(R.id.layoutNodata)
     LinearLayout layoutNodata;
+    @BindView(R.id.scrollview)
+    NestedScrollView scrollview;
     private int pageOffset = 1;
     private int pageSize = PAGE_SIZE;
     private int totalPage = 0;
     List<HomeRecommendDataBean.DatasBean> recommendDataList = new ArrayList<>();
     ShopListAdapter recommendAdapter;
     CardExpandableAdapter cardExpandableAdapter;
+    List<CardExpandableBean<XLCardListBean.SkuProductListBean>> cartList = new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>();
 
     private boolean isEdit = false;
-
+    private boolean isDelete = false;
 
     public static DDCartFragment newInstance() {
         Bundle args = new Bundle();
@@ -134,6 +134,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         if (isVisibleToUser && isAdded() && getContext() != null) {
             pageOffset = 1;
             requestCardData();
+            requestRecommend();
         }
     }
 
@@ -194,7 +195,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerCard.setLayoutManager(linearLayoutManager);
-        cardExpandableAdapter = new CardExpandableAdapter(new ArrayList<CardExpandableBean<XLCardListBean.SkuProductListBean>>());
+        cardExpandableAdapter = new CardExpandableAdapter(cartList);
         recyclerCard.setAdapter(cardExpandableAdapter);
         cardExpandableAdapter.setOnSelectChangeListener(new CardExpandableAdapter.OnSelectChangeListener() {
             @Override
@@ -277,13 +278,23 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 } else {
                     headerLayout.hideRightItem();
                 }
-                List<CardExpandableBean<XLCardListBean.SkuProductListBean>> cardExpandableBeanList = buildAdapterData(result);
-                if (cardExpandableBeanList.size() > 0) {
+                cartList.clear();
+                cartList.addAll(buildAdapterData(result));
+                if (cartList.size() > 0) {
                     layoutNodata.setVisibility(View.GONE);
                 } else {
                     layoutNodata.setVisibility(View.VISIBLE);
+                    if (isDelete) {
+                        scrollview.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                scrollview.scrollTo(0, 0);
+                            }
+                        });
+                    }
                 }
-                cardExpandableAdapter.setNewData(cardExpandableBeanList);
+
+                cardExpandableAdapter.notifyDataSetChanged();
 
                 /**
                  * 每次刷新，重新计算购物车数量与价格
@@ -303,6 +314,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     checkAll.setText("全选");
                 }
                 cardExpandableAdapter.getSelectPrice();
+                isDelete = false;
                 setEdit();
             }
 
@@ -438,7 +450,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             case cartListUpdate:
             case FINISH_ORDER:
                 requestCardData();
-
                 break;
         }
     }
@@ -455,6 +466,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 super.onSuccess(result);
                 // requestCardData();
                 isEdit = false;
+                isDelete = true;
                 ShopCardManager.getInstance().requestUpDataShopCardCount();
             }
 
@@ -482,13 +494,15 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             case R.id.checkAll:
                 if (cardExpandableAdapter != null) {
                     if (!cardExpandableAdapter.isAllSelect()) {
-                        checkAll.setSelected(true);
-                        cardExpandableAdapter.selectAll();
-                        checkAll.setText("全不选");
+                        if (cardExpandableAdapter.selectAll()) {
+                            checkAll.setText("全不选");
+                            checkAll.setSelected(true);
+                        }
                     } else {
-                        checkAll.setSelected(false);
-                        cardExpandableAdapter.cancleSelectAll();
-                        checkAll.setText("全选");
+                        if (cardExpandableAdapter.cancleSelectAll()) {
+                            checkAll.setText("全选");
+                            checkAll.setSelected(false);
+                        }
                     }
                 }
                 break;

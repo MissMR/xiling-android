@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.MyApplication;
@@ -53,6 +55,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
 import rx.Observer;
+import rx.functions.Action1;
 
 /**
  * @author 逄涛
@@ -63,7 +66,9 @@ public class AddressFormActivity extends BaseActivity {
     private boolean isEditAddress = false;
     private IAddressService mAddressService;
     private AddressListBean.DatasBean mAddress = new AddressListBean.DatasBean();
+
     private AMapLocationClient mLocationClient;
+    public AMapLocation mAMapLocation;
 
     @BindView(R.id.contactsEt)
     protected EditText mContactsEt;
@@ -105,7 +110,7 @@ public class AddressFormActivity extends BaseActivity {
             isEditAddress = action != null && action.equals(Key.EDIT_ADDRESS);
             addressId = intent.getExtras().getString("addressId");
         }
-        if (TextUtils.isEmpty(addressId)){
+        if (TextUtils.isEmpty(addressId)) {
             autoLocationCity();
         }
         setTitle("收货地址");
@@ -120,25 +125,60 @@ public class AddressFormActivity extends BaseActivity {
      * 定位到当前城市
      */
     private void autoLocationCity() {
-        AMapLocation mAMapLocation = MyApplication.mAMapLocation;
-        if (mAMapLocation == null) {
-            return;
-        }
-        if (mAMapLocation.getErrorCode() != 0) {
-            return;
-        }
-        final String provinceName = mAMapLocation.getProvince();
-        final String cityName = mAMapLocation.getCity();
-        final String distinctName = mAMapLocation.getDistrict();
-
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("" + mAMapLocation.getStreet());
-        stringBuffer.append("" + mAMapLocation.getStreetNum());
-        stringBuffer.append("" + mAMapLocation.getPoiName());
-        final String addressValue = stringBuffer.toString();
-
-        convertMapData(provinceName, cityName, distinctName, addressValue);
+        startLocation(this);
     }
+
+    private void setLocationSetting() {
+        mLocationClient = new AMapLocationClient(MyApplication.getInstance().getApplicationContext());
+        mLocationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                mAMapLocation = aMapLocation;
+                if (mAMapLocation.getErrorCode() != 0) {
+                    return;
+                }
+                final String provinceName = mAMapLocation.getProvince();
+                final String cityName = mAMapLocation.getCity();
+                final String distinctName = mAMapLocation.getDistrict();
+
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("" + mAMapLocation.getStreet());
+                stringBuffer.append("" + mAMapLocation.getStreetNum());
+                stringBuffer.append("" + mAMapLocation.getPoiName());
+                final String addressValue = stringBuffer.toString();
+                convertMapData(provinceName, cityName, distinctName, addressValue);
+            }
+        });
+        AMapLocationClientOption option = new AMapLocationClientOption();
+        option.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+        option.setOnceLocation(false);
+        option.setNeedAddress(true);
+        option.setMockEnable(true);
+        option.setLocationCacheEnable(true);
+        option.setInterval(1000 * 60 * 10);
+        mLocationClient.setLocationOption(option);
+        mLocationClient.startLocation();
+    }
+
+
+    public void startLocation(Activity activity) {
+        RxPermissions rxPermissions = new RxPermissions(activity);
+        rxPermissions.request(
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                if (aBoolean) {
+                    setLocationSetting();
+                } else {
+                    ToastUtil.error("缺少定位权限");
+                }
+            }
+        });
+    }
+
 
     /**
      * 转化地图数据为系统内部编码可识别的数据
@@ -160,7 +200,7 @@ public class AddressFormActivity extends BaseActivity {
                         if (city != null) {
 
                             mAddress.setCityId(city.getCode());
-                            mAddress.setCityName( city.getName());
+                            mAddress.setCityName(city.getName());
 
                             int cIndex = picker.getCityIndex(pIndex, city);
                             if (cIndex > -1) {
@@ -188,8 +228,6 @@ public class AddressFormActivity extends BaseActivity {
         });
         picker.readData();
     }
-
-
 
 
     private void getAddressInfo(final String addressId) {

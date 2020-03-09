@@ -47,7 +47,7 @@ public class CouponSelectorDialog extends Dialog {
 
     private List<CouponBean> mCouponBeanList;
     private OnCouponSelectListener mOnCouponSelectListener;
-
+    CouponBean mCouponBean;
     Context mContext;
 
     public void setSelectId(String selectId) {
@@ -100,29 +100,28 @@ public class CouponSelectorDialog extends Dialog {
         initWindow();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new CouponAdapter();
-        if (TextUtils.isEmpty(selectId)) {
-            mAdapter.setSelectId(selectId);
-        }
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mAdapter.setSelectId(mCouponBeanList.get(position).getId());
-                if (mOnCouponSelectListener != null) {
-                    mOnCouponSelectListener.onCouponSelected(mCouponBeanList.get(position));
-                }
-                dismiss();
+                mCouponBean = mCouponBeanList.get(position);
+                //   dismiss();
             }
         });
 
-
+        mAdapter.replaceData(mCouponBeanList);
         if (mCouponBeanList.size() > 0) {
+            mCouponBean = mCouponBeanList.get(0);
+            if (TextUtils.isEmpty(selectId)) {
+                mAdapter.setSelectId(selectId);
+            } else {
+                mAdapter.setSelectId(mCouponBean.getId());
+            }
             tvTitle.setText("可用优惠券(" + mCouponBeanList.size() + ")");
         } else {
             tvTitle.setText("可用优惠券");
         }
-
-        mAdapter.replaceData(mCouponBeanList);
 
 
     }
@@ -139,11 +138,23 @@ public class CouponSelectorDialog extends Dialog {
         }
     }
 
-    @OnClick(R.id.iv_close)
-    public void onViewClicked() {
-        dismiss();
-    }
+    @OnClick({R.id.iv_close, R.id.btn_ok})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_close:
+                dismiss();
+                break;
+            case R.id.btn_ok:
+                if (mOnCouponSelectListener != null) {
+                    if (mCouponBean != null) {
+                        mOnCouponSelectListener.onCouponSelected(mCouponBean);
+                    }
+                }
+                dismiss();
+                break;
+        }
 
+    }
 
     public interface OnCouponSelectListener {
         void onCouponSelected(CouponBean couponBean);

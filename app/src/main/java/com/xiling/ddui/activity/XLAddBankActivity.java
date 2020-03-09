@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.bean.BankListBean;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.BankSelectDialog;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.NumberHandler;
@@ -62,7 +63,7 @@ public class XLAddBankActivity extends BaseActivity {
 
     BankSelectDialog bankSelectDialog;
 
-    @OnClick({R.id.btn_bank, R.id.btn_submit})
+    @OnClick({R.id.btn_bank, R.id.btn_submit, R.id.btn_phone_desc})
     public void onViewClicked(View view) {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
@@ -84,6 +85,14 @@ public class XLAddBankActivity extends BaseActivity {
                 if (checkData()) {
                     addBank();
                 }
+                break;
+            case R.id.btn_phone_desc:
+                D3ialogTools.showSingleAlertDialog(context, "", "银行预留手机号码是在线办理该银行卡时所填写的手机号码,没有预留手机号码，手机号忘记或停用，请联系银行客服更新处理（*请注意区别绑定喜领的手机号码）", "知道了", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 break;
         }
     }

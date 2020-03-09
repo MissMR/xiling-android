@@ -241,49 +241,17 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     public void onClickBecomeMaster() {
         if (UserManager.getInstance().isLogin(context)) {
-            getAuth();
-        }
-    }
-
-
-    /**
-     * 获取实名认证信息
-     */
-    private void getAuth() {
-        APIManager.startRequest(iNewUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
-            @Override
-            public void onSuccess(RealAuthBean result) {
-                super.onSuccess(result);
-                //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
-                if (result.getAuthStatus() != 2) {
-                    //去认证
-                    D3ialogTools.showAlertDialog(context, "请先实名认证\n认证当前商户信息", "实名认证", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            startActivity(new Intent(context, RealAuthActivity.class));
-                        }
-                    }, "取消", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
-                } else {
+            UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
+                @Override
+                public void onRealAuth() {
                     //跳转会员中心
                     startActivity(new Intent(context, XLMemberCenterActivity.class));
                 }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-
-            }
-        });
+            });
+        }
     }
 
-
+    
     private void showShareDialog() {
         if (UserManager.getInstance().isLogin(context)) {
             ToastUtil.hideLoading();

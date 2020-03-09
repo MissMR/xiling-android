@@ -230,29 +230,38 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
     }
 
 
-    public void selectAll() {
-        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : mData) {
-            if (inspectStatus(cardExpandableBean)) {
-                cardExpandableBean.setSelect(true);
+    public boolean selectAll() {
+        if (mData.size() > 0) {
+            for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : mData) {
+                if (inspectStatus(cardExpandableBean)) {
+                    cardExpandableBean.setSelect(true);
+                }
+                cardExpandableBean.setEditSelect(true);
             }
-            cardExpandableBean.setEditSelect(true);
+            noticeSelectSize();
+            getSelectPrice();
+            notifyDataSetChanged();
+            return true;
         }
-        noticeSelectSize();
-        getSelectPrice();
-        notifyDataSetChanged();
+        return false;
     }
 
-    public void cancleSelectAll() {
-        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : mData) {
-            if (inspectStatus(cardExpandableBean)) {
-                cardExpandableBean.setSelect(false);
+    public boolean cancleSelectAll() {
+        if (mData.size() > 0) {
+            for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : mData) {
+                if (inspectStatus(cardExpandableBean)) {
+                    cardExpandableBean.setSelect(false);
+                }
+                cardExpandableBean.setEditSelect(false);
             }
-            cardExpandableBean.setEditSelect(false);
+
+            noticeSelectSize();
+            getSelectPrice();
+            notifyDataSetChanged();
+            return true;
         }
 
-        noticeSelectSize();
-        getSelectPrice();
-        notifyDataSetChanged();
+        return false;
     }
 
 

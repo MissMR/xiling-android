@@ -174,12 +174,12 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
             requestMap.put("brandId", brandId);
         }
 
-        if (!TextUtils.isEmpty(minPrice)) {
-            requestMap.put("minPrice", minPrice);
+        if (!TextUtils.isEmpty(this.minPrice)) {
+            requestMap.put("minPrice", this.minPrice+"00");
         }
 
-        if (!TextUtils.isEmpty(maxPrice)) {
-            requestMap.put("maxPrice", maxPrice);
+        if (!TextUtils.isEmpty(this.maxPrice)) {
+            requestMap.put("maxPrice", this.maxPrice+"00");
         }
         if (!TextUtils.isEmpty(keyWord)) {
             requestMap.put("keyWord", keyWord);
@@ -267,11 +267,11 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
         }
 
         if (!TextUtils.isEmpty(minPrice)) {
-            requestMap.put("minPrice", minPrice);
+            requestMap.put("minPrice", minPrice+"00");
         }
 
         if (!TextUtils.isEmpty(maxPrice)) {
-            requestMap.put("maxPrice", maxPrice);
+            requestMap.put("maxPrice", maxPrice+"00");
         }
         if (!TextUtils.isEmpty(keyWord)) {
             requestMap.put("keyWord", keyWord);
