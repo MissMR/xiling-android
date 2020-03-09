@@ -2,6 +2,7 @@ package com.xiling.shared.service.contract;
 
 
 import com.xiling.ddui.bean.CategoryBean;
+import com.xiling.ddui.bean.IndexBrandBean;
 import com.xiling.dduis.bean.DDHomeDataBean;
 import com.xiling.dduis.bean.DDHomeRushDataBean;
 import com.xiling.dduis.bean.DDProductPageBean;
@@ -11,6 +12,7 @@ import com.xiling.dduis.bean.HomeRecommendDataBean;
 import com.xiling.shared.bean.api.RequestResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -40,6 +42,18 @@ public interface DDHomeService {
      */
     @GET("home/getProductRecommend")
     Observable<RequestResult<HomeRecommendDataBean>> getHomeRecommendData(@Query("pageOffset") int pageNo, @Query("pageSize") int pageSize);
+
+
+    /**
+     * 精选品牌
+     *
+     */
+    @GET("home/getIndexBrand")
+    Observable<RequestResult<List<IndexBrandBean>>> getIndexBrand();
+
+
+
+
 
     /**
      * 获取首页秒杀数据

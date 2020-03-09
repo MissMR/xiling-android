@@ -18,14 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiling.R;
 import com.xiling.ddui.adapter.CouponAdapter;
 import com.xiling.ddui.bean.CouponBean;
-import com.xiling.ddui.bean.SkuListBean;
-import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.manager.APIManager;
-import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.service.contract.ICouponService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,24 +43,14 @@ public class CouponSelectorDialog extends Dialog {
     CouponBean mCouponBean;
     Context mContext;
 
-    public void setSelectId(String selectId) {
-        this.selectId = selectId;
+    public void setSelect(CouponBean couponBean) {
+        this.mCouponBean = couponBean;
     }
-
-    String selectId = "";
 
     public CouponSelectorDialog(@NonNull Context context, List<CouponBean> mCouponBeanList) {
         this(context, R.style.DDMDialog);
         mContext = context;
         this.mCouponBeanList = mCouponBeanList;
-    }
-
-
-    public CouponSelectorDialog(@NonNull Context context, List<CouponBean> mCouponBeanList, String selectId) {
-        this(context, R.style.DDMDialog);
-        mContext = context;
-        this.mCouponBeanList = mCouponBeanList;
-        this.selectId = selectId;
     }
 
 
@@ -104,18 +87,23 @@ public class CouponSelectorDialog extends Dialog {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mAdapter.setSelectId(mCouponBeanList.get(position).getId());
-                mCouponBean = mCouponBeanList.get(position);
-                //   dismiss();
+                if (!mCouponBeanList.get(position).getId().equals(mAdapter.getSelectId())){
+                    mAdapter.setSelectId(mCouponBeanList.get(position).getId());
+                    mCouponBean = mCouponBeanList.get(position);
+                }else{
+                    mAdapter.setSelectId("");
+                    mCouponBean = null;
+                }
+
             }
         });
-
         mAdapter.replaceData(mCouponBeanList);
         if (mCouponBeanList.size() > 0) {
-            mCouponBean = mCouponBeanList.get(0);
-            if (TextUtils.isEmpty(selectId)) {
-                mAdapter.setSelectId(selectId);
+
+            if (mCouponBean != null) {
+                mAdapter.setSelectId(mCouponBean.getId());
             } else {
+                mCouponBean = mCouponBeanList.get(0);
                 mAdapter.setSelectId(mCouponBean.getId());
             }
             tvTitle.setText("可用优惠券(" + mCouponBeanList.size() + ")");
@@ -148,6 +136,8 @@ public class CouponSelectorDialog extends Dialog {
                 if (mOnCouponSelectListener != null) {
                     if (mCouponBean != null) {
                         mOnCouponSelectListener.onCouponSelected(mCouponBean);
+                    } else {
+                        mOnCouponSelectListener.onCancel();
                     }
                 }
                 dismiss();
@@ -158,6 +148,8 @@ public class CouponSelectorDialog extends Dialog {
 
     public interface OnCouponSelectListener {
         void onCouponSelected(CouponBean couponBean);
+
+        void onCancel();
     }
 
 }

@@ -12,6 +12,8 @@
         android:layout_height="@dimen/dp_130"
         android:textColor="#ff202020"
         android:gravity="center"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
         android:maxEms="14"
         android:textSize="@dimen/sp_12" />
 

@@ -24,6 +24,10 @@ public class CouponAdapter extends BaseQuickAdapter<CouponBean, BaseViewHolder> 
         notifyDataSetChanged();
     }
 
+    public String getSelectId() {
+        return selectId;
+    }
+
     private String selectId = "";
 
     public CouponAdapter() {

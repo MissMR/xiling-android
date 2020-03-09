@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,10 +26,10 @@ import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.ddui.activity.CategorySecondActivity;
-import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
-import com.xiling.ddui.custom.D3ialogTools;
+import com.xiling.ddui.adapter.IndexSelectedBrandAdapter;
+import com.xiling.ddui.bean.IndexBrandBean;
 import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.manager.AutoClickManager;
 import com.xiling.ddui.manager.XLMessageManager;
@@ -77,7 +76,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.xiling.shared.Constants.PAGE_SIZE;
 import static com.xiling.shared.constant.Event.viewCenter;
 
-
+/**
+ * @author 逄涛
+ * 首页
+ */
 public class DDHomeMainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
     Unbinder unbinder;
     DDHomeService homeService;
@@ -136,7 +138,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     LinearLayout llActivity;
     @BindView(R.id.ll_brand)
     LinearLayout llBrand;
+    @BindView(R.id.recyclerView_selected_brand)
+    RecyclerView recyclerViewSelectedBrand;
+    @BindView(R.id.ll_index_selected_brand)
+    LinearLayout llIndexSelectedBrand;
     private LinearLayoutManager bannerLayoutManager;
+
+    IndexSelectedBrandAdapter indexSelectedBrandAdapter;
 
     @Nullable
     @Override
@@ -187,7 +195,6 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         activityAdapter = new HomeActivityAdapter(R.layout.item_home_activity, activityBeanList);
         recyclerViewActivity.setAdapter(activityAdapter);
 
-
         bannerLayoutManager = new LinearLayoutManager(getActivity());
         bannerLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerViewBrand.setLayoutManager(bannerLayoutManager);
@@ -223,6 +230,12 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
         recommendAdapter = new ShopListAdapter(R.layout.item_old_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
+
+        recyclerViewSelectedBrand.setLayoutManager(new LinearLayoutManager(mContext));
+        indexSelectedBrandAdapter = new IndexSelectedBrandAdapter();
+        recyclerViewSelectedBrand.setAdapter(indexSelectedBrandAdapter);
+
+
     }
 
 
@@ -230,7 +243,6 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
      * 请求数据
      */
     private void requestData() {
-
         APIManager.startRequest(homeService.getHomeData(), new BaseRequestListener<HomeDataBean>() {
             @Override
             public void onSuccess(final HomeDataBean result) {
@@ -363,10 +375,36 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             }
         });
         requestRecommend();
+        getIndexBrand();
     }
 
-    private void checkUserInfo() {
+    /**
+     * 精选品牌
+     */
+    private void getIndexBrand() {
+        APIManager.startRequest(homeService.getIndexBrand(), new BaseRequestListener<List<IndexBrandBean>>() {
+            @Override
+            public void onSuccess(final List<IndexBrandBean> result) {
+                super.onSuccess(result);
+                if (result != null) {
+                    if (result.size() > 0) {
+                        llIndexSelectedBrand.setVisibility(View.VISIBLE);
+                    } else {
+                        llIndexSelectedBrand.setVisibility(View.GONE);
+                    }
+                    indexSelectedBrandAdapter.setNewData(result);
+                }
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
+
+    private void checkUserInfo() {
         if (UserManager.getInstance().isLogin()) {
             //如果登录过，先进行用户信息校验，保证用户信息准确性
             UserManager.getInstance().checkUserInfo(new UserManager.OnCheckUserInfoLisense() {

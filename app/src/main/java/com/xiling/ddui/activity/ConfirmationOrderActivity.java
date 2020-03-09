@@ -92,7 +92,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
     ImageView switchBalance;
     @BindView(R.id.tv_identity_price)
     TextView tvIdentityPrice;
-    private String mCouponId = "";
+    private CouponBean couponBean = null;
 
 
     ArrayList<SkuListBean> skuList;
@@ -213,8 +213,8 @@ public class ConfirmationOrderActivity extends BaseActivity {
     private void getConfirmOrder(final AccountInfo accountInfo) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("products", skuList);
-        if (!TextUtils.isEmpty(mCouponId)) {
-            params.put("couponId", mCouponId);
+        if (couponBean != null) {
+            params.put("couponId", couponBean.getId());
         }
         APIManager.startRequest(mOrderService.getConfirmOrder(APIManager.buildJsonBody(params)), new BaseRequestListener<OrderDetailBean>(this) {
             @Override
@@ -381,16 +381,24 @@ public class ConfirmationOrderActivity extends BaseActivity {
             public void onSuccess(List<CouponBean> result) {
                 if (result != null && result.size() > 0) {
                     CouponSelectorDialog dialog = new CouponSelectorDialog(context, result);
-                    if (!TextUtils.isEmpty(mCouponId)) {
-                        dialog.setSelectId(mCouponId);
+                    if (couponBean != null) {
+                        dialog.setSelect(couponBean);
                     }
 
                     dialog.setOnCouponSelectListener(new CouponSelectorDialog.OnCouponSelectListener() {
                         @Override
                         public void onCouponSelected(CouponBean couponBean) {
-                            mCouponId = couponBean.getId();
+                            ConfirmationOrderActivity.this.couponBean = couponBean;
                             getConfirmOrder(accountInfo);
                             tvCoupon.setText(couponBean.getName());
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            //取消时，清空优惠券
+                            couponBean = null;
+                            getConfirmOrder(accountInfo);
+                            tvCoupon.setText("");
                         }
                     });
                     dialog.show();
@@ -426,8 +434,8 @@ public class ConfirmationOrderActivity extends BaseActivity {
         params.put("products", skuList);
         params.put("device", 1);
         params.put("addressId", mAddress.getAddressId());
-        if (!TextUtils.isEmpty(mCouponId)) {
-            params.put("couponId", mCouponId);
+        if (couponBean != null) {
+            params.put("couponId", couponBean.getId());
         }
         params.put("orderSource", orderSource);
 
@@ -447,11 +455,11 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
                 if (!TextUtils.isEmpty(businessCode)) {
                     if (businessCode.equals("un-auth")) {
-                        UserManager.getInstance().isRealAuth(context,null);
-                    }else if (businessCode.equals("coupon")){
+                        UserManager.getInstance().isRealAuth(context, null);
+                    } else if (businessCode.equals("coupon")) {
                         //优惠券已使用
                         ToastUtil.error(e.getMessage());
-                        mCouponId ="";
+                        couponBean = null;
                         getConfirmOrder(accountInfo);
                         tvCoupon.setText("");
 
