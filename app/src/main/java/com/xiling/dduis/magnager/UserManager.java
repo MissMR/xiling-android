@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import com.xiling.R;
 import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.UpdatePhoneIdentityActivity;
+import com.xiling.ddui.bean.IndexBrandBean;
 import com.xiling.ddui.bean.ProductNewBean;
 import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.custom.D3ialogTools;
@@ -150,6 +151,35 @@ public class UserManager {
         }
         return mPrice;
     }
+
+
+
+    /**
+     * 根据用户等级，获取商品价格
+     *
+     * @return
+     */
+    public double getPriceForUser(IndexBrandBean.IndexBrandBeanListBean item) {
+        double mPrice = item.getMinPrice();
+        NewUserBean userBean = getUser();
+        if (userBean != null && userBean.getAuthStatus() == 2) {
+            switch (userBean.getRole().getRoleLevel()) {
+                case 10:
+                    mPrice = item.getLevel10Price();
+                    break;
+                case 20:
+                    mPrice = item.getLevel20Price();
+                    break;
+                case 30:
+                    mPrice = item.getLevel30Price();
+                    break;
+            }
+        }
+        return mPrice;
+    }
+
+
+
 
     /**
      * 根据用户等级，获取商品价格

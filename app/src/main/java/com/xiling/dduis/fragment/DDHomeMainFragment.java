@@ -43,6 +43,7 @@ import com.xiling.dduis.adapter.HomeTabAdapter;
 import com.xiling.dduis.adapter.ShopListAdapter;
 import com.xiling.dduis.bean.HomeDataBean;
 import com.xiling.dduis.bean.HomeRecommendDataBean;
+import com.xiling.dduis.custom.NestRecyclerView;
 import com.xiling.dduis.custom.divider.SpacesItemDecoration;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.BannerManager;
@@ -120,7 +121,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     RelativeLayout relBrandHead;
 
     @BindView(R.id.recyclerView_recommend)
-    RecyclerView recyclerViewRecommend;
+    NestRecyclerView recyclerViewRecommend;
     List<HomeRecommendDataBean.DatasBean> recommendDataList = new ArrayList<>();
     ShopListAdapter recommendAdapter;
     int pageOffset = 1, pageSize = PAGE_SIZE, totalPage;
@@ -230,8 +231,13 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
         recommendAdapter = new ShopListAdapter(R.layout.item_old_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
-
-        recyclerViewSelectedBrand.setLayoutManager(new LinearLayoutManager(mContext));
+        LinearLayoutManager selectedBrandLayoutManager = new LinearLayoutManager(mContext){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+        recyclerViewSelectedBrand.setLayoutManager(selectedBrandLayoutManager);
         indexSelectedBrandAdapter = new IndexSelectedBrandAdapter();
         recyclerViewSelectedBrand.setAdapter(indexSelectedBrandAdapter);
 
