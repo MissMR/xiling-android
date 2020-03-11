@@ -54,7 +54,7 @@ public interface INewUserService {
      */
     @Headers("Content-Type: application/json;charset=UTF-8")
     @POST("user/bind-invite-code")
-    Observable<RequestResult<NewUserBean>> bindInviteCode(@Query("inviteCode") String inviteCode);
+    Observable<RequestResult<NewUserBean>> bindInviteCode(@Query("inviteCode") String inviteCode,@Query("device") String device );
 
 
     /**

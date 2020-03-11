@@ -2,6 +2,7 @@ package com.xiling.ddui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +15,6 @@ import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.page.WebViewActivity;
-import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
@@ -28,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
 import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
@@ -57,6 +56,8 @@ public class BuyWeekCardActivity extends BaseActivity {
     NumberField numberField;
     @BindView(R.id.tv_total_price)
     TextView tvTotalPrice;
+    @BindView(R.id.tv_experience)
+    TextView tvExperience;
 
     int size = 1;//数量
     double week_price = 0;//单价
@@ -94,9 +95,11 @@ public class BuyWeekCardActivity extends BaseActivity {
             switch (weekCardConfigBean.getWeekType()) {
                 case 1:
                     relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
+                    tvExperience.setTextColor(Color.parseColor("#6D8891"));
                     break;
                 case 2:
                     relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
+                    tvExperience.setTextColor(Color.parseColor("#B68B2A"));
                     break;
             }
             key = weekCardConfigBean.getWeekId();

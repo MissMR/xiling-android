@@ -183,7 +183,7 @@ public class InviteCodeActivity extends BaseActivity {
      * 绑定邀请码
      */
     private void bindInviteCode(String code) {
-        APIManager.startRequest(mUserService.bindInviteCode(code),
+        APIManager.startRequest(mUserService.bindInviteCode(code,"ANDROID"),
                 new BaseRequestListener<NewUserBean>(this) {
                     @Override
                     public void onSuccess(NewUserBean result) {

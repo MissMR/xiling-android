@@ -13,8 +13,8 @@
         <RelativeLayout
             android:id="@+id/rel_backgroud_head"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_175"
-            android:background="@drawable/bg_member_head_ordinary">
+            android:layout_height="@dimen/dp_180"
+            android:background="@drawable/bg_member_buy_head">
 
             <RelativeLayout
                 android:id="@+id/rel_title"
@@ -128,15 +128,15 @@
                     android:textSize="@dimen/sp_20" />
 
                 <TextView
-                    android:layout_width="@dimen/dp_44"
-                    android:layout_height="@dimen/dp_20"
+                    android:id="@+id/tv_experience"
+                    android:layout_width="@dimen/dp_42"
+                    android:layout_height="@dimen/dp_16"
                     android:layout_marginLeft="@dimen/dp_3"
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_toRightOf="@id/tv_week_card_name"
                     android:background="@drawable/white_bg_radius_2_80"
                     android:gravity="center"
                     android:text="体验卡"
-                    android:textColor="#ffc0a388"
                     android:textSize="@dimen/sp_11" />
 
 
@@ -203,26 +203,14 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_40"
-            android:lineSpacingExtra="@dimen/dp_5"
-            android:paddingLeft="@dimen/dp_12"
-            android:paddingRight="@dimen/dp_12"
-            android:text="* 因周卡体验为限时活动价可订购数量不限，根据用户个人\n   需求购买并开通使用"
-            android:textColor="#ff333333"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
-            android:paddingLeft="@dimen/dp_12"
-            android:paddingRight="@dimen/dp_12"
-            android:text="* 购买后的周卡体验将自动发放至我的周卡包中 "
-            android:textColor="#DCB982"
-            android:textSize="12sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_134"
+            android:layout_marginTop="@dimen/dp_37"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:background="@drawable/bg_buy_card_tishi"
+            />
 
 
     </LinearLayout>
@@ -232,7 +220,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_46"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
         android:orientation="horizontal">
 
 
@@ -248,8 +238,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_8"
                 android:text="周卡："
-                android:textColor="#ff666666"
-                android:textSize="@dimen/sp_12" />
+                android:textColor="#202020"
+                android:textSize="@dimen/sp_14" />
 
 
             <TextView
@@ -257,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:text="¥"
                 android:textColor="#ff202020"
-                android:textSize="@dimen/sp_15" />
+                android:textSize="@dimen/sp_14" />
 
             <TextView
                 android:id="@+id/tv_total_price"
@@ -265,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:textColor="#ff202020"
-                android:textSize="@dimen/sp_20" />
+                android:textSize="@dimen/sp_24" />
 
 
         </LinearLayout>
@@ -275,11 +265,11 @@
             android:id="@+id/btn_buy"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_round_dcb982_right_3"
+            android:background="#3C373B"
             android:gravity="center"
             android:text="立即购买"
             android:textColor="#ffffffff"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
 
 
     </LinearLayout>

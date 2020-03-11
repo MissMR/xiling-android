@@ -108,6 +108,8 @@ public class XLMemberCenterActivity extends BaseActivity {
     TextView btnSale;
     @BindView(R.id.btn_buy_vip)
     TextView btnBuyVip;
+    @BindView(R.id.tv_experience)
+    TextView tvExperience;
 
     List<WeekCardConfigBean> weekCardConfigBeanList = new ArrayList<>();
     WeekCardConfigBean weekCardConfigBean = null;
@@ -342,11 +344,13 @@ public class XLMemberCenterActivity extends BaseActivity {
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
                         ivCartUs.setBackgroundResource(R.drawable.icon_us_vip);
                         tvCartUs.setTextColor(Color.parseColor("#6D8891"));
+                        tvExperience.setTextColor(Color.parseColor("#6D8891"));
                         break;
                     case "2":
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
                         ivCartUs.setBackgroundResource(R.drawable.icon_us_black);
                         tvCartUs.setTextColor(Color.parseColor("#A27309"));
+                        tvExperience.setTextColor(Color.parseColor("#B68B2A"));
                         break;
                 }
 

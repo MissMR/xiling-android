@@ -1,5 +1,6 @@
 package com.xiling.ddui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -44,6 +45,7 @@ public class MyWeekCardPackageActivity extends BaseActivity {
         setContentView(R.layout.activity_my_week_card_package);
         ButterKnife.bind(this);
         setTitle("我的周卡");
+        setBarPadingColor(Color.parseColor("#2C252D"));
         setLeftBlack();
 
         if (getIntent() != null){
