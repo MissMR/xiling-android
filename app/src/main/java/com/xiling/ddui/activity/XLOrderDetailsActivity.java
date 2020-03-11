@@ -405,6 +405,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 if (orderDetailsBean.isCanRemindDelivery()) {
                     orderDetailsBean.setCanRemindDelivery(true);
                     remindDelivery(orderDetailsBean.getOrderCode());
+                    btnRemind.setVisibility(View.GONE);
                     // btnRemind.setEnabled(false);
                 } else {
                     ToastUtil.error("您已提醒过了，请耐心等待~");
@@ -422,6 +423,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                     orderDetailsBean.setCanRemindAudit(true);
                     remindAudit(orderDetailsBean.getOrderCode());
                     //btnExamine.setEnabled(false);
+                    btnExamine.setVisibility(View.GONE);
                 } else {
                     ToastUtil.error("您已提醒过了，请耐心等待~");
                 }

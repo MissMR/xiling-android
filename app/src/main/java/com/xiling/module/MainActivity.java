@@ -31,6 +31,7 @@ import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
 import com.xiling.ddui.fragment.XLMineFragment;
+import com.xiling.ddui.manager.AppUpgradeManager;
 import com.xiling.ddui.manager.ShopCardManager;
 import com.xiling.ddui.manager.XLMessageManager;
 import com.xiling.ddui.service.HtmlService;
@@ -255,7 +256,7 @@ public class MainActivity extends BaseActivity {
         initTab();
 
         //检查升级
-//        new AppUpgradeManager(context).check(false);
+        new AppUpgradeManager(context).check(false);
 
         //获取消息条数
         XLMessageManager.loadUserStatus();

@@ -8,7 +8,7 @@ public class H5UrlConfig {
     //周卡包-黑卡会员
     public static final String WEEKLY_BLACK = BuildConfig.BASE_URL + "wallet";
     //查看物流
-    public static final String WEB_URL_EXPRESS = BuildConfig.BASE_URL + "logisticsDetail?expressCode=@expressCode&expressId=@expressId";
+    public static final String WEB_URL_EXPRESS = BuildConfig.BASE_URL + "logistics?expressCode=@expressCode&expressId=@expressId";
     //会员规则
     public static final String MEMBER_EXPLAIN = BuildConfig.BASE_URL + "memberExplain";
     //成长值说明
