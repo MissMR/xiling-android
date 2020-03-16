@@ -1,5 +1,7 @@
 package com.xiling.ddui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -42,6 +44,12 @@ public class OrderListActivit extends BaseActivity {
 
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
+
+    public static void jumpOrderList(Context context,String status) {
+        Intent intent = new Intent(context, OrderListActivit.class);
+        intent.putExtra(ORDER_STATUS, status);
+        context.startActivity(intent);
+    }
 
 
     @Override

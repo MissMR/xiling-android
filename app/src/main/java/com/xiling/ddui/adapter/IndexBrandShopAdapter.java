@@ -1,5 +1,6 @@
 package com.xiling.ddui.adapter;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -30,7 +31,7 @@ public class IndexBrandShopAdapter extends BaseQuickAdapter<IndexBrandBean.Index
             if (!TextUtils.isEmpty(item.getThumbUrl())) {
                 GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_thumb), item.getThumbUrl());
             }
-            helper.setVisible(R.id.tv_rmb,true);
+            helper.setVisible(R.id.tv_rmb, true);
             if (!TextUtils.isEmpty(item.getProductName())) {
                 helper.setText(R.id.tv_title, item.getProductName());
             }
@@ -43,9 +44,28 @@ public class IndexBrandShopAdapter extends BaseQuickAdapter<IndexBrandBean.Index
             minMarketPriceView.setText("¥" + NumberHandler.reservedDecimalFor2(item.getMinMarketPrice()));
             minMarketPriceView.getPaint().setAntiAlias(true);//抗锯齿
             minMarketPriceView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+            String mStatus = ShopUtils.checkShopStatus(item.getStatus(), item.getStock());
+            if (!TextUtils.isEmpty(mStatus)) {
+                helper.setText(R.id.tv_status, mStatus);
+                helper.setVisible(R.id.tv_status, true);
+                helper.setTextColor(R.id.tv_rmb, Color.parseColor("#999999"));
+                helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
+                helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
+                //   helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#999999"));
+            } else {
+                helper.setVisible(R.id.tv_status, false);
+                helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
+                helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
+                helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
+                // helper.setTextColor(R.id.tv_minPrice, Color.parseColor("#202020"));
+            }
+
+
         } else {
-            GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_thumb),R.drawable.icon_brand_shop_more);
-            helper.setVisible(R.id.tv_rmb,false);
+            GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_thumb), R.drawable.icon_brand_shop_more);
+            helper.setVisible(R.id.tv_rmb, false);
         }
     }
 }

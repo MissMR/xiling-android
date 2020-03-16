@@ -495,6 +495,9 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 break;
+            case FINISH_ORDER:
+                ShopCardManager.getInstance().requestUpDataShopCardCount(false);
+                break;
             default:
         }
     }

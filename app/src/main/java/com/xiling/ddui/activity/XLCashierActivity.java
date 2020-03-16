@@ -48,6 +48,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 import static com.xiling.shared.constant.Event.WEEK_CARD_PAY;
@@ -425,7 +426,9 @@ public class XLCashierActivity extends BaseActivity {
                 if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                   // XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                    //拆单需求变更，跳转订单列表
+                    OrderListActivit.jumpOrderList(context,ORDER_WAIT_SHIP);
                 } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
                     EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
                 } else if (type.equals(PAY_TYPE_WEEK_CARD)) {

@@ -9,6 +9,16 @@ public class OrderAddBean {
     private String orderId;
     private String orderCode;
 
+    public boolean isWaitPay() {
+        return waitPay;
+    }
+
+    public void setWaitPay(boolean waitPay) {
+        this.waitPay = waitPay;
+    }
+
+    private boolean waitPay;
+
     public String getOrderId() {
         return orderId;
     }

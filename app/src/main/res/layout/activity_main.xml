@@ -82,7 +82,7 @@
                         android:layout_alignRight="@id/cartIconIv"
                         android:layout_alignTop="@id/cartIconIv"
                         android:layout_marginRight="-10dp"
-                        android:layout_marginTop="-5dp"
+                        android:layout_marginTop="-4.5dp"
                         android:background="@drawable/order_badge"
                         android:gravity="center"
                         android:minHeight="15dp"

@@ -402,7 +402,8 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 confirmReceived(orderDetailsBean.getOrderCode());
                 break;
             case R.id.btn_remind:
-                if (orderDetailsBean.isCanRemindDelivery()) {
+                //提醒发货
+                if (!orderDetailsBean.isCanRemindDelivery()) {
                     orderDetailsBean.setCanRemindDelivery(true);
                     remindDelivery(orderDetailsBean.getOrderCode());
                     btnRemind.setVisibility(View.GONE);

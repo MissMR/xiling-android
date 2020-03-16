@@ -8,6 +8,7 @@ import android.view.View;
 import com.blankj.utilcode.utils.AppUtils;
 import com.xiling.MyApplication;
 import com.xiling.ddui.bean.DDUpgradeBean;
+import com.xiling.ddui.custom.popupwindow.VersionUpgradeDialog;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.UITools;
 import com.xiling.shared.contracts.RequestListener;
@@ -51,56 +52,21 @@ public class AppUpgradeManager {
     };
 
     private void showDialog(DDUpgradeBean result) {
-
-//        result.setMsg("升级测试\n版本号:1.0.1\n升级内容:娃哈哈，宝嘿嘿\n啦啦啦啦\n😄😄😄");
-//        result.setUpgradeStatus(1);
-//        result.setUpUrl("https://ldmf.net");
+/*
+        result.setMsg("升级测试\n版本号:1.0.1\n升级内容:娃哈哈，宝嘿嘿\n啦啦啦啦\n😄😄😄\n升级测试\n升级测试\n升级测试\n升级测试\n\n升级内容:娃哈哈\n升级内容:娃哈哈");
+        result.setUpgradeStatus(1);
+        result.setUpUrl("https://ldmf.net");*/
 
         int status = result.getUpgradeStatus();
         if (status > 0) {
-            String msg = result.getMsg();
-            final String url = result.getUpUrl();
-            AlertDialog dialog = new AlertDialog.Builder(context)
-                    .setMessage("" + msg)
-                    .create();
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "升级", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    UITools.jumpSystemBrowser(context, url);
-                }
-            });
-            if (status == 1) {
-                dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.setCancelable(true);
-            } else if (status == 2) {
-                dialog.setCancelable(false);
-            }
-            dialog.show();
-            try {
-                if (status == 2) {
-                    //强制升级的时候点击不取消对话框
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            UITools.jumpSystemBrowser(context, url);
-                        }
-                    });
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context,result);
+            versionUpgradeDialog.show();
         } else {
             DLog.d("不需要升级");
             if (isTips) {
                 ToastUtil.success("已经是最新版本");
             }
         }
-
     }
 
     /**

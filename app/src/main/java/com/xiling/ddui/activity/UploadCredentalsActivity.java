@@ -47,6 +47,7 @@ import butterknife.OnClick;
 
 import static com.bigkoo.pickerview.TimePickerView.Type.HOURS_MINS;
 import static com.bigkoo.pickerview.TimePickerView.Type.YEAR_MONTH_DAY;
+import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
 import static com.xiling.shared.constant.Event.RECHARGE_SUCCESS;
 import static com.xiling.shared.service.contract.IPayService.CHANNEL_OFFLINE_PAY;
@@ -162,7 +163,9 @@ public class UploadCredentalsActivity extends BaseActivity {
                 if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                   // XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                    //拆单需求变更，跳转订单列表
+                    OrderListActivit.jumpOrderList(context,ORDER_WAIT_SHIP);
                 } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
                     EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
                 }

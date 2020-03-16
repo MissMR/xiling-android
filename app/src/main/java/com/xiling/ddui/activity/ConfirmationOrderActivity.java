@@ -54,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.xiling.shared.Constants.ORDER_WAIT_PAY;
+import static com.xiling.shared.Constants.ORDER_WAIT_SHIP;
 import static com.xiling.shared.constant.Event.FINISH_ORDER;
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_ORDER;
 
@@ -443,10 +444,13 @@ public class ConfirmationOrderActivity extends BaseActivity {
             @Override
             public void onSuccess(OrderAddBean result) {
                 super.onSuccess(result);
-                //通知购物车，刷新
+                if (result.isWaitPay()) {
+                    getOrderDetails(result.getOrderId());
+                } else {
+                    OrderListActivit.jumpOrderList(context, ORDER_WAIT_SHIP);
+                }
                 EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                //订单生成后，根据订单编号查询订单信息
-                getOrderDetails(result.getOrderId());
+
             }
 
             @Override
@@ -481,14 +485,8 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 if (result.getOrderStatusUs().equals(ORDER_WAIT_PAY)) {
                     //如果是待支付，跳转收银台
                     XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, result.getPayMoney(), result.getWaitPayTimeMilli(), result.getOrderId());
-                } else {
-                    //已支付，跳转订单详情
-                    XLOrderDetailsActivity.jumpOrderDetailsActivity(context, orderId);
-                    finish();
                 }
-
             }
-
             @Override
             public void onError(Throwable e) {
                 super.onError(e);

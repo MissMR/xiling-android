@@ -15,7 +15,10 @@ import android.widget.TextView;
 import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
 
-
+/**
+ * @author 逄涛
+ * 分类筛选
+ */
 public class ScreeningPopupWindow extends PopupWindow implements View.OnClickListener {
     private Context mContext;
 

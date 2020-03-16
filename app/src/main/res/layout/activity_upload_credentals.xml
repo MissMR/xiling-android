@@ -127,7 +127,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_90"
                     android:hint="请填写付款账号"
-                    android:inputType="number"
                     android:maxLength="19"
                     android:minWidth="@dimen/dp_150"
                     android:textSize="@dimen/dp_13" />

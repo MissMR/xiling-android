@@ -58,6 +58,7 @@
 
     </RelativeLayout>
 
+
     <RelativeLayout
         android:id="@+id/rel_bottom"
         android:layout_width="match_parent"
@@ -105,7 +106,6 @@
             android:textColor="#fffff7ed"
             android:textSize="@dimen/dp_14"
             android:visibility="gone" />
-
 
     </RelativeLayout>
 
@@ -301,6 +301,13 @@
                                 android:textColor="#ff202020"
                                 android:textSize="@dimen/sp_12" />
 
+                            <ImageView
+                                android:layout_width="6dp"
+                                android:layout_height="@dimen/dp_10"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dp_5"
+                                android:background="@drawable/ic_arrow_right_black" />
+
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -325,9 +332,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_14"
-                    android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_week_card_name"
@@ -521,6 +527,7 @@
                         android:background="#F5F5F5" />
 
                     <RelativeLayout
+                        android:id="@+id/btn_my_week_card_package"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1">
@@ -539,6 +546,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tv_my_week_card_package"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="我的周卡礼包"
@@ -547,7 +555,6 @@
                         </LinearLayout>
 
                         <TextView
-                            android:id="@+id/btn_my_week_card_package"
                             android:layout_width="@dimen/dp_64"
                             android:layout_height="@dimen/dp_26"
                             android:layout_alignParentRight="true"
