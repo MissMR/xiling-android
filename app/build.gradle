@@ -237,7 +237,7 @@ android {
                     APP_NAME     : "@string/appName",
                     JPUSH_PKGNAME: defaultConfig.applicationId,
                     JPUSH_APPKEY : "a8decdd6c5ae1302a619bafa", //JPush上注册的包名对应的appkey.
-                    UMENG_APPKEY : "5b6a89d6a40fa3082800006d", //友盟App Key
+                    UMENG_APPKEY : "5e15c6cc4ca35714540001d2", //友盟App Key
             ]
 
             // 生产环境
@@ -248,15 +248,15 @@ android {
             //H5的附加版本号
             buildConfigField("String", "H5_FUNC", "\"5\"")
 
-            buildConfigField("String", "WX_APP_ID", "\"wxf10b84ba54f558d5\"")
+            buildConfigField("String", "WX_APP_ID", "\"wxbf56fe99a184869b\"")
 
-            buildConfigField("String", "WXAPP_SECRET", "\"add6a8c6752a950482810e95bd557532\"")
+            buildConfigField("String", "WXAPP_SECRET", "\"c09fc67b7d283f33e75f6612768dc9c2\"")
 
             buildConfigField("String", "WX_MCH_ID", "\"1512666651\"")
             buildConfigField("String", "WX_PAY_NOTIFY_URL", "\"wxnotify/gzhwxpay\"")
             buildConfigField("String", "WX_PAY_KEY", "\"a4296a0b6e388c944bef661bb3814114\"")
 
-            buildConfigField("String", "ALIPAY_APP_ID", "\"2018080960970568\"")
+            buildConfigField("String", "ALIPAY_APP_ID", "\"2021001140681004\"")
             buildConfigField("String", "ALIPAY_RSA_KEY", "\"MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCpOeHbLVY/zFBdCdsYrt47qLqQ4gSX2Xp5vRnKRFMbXaVTDulPo721ar6Xd4oq4H2uCgH+29pAKvKIk6she6YL+JI/pKyGGhmnkngRx8QsqyDi0eCzATzTaJcbglMHQb5kNrFfTsSeBbWkIb9iemQlBVGukY6WNYxK1HQwkCv8GjggpeTZuefNfrtIr5+7Ueg2QpIMaFrrDvrja+PKw8Wo7lk5FSZNy7e4EuspSF4ZQWB426obiDPsUzOHo3/8jkj1AwDNgeJuB24EKpAMWcnHQJU5blrLTqYb95Boy+pPP37PMSqp1CVa+mGdpDRa/fhQW6Q5y53BOL77wypPQzatAgMBAAECggEAQZlziSA5CAAuwvI4IYhgE6ZjtBg5iZe/l4OLhNIZmUki9mCYZsvllXbsrRCk2dwuPBIbFe2p3CgJ3pHHy/H/uzI/lzZBvrZNbZ0kuFfFHz+zPtn3Dc0UBCvOL9bEUtLUeEqPVY/WPh+eeyKt6wHg4kz+jfpU2LunR7a118F7m3z4CXYrJhnixnRN6eo2bRlniq4LQIMCpnvCy8wYVEpex8gEvSTwPicAB21xBbnbi0Z8qll7tJcf320XnBCrPtokjWKYLLdTuFhyz811pT7eSGFRq7togSNdNlDFtwi4MYzhQLToyBI09sNTxKb9Hf8+GdIFMKJuqBFOaXkVU39LrQKBgQDpYFyTvc7R793wsPmQssl0vq8ni2xmJFdb6GyEHtC9qB8+JOIi6sqMa/PV+XOlw4eCNDAKHFwhOXeIl0g3yRY40zzpi7J9unKqavQJ+BLOYg6kRmaAvfzvrRJ6EMb52MD9TF94z7jShKCgHsjf7/ObEq3Bq2r+8LIQgvfrWrDdgwKBgQC5oYUdwVPyBO/MrSIRaxsFZdhNKjDBuPAt1UBJctPFvzivTm0PwAAhICbbhBBSRByPgozew57IPGf544GClzHaq17UJIrL5p5BOQ7OhiOyrc1YLNSEtNtOpVRlE1JYvpe1uQzzgyeOcQ5dxB3jmVHEYs+U4L+mvWvC/YexgIgUDwKBgD7l0K2k51vfeQKIwApGlVMYnV5cDlANFVpY7v5Ay+OBr0HxcN0WSJbF9YbC329anmfyJsxizlXKBjRTCYy3bnzMOct78hQ+ru7NOo6BRJhJB0cxDik+izARhjxNz0LBL2pVLhoCaf6a7iuZgGwSYKZ3x0q+J20kc+lNUwIkhCx/AoGBAKJZHhfg7i77nFIwlVwQhUhaQytxm8TBnuUm3ZufHpGS5NuFRqMAs9xEx1czECcyxJvKfLOS+Lp9Ah6tl6YD36k0ObJl5zHfF0dJxKZg8LWjhbT5OEB8AFWvCLmBhYJx5jMbjbUnXqAYRo1BKTbV74pHNO8rBNKqVaXqoBNgqyKHAoGAFgcIf1B5xUiiv8Vbl7pXA32GzYvn3bYVndudOzdQ9SJd9av3iXyKAy0r/81p6IxSns6Snbtakcr7tPHwO3orAcGvfn1zdT/cK4Y0rzVEGNY3LkNFJIcX1lsFZ/5OVo/f0uQev74g/rJuF2q71NzYqdLk0HGpe81/NIYdkrdqEKE=\"")
             buildConfigField("String", "ALIPAY_NOTIFY_URL", "\"alipaynotify/gzhalipay\"")
             shrinkResources false
@@ -276,7 +276,7 @@ android {
                     JPUSH_PKGNAME: defaultConfig.applicationId,
                     JPUSH_APPKEY : "a8decdd6c5ae1302a619bafa", //JPush上注册的包名对应的appkey.
 
-                    UMENG_APPKEY : "5aaf357ff29d983f54000021", //友盟App Key
+                    UMENG_APPKEY : "5e15c6cc4ca35714540001d2", //友盟App Key
             ]
 
             // 测试环境  210映射 61.162.59.74:9050

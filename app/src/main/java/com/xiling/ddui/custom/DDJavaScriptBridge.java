@@ -19,6 +19,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.xiling.BuildConfig;
+import com.xiling.ddui.activity.BrandActivity;
+import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.activity.DDCategoryActivity;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.activity.MyFollowersActivity;
@@ -439,19 +441,7 @@ public class DDJavaScriptBridge {
         }
     }
 
-    /**
-     * 跳转到产品详情
-     *
-     * @param spuId 产品ID
-     * @deprecated 弃用！使用openSpuDetail
-     */
-    @JavascriptInterface
-    public void openProduct(String spuId) {
-        DLog.i("openProduct:" + spuId);
-        //跳转商品详情
-//        EventUtil.viewProductDetail(mActivity, spuId);
-//        ToastUtil.error("应用版本过低,请刷新或升级!");
-    }
+
 
     /**
      * 2.0版本的跳转到SPU详情
@@ -689,11 +679,6 @@ public class DDJavaScriptBridge {
         MyFollowersActivity.start(mActivity, mode);
     }
 
-    @JavascriptInterface
-    public void jumpToCategory(String categoryName, String categoryId) {
-        DLog.i("jumpToCategory:" + categoryName + "," + categoryId);
-        DDCategoryActivity.jumpTo(mActivity, categoryId, categoryName);
-    }
 
     private String screenshotFile = PosterMaker.DataRootPath + "screenshot_webview.jpg";
 
@@ -823,5 +808,31 @@ public class DDJavaScriptBridge {
         webView.setDrawingCacheEnabled(false);
         return picture;
     }
+
+    /**
+     * 跳转到商品详情
+     */
+    @JavascriptInterface
+    public void openProduct(String spuId) {
+        DDProductDetailActivity.start(mActivity,spuId);
+    }
+
+    /**
+     * 跳转到品牌馆
+     */
+    @JavascriptInterface
+    public void jumpToBrand(String brandId,String categoryId) {
+        BrandActivity.jumpBrandActivity(mActivity,categoryId,brandId);
+    }
+
+    /**
+     * 跳转到二级分类
+     */
+    @JavascriptInterface
+    public void jumpToCategory(String parentId,String categoryId) {
+        CategorySecondActivity.jumpCategorySecondActivity(mActivity,parentId,categoryId);
+    }
+
+
 
 }

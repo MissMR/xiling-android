@@ -7,10 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -140,7 +142,10 @@ public class ProductDetailUIHelper {
     TextView tvBtnBuyNormal;
     // 产品详情
     @BindView(R.id.web_view)
-    WebView mProductDetailWebView;
+    FrameLayout mProductDetailWebView;
+    WebView webView;
+
+
     @BindView(R.id.iv_bottom)
     ImageView ivBottom;
     @BindView(R.id.rl_become_master_guide)
@@ -185,6 +190,9 @@ public class ProductDetailUIHelper {
         baseContentView = mContext.findViewById(R.id.baseContentLayout);
 
         ButterKnife.bind(this, baseContentView);
+        webView = new WebView(mContext);
+        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        mProductDetailWebView.addView(webView);
 
         QMUIStatusBarHelper.translucent(mContext);
         QMUIStatusBarHelper.setStatusBarDarkMode(mContext);
@@ -316,12 +324,12 @@ public class ProductDetailUIHelper {
     }
 
     public void recyclerWebView() {
-        WebViewUtil.clearWebViewResource(mProductDetailWebView);
+        WebViewUtil.clearWebViewResource(webView);
     }
 
     private void loadDetailWebView(String htmlString) {
         mProductDetailWebView.setFocusable(false);
-        WebViewUtil.loadDataToWebView(mProductDetailWebView, htmlString);
+        WebViewUtil.loadDataToWebView(webView, htmlString);
     }
 
 

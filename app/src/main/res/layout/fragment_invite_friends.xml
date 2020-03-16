@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_marginStartPercent="55%"
-        app:layout_marginTopPercent="50.5%"
+        app:layout_marginTopPercent="46.2%"
         android:textColor="#A13636"
         app:layout_textSizePercent="2%h" />
 

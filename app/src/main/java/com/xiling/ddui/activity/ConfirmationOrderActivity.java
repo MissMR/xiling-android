@@ -32,6 +32,7 @@ import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.Coupon;
 import com.xiling.shared.bean.event.EventMessage;
+import com.xiling.shared.constant.Event;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -487,6 +488,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     XLCashierActivity.jumpCashierActivity(context, PAY_TYPE_ORDER, result.getPayMoney(), result.getWaitPayTimeMilli(), result.getOrderId());
                 }
             }
+
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
@@ -554,6 +556,16 @@ public class ConfirmationOrderActivity extends BaseActivity {
         switch (message.getEvent()) {
             case FINISH_ORDER:
                 finish();
+                break;
+            case saveAddress:
+                //修改收获地址
+                AddressListBean.DatasBean newAddress = (AddressListBean.DatasBean) message.getData();
+                if (mAddress != null && newAddress != null) {
+                    if (mAddress.getAddressId().equals(newAddress.getAddressId())) {
+                        mAddress = newAddress;
+                        setAddress(mAddress);
+                    }
+                }
                 break;
         }
     }

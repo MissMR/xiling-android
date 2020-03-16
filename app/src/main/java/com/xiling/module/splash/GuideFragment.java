@@ -37,10 +37,12 @@ public class GuideFragment extends BaseFragment {
     ImageView mIvText;
     @BindView(R.id.ivGoMain)
     ImageView mIvGoMain;
+    boolean isEnd;
 
-    public static GuideFragment newInstance(int index) {
+    public static GuideFragment newInstance(int imgRes,boolean isEnd) {
         Bundle args = new Bundle();
-        args.putInt("index", index);
+        args.putInt("imgRes", imgRes);
+        args.putBoolean("isEnd",isEnd);
         GuideFragment fragment = new GuideFragment();
         fragment.setArguments(args);
         return fragment;
@@ -58,21 +60,13 @@ public class GuideFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        int index = getArguments().getInt("index");
-        switch (index) {
-            case 1:
-                mIvImage.setImageResource(R.mipmap.guide_img_1);
-                break;
-            case 2:
-                mIvImage.setImageResource(R.mipmap.guide_img_2);
-                break;
-            case 3:
-                mIvImage.setImageResource(R.mipmap.guide_img_3);
-                mIvGoMain.setVisibility(View.VISIBLE);
-                mIvText.setVisibility(View.VISIBLE);
-                startAnima();
-                break;
-            default:
+        int imgRes = getArguments().getInt("imgRes");
+        isEnd = getArguments().getBoolean("isEnd");
+        mIvImage.setImageResource(imgRes);
+
+        if (isEnd){
+            mIvGoMain.setVisibility(View.VISIBLE);
+            mIvText.setVisibility(View.VISIBLE);
         }
     }
 

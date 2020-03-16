@@ -40,11 +40,13 @@ public class InviteFriendsFragment extends BaseFragment {
     TextView tvUserName;
     @BindView(R.id.tv_invite_code)
     TextView tvInviteCode;
+    int index ;
 
-    public static InviteFriendsFragment newInstance(String url) {
+    public static InviteFriendsFragment newInstance(String url,int index) {
         InviteFriendsFragment fragment = new InviteFriendsFragment();
         Bundle args = new Bundle();
         args.putString("url", url);
+        args.putInt("index",index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,7 +56,16 @@ public class InviteFriendsFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             url = getArguments().getString("url");
-            shareUrl += UserManager.getInstance().getUser().getInviteCode();
+            index = getArguments().getInt("index");
+           switch (index){
+               case 0:
+                   shareUrl += UserManager.getInstance().getUser().getInviteCode();
+                   break;
+               case 1:
+                   shareUrl += "https://xl-mall.xilingbm.com/download";
+                   break;
+           }
+
         }
     }
 

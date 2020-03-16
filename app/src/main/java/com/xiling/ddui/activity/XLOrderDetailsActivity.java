@@ -345,7 +345,7 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
 
-                if (orderDetailsBean.getExpressId() != 0) {
+                if (!TextUtils.isEmpty(orderDetailsBean.getExpressCode())) {
                     tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressCode());
                 }
                 if (!TextUtils.isEmpty(orderDetailsBean.getDoneTime())) {

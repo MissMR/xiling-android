@@ -134,7 +134,6 @@ public class WebViewActivity extends BaseActivity {
     FrameLayout mLayoutWebview;
 
     AgentWeb mAgentWeb = null;
-
     private String mTitle = "";
     private String mUrl = "";
 

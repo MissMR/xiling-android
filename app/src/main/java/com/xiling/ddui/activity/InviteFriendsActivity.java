@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sobot.chat.utils.ScreenUtils;
@@ -42,7 +43,7 @@ public class InviteFriendsActivity extends BaseActivity {
     @BindView(R.id.viewpager_image)
     ViewPager viewpagerImage;
     @BindView(R.id.parentView)
-    LinearLayout parentView;
+    RelativeLayout parentView;
     String sharedTitle = "标题", sharedDes = "测试", sharedThumb = "", sharedUrl = "";
     private List<Fragment> fragmentList = new ArrayList<>();
 
@@ -72,8 +73,9 @@ public class InviteFriendsActivity extends BaseActivity {
                 if (result.size() >0){
                     sharedThumb = result.get(0);
                 }
-                for (String url : result) {
-                    fragmentList.add(InviteFriendsFragment.newInstance(url));
+                for (int i = 0;i<result.size();i++) {
+                    String url = result.get(i);
+                    fragmentList.add(InviteFriendsFragment.newInstance(url,i));
                 }
                 viewpagerImage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
                     @Override

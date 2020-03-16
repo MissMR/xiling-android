@@ -328,12 +328,12 @@ public class AddressFormActivity extends BaseActivity {
 
     @OnClick(R.id.saveBtn)
     protected void onSave() {
-        String contacts = mContactsEt.getText().toString();
+        final String contacts = mContactsEt.getText().toString();
         if (contacts.isEmpty()) {
             ToastUtil.error("请填写收货人姓名哦～");
             return;
         }
-        String phone = mPhoneEt.getText().toString();
+        final String phone = mPhoneEt.getText().toString();
         if (phone.isEmpty()) {
             ToastUtil.error("请填写手机号码哦～");
             return;
@@ -348,7 +348,7 @@ public class AddressFormActivity extends BaseActivity {
             ToastUtil.error("请选择地区");
             return;
         }
-        String detail = mDetailEt.getText().toString();
+        final String detail = mDetailEt.getText().toString();
         if (detail.isEmpty()) {
             ToastUtil.error("请填写详细地址哦～");
             return;
@@ -377,7 +377,13 @@ public class AddressFormActivity extends BaseActivity {
             @Override
             public void onSuccess(Object result) {
                 ToastUtil.success("保存成功");
-                EventBus.getDefault().post(new EventMessage(Event.saveAddress));
+                if (isEditAddress && mAddress != null) {
+                    mAddress.setContact(contacts);
+                    mAddress.setPhone(phone);
+                    mAddress.setDetail(detail);
+                    mAddress.setIsDefault(mDefaultSwitch.isSelected() ? 1 : 0);
+                    EventBus.getDefault().post(new EventMessage(Event.saveAddress,mAddress));
+                }
                 finish();
             }
         });

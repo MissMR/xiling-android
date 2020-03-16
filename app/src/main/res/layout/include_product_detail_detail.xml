@@ -15,11 +15,11 @@
         android:text="商品详情" />
 
 
-    <com.xiling.ddui.custom.DDWebView
+    <FrameLayout
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="1dp"/>
+       />
     <ImageView
         android:id="@+id/iv_bottom"
         android:layout_width="match_parent"

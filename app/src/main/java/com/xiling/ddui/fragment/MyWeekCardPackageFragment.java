@@ -84,12 +84,14 @@ public class MyWeekCardPackageFragment extends BaseFragment {
         iMemberService = ServiceManager.getInstance().createService(IMemberService.class);
 
         noDataLayout.setTextView("您暂时还没有周卡体验");
-        noDataLayout.setReload("去购买", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MyWeekCardPackageActivity) mContext).finish();
-            }
-        });
+        if (type == 1) {
+            noDataLayout.setReload("去购买", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MyWeekCardPackageActivity) mContext).finish();
+                }
+            });
+        }
         weekCardAdapter = new WeekCardAdapter();
         recyclerWeekPackage.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerWeekPackage.setAdapter(weekCardAdapter);

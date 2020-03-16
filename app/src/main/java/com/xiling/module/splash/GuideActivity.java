@@ -25,6 +25,8 @@ public class GuideActivity extends BaseActivity {
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
 
+    int[] guideList = {R.mipmap.guide_img_1,R.mipmap.guide_img_2,R.mipmap.guide_img_3,R.mipmap.guide_img_4,R.mipmap.guide_img_5};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,10 @@ public class GuideActivity extends BaseActivity {
 
     private void initView() {
         final ArrayList<BaseFragment> fragments = new ArrayList<>();
-        fragments.add(GuideFragment.newInstance(1));
-        fragments.add(GuideFragment.newInstance(2));
-        fragments.add(GuideFragment.newInstance(3));
+        for (int i = 0;i<guideList.length;i++){
+            fragments.add(GuideFragment.newInstance(guideList[i],i==guideList.length -1));
+        }
+
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {

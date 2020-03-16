@@ -37,8 +37,6 @@ import butterknife.ButterKnife;
  */
 public class DDSplashActivity extends BaseActivity {
     IConfigService iConfigService;
-    @BindView(R.id.tv_hint)
-    TextView tvHint;
 
     private String hint = "阿里云提供计算服务\nv %s";
 
@@ -59,8 +57,6 @@ public class DDSplashActivity extends BaseActivity {
         iConfigService = ServiceManager.getInstance().createService(IConfigService.class);
         //获取系统参数
         getSystemConfig();
-
-        tvHint.setText(String.format(hint, BuildConfig.VERSION_NAME));
 
         SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
         boolean oneStart = spUtils.getBoolean("oneStart");

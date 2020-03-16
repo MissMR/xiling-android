@@ -67,6 +67,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
     @Override
     protected void convert(final BaseViewHolder helper, final HomeRecommendDataBean.DatasBean item) {
         if (!TextUtils.isEmpty(item.getBadgeImg())) {
+            helper.setVisible(R.id.iv_bgdge,true);
             GlideUtils.getBitmap(mContext, item.getBadgeImg(), new GlideUtils.OnBitmapGet() {
 
                 @Override
@@ -76,6 +77,8 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
                     }
                 }
             });
+        }else{
+            helper.setVisible(R.id.iv_bgdge,false);
         }
 
         if (!TextUtils.isEmpty(item.getThumbUrl())) {

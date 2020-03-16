@@ -19,6 +19,7 @@ import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -42,6 +43,7 @@ public class XLFinanceManangerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_xlfinance_mananger);
         ButterKnife.bind(this);
+
         setTitle("财务管理");
         setLeftBlack();
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
@@ -87,8 +89,13 @@ public class XLFinanceManangerActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private void eventBus(EventMessage message) {
+    public void eventBus(EventMessage message) {
         //充值成功，刷新
         if (message.getEvent().equals(RECHARGE_SUCCESS)) {
             getAccountInfo();
