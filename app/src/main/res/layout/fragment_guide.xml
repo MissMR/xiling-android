@@ -1,33 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xiling.module.splash.GuideFragment">
 
+
     <ImageView
-        android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-50dp"
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/guide_img_1" />
+        android:background="@mipmap/bg_guide" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="550dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter" />
 
     <ImageView
         android:id="@+id/ivGoMain"
         android:layout_width="@dimen/dp_180"
         android:layout_height="@dimen/dp_40"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/dp_77"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_70"
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/ivText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="50dp"
-        android:background="@color/white"
-        android:visibility="gone" />
-</FrameLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.dduis.magnager.UserManager;
@@ -40,6 +41,8 @@ public class InviteFriendsFragment extends BaseFragment {
     TextView tvUserName;
     @BindView(R.id.tv_invite_code)
     TextView tvInviteCode;
+    @BindView(R.id.parentView)
+    View parentView;
     int index ;
 
     public static InviteFriendsFragment newInstance(String url,int index) {
@@ -102,6 +105,18 @@ public class InviteFriendsFragment extends BaseFragment {
             }
         });
 
+    }
+
+    /**
+     * 截图，分享到微信或者下载到本地
+     * @param way
+     */
+    public void shareWechat( final SHARE_MEDIA way){
+        if (way != null){
+            ShareUtils.shareTo3rdPlatform(getActivity(), parentView, way, "friend");
+        }else{
+            ShareUtils.saveDiskShare(getActivity(), parentView, "");
+        }
     }
 
     @Override

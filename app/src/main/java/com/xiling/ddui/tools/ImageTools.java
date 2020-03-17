@@ -721,15 +721,7 @@ public class ImageTools {
      */
     public static void saveBitmapToAlbum(Context context, Bitmap bitmap, String imageName) {
         String fileName = ImgDownLoadUtils.getAlbumPath() + imageName;
-
-//        if (Build.BRAND.equals("Xiaomi")) { // 小米手机
-//            fileName = Environment.getExternalStorageDirectory().getPath() + "/DCIM/Camera/" + imageName;
-//        } else {  // Meizu 、Oppo
-//            fileName = Environment.getExternalStorageDirectory().getPath() + "/DCIM/" + imageName;
-//        }
-
         File file = new File(fileName);
-
         if (file.exists()) {
             file.delete();
         }

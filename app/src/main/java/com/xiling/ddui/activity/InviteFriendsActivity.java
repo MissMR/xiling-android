@@ -42,10 +42,9 @@ public class InviteFriendsActivity extends BaseActivity {
     TextView tvInviteCode;
     @BindView(R.id.viewpager_image)
     ViewPager viewpagerImage;
-    @BindView(R.id.parentView)
-    RelativeLayout parentView;
     String sharedTitle = "标题", sharedDes = "测试", sharedThumb = "", sharedUrl = "";
     private List<Fragment> fragmentList = new ArrayList<>();
+    InviteFriendsFragment currentFragment;
 
     /**
      * 邀请好友
@@ -70,13 +69,18 @@ public class InviteFriendsActivity extends BaseActivity {
             public void onSuccess(final List<String> result) {
                 super.onSuccess(result);
                 fragmentList.clear();
-                if (result.size() >0){
+                if (result.size() > 0) {
                     sharedThumb = result.get(0);
                 }
-                for (int i = 0;i<result.size();i++) {
+                for (int i = 0; i < result.size(); i++) {
                     String url = result.get(i);
-                    fragmentList.add(InviteFriendsFragment.newInstance(url,i));
+                    fragmentList.add(InviteFriendsFragment.newInstance(url, i));
                 }
+
+                if (fragmentList.size() > 0) {
+                    currentFragment = (InviteFriendsFragment) fragmentList.get(0);
+                }
+
                 viewpagerImage.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
                     @Override
                     public Fragment getItem(int position) {
@@ -98,6 +102,7 @@ public class InviteFriendsActivity extends BaseActivity {
                     @Override
                     public void onPageSelected(int position) {
                         sharedThumb = result.get(position);
+                        currentFragment = (InviteFriendsFragment) fragmentList.get(position);
                     }
 
                     @Override
@@ -127,34 +132,13 @@ public class InviteFriendsActivity extends BaseActivity {
                 }
                 break;
             case R.id.llShareWechat:
-                ShareUtils.shareTo3rdPlatform(this, parentView, SHARE_MEDIA.WEIXIN, "friend");
-               /* ShareUtils.share(this, sharedTitle, sharedDes, sharedThumb, sharedUrl, new UMShareListener() {
-                    @Override
-                    public void onStart(SHARE_MEDIA share_media) {
-
-                    }
-
-                    @Override
-                    public void onResult(SHARE_MEDIA share_media) {
-                        ToastUtil.success("分享成功");
-                    }
-
-                    @Override
-                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                        ToastUtil.success("分享失败");
-                    }
-
-                    @Override
-                    public void onCancel(SHARE_MEDIA share_media) {
-
-                    }
-                });*/
+                currentFragment.shareWechat(SHARE_MEDIA.WEIXIN);
                 break;
             case R.id.llShareWechatCircle:
-                ShareUtils.shareTo3rdPlatform(this, parentView, SHARE_MEDIA.WEIXIN_CIRCLE, "friend");
+                currentFragment.shareWechat(SHARE_MEDIA.WEIXIN_CIRCLE);
                 break;
             case R.id.llShareDisk:
-                ShareUtils.saveDiskShare(this, parentView, "");
+                currentFragment.shareWechat(null);
                 break;
         }
     }

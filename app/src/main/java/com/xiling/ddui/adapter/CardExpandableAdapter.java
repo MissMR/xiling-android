@@ -21,6 +21,7 @@ import com.xiling.image.GlideUtils;
 import com.xiling.shared.component.NumberField;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.contracts.OnValueChangeLister;
+import com.xiling.shared.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +73,15 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(mContext, DDProductDetailActivity.class);
-                        intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
-                        mContext.startActivity(intent);
+                        String mStatus = ShopUtils.checkShopStatus(item.getBean().getStatus(), item.getBean().getStock());
+                        if (TextUtils.isEmpty(mStatus)) {
+                            Intent intent = new Intent(mContext, DDProductDetailActivity.class);
+                            intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
+                            mContext.startActivity(intent);
+                        }else{
+                            ToastUtil.error(mStatus);
+                        }
+
                     }
                 });
                 XLCardListBean.SkuProductListBean skuProductListBean = item.getBean();

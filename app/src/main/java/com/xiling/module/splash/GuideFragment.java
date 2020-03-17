@@ -33,8 +33,6 @@ public class GuideFragment extends BaseFragment {
     @BindView(R.id.ivImage)
     ImageView mIvImage;
     Unbinder unbinder;
-    @BindView(R.id.ivText)
-    ImageView mIvText;
     @BindView(R.id.ivGoMain)
     ImageView mIvGoMain;
     boolean isEnd;
@@ -66,14 +64,9 @@ public class GuideFragment extends BaseFragment {
 
         if (isEnd){
             mIvGoMain.setVisibility(View.VISIBLE);
-            mIvText.setVisibility(View.VISIBLE);
         }
     }
 
-    private void startAnima() {
-        AlphaAnimation alphaAnimation = (AlphaAnimation) AnimationUtils.loadAnimation(getContext(), R.anim.guide_anim);
-        mIvText.startAnimation(alphaAnimation);
-    }
 
     @Override
     public void onDestroyView() {

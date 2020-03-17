@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,9 +26,9 @@
             <LinearLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="@dimen/dp_50"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/dp_10"
                 android:background="@drawable/main_bottom_nav_bg">
 
                 <LinearLayout
@@ -61,11 +62,14 @@
 
                 <RelativeLayout
                     android:id="@+id/tabCartLayout"
-                    style="@style/TabBarItem">
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/cartIconIv"
                         style="@style/TabBarItemIcon"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:layout_centerHorizontal="true"
                         android:src="@drawable/tab_item_cart_selector" />
 
@@ -79,18 +83,17 @@
                         android:id="@+id/cartBadgeTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_6"
                         android:layout_alignRight="@id/cartIconIv"
-                        android:layout_alignTop="@id/cartIconIv"
                         android:layout_marginRight="-10dp"
-                        android:layout_marginTop="-4.5dp"
                         android:background="@drawable/order_badge"
                         android:gravity="center"
-                        android:minHeight="15dp"
                         android:minWidth="15dp"
+                        android:minHeight="15dp"
                         android:text="11"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </RelativeLayout>
 
                 <LinearLayout

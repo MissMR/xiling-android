@@ -201,7 +201,7 @@ public class ShareUtils {
                     name = productId;
                 }
 
-                ImageTools.saveBitmapToAlbum(context, bitmap, "" + name);
+                ImageTools.saveBitmapToAlbum(context, bitmap, "" + name+".png");
 
                 String pathToFile = PosterMaker.getPosterFile("" + name);
                 DLog.i("saveBitmapToSD：" + pathToFile);
@@ -230,40 +230,15 @@ public class ShareUtils {
     }
 
 
-    public static Bitmap loadBitmapFromView(View v) {
-        if (v == null) {
+    public static Bitmap loadBitmapFromView(View view) {
+        if (view== null) {
             return null;
         }
-        Bitmap screenshot;
-        screenshot = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(screenshot);
-        c.translate(-v.getScrollX(), -v.getScrollY());
-        v.draw(c);
-        return screenshot;
-    }
-
-
-    private static Bitmap getViewBitmap(Context context, View v) {
-        DLog.i("getViewBitmap");
-        ToastUtil.showLoading(context);
-        v.clearFocus();
-        v.setPressed(false);
-        boolean willNotCache = v.willNotCacheDrawing();
-        v.setWillNotCacheDrawing(false);
-        int color = v.getDrawingCacheBackgroundColor();
-        v.setDrawingCacheBackgroundColor(Color.WHITE);
-        if (color != 0) {
-            v.destroyDrawingCache();
-        }
-        v.buildDrawingCache();
-        Bitmap cacheBitmap = v.getDrawingCache();
-        if (cacheBitmap == null) {
-            return null;
-        }
-        Bitmap bitmap = Bitmap.createBitmap(cacheBitmap);
-        v.destroyDrawingCache();
-        v.setWillNotCacheDrawing(willNotCache);
-        v.setDrawingCacheBackgroundColor(color);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        c.drawColor(Color.TRANSPARENT);
+        view.draw(c);
         return bitmap;
     }
 
