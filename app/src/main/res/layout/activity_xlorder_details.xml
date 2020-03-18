@@ -391,6 +391,33 @@
                     android:layout_marginTop="@dimen/dp_14"
                     android:textColor="#333333"
                     android:textSize="@dimen/sp_12" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rel_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_price_coupon"
+                    android:layout_marginTop="@dimen/dp_14">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="余额支付"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/tv_price_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/sp_12" />
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
             <View

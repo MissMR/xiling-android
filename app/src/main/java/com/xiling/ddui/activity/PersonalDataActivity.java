@@ -10,6 +10,7 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
 import com.xiling.ddui.tools.GlideEngine;
+import com.xiling.ddui.tools.PhotoTools;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.user.EditNicknameActivity;
@@ -71,7 +72,7 @@ public class PersonalDataActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_head:
-                openAlbum();
+                PhotoTools.openAlbum(this,10101);
                 break;
             case R.id.btn_name:
                 startActivity(new Intent(this, EditNicknameActivity.class));
@@ -82,11 +83,6 @@ public class PersonalDataActivity extends BaseActivity {
         }
     }
 
-    public void openAlbum() {
-        EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
-                .setFileProviderAuthority("com.xiling.fileProvider")
-                .start(10101);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

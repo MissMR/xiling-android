@@ -1,5 +1,6 @@
 package com.xiling.ddui.fragment;
 
+import android.media.MediaExtractor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.xiling.ddui.bean.WeekCardBean;
 import com.xiling.ddui.bean.WeekCardInfo;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.service.IMemberService;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
@@ -100,7 +102,7 @@ public class MyWeekCardPackageFragment extends BaseFragment {
             @Override
             public void onOpen(WeekCardBean weekCardBean) {
                 //开通
-                openWeekCard(weekCardBean.getId());
+                openWeekCard(weekCardBean);
             }
         });
 
@@ -111,22 +113,22 @@ public class MyWeekCardPackageFragment extends BaseFragment {
     }
 
 
-    private void openWeekCard(final String id) {
+    private void openWeekCard(final WeekCardBean weekCardBean) {
         String message = "确定要开通周卡会员？";
-        if (weekCardInfo != null && weekCardInfo.getStatus().equals("1")) {
+        if (weekCardInfo != null && weekCardInfo.getStatus() != null && weekCardInfo.getStatus().equals("1")) {
             //已有一张周卡
             message = "当前已经有一张周卡在使用\n确认要替换当前周卡身份吗？";
         }
         D3ialogTools.showAlertDialog(mContext, message, "确定", new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                APIManager.startRequest(iMemberService.openWeekCard(id), new BaseRequestListener<Object>(mContext) {
+                APIManager.startRequest(iMemberService.openWeekCard(weekCardBean.getId()), new BaseRequestListener<Object>(mContext) {
 
                     @Override
                     public void onSuccess(Object result) {
                         super.onSuccess(result);
                         //开通成功
-                        EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
+                        EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN, weekCardBean));
                     }
 
                     @Override
@@ -185,7 +187,8 @@ public class MyWeekCardPackageFragment extends BaseFragment {
         switch (message.getEvent()) {
             case WEEK_CARD_OPEN:
                 //开通了周卡,更新过期状态，刷新列表
-                SharedPreferenceUtil.getInstance().putBoolean("weekBeOverdue", true);
+                WeekCardBean weekCardBean = (WeekCardBean) message.getData();
+                SharedPreferenceUtil.getInstance().putBoolean(UserManager.getInstance().getUser().getMemberId() + weekCardBean.getWeekOrderNo(), true);
                 getWeekCardList();
                 break;
         }

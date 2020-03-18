@@ -158,6 +158,10 @@ public class WeekCardInfo implements Parcelable {
         this.weekRemark = weekRemark;
     }
 
+    public WeekCardInfo() {
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -182,9 +186,6 @@ public class WeekCardInfo implements Parcelable {
         dest.writeString(this.weekRemark);
     }
 
-    public WeekCardInfo() {
-    }
-
     protected WeekCardInfo(Parcel in) {
         this.id = in.readString();
         this.incId = in.readString();
@@ -203,7 +204,7 @@ public class WeekCardInfo implements Parcelable {
         this.weekRemark = in.readString();
     }
 
-    public static final Parcelable.Creator<WeekCardInfo> CREATOR = new Parcelable.Creator<WeekCardInfo>() {
+    public static final Creator<WeekCardInfo> CREATOR = new Creator<WeekCardInfo>() {
         @Override
         public WeekCardInfo createFromParcel(Parcel source) {
             return new WeekCardInfo(source);

@@ -386,8 +386,8 @@ public class XLMemberCenterActivity extends BaseActivity {
                 tvMyWeekCard.setText("当前周卡已到期");
                 relWeekCard.setVisibility(View.GONE);
                 //如果没有弹出过，弹出过期提醒
-                if (SharedPreferenceUtil.getInstance().getBoolean("weekBeOverdue")) {
-                    SharedPreferenceUtil.getInstance().putBoolean("weekBeOverdue", false);
+                if (SharedPreferenceUtil.getInstance().getBoolean(UserManager.getInstance().getUser().getMemberId()+weekCardInfo.getWeekOrderNo())) {
+                    SharedPreferenceUtil.getInstance().putBoolean(UserManager.getInstance().getUser().getMemberId()+weekCardInfo.getWeekOrderNo(), false);
                     WeekBeOverdueDialog weekBeOverdueDialog = new WeekBeOverdueDialog(context);
                     weekBeOverdueDialog.show();
                 }
@@ -407,7 +407,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                 super.onSuccess(result);
                 ToastUtil.hideLoading();
                 weekCardInfo = result;
-                if (result != null) {
+                if (result != null && result.getWeekType() != null) {
                     NewUserBean newUserBean = UserManager.getInstance().getUser();
                     //有效
                     if (result.getWeekType().equals("1")) {

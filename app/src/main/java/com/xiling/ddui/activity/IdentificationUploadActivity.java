@@ -16,6 +16,7 @@ import com.xiling.ddui.custom.camera.DDIDCardActivity;
 import com.xiling.ddui.custom.popupwindow.PhotoSelectDialog;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.GlideEngine;
+import com.xiling.ddui.tools.PhotoTools;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -90,7 +91,7 @@ public class IdentificationUploadActivity extends BaseActivity {
                     @Override
                     public void onAlbum() {
                         mType = UploadManager.IDENTITY_CARD_FRONT;
-                        openAlbum();
+                        PhotoTools.openAlbum(IdentificationUploadActivity.this,10010);
                     }
                 });
                 break;
@@ -109,7 +110,7 @@ public class IdentificationUploadActivity extends BaseActivity {
                     @Override
                     public void onAlbum() {
                         mType = UploadManager.IDENTITY_CARD_BEHIND;
-                        openAlbum();
+                        PhotoTools.openAlbum(IdentificationUploadActivity.this,10010);
                     }
                 });
 
@@ -157,12 +158,6 @@ public class IdentificationUploadActivity extends BaseActivity {
                 ToastUtil.hideLoading();
             }
         });
-    }
-
-    public void openAlbum() {
-        EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
-                .setFileProviderAuthority("com.xiling.fileProvider")
-                .start(10010);
     }
 
 

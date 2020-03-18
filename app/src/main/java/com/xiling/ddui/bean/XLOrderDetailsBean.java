@@ -83,7 +83,7 @@ public class XLOrderDetailsBean implements Parcelable {
     private String shipDate;
     private String payType;
     private double payMoney;
-    private int balance;
+    private double balance;
     private long waitPayTimeMilli;
     private double receiptsIndices;
     private List<DetailsBean> details;
@@ -319,8 +319,8 @@ public class XLOrderDetailsBean implements Parcelable {
         this.payMoney = payMoney;
     }
 
-    public int getBalance() {
-        return balance;
+    public double getBalance() {
+        return balance/100;
     }
 
     public void setBalance(int balance) {
@@ -379,7 +379,7 @@ public class XLOrderDetailsBean implements Parcelable {
         dest.writeString(this.shipDate);
         dest.writeString(this.payType);
         dest.writeDouble(this.payMoney);
-        dest.writeInt(this.balance);
+        dest.writeDouble(this.balance);
         dest.writeLong(this.waitPayTimeMilli);
         dest.writeList(this.details);
         dest.writeDouble(this.receiptsIndices);
@@ -420,7 +420,7 @@ public class XLOrderDetailsBean implements Parcelable {
         this.shipDate = in.readString();
         this.payType = in.readString();
         this.payMoney = in.readDouble();
-        this.balance = in.readInt();
+        this.balance = in.readDouble();
         this.waitPayTimeMilli = in.readLong();
         this.details = new ArrayList<DetailsBean>();
         this.buyerRemark = in.readString();

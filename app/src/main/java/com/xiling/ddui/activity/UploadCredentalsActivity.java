@@ -18,6 +18,7 @@ import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.tools.GlideEngine;
+import com.xiling.ddui.tools.PhotoTools;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.community.DateUtils;
 import com.xiling.shared.basic.BaseActivity;
@@ -147,7 +148,7 @@ public class UploadCredentalsActivity extends BaseActivity {
                 KeyboardUtils.hideSoftInput(this);
                 break;
             case R.id.btn_upload:
-                openAlbum();
+                PhotoTools.openAlbum(this,10101);
                 break;
         }
     }
@@ -243,12 +244,6 @@ public class UploadCredentalsActivity extends BaseActivity {
 
         addPay(key);
 
-    }
-
-    public void openAlbum() {
-        EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
-                .setFileProviderAuthority("com.xiling.fileProvider")
-                .start(10101);
     }
 
     @Override

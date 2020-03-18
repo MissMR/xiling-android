@@ -399,6 +399,53 @@ public class WebViewActivity extends BaseActivity {
         return url;
     }
 
+    public String buildUrl(String url, boolean splicPlatfrom) {
+        if (!TextUtils.isEmpty(url)) {
+            try {
+                Uri uri = Uri.parse(url);
+
+                //强制拼接平台类型
+                if (splicPlatfrom) {
+                    if (!uri.getQueryParameterNames().contains(K_DDM)) {
+                        if (!url.contains("?")) {
+                            url += "?" + K_DDM + "=" + V_DDM;
+                        } else {
+                            if (url.endsWith("&")) {
+                                url += K_DDM + "=" + V_DDM;
+                            } else {
+                                url += "&" + K_DDM + "=" + V_DDM;
+                            }
+                        }
+                    }
+                }
+
+                //强制链接拼接 FUNC
+                if (!uri.getQueryParameterNames().contains("func")) {
+                    url += "&func=" + BuildConfig.H5_FUNC;
+                }
+
+                //强制拼接邀请码
+                if (SessionUtil.getInstance().isLogin() && !url.contains("inviteCode")) {
+                    url += "&inviteCode=" + SessionUtil.getInstance().getLoginUser().invitationCode;
+                }
+
+                if (!url.startsWith("http")) {
+                    url = "http://" + url;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            //URL为空的时候进入空白页
+            url = "about:blank";
+        }
+
+        DLog.d("buildUrl:" + url);
+
+        return url;
+    }
+
     private void openWeb(String url) {
         mAgentWeb = AgentWeb.with(this)//传入Activity
                 .setAgentWebParent(mLayoutWebview, new FrameLayout.LayoutParams(-1, -1))//传入AgentWeb 的父控件 ，如果父控件为 RelativeLayout ， 那么第二参数需要传入 RelativeLayout.LayoutParams ,第一个参数和第二个参数应该对应。
@@ -575,9 +622,9 @@ public class WebViewActivity extends BaseActivity {
             }
 
             if (TextUtils.isEmpty(iconUrl)) {
-                showShareWX(ShareText.DEFAULT_SHARE_ICON, title, desc, buildUrl(shareUrl));
+                showShareWX(ShareText.DEFAULT_SHARE_ICON, title, desc, buildUrl(shareUrl, false));
             } else {
-                showShareWX(iconUrl, title, desc, buildUrl(shareUrl));
+                showShareWX(iconUrl, title, desc, buildUrl(shareUrl, false));
             }
         }
     }

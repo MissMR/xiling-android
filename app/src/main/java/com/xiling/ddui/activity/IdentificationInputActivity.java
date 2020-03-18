@@ -14,6 +14,7 @@ import com.xiling.R;
 import com.xiling.ddui.bean.PlatformBean;
 import com.xiling.ddui.custom.popupwindow.PlatformSelectPopWindow;
 import com.xiling.ddui.tools.GlideEngine;
+import com.xiling.ddui.tools.PhotoTools;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
@@ -197,17 +198,11 @@ public class IdentificationInputActivity extends BaseActivity {
                 break;
             case R.id.btn_upload:
                 //上传营业执照
-                openAlbum();
+                PhotoTools.openAlbum(this, 10101);
                 break;
         }
     }
 
-
-    public void openAlbum() {
-        EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
-                .setFileProviderAuthority("com.xiling.fileProvider")
-                .start(10101);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -221,13 +216,6 @@ public class IdentificationInputActivity extends BaseActivity {
             }
         }
     }
-
-    /* new SelectCallback() {
-        @Override
-        public void onResult(ArrayList<Photo> photos, ArrayList<String> paths, boolean isOriginal) {
-
-        }
-    }*/
 
 
     private void uploadImage(final String path) {

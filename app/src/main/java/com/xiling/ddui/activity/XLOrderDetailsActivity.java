@@ -115,6 +115,10 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView tvIdentityPrice;
     @BindView(R.id.tv_contact_phone)
     TextView tvContactPhone;
+    @BindView(R.id.tv_price_balance)
+    TextView tvPriceBalance;
+    @BindView(R.id.rel_balance)
+    RelativeLayout relBalance;
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -191,6 +195,15 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                 tvPriceCoupon.setText("-¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));
+
+                if (result.getBalance() > 0){
+                    relBalance.setVisibility(View.VISIBLE);
+                    tvPriceBalance.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getBalance()));
+                }else{
+                    relBalance.setVisibility(View.GONE);
+                }
+
+
             }
 
             @Override
