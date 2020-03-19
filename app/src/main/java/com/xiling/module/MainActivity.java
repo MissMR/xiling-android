@@ -172,7 +172,7 @@ public class MainActivity extends BaseActivity {
         }
 
 
-        initSplash();
+     //   initSplash();
 
         ButterKnife.bind(this);
         darkStatusBar();
@@ -290,9 +290,9 @@ public class MainActivity extends BaseActivity {
         makeStatusBarTranslucent();
     }
 
-    private void initSplash() {
+  /*  private void initSplash() {
         initAdDialog();
-    }
+    }*/
 
     @Override
     protected void onResume() {
@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity {
         SharedPreferenceUtil.getInstance().putBoolean(SHOW_KEY, true);
     }
 
-    private void initAdDialog() {
+  /*  private void initAdDialog() {
         final WJDialog wjDialog = new WJDialog(this);
         final MainAdView mainAdView = new MainAdView(this);
         IAdService service = ServiceManager.getInstance().createService(IAdService.class);
@@ -354,7 +354,7 @@ public class MainActivity extends BaseActivity {
                 wjDialog.setContentView(mainAdView);
             }
         });
-    }
+    }*/
 
     void initTab() {
         if (!mTabs.isEmpty()) {

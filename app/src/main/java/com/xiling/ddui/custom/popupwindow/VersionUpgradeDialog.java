@@ -4,8 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiling.R;
@@ -28,6 +28,8 @@ public class VersionUpgradeDialog extends Dialog {
     TextView tvMessage;
 
     DDUpgradeBean upgradeBean;
+    @BindView(R.id.btn_close)
+    ImageView btnClose;
 
     public VersionUpgradeDialog(@NonNull Context context, DDUpgradeBean upgradeBean) {
         super(context);
@@ -46,6 +48,7 @@ public class VersionUpgradeDialog extends Dialog {
         if (upgradeBean != null) {
             tvTitle.setText("喜领商城V" + upgradeBean.getVersion());
             tvMessage.setText(upgradeBean.getMsg());
+            btnClose.setVisibility(upgradeBean.getUpgradeStatus() == 2 ? View.GONE : View.VISIBLE);
         }
 
 

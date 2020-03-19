@@ -76,9 +76,9 @@ public class AppUpgradeManager {
         this.isTips = isTips;
         Context context = MyApplication.getInstance();
 //       String versionName = AppUtils.getAppVersionName(context);
-        int versionCode = AppUtils.getAppVersionCode(context);
+        String versionName = AppUtils.getAppVersionName(context);
         ICommunityService iCommunityService = ServiceManager.getInstance().createService(ICommunityService.class);
-        APIManager.startRequest(iCommunityService.upgradeApp("" + versionCode, ICommunityService.DEVICE_TYPE), listener);
+        APIManager.startRequest(iCommunityService.upgradeApp("" + versionName, 1), listener);
     }
 
     public void check() {

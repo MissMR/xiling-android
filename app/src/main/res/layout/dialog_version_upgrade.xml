@@ -79,7 +79,9 @@
         android:layout_height="@dimen/dp_35"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
-        android:background="@drawable/bg_newcomer_close" />
+        android:background="@drawable/bg_newcomer_close"
+        android:visibility="gone"
+        />
 
 
 </LinearLayout>

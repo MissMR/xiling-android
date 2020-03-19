@@ -61,7 +61,7 @@ public class XLProductQrCodeDialog extends Dialog {
     RelativeLayout relScreen;
 
     private String sharedTitle = "";
-    private String sharedDes = "描述内容待定";
+    private String sharedDes = "从源头到客服一站式服务、一件代发，专享批发价格";
     private String sharedThumb = "";
     private String sharedUrl = "";
     Unbinder unbinder;

@@ -14,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1000
-        versionName "1.0.0"
+        versionName "1.0.1"
         multiDexEnabled true
 
         flavorDimensions "channel"
@@ -241,7 +241,7 @@ android {
             ]
 
             // 生产环境
-            buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://xl-mall.axiling.com/\"")
 
             //H5页服务器地址
             buildConfigField("String", "H5_URL", "\"https://h5.dodomall.com/\"")
@@ -280,7 +280,7 @@ android {
             ]
 
             // 测试环境  210映射 61.162.59.74:9050
-            buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
+             buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
             //韩奇电脑
             // buildConfigField("String", "BASE_URL", "\"https://192.168.100.14:8080/\"")
             //张哲
