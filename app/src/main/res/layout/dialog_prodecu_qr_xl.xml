@@ -196,7 +196,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
-            app:layout_marginLeftPercent="16%h"
+            android:layout_toRightOf="@id/tv_price"
+            app:layout_marginLeftPercent="2%h"
             app:layout_marginTopPercent="13.36%h"
             android:textColor="#ffaaaaaa"
             app:layout_textSizePercent="3.4%h" />

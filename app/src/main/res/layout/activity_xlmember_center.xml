@@ -200,6 +200,7 @@
                     android:paddingRight="@dimen/dp_21">
 
                     <LinearLayout
+                        android:id="@+id/ll_growth_detailed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_20"
@@ -252,7 +253,6 @@
 
 
                     <RelativeLayout
-                        android:id="@+id/ll_coupon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_16">
@@ -288,6 +288,7 @@
 
 
                         <LinearLayout
+                            android:id="@+id/ll_coupon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"

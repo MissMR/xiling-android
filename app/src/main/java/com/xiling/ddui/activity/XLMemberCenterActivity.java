@@ -457,7 +457,7 @@ public class XLMemberCenterActivity extends BaseActivity {
 
 
     @OnClick({R.id.btn_close, R.id.btn_notes, R.id.btn_order_goods, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon,
-            R.id.btn_growth_detailed, R.id.btn_buy_black, R.id.btn_buy_vip, R.id.btn_sale})
+            R.id.ll_growth_detailed, R.id.btn_buy_black, R.id.btn_buy_vip, R.id.btn_sale})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -483,7 +483,7 @@ public class XLMemberCenterActivity extends BaseActivity {
             case R.id.btn_growth:
                 WebViewActivity.jumpUrl(context, "成长值说明", H5UrlConfig.GROWTH_INTRO);
                 break;
-            case R.id.btn_growth_detailed:
+            case R.id.ll_growth_detailed:
                 WebViewActivity.jumpUrl(context, "成长值明细", H5UrlConfig.GROWTH_DETAILED);
                 break;
             case R.id.ll_coupon:

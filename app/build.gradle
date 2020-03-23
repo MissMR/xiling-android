@@ -13,7 +13,7 @@ android {
         applicationId "com.xiling"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1000
+        versionCode 1001
         versionName "1.0.1"
         multiDexEnabled true
 
@@ -165,41 +165,41 @@ android {
             dimension "channel"
         }
 
-        //        Store360 {
-//            manifestPlaceholders = [
-//                    UMENG_CHANNEL: "Store360",
-//                    JPUSH_CHANNEL: "Store360",
-//                    CHANNEL_ID   : 1003
-//            ]
-//            dimension "channel"
-//        }
+        Store360 {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Store360",
+                    JPUSH_CHANNEL: "Store360",
+                    CHANNEL_ID   : 1003
+            ]
+            dimension "channel"
+        }
 
-//        MeiZu {
-//            manifestPlaceholders = [
-//                    UMENG_CHANNEL: "MeiZu",
-//                    JPUSH_CHANNEL: "MeiZu",
-//                    CHANNEL_ID   : 1006
-//            ]
-//            dimension "channel"
-//        }
+        MeiZu {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "MeiZu",
+                    JPUSH_CHANNEL: "MeiZu",
+                    CHANNEL_ID   : 1006
+            ]
+            dimension "channel"
+        }
 
-//        OnePlus {
-//            manifestPlaceholders = [
-//                    UMENG_CHANNEL: "OnePlus",
-//                    JPUSH_CHANNEL: "OnePlus",
-//                    CHANNEL_ID   : 1007
-//            ]
-//            dimension "channel"
-//        }
+    /*    OnePlus {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "OnePlus",
+                    JPUSH_CHANNEL: "OnePlus",
+                    CHANNEL_ID   : 1007
+            ]
+            dimension "channel"
+        }*/
 
-//        Smartisan {
-//            manifestPlaceholders = [
-//                    UMENG_CHANNEL: "Smartisan",
-//                    JPUSH_CHANNEL: "Smartisan",
-//                    CHANNEL_ID   : 1008
-//            ]
-//            dimension "channel"
-//        }
+      /*  Smartisan {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Smartisan",
+                    JPUSH_CHANNEL: "Smartisan",
+                    CHANNEL_ID   : 1008
+            ]
+            dimension "channel"
+        }*/
 
 //        Nubia {
 //            manifestPlaceholders = [
@@ -210,14 +210,14 @@ android {
 //            dimension "channel"
 //        }
 
-//        Samsung {
-//            manifestPlaceholders = [
-//                    UMENG_CHANNEL: "Samsung",
-//                    JPUSH_CHANNEL: "Samsung",
-//                    CHANNEL_ID   : 1011
-//            ]
-//            dimension "channel"
-//        }
+        Samsung {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL: "Samsung",
+                    JPUSH_CHANNEL: "Samsung",
+                    CHANNEL_ID   : 1011
+            ]
+            dimension "channel"
+        }
 
 //        Google {
 //            manifestPlaceholders = [
@@ -280,7 +280,7 @@ android {
             ]
 
             // 测试环境  210映射 61.162.59.74:9050
-             buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
             //韩奇电脑
             // buildConfigField("String", "BASE_URL", "\"https://192.168.100.14:8080/\"")
             //张哲
@@ -459,6 +459,6 @@ dependencies {
 
     implementation 'junit:junit:4.12'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-  /*  implementation 'com.android.support:percent:26.1.0'*/
+    /*  implementation 'com.android.support:percent:26.1.0'*/
     implementation 'com.zhy:percent-support-extends:1.1.1'
 }

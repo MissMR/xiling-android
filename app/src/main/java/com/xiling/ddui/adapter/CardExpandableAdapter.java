@@ -74,12 +74,13 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     @Override
                     public void onClick(View view) {
                         String mStatus = ShopUtils.checkShopStatus(item.getBean().getStatus(), item.getBean().getStock());
-                        if (TextUtils.isEmpty(mStatus)) {
+                        if (mStatus.equals("已下架")) {
+                            ToastUtil.error(mStatus);
+                        } else {
                             Intent intent = new Intent(mContext, DDProductDetailActivity.class);
                             intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
                             mContext.startActivity(intent);
-                        }else{
-                            ToastUtil.error(mStatus);
+
                         }
 
                     }
