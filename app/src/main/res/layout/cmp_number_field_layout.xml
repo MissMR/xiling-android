@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="33dp"
         android:orientation="horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:showDividers="middle">
 
         <ImageView
@@ -20,7 +22,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/icon_num_minus_selector" />
 
-        <EditText
+        <com.xiling.ddui.view.KeyBoardEditText
             android:id="@+id/valueTv"
             android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"

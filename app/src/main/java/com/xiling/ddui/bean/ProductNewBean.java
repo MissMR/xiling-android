@@ -346,6 +346,9 @@ public class ProductNewBean {
         private double level10Price;
         private double level20Price;
         private double level30Price;
+        private int step;
+        private int isCross;
+
 
         public String getSkuId() {
             return skuId;
@@ -473,6 +476,22 @@ public class ProductNewBean {
 
         public void setLevel30Price(int level30Price) {
             this.level30Price = level30Price;
+        }
+
+        public int getStep() {
+            return step;
+        }
+
+        public void setStep(int step) {
+            this.step = step;
+        }
+
+        public int getIsCross() {
+            return isCross;
+        }
+
+        public void setIsCross(int isCross) {
+            this.isCross = isCross;
         }
     }
 }

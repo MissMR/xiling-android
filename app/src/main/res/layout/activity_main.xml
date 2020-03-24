@@ -81,16 +81,15 @@
 
                     <TextView
                         android:id="@+id/cartBadgeTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dp_10"
+                        android:layout_height="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_6"
                         android:layout_alignRight="@id/cartIconIv"
-                        android:layout_marginRight="-10dp"
-                        android:background="@drawable/order_badge"
+                        android:layout_marginRight="-5dp"
+                        android:background="@drawable/bg_oval_read"
                         android:gravity="center"
                         android:minWidth="15dp"
                         android:minHeight="15dp"
-                        android:text="11"
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         android:visibility="visible" />

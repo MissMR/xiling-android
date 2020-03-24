@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -31,30 +32,26 @@ import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MON
  * 黑卡直充
  */
 public class DirectRechargeDialog extends Dialog {
+    public static final String TYPE_VIP = "VIP";
+    public static final String TYPE_BLACK = "黑卡";
     Context mContext;
     IPayService iPayService;
     @BindView(R.id.et_amount)
     TextView etAmount;
+    @BindView(R.id.tv_account)
+    TextView tvAccount;
 
-    public DirectRechargeDialog(@NonNull Context context) {
+    String type;
+
+    public DirectRechargeDialog(@NonNull Context context,String type) {
         this(context, R.style.DDMDialog);
         mContext = context;
-    }
-
-
-    public DirectRechargeDialog(@NonNull Context context, ArrayList<SkuListBean> skuList, String selectId) {
-        this(context, R.style.DDMDialog);
-        mContext = context;
+        this.type = type;
     }
 
 
     public DirectRechargeDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
-        mContext = context;
-    }
-
-    public DirectRechargeDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
         mContext = context;
     }
 
@@ -70,6 +67,17 @@ public class DirectRechargeDialog extends Dialog {
 
     private void initView() {
         initWindow();
+        switch (type){
+            case TYPE_VIP:
+                etAmount.setText("16800");
+                tvAccount.setText("直升VIP会员");
+                break;
+            case TYPE_BLACK:
+                etAmount.setText("58000");
+                tvAccount.setText("直升黑卡会员");
+                break;
+        }
+
     }
 
     private void initWindow() {

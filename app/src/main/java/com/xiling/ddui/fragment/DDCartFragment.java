@@ -278,8 +278,9 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 } else {
                     headerLayout.hideRightItem();
                 }
+                List<CardExpandableBean<XLCardListBean.SkuProductListBean>> buildList = buildAdapterData(result);
                 cartList.clear();
-                cartList.addAll(buildAdapterData(result));
+                cartList.addAll(buildList);
                 if (cartList.size() > 0) {
                     layoutNodata.setVisibility(View.GONE);
                 } else {
@@ -293,7 +294,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                         });
                     }
                 }
-
                 cardExpandableAdapter.notifyDataSetChanged();
 
                 /**
@@ -358,11 +358,9 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                     mPosition++;
                     cardExpandableBeanList.add(childBean);
                 }
-
             }
 
         }
-
         // 同步选中状态
         if (cardExpandableAdapter != null && cardExpandableAdapter.getData() != null && cardExpandableAdapter.getData().size() > 0) {
             for (CardExpandableBean<XLCardListBean.SkuProductListBean> newBean : cardExpandableBeanList) {
@@ -485,6 +483,40 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
 
     }
 
+
+    /**
+     * 结算商品
+     */
+    private void settlement() {
+        if (cardExpandableAdapter != null) {
+            List<CardExpandableBean<XLCardListBean.SkuProductListBean>> list = cardExpandableAdapter.getSelectList();
+            final ArrayList<SkuListBean> skuList = new ArrayList<>();
+            if (list.size() > 0) {
+                for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : list) {
+                    SkuListBean skuListBean = new SkuListBean(cardExpandableBean.getBean().getSkuId(), cardExpandableBean.getBean().getQuantity());
+                    skuList.add(skuListBean);
+                }
+                ShopCardManager.getInstance().preCheck(mContext, skuList, new BaseRequestListener<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean result) {
+                        super.onSuccess(result);
+                        if (result) {
+                            Intent intent = new Intent(mContext, ConfirmationOrderActivity.class);
+                            intent.putExtra(SKULIST, skuList);
+                            intent.putExtra(ORDER_SOURCE, 2);
+                            startActivity(intent);
+                        } else {
+                            requestCardData();
+                        }
+                    }
+                });
+            } else {
+                ToastUtil.error("您还没有选中商品");
+            }
+        }
+    }
+
+
     @OnClick({R.id.checkAll, R.id.nextBtn, R.id.deleteBtn, R.id.tvGoMain})
     public void onViewClicked(View view) {
         if (view.getId() != R.id.checkAll) {
@@ -508,24 +540,7 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 break;
             case R.id.nextBtn:
                 //结算
-                if (cardExpandableAdapter != null) {
-                    List<CardExpandableBean<XLCardListBean.SkuProductListBean>> list = cardExpandableAdapter.getSelectList();
-                    ArrayList<SkuListBean> skuList = new ArrayList<>();
-                    if (list.size() > 0) {
-
-                        for (CardExpandableBean<XLCardListBean.SkuProductListBean> cardExpandableBean : list) {
-                            SkuListBean skuListBean = new SkuListBean(cardExpandableBean.getBean().getSkuId(), cardExpandableBean.getBean().getQuantity());
-                            skuList.add(skuListBean);
-                        }
-
-                        Intent intent = new Intent(mContext, ConfirmationOrderActivity.class);
-                        intent.putExtra(SKULIST, skuList);
-                        intent.putExtra(ORDER_SOURCE, 2);
-                        startActivity(intent);
-                    } else {
-                        ToastUtil.error("您还没有选中商品");
-                    }
-                }
+                settlement();
                 break;
             case R.id.deleteBtn:
                 //删除所选

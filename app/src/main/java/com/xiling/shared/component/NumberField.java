@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.xiling.R;
+import com.xiling.ddui.view.KeyBoardEditText;
 import com.xiling.shared.contracts.OnValueChangeLister;
 import com.xiling.shared.util.ConvertUtil;
 import com.xiling.shared.util.ToastUtil;
@@ -29,12 +32,16 @@ public class NumberField extends LinearLayout {
     @BindView(R.id.plusBtn)
     protected ImageView mPlusBtn;
     @BindView(R.id.valueTv)
-    protected EditText mValueTv;
+    protected KeyBoardEditText mValueTv;
     @BindView(R.id.parent_edit)
     LinearLayout parentEdit;
 
     private int mMin = 1;
     private int mMax = 999;
+    //加入数量步进
+    int mStep = 1;
+    int editSize;//输入的数量
+    int oldEditSize;
 
     public int getmValue() {
         return mValue;
@@ -56,40 +63,21 @@ public class NumberField extends LinearLayout {
     private void initView() {
         View view = inflate(getContext(), R.layout.cmp_number_field_layout, this);
         ButterKnife.bind(this, view);
-       /* mValueTv.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+        mValueTv.setOnFinishComposingListener(new KeyBoardEditText.OnFinishComposingListener() {
+
             @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-
-                } else {
-
+            public void finishComposing() {
+                if (editSize == 0) {
+                    mValue = mMin;
+                } else if (mStep > 0 && editSize < mMax && editSize % mStep != 0) {
+                    //如果数量不为箱规数量，还原为上次的数量
+                    ToastUtil.error("本品一手批发，数量为" + mStep + "的倍数");
                 }
+                checkValidity(mValue);
+                setValue(mValue);
             }
-        });*/
-
-        //监听软键盘是否显示或隐藏
-        parentEdit.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        Rect r = new Rect();
-                        parentEdit.getWindowVisibleDisplayFrame(r);
-                        int screenHeight = parentEdit.getRootView()
-                                .getHeight();
-                        int heightDifference = screenHeight - (r.bottom);
-                        if (heightDifference > 200) {
-                            //软键盘显示
-
-                        } else {
-                            //软键盘隐藏
-                            if (mValue == 0) {
-                                mValue = 1;
-                                setValue(mValue);
-                            }
-                        }
-                    }
-
-                });
+        });
 
         mValueTv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,15 +88,19 @@ public class NumberField extends LinearLayout {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String size = charSequence.toString();
-                int mSize = 0;
+                editSize = 0;
                 if (!TextUtils.isEmpty(size)) {
-                    mSize = Integer.valueOf(size);
+                    editSize = Integer.valueOf(size);
                 }
-                if (mSize == 0){
-                    mValue = mSize;
-                }
-                if (mSize > 0 && mSize != mValue) {
-                    setValue(mSize);
+
+                if (editSize > 0 && editSize != oldEditSize) {
+                    oldEditSize = editSize;
+                    if (mStep > 0 && editSize % mStep == 0) {
+                        mValue = editSize;
+                    }
+                    mValueTv.setText("" + editSize);
+                    setButtonsEnabled();
+
                     mValueTv.setSelection(mValueTv.getText().length());//将光标移至文字末尾
                 }
 
@@ -146,12 +138,15 @@ public class NumberField extends LinearLayout {
         setButtonsEnabled();
     }
 
-
     /**
      * 设置数据有效区间
      */
     public void setLimit(int min, int max) {
         mMin = min;
+        mStep = min;
+        if (mStep <= 0) {
+            mStep = 1;
+        }
         mMax = max;
         if (mValue > mMax) {
             mValue = mMax;
@@ -163,22 +158,26 @@ public class NumberField extends LinearLayout {
         setButtonsEnabled();
     }
 
-    public void setValue(int value) {
-        if (mMax!= 0 &&value > mMax) {
+    /**
+     * 校验数量有效性
+     */
+    private void checkValidity(int value) {
+      /*  if (mMax != 0 && value > mMax) {
             ToastUtil.error("商品数量已经达到最大值");
-        }
+        } else*/
         if (value < mMin) {
             ToastUtil.error("商品数量已经达到最小值");
         }
-
         value = value < mMin ? mMin : value;
-        this.mValue = value <= mMax ? value : mMax;
+        this.mValue = value /*<= mMax ? value : mMax*/;
+    }
 
-        mValueTv.setText("" + this.mValue);
-        if (this.mListener != null) {
-            this.mListener.changed(this.mValue);
-        }
+    public void setValue(int value) {
+        mValueTv.setText("" + value);
         setButtonsEnabled();
+        if (this.mListener != null) {
+            this.mListener.changed(value);
+        }
     }
 
     /**
@@ -201,7 +200,7 @@ public class NumberField extends LinearLayout {
 
     private void setButtonsEnabled() {
         this.mMinusBtn.setEnabled(this.mValue > mMin);
-        this.mPlusBtn.setEnabled(this.mValue < mMax);
+        //  this.mPlusBtn.setEnabled(this.mValue < mMax);
     }
 
     public void setOnChangeListener(OnValueChangeLister listener) {
@@ -214,13 +213,23 @@ public class NumberField extends LinearLayout {
 
     @OnClick(R.id.minusBtn)
     protected void onMinus() {
-        mValue--;
+        if (mValue % mStep == 0) {
+            mValue -= mStep;
+        } else {
+            mValue = mStep;
+        }
+        checkValidity(mValue);
         setValue(mValue);
     }
 
     @OnClick(R.id.plusBtn)
     protected void onPlus() {
-        mValue++;
+        if (mValue % mStep == 0) {
+            mValue += mStep;
+        } else {
+            mValue = mStep;
+        }
+        checkValidity(mValue);
         setValue(mValue);
     }
 

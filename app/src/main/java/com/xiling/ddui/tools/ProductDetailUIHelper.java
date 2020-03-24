@@ -514,6 +514,7 @@ public class ProductDetailUIHelper {
             if (mSkuSelectorDialog == null) {
                 mSkuSelectorDialog = new SkuSelectorDialog(mContext, mSpuInfo, action);
             } else {
+                mSkuSelectorDialog.setmSpuInfo(mSpuInfo);
                 mSkuSelectorDialog.setmAction(action);
             }
 

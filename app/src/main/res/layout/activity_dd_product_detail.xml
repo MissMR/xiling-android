@@ -35,11 +35,11 @@
 
                 <TextView
                     android:id="@+id/tv_cart_badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/dp_12"
+                    android:layout_height="@dimen/dp_12"
                     android:layout_marginLeft="@dimen/dp_35"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:background="@drawable/order_badge"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/bg_oval_read"
                     android:gravity="center"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/sp_11"

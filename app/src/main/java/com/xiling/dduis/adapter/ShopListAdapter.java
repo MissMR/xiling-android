@@ -151,7 +151,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
             public void onClick(View view) {
                 if (UserManager.getInstance().isLogin(mContext)) {
                     if (item.getStock() > 0) {
-                        ShopCardManager.getInstance().requestAddCart(mContext, item.getSkuId(), 1, false, new BaseRequestListener() {
+                        ShopCardManager.getInstance().requestAddCart(mContext, item.getSkuId(), item.getStep(), false, new BaseRequestListener() {
                             @Override
                             public void onSuccess(Object result) {
                                 item.setStock(item.getStock() - 1);

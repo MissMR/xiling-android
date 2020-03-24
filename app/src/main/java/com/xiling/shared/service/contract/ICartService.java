@@ -50,11 +50,22 @@ public interface ICartService {
     @PUT("shopping-cart/delete")
     Observable<RequestResult<Boolean>>deleteShopCart(@Body RequestBody requestBody);
 
-
+    /**
+     * 获取购物车数量
+     * @return
+     */
     @GET("shopping-cart/count")
     Observable<RequestResult<Integer>> getCardCount();
 
 
+    /**
+     * 结算前校验商品箱规是否正确
+     * @param requestBody
+     * @return
+     */
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @POST("order/pre-check")
+    Observable<RequestResult<Boolean>> preCheck(@Body RequestBody requestBody);
 
     @GET("cart/getAccountList")
     Observable<RequestResult<List<CartStore>>> getListBySkuIds(@Query("skuIds") String skuIds);
@@ -74,13 +85,4 @@ public interface ICartService {
     @GET("cart/getCartQuantity")
     Observable<RequestResult<CartAmount>> getTotal();
 
-    /**
-     * 获取猜你喜欢的数据
-     *
-     * @param pageOffset 页码
-     * @param pageSize   单页数据数量
-     */
-    @GET("product/thoughtULike")
-    Observable<RequestResult<DDSuggestListBean>> getSuggestProduct(@Query("pageOffset") int pageOffset,
-                                                                   @Query("pageSize") int pageSize);
 }

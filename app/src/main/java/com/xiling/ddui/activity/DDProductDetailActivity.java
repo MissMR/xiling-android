@@ -224,14 +224,29 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     public void onClickBuy(SkuListBean skuListBean) {
         //立即购买 业务逻辑
         if (UserManager.getInstance().isLogin(context)) {
-            ArrayList<SkuListBean> skuList = new ArrayList<>();
+            final ArrayList<SkuListBean> skuList = new ArrayList<>();
             skuList.add(skuListBean);
-            Intent intent = new Intent(context, ConfirmationOrderActivity.class);
-            intent.putExtra(SKULIST, skuList);
-            intent.putExtra(ORDER_SOURCE, 1);
-            startActivity(intent);
+            //立即购买，校验箱规
+            ShopCardManager.getInstance().preCheck(context, skuList, new BaseRequestListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean result) {
+                    super.onSuccess(result);
+                    if (result) {
+                        Intent intent = new Intent(context, ConfirmationOrderActivity.class);
+                        intent.putExtra(SKULIST, skuList);
+                        intent.putExtra(ORDER_SOURCE, 1);
+                        startActivity(intent);
+                    } else {
+                        ToastUtil.error("商品箱规发生更改，请重新加购");
+                        getProductInfo(mSpuId);
+                    }
+                }
+            });
+
+
         }
     }
+
 
     private boolean checkNull(Object o) {
         return null == o;
@@ -251,7 +266,7 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
         }
     }
 
-    
+
     private void showShareDialog() {
         if (UserManager.getInstance().isLogin(context)) {
             ToastUtil.hideLoading();

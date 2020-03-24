@@ -95,14 +95,27 @@
 
         <TextView
             android:id="@+id/btn_buy_vip"
-            android:layout_width="@dimen/dp_351"
+            android:layout_width="@dimen/dp_170"
+            android:layout_height="@dimen/dp_45"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:background="@drawable/btn_member_buy_weekcart"
+            android:gravity="center"
+            android:text="购买VIP周卡"
+            android:textColor="#fffff7ed"
+            android:textSize="@dimen/dp_14"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_sale_vip"
+            android:layout_width="@dimen/dp_170"
             android:layout_height="@dimen/dp_45"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_12"
             android:background="@drawable/btn_member_buy_weekcart"
             android:gravity="center"
-            android:text="购买VIP周卡"
+            android:text="预存货款升级"
             android:textColor="#fffff7ed"
             android:textSize="@dimen/dp_14"
             android:visibility="gone" />

@@ -33,12 +33,12 @@ public class ViewUtil {
 
 
     public static void setCartBadge(int messageSize, TextView tvCartBadge) {
-        if (messageSize < 10) {
+    /*    if (messageSize < 10) {
             tvCartBadge.setBackgroundResource(R.drawable.bg_oval_read);
         } else {
             tvCartBadge.setBackgroundResource(R.drawable.bg_oval_read_more);
         }
-        tvCartBadge.setText(messageSize > 99 ? "99" : String.valueOf(messageSize));
+        tvCartBadge.setText(messageSize > 99 ? "99" : String.valueOf(messageSize));*/
         tvCartBadge.setVisibility(messageSize > 0 ? View.VISIBLE : View.GONE);
     }
 

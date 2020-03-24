@@ -145,7 +145,7 @@ public class DDCategoryFragment extends BaseFragment {
         categoryBrandAdapter = new CategoryBrandAdapter();
         rvCategoryBrand.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
         rvCategoryBrand.setAdapter(categoryBrandAdapter);
-        rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 2));
+        rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 3));
 
         categoryBrandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 

@@ -61,7 +61,6 @@ public class SkuSelectorDialog extends Dialog {
     TextView tvMinMarketPrice;
     @BindView(R.id.tvSkuName)
     TextView tvSkuName;
-
     protected ProductNewBean mSpuInfo;
     @BindView(R.id.tv_stock)
     TextView tvStock;
@@ -81,6 +80,12 @@ public class SkuSelectorDialog extends Dialog {
         this.mAction = mAction;
         selectAction();
     }
+
+    public void setmSpuInfo(ProductNewBean mSpuInfo) {
+        this.mSpuInfo = mSpuInfo;
+        initViews();
+    }
+
 
     /**
      * 用来判断是 加入购物车还是立即购买，如果是0，则进入选择规格流程
@@ -158,7 +163,7 @@ public class SkuSelectorDialog extends Dialog {
             tvMinPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getRetailPrice()));
             //划线价
             tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(skuBean.getMarketPrice()));
-            mNumberField.setLimit(1, skuBean.getStock());
+            mNumberField.setLimit(skuBean.getStep(), skuBean.getStock());
             tvStock.setText("库存" + skuBean.getStock() + "件");
         } else {
             setSkuName("");
@@ -284,50 +289,52 @@ public class SkuSelectorDialog extends Dialog {
 
 
     private void initRecyclerView() {
-        LinearLayoutManager parentLayoutManager = new LinearLayoutManager(getContext());
-        parentLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        if (parentAdapter == null) {
+            LinearLayoutManager parentLayoutManager = new LinearLayoutManager(getContext());
+            parentLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        mParentRecyclerView.setHasFixedSize(true);
-        mParentRecyclerView.setNestedScrollingEnabled(false);
-        mParentRecyclerView.setLayoutManager(parentLayoutManager);
-        parentAdapter = new SkuSelectParentAdapter(R.layout.item_sku_select_parent, parentList);
-        /**
-         * 如果是单规格，默认选中
-         */
-        if (parentList.size() == 1) {
-            if (parentList.get(0).getPropertyValues().size() > 0) {
-                parentAdapter.setSelectChildId(parentList.get(0).getPropertyValues().get(0).getPropertyValueId());
-                selectMap.put(parentList.get(0).getPropertyId(), parentList.get(0).getPropertyValues().get(0));
-                matchSkuBean();
-            }
-        }
-        mParentRecyclerView.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getContext(), 10), ScreenUtils.dip2px(getContext(), 10)));
-        parentAdapter.setOnSelectListener(new SkuSelectParentAdapter.OnSelectListener() {
-            @Override
-            public void selectItem(ProductNewBean.PropertiesBean parentBean, ProductNewBean.PropertiesBean.PropertyValuesBean childBean, SkuSelectChildAdapter childAdapter) {
-                if (!childAdapter.getSelectId().equals(childBean.getPropertyValueId())) {
-                    //选中
-                    childAdapter.setSelectId(childBean.getPropertyValueId());
-                    selectMap.put(parentBean.getPropertyId(), childBean);
-                    //校验新的数据
-                    checkSkuBean(childBean.getPropertyValueId(), true);
-                } else {
-                    //取消选中
-                    childAdapter.setSelectId("");
-                    selectMap.remove(parentBean.getPropertyId());
-                    //校验新的数据
-                    checkSkuBean(childBean.getPropertyValueId(), false);
+            mParentRecyclerView.setHasFixedSize(true);
+            mParentRecyclerView.setNestedScrollingEnabled(false);
+            mParentRecyclerView.setLayoutManager(parentLayoutManager);
+            parentAdapter = new SkuSelectParentAdapter(R.layout.item_sku_select_parent, parentList);
+            /**
+             * 如果是单规格，默认选中
+             */
+            if (parentList.size() == 1) {
+                if (parentList.get(0).getPropertyValues().size() > 0) {
+                    parentAdapter.setSelectChildId(parentList.get(0).getPropertyValues().get(0).getPropertyValueId());
+                    selectMap.put(parentList.get(0).getPropertyId(), parentList.get(0).getPropertyValues().get(0));
+                    matchSkuBean();
                 }
-                matchSkuBean();
-                upDateSku();
-                parentAdapter.notifyDataSetChanged();
-
-
             }
-        });
+            mParentRecyclerView.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getContext(), 10), ScreenUtils.dip2px(getContext(), 10)));
+            parentAdapter.setOnSelectListener(new SkuSelectParentAdapter.OnSelectListener() {
+                @Override
+                public void selectItem(ProductNewBean.PropertiesBean parentBean, ProductNewBean.PropertiesBean.PropertyValuesBean childBean, SkuSelectChildAdapter childAdapter) {
+                    if (!childAdapter.getSelectId().equals(childBean.getPropertyValueId())) {
+                        //选中
+                        childAdapter.setSelectId(childBean.getPropertyValueId());
+                        selectMap.put(parentBean.getPropertyId(), childBean);
+                        //校验新的数据
+                        checkSkuBean(childBean.getPropertyValueId(), true);
+                    } else {
+                        //取消选中
+                        childAdapter.setSelectId("");
+                        selectMap.remove(parentBean.getPropertyId());
+                        //校验新的数据
+                        checkSkuBean(childBean.getPropertyValueId(), false);
+                    }
+                    matchSkuBean();
+                    upDateSku();
+                    parentAdapter.notifyDataSetChanged();
 
-        mParentRecyclerView.setAdapter(parentAdapter);
 
+                }
+            });
+            mParentRecyclerView.setAdapter(parentAdapter);
+        } else {
+            parentAdapter.notifyDataSetChanged();
+        }
     }
 
 

@@ -101,6 +101,8 @@ public class HomeRecommendDataBean {
         private float level10Price;
         private float level20Price;
         private float level30Price;
+        int isCross;
+        int step;
 
         public String getSkuId() {
             return skuId;
@@ -146,7 +148,7 @@ public class HomeRecommendDataBean {
         }
 
         public double getMinMarketPrice() {
-            return minMarketPrice/100;
+            return minMarketPrice / 100;
         }
 
         public void setMinMarketPrice(double minMarketPrice) {
@@ -154,7 +156,7 @@ public class HomeRecommendDataBean {
         }
 
         public double getMinPrice() {
-            return minPrice/100;
+            return minPrice / 100;
         }
 
         public void setMinPrice(double minPrice) {
@@ -194,7 +196,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel10Price() {
-            return level10Price/100;
+            return level10Price / 100;
         }
 
         public void setLevel10Price(float level10Price) {
@@ -202,7 +204,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel20Price() {
-            return level20Price/100;
+            return level20Price / 100;
         }
 
         public void setLevel20Price(float level20Price) {
@@ -210,7 +212,7 @@ public class HomeRecommendDataBean {
         }
 
         public float getLevel30Price() {
-            return level30Price/100;
+            return level30Price / 100;
         }
 
         public void setLevel30Price(float level30Price) {
@@ -223,6 +225,22 @@ public class HomeRecommendDataBean {
 
         public void setProductTags(List<String> productTags) {
             this.productTags = productTags;
+        }
+
+        public int getIsCross() {
+            return isCross;
+        }
+
+        public void setIsCross(int isCross) {
+            this.isCross = isCross;
+        }
+
+        public int getStep() {
+            return step;
+        }
+
+        public void setStep(int step) {
+            this.step = step;
         }
     }
 }

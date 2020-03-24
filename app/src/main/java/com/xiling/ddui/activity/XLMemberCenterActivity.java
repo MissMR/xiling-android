@@ -109,6 +109,8 @@ public class XLMemberCenterActivity extends BaseActivity {
     TextView btnSale;
     @BindView(R.id.btn_buy_vip)
     TextView btnBuyVip;
+    @BindView(R.id.btn_sale_vip)
+    TextView btnSaleVip;
     @BindView(R.id.tv_experience)
     TextView tvExperience;
 
@@ -147,11 +149,13 @@ public class XLMemberCenterActivity extends BaseActivity {
                 if (weekCardConfigBean.getWeekType() == 1) {
                     ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_vip);
                     btnBuyVip.setVisibility(View.VISIBLE);
+                    btnSaleVip.setVisibility(View.VISIBLE);
                     btnBuyBlack.setVisibility(View.GONE);
                     btnSale.setVisibility(View.GONE);
                 } else if (weekCardConfigBean.getWeekType() == 2) {
                     ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_balck);
                     btnBuyVip.setVisibility(View.GONE);
+                    btnSaleVip.setVisibility(View.GONE);
                     btnBuyBlack.setVisibility(View.VISIBLE);
                     btnSale.setVisibility(View.VISIBLE);
                 }
@@ -212,11 +216,13 @@ public class XLMemberCenterActivity extends BaseActivity {
                             btnBuyBlack.setVisibility(View.GONE);
                             btnSale.setVisibility(View.GONE);
                             btnBuyVip.setVisibility(View.VISIBLE);
+                            btnSaleVip.setVisibility(View.VISIBLE);
                         } else if (myWeekCardList.get(0).getWeekType() == 2) {
                             ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_balck);
                             btnBuyBlack.setVisibility(View.VISIBLE);
                             btnSale.setVisibility(View.VISIBLE);
                             btnBuyVip.setVisibility(View.GONE);
+                            btnSaleVip.setVisibility(View.GONE);
                         }
                     }
 
@@ -386,8 +392,8 @@ public class XLMemberCenterActivity extends BaseActivity {
                 tvMyWeekCard.setText("当前周卡已到期");
                 relWeekCard.setVisibility(View.GONE);
                 //如果没有弹出过，弹出过期提醒
-                if (SharedPreferenceUtil.getInstance().getBoolean(UserManager.getInstance().getUser().getMemberId()+weekCardInfo.getWeekOrderNo())) {
-                    SharedPreferenceUtil.getInstance().putBoolean(UserManager.getInstance().getUser().getMemberId()+weekCardInfo.getWeekOrderNo(), false);
+                if (SharedPreferenceUtil.getInstance().getBoolean(UserManager.getInstance().getUser().getMemberId() + weekCardInfo.getWeekOrderNo())) {
+                    SharedPreferenceUtil.getInstance().putBoolean(UserManager.getInstance().getUser().getMemberId() + weekCardInfo.getWeekOrderNo(), false);
                     WeekBeOverdueDialog weekBeOverdueDialog = new WeekBeOverdueDialog(context);
                     weekBeOverdueDialog.show();
                 }
@@ -457,7 +463,7 @@ public class XLMemberCenterActivity extends BaseActivity {
 
 
     @OnClick({R.id.btn_close, R.id.btn_notes, R.id.btn_order_goods, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon,
-            R.id.ll_growth_detailed, R.id.btn_buy_black, R.id.btn_buy_vip, R.id.btn_sale})
+            R.id.ll_growth_detailed, R.id.btn_buy_black, R.id.btn_buy_vip, R.id.btn_sale, R.id.btn_sale_vip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -505,8 +511,10 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.btn_sale:
                 //预存货款升级
-                DirectRechargeDialog directRechargeDialog = new DirectRechargeDialog(context);
-                directRechargeDialog.show();
+                new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_BLACK).show();
+                break;
+            case R.id.btn_sale_vip:
+                new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_VIP).show();
                 break;
         }
     }

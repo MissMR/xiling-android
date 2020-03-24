@@ -64,7 +64,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final CardExpandableBean<XLCardListBean.SkuProductListBean> item) {
+    protected void convert(final BaseViewHolder helper, final CardExpandableBean<XLCardListBean.SkuProductListBean> item) {
         switch (item.getItemType()) {
             case CardExpandableBean.PARENT:
                 helper.setText(R.id.tv_store_name, item.getParentName());
@@ -100,7 +100,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#999999"));
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#999999"));
                     mNumberField.setLimit(0, 0);
-
+                    helper.setVisible(R.id.ll_xianggui, false);
                 } else {
                     helper.setVisible(R.id.tv_status, false);
                     helper.setVisible(R.id.itemSelectorIv, true);
@@ -109,7 +109,8 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                     helper.setTextColor(R.id.tv_rmb, Color.parseColor("#a6251a"));
                     helper.setTextColor(R.id.tv_discount_price, Color.parseColor("#a6251a"));
                     helper.setTextColor(R.id.tv_discount_price_decimal, Color.parseColor("#a6251a"));
-                    mNumberField.setLimit(1, skuProductListBean.getStock());
+                    mNumberField.setLimit(skuProductListBean.getStep(), skuProductListBean.getStock());
+                    helper.setText(R.id.tv_step, "当前商品数量箱规格发生改变，请按一手批发" + item.getBean().getStep() + "件的倍数添加");
                     mNumberField.setValue(item.getBean().getQuantity(), false);
                     mNumberField.setOnChangeListener(new OnValueChangeLister() {
                         @Override
@@ -117,11 +118,14 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                             if (value != item.getBean().getQuantity() && onSelectChangeListener != null) {
                                 item.getBean().setQuantity(value);
                                 onSelectChangeListener.onShopChange(item, value);
+                                helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
                                 noticeSelectSize();
                             }
                             getSelectPrice();
                         }
                     });
+
+                    helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
                 }
                 if (!TextUtils.isEmpty(skuProductListBean.getProductName())) {
                     helper.setText(R.id.tv_product_name, skuProductListBean.getProductName());

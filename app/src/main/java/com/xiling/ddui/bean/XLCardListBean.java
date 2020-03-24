@@ -46,18 +46,18 @@ public class XLCardListBean {
 
         /**
          * storeId : 0270f3a9ba0545e3bc62be5ea00ac48d
-         * storeName : 喜领
-         * productId : 9bb42459744c4090be97db34fee9d0ee
-         * productName : test07
-         * thumbUrl : http://oss.xilingbm.com/product/2020-02/20200217015752912VJ.jpg
-         * skuId : e9219255bfe44217851806c3df49c534
-         * skuName : test07
+         * storeName : 喜领商城
+         * productId : 86b3f5635dc7436c8c61892c2abcb962
+         * productName : 坚持改进创新，善于运用群众喜闻乐见的方式，搭建群众便于参与的平台，开辟群众乐于参与的渠道，积极推进理念创新、手段创新和基层工作创新，增强工作的吸引力感染力
+         * thumbUrl : http://oss.xilingbm.com/product/2020-01/20200119035145289CD.jpg
+         * skuId : 92f5cd6fa18840ed8115e1b952b695f3
+         * skuName : 坚持改进创新，善于运用群众喜闻乐见的方式，搭建群众便于参与的平台，开辟群众乐于参与的渠道，积极推进理念创新、手段创新和基层工作创新，增强工作的吸引力感染力
          * price : 1
-         * marketPrice : 5699
-         * retailPrice : 5555
-         * stock : 246
-         * quantity : 2
-         * properties : 60粒/盒;
+         * marketPrice : 10001
+         * retailPrice : 9902
+         * stock : 110
+         * quantity : 6
+         * properties : 330ml;
          * status : 1
          */
 
@@ -68,18 +68,15 @@ public class XLCardListBean {
         private String thumbUrl;
         private String skuId;
         private String skuName;
-        private double price;
-        private double marketPrice;
-        private double retailPrice;
+        private int price;
+        private int marketPrice;
+        private int retailPrice;
         private int stock;
         private int quantity;
         private String properties;
         private int status;
-
-        @Override
-        public boolean equals(Object obj) {
-            return this.getSkuId().equals(((SkuProductListBean)obj).getSkuId());
-        }
+        private int step;
+        private int isCross;
 
         public String getStoreId() {
             return storeId;
@@ -137,15 +134,15 @@ public class XLCardListBean {
             this.skuName = skuName;
         }
 
-        public double getPrice() {
-            return price/100;
+        public int getPrice() {
+            return price;
         }
 
-        public void setPrice(double price) {
+        public void setPrice(int price) {
             this.price = price;
         }
 
-        public double getMarketPrice() {
+        public int getMarketPrice() {
             return marketPrice;
         }
 
@@ -153,8 +150,8 @@ public class XLCardListBean {
             this.marketPrice = marketPrice;
         }
 
-        public double getRetailPrice() {
-            return retailPrice/100;
+        public int getRetailPrice() {
+            return retailPrice;
         }
 
         public void setRetailPrice(int retailPrice) {
@@ -191,6 +188,22 @@ public class XLCardListBean {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public int getStep() {
+            return step;
+        }
+
+        public void setStep(int step) {
+            this.step = step;
+        }
+
+        public int getIsCross() {
+            return isCross;
+        }
+
+        public void setIsCross(int isCross) {
+            this.isCross = isCross;
         }
     }
 }
