@@ -24,6 +24,7 @@ import com.xiling.ddui.bean.RealAuthBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.custom.DDSmartTab;
 import com.xiling.ddui.custom.DDSquareBanner;
+import com.xiling.ddui.custom.popupwindow.TaxExplainDialog;
 import com.xiling.ddui.manager.ShopDetailManager;
 import com.xiling.dduis.adapter.ShopListTagsAdapter;
 import com.xiling.dduis.magnager.UserManager;
@@ -33,6 +34,8 @@ import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.SkuPvIds;
 import com.xiling.shared.component.dialog.SkuSelectorDialog;
 import com.xiling.shared.manager.APIManager;
+import com.xiling.shared.manager.ServiceManager;
+import com.xiling.shared.service.contract.IProductService;
 import com.xiling.shared.util.CarouselUtil;
 import com.xiling.shared.util.RvUtils;
 import com.xiling.shared.util.SessionUtil;
@@ -158,6 +161,12 @@ public class ProductDetailUIHelper {
     @BindView(R.id.iv_rate)
     TextView ivRate;
 
+    @BindView(R.id.ll_cross)
+    LinearLayout llCross;
+    @BindView(R.id.tv_user_taxation)
+    TextView tvUserTaxation;
+    @BindView(R.id.btn_tax_explain)
+    View btnTaxExplain;
     private OnActionListener mOnActionListener;
 
     private DDProductDetailActivity mContext;
@@ -179,9 +188,11 @@ public class ProductDetailUIHelper {
     SkuSelectorDialog mSkuSelectorDialog;
     ProductNewBean mSpuInfo;
     NewUserBean newUserBean;
+    private IProductService mProductService;
 
     public ProductDetailUIHelper(DDProductDetailActivity productDetailActivity) {
         mContext = productDetailActivity;
+        mProductService = ServiceManager.getInstance().createService(IProductService.class);
         initView();
         QMUIStatusBarHelper.setStatusBarLightMode(mContext);
     }
@@ -191,7 +202,7 @@ public class ProductDetailUIHelper {
 
         ButterKnife.bind(this, baseContentView);
         webView = new WebView(mContext);
-        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         mProductDetailWebView.addView(webView);
 
         QMUIStatusBarHelper.translucent(mContext);
@@ -258,10 +269,10 @@ public class ProductDetailUIHelper {
             relSkuInfo.setClickable(false);
 
             ivRate.setBackgroundResource(R.drawable.bg_special_price_out);
-            tvRmb.setTextColor( Color.parseColor("#999999"));
-            tvDiscountPrice.setTextColor( Color.parseColor("#999999"));
-            tvDiscountPriceDecimal.setTextColor( Color.parseColor("#999999"));
-           // tvMinPrice.setTextColor(Color.parseColor("#999999"));
+            tvRmb.setTextColor(Color.parseColor("#999999"));
+            tvDiscountPrice.setTextColor(Color.parseColor("#999999"));
+            tvDiscountPriceDecimal.setTextColor(Color.parseColor("#999999"));
+            // tvMinPrice.setTextColor(Color.parseColor("#999999"));
         } else {
             mTvSoldOut.setVisibility(View.GONE);
             tvBtnAddCart.setTextColor(Color.parseColor("#202020"));
@@ -273,10 +284,10 @@ public class ProductDetailUIHelper {
             relSkuInfo.setClickable(true);
 
             ivRate.setBackgroundResource(R.drawable.bg_special_price);
-            tvRmb.setTextColor( Color.parseColor("#ffa6251a"));
-            tvDiscountPrice.setTextColor( Color.parseColor("#ffa6251a"));
-            tvDiscountPriceDecimal.setTextColor( Color.parseColor("#ffa6251a"));
-          //  tvMinPrice.setTextColor(Color.parseColor("#202020"));
+            tvRmb.setTextColor(Color.parseColor("#ffa6251a"));
+            tvDiscountPrice.setTextColor(Color.parseColor("#ffa6251a"));
+            tvDiscountPriceDecimal.setTextColor(Color.parseColor("#ffa6251a"));
+            //  tvMinPrice.setTextColor(Color.parseColor("#202020"));
         }
 
         //优惠价，需要根据用户等级展示不同价格
@@ -288,10 +299,10 @@ public class ProductDetailUIHelper {
         tvMinMarketPrice.setText("¥" + NumberHandler.reservedDecimalFor2(spuInfo.getMinMarketPrice()));
         tvMinMarketPrice.getPaint().setAntiAlias(true);//抗锯齿
         tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        if (spuInfo.getSaleCount() >=10000){
-            tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount()/10000)+"万");
-        }else{
-            tvSaleSize.setText("已售" +(int)spuInfo.getSaleCount());
+        if (spuInfo.getSaleCount() >= 10000) {
+            tvSaleSize.setText("已售" + NumberHandler.reservedDecimalFor2(spuInfo.getSaleCount() / 10000) + "万");
+        } else {
+            tvSaleSize.setText("已售" + (int) spuInfo.getSaleCount());
         }
 
 
@@ -315,13 +326,66 @@ public class ProductDetailUIHelper {
 
         updateSkuViews(skuName);
 
+        //根据是否跨境显示/隐藏税费
+        if (mSpuInfo.getIsCross() == 1) {
+            // 显示
+            llCross.setVisibility(View.VISIBLE);
+            double tax = UserManager.getInstance().getTaxationForUser(mSpuInfo);
+            if (tax > 0) {
+                tvUserTaxation.setText("进口税:¥" + NumberHandler.reservedDecimalFor2(tax));
+                btnTaxExplain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //不包税税费说明
+                        APIManager.startRequest(mProductService.getProductTax(mSpuInfo.getProductId()), new BaseRequestListener<Double>() {
+                            @Override
+                            public void onSuccess(Double result) {
+                                super.onSuccess(result);
+                                if (result > 0) {
+                                    showTaxExplainDialog(false, result + "%");
+                                } else {
+                                    showTaxExplainDialog(true, "");
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                super.onError(e);
+                                ToastUtil.error(e.getMessage());
+                            }
+                        });
+                    }
+                });
+            } else {
+                tvUserTaxation.setText("进口税:商品价格已包税");
+                btnTaxExplain.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //包税税费说明
+                        showTaxExplainDialog(true, "");
+                    }
+                });
+            }
+        } else {
+            //隐藏
+            llCross.setVisibility(View.GONE);
+        }
 
         loadDetailWebView(spuInfo.getContent());
 
-        GlideUtils.loadIntoUseFitWidth(mContext, spuInfo.getConsumerNoticeUrl(),ivBottom);
+        GlideUtils.loadIntoUseFitWidth(mContext, spuInfo.getConsumerNoticeUrl(), ivBottom);
 
 
     }
+
+    /**
+     * 税费说明dialog
+     */
+    private void showTaxExplainDialog(boolean isDutyFree, String tax) {
+        TaxExplainDialog taxExplainDialog = new TaxExplainDialog(mContext, isDutyFree, tax);
+        taxExplainDialog.show();
+    }
+
 
     public void recyclerWebView() {
         WebViewUtil.clearWebViewResource(webView);

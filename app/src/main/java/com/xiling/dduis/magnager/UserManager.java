@@ -152,6 +152,30 @@ public class UserManager {
         return mPrice;
     }
 
+    /**
+     * 根据用户等级，获取税费
+     *
+     * @return
+     */
+    public double getTaxationForUser(ProductNewBean item) {
+        double mPrice = item.getMinPrice();
+        NewUserBean userBean = getUser();
+        if (userBean != null && userBean.getAuthStatus() == 2) {
+            switch (userBean.getRole().getRoleLevel()) {
+                case 10:
+                    mPrice = item.getSkus().get(0).getLevel10Tax();
+                    break;
+                case 20:
+                    mPrice = item.getSkus().get(0).getLevel20Tax();
+                    break;
+                case 30:
+                    mPrice = item.getSkus().get(0).getLevel30Tax();
+                    break;
+            }
+        }
+        return mPrice;
+    }
+
 
 
     /**

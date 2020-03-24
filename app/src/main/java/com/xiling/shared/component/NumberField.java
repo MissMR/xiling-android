@@ -142,11 +142,15 @@ public class NumberField extends LinearLayout {
      * 设置数据有效区间
      */
     public void setLimit(int min, int max) {
-        mMin = min;
-        mStep = min;
-        if (mStep <= 0) {
+        // 确保最小值大于0
+        if (min > 0) {
+            mMin = min;
+            mStep = min;
+        } else {
+            mMin = 1;
             mStep = 1;
         }
+
         mMax = max;
         if (mValue > mMax) {
             mValue = mMax;

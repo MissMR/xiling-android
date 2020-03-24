@@ -23,5 +23,6 @@
         android:textSize="@dimen/sp_13"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_10"
+        android:visibility="gone"
         />
 </LinearLayout>

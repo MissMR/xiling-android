@@ -42,6 +42,10 @@ import retrofit2.http.Url;
 
 public interface IProductService {
 
+    // 获取商品税率
+    @GET("product/getProductTax")
+    Observable<RequestResult<Double>> getProductTax(@Query("spuId") String spuId);
+
     // 一级分类接口
     @GET("home/getTopCategory")
     Observable<RequestResult<ArrayList<TopCategoryBean>>> getTopCategory();

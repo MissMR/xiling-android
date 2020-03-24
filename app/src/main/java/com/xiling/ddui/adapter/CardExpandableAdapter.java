@@ -118,14 +118,20 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                             if (value != item.getBean().getQuantity() && onSelectChangeListener != null) {
                                 item.getBean().setQuantity(value);
                                 onSelectChangeListener.onShopChange(item, value);
-                                helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
+                                if (item.getBean().getStep() > 0){
+                                    helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
+                                }
                                 noticeSelectSize();
                             }
                             getSelectPrice();
                         }
                     });
+                    if (item.getBean().getStep() > 0){
+                        helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
+                    }else{
+                        helper.setVisible(R.id.ll_xianggui, false);
+                    }
 
-                    helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
                 }
                 if (!TextUtils.isEmpty(skuProductListBean.getProductName())) {
                     helper.setText(R.id.tv_product_name, skuProductListBean.getProductName());
@@ -276,7 +282,11 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
         return false;
     }
 
-
+    /**
+     * 判断商品是否可用（已售罄，已下架返回false）
+     * @param cardBean
+     * @return
+     */
     private boolean inspectStatus(CardExpandableBean<XLCardListBean.SkuProductListBean> cardBean) {
         if (!cardBean.isParent()) {
             return TextUtils.isEmpty(ShopUtils.checkShopStatus(cardBean.getBean().getStatus(), cardBean.getBean().getStock()));

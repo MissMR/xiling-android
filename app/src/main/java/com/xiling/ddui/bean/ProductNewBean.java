@@ -49,6 +49,16 @@ public class ProductNewBean {
     private List<String> productTags;
     private List<PropertiesBean> properties;
     private List<SkusBean> skus;
+
+    public int getIsCross() {
+        return isCross;
+    }
+
+    public void setIsCross(int isCross) {
+        this.isCross = isCross;
+    }
+
+    private int isCross;
     private List<String> images;
 
     public String getProductId() {
@@ -84,7 +94,7 @@ public class ProductNewBean {
     }
 
     public float getMinMarketPrice() {
-        return minMarketPrice/100;
+        return minMarketPrice / 100;
     }
 
     public void setMinMarketPrice(float minMarketPrice) {
@@ -92,7 +102,7 @@ public class ProductNewBean {
     }
 
     public float getMinPrice() {
-        return minPrice/100;
+        return minPrice / 100;
     }
 
     public void setMinPrice(float minPrice) {
@@ -172,7 +182,7 @@ public class ProductNewBean {
     }
 
     public double getLevel10Price() {
-        return level10Price/100;
+        return level10Price / 100;
     }
 
     public void setLevel10Price(int level10Price) {
@@ -180,7 +190,7 @@ public class ProductNewBean {
     }
 
     public double getLevel20Price() {
-        return level20Price/100;
+        return level20Price / 100;
     }
 
     public void setLevel20Price(int level20Price) {
@@ -188,7 +198,7 @@ public class ProductNewBean {
     }
 
     public double getLevel30Price() {
-        return level30Price/100;
+        return level30Price / 100;
     }
 
     public void setLevel30Price(int level30Price) {
@@ -345,10 +355,29 @@ public class ProductNewBean {
         private int costPrice;
         private double level10Price;
         private double level20Price;
+
+        public double getRetailTax() {
+            return retailTax / 100;
+        }
+
+        public double getLevel10Tax() {
+            return level10Tax / 100;
+        }
+
+        public double getLevel20Tax() {
+            return level20Tax / 100;
+        }
+
+        public double getLevel30Tax() {
+            return level30Tax / 100;
+        }
+
         private double level30Price;
         private int step;
-        private int isCross;
-
+        private double retailTax;
+        private double level10Tax;
+        private double level20Tax;
+        private double level30Tax;
 
         public String getSkuId() {
             return skuId;
@@ -383,7 +412,7 @@ public class ProductNewBean {
         }
 
         public double getRetailPrice() {
-            return retailPrice/100;
+            return retailPrice / 100;
         }
 
         public void setRetailPrice(double retailPrice) {
@@ -391,7 +420,7 @@ public class ProductNewBean {
         }
 
         public double getMarketPrice() {
-            return marketPrice/100;
+            return marketPrice / 100;
         }
 
         public void setMarketPrice(double marketPrice) {
@@ -455,7 +484,7 @@ public class ProductNewBean {
         }
 
         public double getLevel10Price() {
-            return level10Price/100;
+            return level10Price / 100;
         }
 
         public void setLevel10Price(int level10Price) {
@@ -463,7 +492,7 @@ public class ProductNewBean {
         }
 
         public double getLevel20Price() {
-            return level20Price/100;
+            return level20Price / 100;
         }
 
         public void setLevel20Price(int level20Price) {
@@ -471,7 +500,7 @@ public class ProductNewBean {
         }
 
         public double getLevel30Price() {
-            return level30Price/100;
+            return level30Price / 100;
         }
 
         public void setLevel30Price(int level30Price) {
@@ -486,12 +515,5 @@ public class ProductNewBean {
             this.step = step;
         }
 
-        public int getIsCross() {
-            return isCross;
-        }
-
-        public void setIsCross(int isCross) {
-            this.isCross = isCross;
-        }
     }
 }
