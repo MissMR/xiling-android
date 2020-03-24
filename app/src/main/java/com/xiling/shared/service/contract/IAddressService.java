@@ -70,8 +70,8 @@ public interface IAddressService {
 
 
 
-    @DELETE("address/del/{id}")
-    Observable<RequestResult<Object>> deleteAddress(@Path("id") String addressId);
+    @GET("address/delete")
+    Observable<RequestResult<Object>> deleteAddress(@Query("addressId") String addressId);
 
 
 
