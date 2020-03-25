@@ -16,9 +16,11 @@ public class OrderDetailBean {
      */
 
     private double totalPrice;
+    int isCross;
+    private double taxes;
 
     public double getTotalPrice() {
-        return totalPrice/100;
+        return totalPrice / 100;
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -42,7 +44,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalPrice() {
-        return goodsTotalPrice/100;
+        return goodsTotalPrice / 100;
     }
 
     public void setGoodsTotalPrice(double goodsTotalPrice) {
@@ -50,7 +52,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalRetailPrice() {
-        return goodsTotalRetailPrice/100;
+        return goodsTotalRetailPrice / 100;
     }
 
     public void setGoodsTotalRetailPrice(double goodsTotalRetailPrice) {
@@ -58,7 +60,7 @@ public class OrderDetailBean {
     }
 
     public double getGoodsTotalDiscountPrice() {
-        return goodsTotalDiscountPrice/100;
+        return goodsTotalDiscountPrice / 100;
     }
 
     public void setGoodsTotalDiscountPrice(double goodsTotalDiscountPrice) {
@@ -66,7 +68,7 @@ public class OrderDetailBean {
     }
 
     public double getCouponReductionPrice() {
-        return couponReductionPrice/100;
+        return couponReductionPrice / 100;
     }
 
     public void setCouponReductionPrice(double couponReductionPrice) {
@@ -74,7 +76,7 @@ public class OrderDetailBean {
     }
 
     public double getFreight() {
-        return freight/100;
+        return freight / 100;
     }
 
     public void setFreight(double freight) {
@@ -91,13 +93,20 @@ public class OrderDetailBean {
     private List<StoresBean> stores;
 
 
-
     public List<StoresBean> getStores() {
         return stores;
     }
 
     public void setStores(List<StoresBean> stores) {
         this.stores = stores;
+    }
+
+    public int getIsCross() {
+        return isCross;
+    }
+
+    public double getTaxes() {
+        return taxes / 100;
     }
 
     public static class StoresBean {
@@ -189,6 +198,13 @@ public class OrderDetailBean {
             private String refundId;
             private String receiptsIndices;
             private String storeName;
+
+            public double getTotalTaxes() {
+                return totalTaxes / 100;
+            }
+
+            private double totalTaxes;
+
 
             public String getOrder1Id() {
                 return order1Id;
@@ -303,7 +319,7 @@ public class OrderDetailBean {
             }
 
             public double getPrice() {
-                return price/100;
+                return price / 100;
             }
 
             public void setPrice(double price) {
@@ -311,7 +327,7 @@ public class OrderDetailBean {
             }
 
             public double getRetailPrice() {
-                return retailPrice/100;
+                return retailPrice / 100;
             }
 
             public void setRetailPrice(double retailPrice) {

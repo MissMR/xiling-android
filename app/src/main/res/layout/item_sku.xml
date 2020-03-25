@@ -9,8 +9,7 @@
         android:layout_width="@dimen/dp_96"
         android:layout_height="@dimen/dp_96"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_20"
-     >
+        android:layout_marginLeft="@dimen/dp_20">
 
         <ImageView
             android:id="@+id/iv_icon"
@@ -87,7 +86,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffa6251a"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/sp_18" />
+
+
+            <TextView
+                android:id="@+id/tv_taxation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_6"
+                android:background="@drawable/bg_price_red"
+                android:paddingLeft="@dimen/dp_3"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingRight="@dimen/dp_3"
+                android:paddingBottom="@dimen/dp_2"
+                android:textColor="#ffffffff"
+                android:visibility="gone"
+                android:textSize="@dimen/sp_10" />
 
 
         </LinearLayout>
@@ -97,12 +111,11 @@
             android:id="@+id/tv_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ff202020"
-            android:textSize="13sp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="@dimen/dp_20"
-            />
+            android:textColor="#ff202020"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 

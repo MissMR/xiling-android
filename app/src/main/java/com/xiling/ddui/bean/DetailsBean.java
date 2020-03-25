@@ -26,6 +26,9 @@ public  class DetailsBean implements Parcelable {
     private String skuCode;
     private int quantity;
 
+    private double taxes;
+    boolean cross;
+
     public String getProductId() {
         return productId;
     }
@@ -98,10 +101,13 @@ public  class DetailsBean implements Parcelable {
         this.quantity = quantity;
     }
 
-
-    public DetailsBean() {
+    public double getTaxes() {
+        return taxes/100;
     }
 
+    public boolean isCross() {
+        return cross;
+    }
 
     @Override
     public int describeContents() {
@@ -119,6 +125,11 @@ public  class DetailsBean implements Parcelable {
         dest.writeString(this.skuId);
         dest.writeString(this.skuCode);
         dest.writeInt(this.quantity);
+        dest.writeDouble(this.taxes);
+        dest.writeByte(this.cross ? (byte) 1 : (byte) 0);
+    }
+
+    public DetailsBean() {
     }
 
     protected DetailsBean(Parcel in) {
@@ -131,6 +142,8 @@ public  class DetailsBean implements Parcelable {
         this.skuId = in.readString();
         this.skuCode = in.readString();
         this.quantity = in.readInt();
+        this.taxes = in.readDouble();
+        this.cross = in.readByte() != 0;
     }
 
     public static final Creator<DetailsBean> CREATOR = new Creator<DetailsBean>() {

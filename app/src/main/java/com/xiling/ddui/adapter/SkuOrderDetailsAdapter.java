@@ -7,15 +7,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiling.R;
 import com.xiling.ddui.bean.DetailsBean;
-import com.xiling.ddui.bean.MyOrderDetailBean;
-import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.image.GlideUtils;
 
-public class SkuOrderAdapter extends BaseQuickAdapter<DetailsBean, BaseViewHolder> {
+public class SkuOrderDetailsAdapter extends BaseQuickAdapter<DetailsBean, BaseViewHolder> {
 
 
-    public SkuOrderAdapter() {
+    public SkuOrderDetailsAdapter() {
         super(R.layout.item_sku);
     }
 
@@ -27,7 +25,7 @@ public class SkuOrderAdapter extends BaseQuickAdapter<DetailsBean, BaseViewHolde
         helper.setText(R.id.tv_quantity, "x " + item.getQuantity());
         helper.setText(R.id.tv_price, "¥" + NumberHandler.reservedDecimalFor2(item.getRetailPrice()));
         NumberHandler.setPriceText(item.getPrice(), (TextView) helper.getView(R.id.tv_discount_price), (TextView) helper.getView(R.id.tv_discount_price_decimal));
-        /*if (item.isCross()) {
+        if (item.isCross()) {
             helper.setVisible(R.id.tv_taxation, true);
             if (item.getTaxes() > 0) {
                 helper.setText(R.id.tv_taxation, "进口税¥" + NumberHandler.reservedDecimalFor2(item.getTaxes()));
@@ -36,6 +34,6 @@ public class SkuOrderAdapter extends BaseQuickAdapter<DetailsBean, BaseViewHolde
             }
         } else {
             helper.setVisible(R.id.tv_taxation, false);
-        }*/
+        }
     }
 }

@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
-import com.xiling.ddui.adapter.SkuOrderAdapter;
+import com.xiling.ddui.adapter.SkuOrderDetailsAdapter;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
 import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.popupwindow.CancelOrderDialog;
@@ -119,6 +119,15 @@ public class XLOrderDetailsActivity extends BaseActivity {
     TextView tvPriceBalance;
     @BindView(R.id.rel_balance)
     RelativeLayout relBalance;
+    @BindView(R.id.tv_subscribers_name)
+    TextView tvSubscribersName;
+    @BindView(R.id.tv_subscribers_id)
+    TextView tvSubscribersId;
+    @BindView(R.id.ll_subscribers)
+    LinearLayout llSubscribers;
+    @BindView(R.id.tv_taxation)
+    TextView tvTaxation;
+
     private String orderId;
     IOrderService mOrderService;
     XLOrderDetailsBean orderDetailsBean;
@@ -161,45 +170,41 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvWarehouseName.setText(orderDetailsBean.getStoreName());
                 setStatus(result.getOrderStatusUs(), result);
 
+                //判断是否为跨境商品
+                if (result.getIsCross() == 1) {
+                    //是
+                    llSubscribers.setVisibility(View.VISIBLE);
+                    if (!TextUtils.isEmpty(result.getOrderer())) {
+                        tvSubscribersName.setText(result.getOrderer());
+                    }
+                    if (!TextUtils.isEmpty(result.getIdentityCard())) {
+                        tvSubscribersId.setText(result.getIdentityCard());
+                    }
+                } else {
+                    llSubscribers.setVisibility(View.GONE);
+                }
+
+
                 tvContactName.setText(result.getContactUsername());
                 tvContactPhone.setText(result.getContactPhone());
                 tvContactAddress.setText(result.getAddress());
                 tvContactAddressDetails.setText(result.getContactDetail());
                 recyclerSku.setLayoutManager(new LinearLayoutManager(context));
-                SkuOrderAdapter skuAdapter = new SkuOrderAdapter();
+                SkuOrderDetailsAdapter skuAdapter = new SkuOrderDetailsAdapter();
                 recyclerSku.setAdapter(skuAdapter);
                 skuAdapter.setNewData(result.getDetails());
-             /*   产品改来改去，先保留
-                    switch (UserManager.getInstance().getUserLevel()) {
-                    case 0:
-                        //注册会员
-                        tvIdentityPrice.setText("优惠价");
-                        break;
-                    case 10:
-                        //普通会员
-                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_ordinary);
-                        break;
-                    case 20:
-                        //vip会员
-                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_vip);
-                        break;
-                    case 30:
-                        //黑卡会员
-                        tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black);
-                        break;
-                }*/
                 tvIdentityPrice.setText("优惠价");
-
+                tvTaxation.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getTaxes()));
                 tvPriceTotal.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
                 tvPriceFreight.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
                 tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                 tvPriceCoupon.setText("-¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));
 
-                if (result.getBalance() > 0){
+                if (result.getBalance() > 0) {
                     relBalance.setVisibility(View.VISIBLE);
                     tvPriceBalance.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getBalance()));
-                }else{
+                } else {
                     relBalance.setVisibility(View.GONE);
                 }
 

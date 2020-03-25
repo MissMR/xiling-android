@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,9 +32,7 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.address.AddressListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.Coupon;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.constant.Event;
 import com.xiling.shared.constant.Key;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -41,6 +40,7 @@ import com.xiling.shared.service.INewUserService;
 import com.xiling.shared.service.contract.IAddressService;
 import com.xiling.shared.service.contract.ICouponService;
 import com.xiling.shared.service.contract.IOrderService;
+import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -95,9 +95,20 @@ public class ConfirmationOrderActivity extends BaseActivity {
     ImageView switchBalance;
     @BindView(R.id.tv_identity_price)
     TextView tvIdentityPrice;
+    @BindView(R.id.et_subscribers_name)
+    EditText etSubscribersName;
+    @BindView(R.id.et_subscribers_id)
+    EditText etSubscribersId;
+    @BindView(R.id.ll_subscribers_info)
+    LinearLayout llSubscribersInfo;
+    @BindView(R.id.ll_purchase_instructions)
+    LinearLayout llPurchaseInstructions;
+    @BindView(R.id.ll_taxation)
+    RelativeLayout llTaxation;
+    @BindView(R.id.tv_taxation)
+    TextView tvTaxation;
+
     private CouponBean couponBean = null;
-
-
     ArrayList<SkuListBean> skuList;
     IOrderService mOrderService;
     IAddressService mAddressService;
@@ -129,6 +140,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
     private double totlaPrice = 0;
     private AccountInfo accountInfo = null;
     private int orderSource = 1;
+    private String orderer = "";//跨境购-订购人
+    private String identityCard = "";//跨境购-身份证
+    boolean isCross;
 
 
     @Override
@@ -151,8 +165,14 @@ public class ConfirmationOrderActivity extends BaseActivity {
             ToastUtil.error("商品列表为空");
             return;
         }
-
-
+        orderer = SharedPreferenceUtil.getInstance().getString("orderer");
+        identityCard = SharedPreferenceUtil.getInstance().getString("identityCard");
+        if (!TextUtils.isEmpty(orderer)) {
+            etSubscribersName.setText(orderer);
+        }
+        if (!TextUtils.isEmpty(identityCard)) {
+            etSubscribersId.setText(identityCard);
+        }
         recyclerSku.setLayoutManager(new LinearLayoutManager(this));
         orderSkuAdapter = new OrderSkuAdapter();
         recyclerSku.setAdapter(orderSkuAdapter);
@@ -224,7 +244,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
             public void onSuccess(OrderDetailBean result) {
                 super.onSuccess(result);
                 orderSkuAdapter.setNewData(result.getStores());
-
+                isCross(result.getIsCross() == 1, result);
                 if (result != null) {
                     useBalance = result.getTotalPrice();
                     totlaPrice = result.getTotalPrice();
@@ -260,8 +280,6 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     tvDiscountPrice.setText("¥" + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                     tvCouponPrice.setText("-¥" + NumberHandler.reservedDecimalFor2(result.getCouponReductionPrice()));
                     tvFreightPrice.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getFreight()));
-                    // tvBalancePrice.setText("-¥" + NumberHandler.reservedDecimalFor2(useBalance));
-
                 }
             }
 
@@ -270,6 +288,21 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 super.onError(e);
             }
         });
+    }
+
+    private void isCross(boolean isCross, OrderDetailBean result) {
+        this.isCross = isCross;
+        if (isCross) {
+            llSubscribersInfo.setVisibility(View.VISIBLE);
+            llPurchaseInstructions.setVisibility(View.VISIBLE);
+            llTaxation.setVisibility(View.VISIBLE);
+            tvTaxation.setText("+¥" + NumberHandler.reservedDecimalFor2(result.getTaxes()));
+        } else {
+            llSubscribersInfo.setVisibility(View.GONE);
+            llPurchaseInstructions.setVisibility(View.INVISIBLE);
+            llTaxation.setVisibility(View.GONE);
+        }
+
     }
 
     /**
@@ -373,6 +406,9 @@ public class ConfirmationOrderActivity extends BaseActivity {
 
     ICouponService mCouponService;
 
+    /**
+     * 优惠券列表
+     */
     private void getCouponList() {
         HashMap<String, Object> params = new HashMap<>();
         params.put("products", skuList);
@@ -434,6 +470,14 @@ public class ConfirmationOrderActivity extends BaseActivity {
         if (isBalance) {
             params.put("balancePassword", balancePassword);
         }
+
+        if (isCross) {
+            orderer = etSubscribersName.getText().toString();
+            identityCard = etSubscribersId.getText().toString();
+            params.put("orderer", orderer);
+            params.put("identityCard", identityCard);
+        }
+
         params.put("products", skuList);
         params.put("device", 1);
         params.put("addressId", mAddress.getAddressId());
@@ -561,7 +605,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     public void run() {
                         finish();
                     }
-                },200);
+                }, 200);
                 break;
             case saveAddress:
                 //修改收获地址
@@ -576,4 +620,12 @@ public class ConfirmationOrderActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        orderer = etSubscribersName.getText().toString();
+        identityCard = etSubscribersId.getText().toString();
+        SharedPreferenceUtil.getInstance().putString("orderer", orderer);
+        SharedPreferenceUtil.getInstance().putString("identityCard", identityCard);
+    }
 }

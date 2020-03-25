@@ -75,7 +75,6 @@ public class XLOrderDetailsBean implements Parcelable {
     private double freight;
     private double discountCoupon;
     private double discountPrice;
-    private int taxes;
     private int expressId;
     private String expressCode;
     private String expressName;
@@ -88,6 +87,32 @@ public class XLOrderDetailsBean implements Parcelable {
     private double receiptsIndices;
     private List<DetailsBean> details;
     private String storeName;
+    private int isCross;
+    private double taxes;
+
+    public String getOrderer() {
+        return orderer;
+    }
+
+    private String orderer;
+
+    public String getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+    }
+
+    private String identityCard;
+
+    public int getIsCross() {
+        return isCross;
+    }
+
+    public double getTaxes() {
+        return taxes/100;
+    }
 
     public String getBuyerRemark() {
         return buyerRemark;
@@ -255,14 +280,6 @@ public class XLOrderDetailsBean implements Parcelable {
         this.discountPrice = discountPrice;
     }
 
-    public int getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(int taxes) {
-        this.taxes = taxes;
-    }
-
     public int getExpressId() {
         return expressId;
     }
@@ -320,7 +337,7 @@ public class XLOrderDetailsBean implements Parcelable {
     }
 
     public double getBalance() {
-        return balance/100;
+        return balance / 100;
     }
 
     public void setBalance(int balance) {
@@ -343,103 +360,6 @@ public class XLOrderDetailsBean implements Parcelable {
         this.details = details;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.orderId);
-        dest.writeString(this.orderCode);
-        dest.writeString(this.orderStatus);
-        dest.writeString(this.orderStatusUs);
-        dest.writeInt(this.totalQuantity);
-        dest.writeDouble(this.totalPrice);
-        dest.writeDouble(this.goodsTotalRetailPrice);
-        dest.writeString(this.createTime);
-        dest.writeString(this.updateTime);
-        dest.writeByte(this.canRemindDelivery ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.canRemindAudit ? (byte) 1 : (byte) 0);
-        dest.writeString(this.contactUsername);
-        dest.writeString(this.contactPhone);
-        dest.writeString(this.contactProvince);
-        dest.writeString(this.contactCity);
-        dest.writeString(this.contactDistrict);
-        dest.writeString(this.contactDetail);
-        dest.writeDouble(this.freight);
-        dest.writeDouble(this.discountCoupon);
-        dest.writeDouble(this.discountPrice);
-        dest.writeInt(this.taxes);
-        dest.writeInt(this.expressId);
-        dest.writeString(this.expressCode);
-        dest.writeString(this.expressName);
-        dest.writeString(this.doneTime);
-        dest.writeString(this.shipDate);
-        dest.writeString(this.payType);
-        dest.writeDouble(this.payMoney);
-        dest.writeDouble(this.balance);
-        dest.writeLong(this.waitPayTimeMilli);
-        dest.writeList(this.details);
-        dest.writeDouble(this.receiptsIndices);
-        dest.writeString(this.buyerRemark);
-        dest.writeDouble(this.goodsTotalPrice);
-    }
-
-    public XLOrderDetailsBean() {
-    }
-
-    protected XLOrderDetailsBean(Parcel in) {
-        this.orderId = in.readString();
-        this.orderCode = in.readString();
-        this.receiptsIndices = in.readDouble();
-        this.orderStatus = in.readString();
-        this.orderStatusUs = in.readString();
-        this.totalQuantity = in.readInt();
-        this.totalPrice = in.readDouble();
-        this.goodsTotalRetailPrice = in.readDouble();
-        this.createTime = in.readString();
-        this.updateTime = in.readString();
-        this.canRemindDelivery = in.readByte() != 0;
-        this.canRemindAudit = in.readByte() != 0;
-        this.contactUsername = in.readString();
-        this.contactPhone = in.readString();
-        this.contactProvince = in.readString();
-        this.contactCity = in.readString();
-        this.contactDistrict = in.readString();
-        this.contactDetail = in.readString();
-        this.freight = in.readDouble();
-        this.discountCoupon = in.readDouble();
-        this.discountPrice = in.readDouble();
-        this.taxes = in.readInt();
-        this.expressId = in.readInt();
-        this.expressCode = in.readString();
-        this.expressName = in.readString();
-        this.doneTime = in.readString();
-        this.shipDate = in.readString();
-        this.payType = in.readString();
-        this.payMoney = in.readDouble();
-        this.balance = in.readDouble();
-        this.waitPayTimeMilli = in.readLong();
-        this.details = new ArrayList<DetailsBean>();
-        this.buyerRemark = in.readString();
-        this.goodsTotalPrice = in.readDouble();
-        in.readList(this.details, DetailsBean.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<XLOrderDetailsBean> CREATOR = new Parcelable.Creator<XLOrderDetailsBean>() {
-        @Override
-        public XLOrderDetailsBean createFromParcel(Parcel source) {
-            return new XLOrderDetailsBean(source);
-        }
-
-        @Override
-        public XLOrderDetailsBean[] newArray(int size) {
-            return new XLOrderDetailsBean[size];
-        }
-    };
-
     public double getReceiptsIndices() {
         return receiptsIndices;
     }
@@ -455,4 +375,108 @@ public class XLOrderDetailsBean implements Parcelable {
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.orderId);
+        dest.writeString(this.orderCode);
+        dest.writeString(this.orderStatus);
+        dest.writeString(this.orderStatusUs);
+        dest.writeInt(this.totalQuantity);
+        dest.writeDouble(this.totalPrice);
+        dest.writeDouble(this.goodsTotalRetailPrice);
+        dest.writeDouble(this.goodsTotalPrice);
+        dest.writeString(this.createTime);
+        dest.writeString(this.updateTime);
+        dest.writeByte(this.canRemindDelivery ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.canRemindAudit ? (byte) 1 : (byte) 0);
+        dest.writeString(this.contactUsername);
+        dest.writeString(this.contactPhone);
+        dest.writeString(this.contactProvince);
+        dest.writeString(this.contactCity);
+        dest.writeString(this.contactDistrict);
+        dest.writeString(this.contactDetail);
+        dest.writeDouble(this.freight);
+        dest.writeDouble(this.discountCoupon);
+        dest.writeDouble(this.discountPrice);
+        dest.writeInt(this.expressId);
+        dest.writeString(this.expressCode);
+        dest.writeString(this.expressName);
+        dest.writeString(this.doneTime);
+        dest.writeString(this.shipDate);
+        dest.writeString(this.payType);
+        dest.writeDouble(this.payMoney);
+        dest.writeDouble(this.balance);
+        dest.writeLong(this.waitPayTimeMilli);
+        dest.writeDouble(this.receiptsIndices);
+        dest.writeTypedList(this.details);
+        dest.writeString(this.storeName);
+        dest.writeInt(this.isCross);
+        dest.writeDouble(this.taxes);
+        dest.writeString(this.orderer);
+        dest.writeString(this.identityCard);
+        dest.writeString(this.buyerRemark);
+    }
+
+    public XLOrderDetailsBean() {
+    }
+
+    protected XLOrderDetailsBean(Parcel in) {
+        this.orderId = in.readString();
+        this.orderCode = in.readString();
+        this.orderStatus = in.readString();
+        this.orderStatusUs = in.readString();
+        this.totalQuantity = in.readInt();
+        this.totalPrice = in.readDouble();
+        this.goodsTotalRetailPrice = in.readDouble();
+        this.goodsTotalPrice = in.readDouble();
+        this.createTime = in.readString();
+        this.updateTime = in.readString();
+        this.canRemindDelivery = in.readByte() != 0;
+        this.canRemindAudit = in.readByte() != 0;
+        this.contactUsername = in.readString();
+        this.contactPhone = in.readString();
+        this.contactProvince = in.readString();
+        this.contactCity = in.readString();
+        this.contactDistrict = in.readString();
+        this.contactDetail = in.readString();
+        this.freight = in.readDouble();
+        this.discountCoupon = in.readDouble();
+        this.discountPrice = in.readDouble();
+        this.expressId = in.readInt();
+        this.expressCode = in.readString();
+        this.expressName = in.readString();
+        this.doneTime = in.readString();
+        this.shipDate = in.readString();
+        this.payType = in.readString();
+        this.payMoney = in.readDouble();
+        this.balance = in.readDouble();
+        this.waitPayTimeMilli = in.readLong();
+        this.receiptsIndices = in.readDouble();
+        this.details = in.createTypedArrayList(DetailsBean.CREATOR);
+        this.storeName = in.readString();
+        this.isCross = in.readInt();
+        this.taxes = in.readDouble();
+        this.orderer = in.readString();
+        this.identityCard = in.readString();
+        this.buyerRemark = in.readString();
+    }
+
+    public static final Creator<XLOrderDetailsBean> CREATOR = new Creator<XLOrderDetailsBean>() {
+        @Override
+        public XLOrderDetailsBean createFromParcel(Parcel source) {
+            return new XLOrderDetailsBean(source);
+        }
+
+        @Override
+        public XLOrderDetailsBean[] newArray(int size) {
+            return new XLOrderDetailsBean[size];
+        }
+    };
 }
