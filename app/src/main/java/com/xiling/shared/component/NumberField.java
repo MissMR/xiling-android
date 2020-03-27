@@ -71,7 +71,6 @@ public class NumberField extends LinearLayout {
                 if (editSize == 0) {
                     mValue = mMin;
                 } else if (mStep > 0 && editSize < mMax && editSize % mStep != 0) {
-                    //如果数量不为箱规数量，还原为上次的数量
                     ToastUtil.error("本品一手批发，数量为" + mStep + "的倍数");
                 }
                 checkValidity(mValue);

@@ -23,6 +23,7 @@ import com.xiling.ddui.bean.OrderAddBean;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.bean.SkuListBean;
 import com.xiling.ddui.bean.XLOrderDetailsBean;
+import com.xiling.ddui.config.H5UrlConfig;
 import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.CouponSelectorDialog;
 import com.xiling.ddui.custom.popupwindow.PayPopWindow;
@@ -30,6 +31,7 @@ import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.address.AddressListActivity;
+import com.xiling.module.page.WebViewActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.event.EventMessage;
@@ -368,7 +370,7 @@ public class ConfirmationOrderActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_address, R.id.switch_balance, R.id.btn_coupon, R.id.btn_send})
+    @OnClick({R.id.btn_address, R.id.switch_balance, R.id.btn_coupon, R.id.btn_send, R.id.btn_purchase_instructions})
     public void onViewClicked(View view) {
         ViewUtil.setViewClickedDelay(view);
         switch (view.getId()) {
@@ -399,7 +401,10 @@ public class ConfirmationOrderActivity extends BaseActivity {
                 //提交订单
                 subOrder();
                 break;
-
+            case R.id.btn_purchase_instructions:
+                //用户需知
+                WebViewActivity.jumpUrl(context, "跨境商品用户购买须知", H5UrlConfig.CROSS_NEED_NOTE);
+                break;
         }
 
     }

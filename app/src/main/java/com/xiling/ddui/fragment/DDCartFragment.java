@@ -207,8 +207,10 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             public void onSelectChange(int selectSize) {
                 if (selectSize != 0) {
                     nextBtn.setText("结算(" + selectSize + ")");
+                    deleteBtn.setEnabled(true);
                 } else {
                     nextBtn.setText("结算");
+                    deleteBtn.setEnabled(false);
                 }
 
                 if (cardExpandableAdapter.isAllSelect()) {
@@ -263,7 +265,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
     private void requestData() {
         if (UserManager.getInstance().isLogin()) {
             ShopCardManager.getInstance().requestUpDataShopCardCount();
-            requestCardData();
             requestRecommend();
         }
     }
@@ -302,8 +303,10 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
                 int selectSize = cardExpandableAdapter.getSelectList().size();
                 if (selectSize != 0) {
                     nextBtn.setText("结算(" + selectSize + ")");
+                    deleteBtn.setEnabled(true);
                 } else {
                     nextBtn.setText("结算");
+                    deleteBtn.setEnabled(false);
                 }
 
                 if (cardExpandableAdapter.isAllSelect()) {
@@ -462,7 +465,6 @@ public class DDCartFragment extends BaseFragment implements OnLoadMoreListener, 
             @Override
             public void onSuccess(Boolean result) {
                 super.onSuccess(result);
-                // requestCardData();
                 isEdit = false;
                 isDelete = true;
                 ShopCardManager.getInstance().requestUpDataShopCardCount();

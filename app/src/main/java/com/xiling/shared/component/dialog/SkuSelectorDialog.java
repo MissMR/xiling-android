@@ -284,6 +284,7 @@ public class SkuSelectorDialog extends Dialog {
         tvMinMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         initRecyclerView();
         upDateSku();
+        selectCount = skuBean.getStep();
         getWindow().setWindowAnimations(R.style.ActionSheetDialogAnimation);
     }
 

@@ -158,7 +158,12 @@ public class UserManager {
      * @return
      */
     public double getTaxationForUser(ProductNewBean item) {
-        double mPrice = item.getMinPrice();
+
+        if (item.getSkus().size() == 0) {
+            return 0;
+        }
+
+        double mPrice = item.getSkus().get(0).getRetailTax();
         NewUserBean userBean = getUser();
         if (userBean != null && userBean.getAuthStatus() == 2) {
             switch (userBean.getRole().getRoleLevel()) {
@@ -175,7 +180,6 @@ public class UserManager {
         }
         return mPrice;
     }
-
 
 
     /**
@@ -201,8 +205,6 @@ public class UserManager {
         }
         return mPrice;
     }
-
-
 
 
     /**
@@ -312,7 +314,7 @@ public class UserManager {
                         realAuthListener.onRealAuth();
                     }
                 } else {
-                    showNoAuthDialog(mContext,result);
+                    showNoAuthDialog(mContext, result);
                 }
             }
 
@@ -327,7 +329,7 @@ public class UserManager {
     /**
      * 未实名认证
      */
-    public void showNoAuthDialog(final Context mContext,RealAuthBean result){
+    public void showNoAuthDialog(final Context mContext, RealAuthBean result) {
         if (result.getAuthStatus() == 1) {
             D3ialogTools.showSingleAlertDialog(mContext, "",
                     "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~", "我知道了",

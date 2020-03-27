@@ -40,10 +40,11 @@ public class DirectRechargeDialog extends Dialog {
     TextView etAmount;
     @BindView(R.id.tv_account)
     TextView tvAccount;
-
+    @BindView(R.id.tv_recharging_instructions)
+    TextView tvRechargingInstructions;
     String type;
 
-    public DirectRechargeDialog(@NonNull Context context,String type) {
+    public DirectRechargeDialog(@NonNull Context context, String type) {
         this(context, R.style.DDMDialog);
         mContext = context;
         this.type = type;
@@ -67,14 +68,16 @@ public class DirectRechargeDialog extends Dialog {
 
     private void initView() {
         initWindow();
-        switch (type){
+        switch (type) {
             case TYPE_VIP:
                 etAmount.setText("16800");
                 tvAccount.setText("直升VIP会员");
+                tvRechargingInstructions.setText("充值说明：\n 一次性充值货款16800直升VIP会员，充值的货款将直接存储 到个人账户中，后续下单订货可以直接使用余额支付 ");
                 break;
             case TYPE_BLACK:
                 etAmount.setText("58000");
                 tvAccount.setText("直升黑卡会员");
+                tvRechargingInstructions.setText("充值说明：\n 一次性充值货款58000直升黑卡会员，充值的货款将直接存储 到个人账户中，后续下单订货可以直接使用余额支付 ");
                 break;
         }
 

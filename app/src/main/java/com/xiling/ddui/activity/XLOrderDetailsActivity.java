@@ -194,9 +194,9 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 recyclerSku.setAdapter(skuAdapter);
                 skuAdapter.setNewData(result.getDetails());
                 tvIdentityPrice.setText("优惠价");
-                tvTaxation.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getTaxes()));
+                tvTaxation.setText("+¥ " + NumberHandler.reservedDecimalFor2(result.getTaxes()));
                 tvPriceTotal.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalRetailPrice()));
-                tvPriceFreight.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
+                tvPriceFreight.setText("+¥ " + NumberHandler.reservedDecimalFor2(result.getFreight()));
                 tvPriceDiscount.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getGoodsTotalPrice()));
                 tvPriceCoupon.setText("-¥ " + NumberHandler.reservedDecimalFor2(result.getDiscountCoupon()));
                 tvPriceActual.setText("¥ " + NumberHandler.reservedDecimalFor2(result.getPayMoney()));

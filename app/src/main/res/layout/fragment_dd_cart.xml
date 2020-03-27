@@ -141,7 +141,6 @@
 
         <TextView
             android:id="@+id/deleteBtn"
-            android:background="#AAAAAA"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -150,6 +149,7 @@
             android:minHeight="@dimen/dp_60"
             android:text="删除所选"
             android:textColor="@color/white"
+            android:background="@drawable/btn_delete_selector"
             android:textSize="14sp"
             android:visibility="gone" />
     </LinearLayout>

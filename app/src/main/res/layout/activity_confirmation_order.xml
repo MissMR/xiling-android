@@ -265,7 +265,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_11"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:nestedScrollingEnabled="false"
+                />
 
             <RelativeLayout
                 android:id="@+id/btn_coupon"

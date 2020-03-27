@@ -29,7 +29,7 @@ import butterknife.Unbinder;
 public class InviteFriendsFragment extends BaseFragment {
 
     String url = "";
-    String shareUrl = BuildConfig.BASE_URL + "main?inviteCode=";
+    String shareUrl = "";
     @BindView(R.id.iv_image)
     ImageView ivImage;
     Unbinder unbinder;
@@ -43,13 +43,13 @@ public class InviteFriendsFragment extends BaseFragment {
     TextView tvInviteCode;
     @BindView(R.id.parentView)
     View parentView;
-    int index ;
+    int index;
 
-    public static InviteFriendsFragment newInstance(String url,int index) {
+    public static InviteFriendsFragment newInstance(String url, int index) {
         InviteFriendsFragment fragment = new InviteFriendsFragment();
         Bundle args = new Bundle();
         args.putString("url", url);
-        args.putInt("index",index);
+        args.putInt("index", index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,14 +60,14 @@ public class InviteFriendsFragment extends BaseFragment {
         if (getArguments() != null) {
             url = getArguments().getString("url");
             index = getArguments().getInt("index");
-           switch (index){
-               case 0:
-                   shareUrl += UserManager.getInstance().getUser().getInviteCode();
-                   break;
-               case 1:
-                   shareUrl += "https://xl-mall.xilingbm.com/download";
-                   break;
-           }
+            switch (index) {
+                case 0:
+                    shareUrl =  BuildConfig.BASE_URL + "main?inviteCode="+UserManager.getInstance().getUser().getInviteCode();
+                    break;
+                case 1:
+                    shareUrl = BuildConfig.BASE_URL+"download?xl_from=2";
+                    break;
+            }
 
         }
     }
@@ -90,7 +90,7 @@ public class InviteFriendsFragment extends BaseFragment {
             if (mName.length() > 6) {
                 mName = mName.substring(0, 6);
             }
-            mName = mName+"邀请你注册喜领商城";
+            mName = mName + "邀请你注册喜领商城";
             tvUserName.setText(mName);
             tvInviteCode.setText(userBean.getInviteCode());
         }
@@ -109,12 +109,13 @@ public class InviteFriendsFragment extends BaseFragment {
 
     /**
      * 截图，分享到微信或者下载到本地
+     *
      * @param way
      */
-    public void shareWechat( final SHARE_MEDIA way){
-        if (way != null){
+    public void shareWechat(final SHARE_MEDIA way) {
+        if (way != null) {
             ShareUtils.shareTo3rdPlatform(getActivity(), parentView, way, "friend");
-        }else{
+        } else {
             ShareUtils.saveDiskShare(getActivity(), parentView, "");
         }
     }
