@@ -12,7 +12,6 @@
         android:layout_height="@dimen/dp_70"
         android:padding="@dimen/dp_1"
         android:scaleType="fitCenter"
-        android:background="@drawable/btn_shape_stroke_gray"
         />
 
 

@@ -22,38 +22,10 @@
             android:layout_centerVertical="true"
             android:background="@drawable/bg_circle_head" />
 
-        <LinearLayout
-            android:id="@+id/btn_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_toRightOf="@id/iv_headIcon"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/btn_login"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登录/注册"
-                android:textColor="#202020"
-                android:textSize="@dimen/sp_16" />
-
-            <TextView
-                android:id="@+id/tv_grade"
-                android:layout_width="@dimen/dp_63"
-                android:layout_height="@dimen/dp_19"
-                android:layout_marginTop="@dimen/dp_6"
-                android:background="#202020"
-                android:gravity="center"
-                android:textColor="#a6b1b9"
-                android:textSize="@dimen/sp_9"
-                android:visibility="gone" />
-
-
-        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -118,6 +90,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/btn_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_toLeftOf="@id/ll_search"
+            android:layout_toRightOf="@id/iv_headIcon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录/注册"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="#202020"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:id="@+id/tv_grade"
+                android:layout_width="@dimen/dp_63"
+                android:layout_height="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_6"
+                android:background="#202020"
+                android:gravity="center"
+                android:textColor="#a6b1b9"
+                android:textSize="@dimen/sp_9"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -176,15 +181,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/dp_12"
-                    android:paddingRight="@dimen/dp_12"
                     android:weightSum="4">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -195,29 +198,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_2"
-                            android:gravity="center"
-                            android:text="喜领直购"
-                            android:textColor="#202020"
-                            android:textSize="@dimen/sp_11" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/dp_12"
-                            android:layout_height="@dimen/dp_12"
-                            android:src="@drawable/icon_global_direct_mining" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_2"
+                            android:layout_marginLeft="@dimen/dp_4"
                             android:gravity="center"
                             android:text="全球直采"
                             android:textColor="#202020"
@@ -228,7 +209,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_12"
+                            android:layout_height="@dimen/dp_12"
+                            android:src="@drawable/icon_global_direct_mining" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_4"
+                            android:gravity="center"
+                            android:text="品牌直供"
+                            android:textColor="#202020"
+                            android:textSize="@dimen/sp_11" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -239,9 +242,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_2"
+                            android:layout_marginLeft="@dimen/dp_4"
                             android:gravity="center"
-                            android:text="厂家直供"
+                            android:text="超值低价"
                             android:textColor="#202020"
                             android:textSize="@dimen/sp_11" />
                     </LinearLayout>
@@ -250,7 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -261,7 +264,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_2"
+                            android:layout_marginLeft="@dimen/dp_4"
                             android:gravity="center"
                             android:text="售后无忧"
                             android:textColor="#202020"
@@ -274,7 +277,7 @@
                     android:id="@+id/ll_tab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_37"
+                    android:layout_marginTop="@dimen/dp_25"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
@@ -284,14 +287,6 @@
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1px"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginTop="@dimen/dp_30"
-                        android:layout_marginRight="@dimen/dp_12"
-                        android:background="#F5F5F5" />
-
                 </LinearLayout>
 
 
@@ -299,20 +294,20 @@
                     android:id="@+id/ll_activity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView_activity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_15"
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_10"
-                        android:layout_marginTop="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_5"
                         android:background="#F5F5F5" />
 
                 </LinearLayout>
@@ -389,8 +384,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_marginTop="@dimen/dp_16"
-                        android:layout_marginBottom="@dimen/dp_21" />
+                        android:layout_marginTop="@dimen/dp_16" />
 
                 </LinearLayout>
 

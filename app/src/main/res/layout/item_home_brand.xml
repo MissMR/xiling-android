@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="@dimen/dp_343"
-        android:layout_height="@dimen/dp_260"
-        android:scaleType="centerCrop"
+        android:layout_width="@dimen/dp_320"
+        android:layout_height="@dimen/dp_267"
+        android:scaleType="center"
         />
 </LinearLayout>

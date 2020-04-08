@@ -209,8 +209,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="规格"
-            android:textColor="@color/ddm_gray_dark"
+            android:text="选择"
+            android:textColor="#202020"
             android:textSize="13sp" />
 
         <RelativeLayout

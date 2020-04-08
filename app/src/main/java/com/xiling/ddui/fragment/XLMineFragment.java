@@ -225,7 +225,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
                 ivUserOrdinary.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        UserManager.getInstance().showNoAuthDialog(mContext,result);
+                        UserManager.getInstance().showNoAuthDialog(mContext, result);
                     }
                 });
                 break;

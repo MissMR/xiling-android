@@ -36,10 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_20"
         android:ellipsize="end"
-        android:ems="6"
+        android:ems="7"
         android:lines="1"
         android:textColor="#ff202020"
-        android:textSize="@dimen/sp_12" />
+        android:textSize="@dimen/sp_10" />
 
     <LinearLayout
         android:layout_width="match_parent"

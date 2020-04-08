@@ -13,7 +13,7 @@ android {
         applicationId "com.xiling"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1001
+        versionCode 1002
         versionName "1.0.1"
         multiDexEnabled true
 
@@ -67,7 +67,6 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 // 输出apk名称为xiling_v1.0.1_15333134123412.apk
                 def version = "v${versionName}"
-                def date = new Date().getTime()
                 def fileName = "xiling_${version}_${variant.productFlavors[0].name}.apk"
                 outputFileName = fileName
             }
@@ -281,7 +280,7 @@ android {
 
             // 测试环境  210映射 61.162.59.74:9050
             buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
-            buildConfigField("String", "BASE_URL", "\"https://xl-mall.axiling.com/\"")
+           // buildConfigField("String", "BASE_URL", "\"https://xl-mall.axiling.com/\"")
             //韩奇电脑
             // buildConfigField("String", "BASE_URL", "\"http://192.168.1.172:8080/\"")
             //张哲

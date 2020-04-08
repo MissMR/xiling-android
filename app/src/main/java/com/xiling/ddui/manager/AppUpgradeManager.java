@@ -15,6 +15,7 @@ import com.xiling.shared.contracts.RequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.ICommunityService;
+import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
 public class AppUpgradeManager {
@@ -59,8 +60,9 @@ public class AppUpgradeManager {
 
         int status = result.getUpgradeStatus();
         if (status > 0) {
-            VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context,result);
+            VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context, result);
             versionUpgradeDialog.show();
+            SharedPreferenceUtil.getInstance().putLong("upgradeDate", System.currentTimeMillis());
         } else {
             DLog.d("不需要升级");
             if (isTips) {

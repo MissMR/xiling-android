@@ -150,12 +150,15 @@ public class ItemWithIcon extends LinearLayout {
     }
 
     private void setBadgeMargins() {
-        if (badgeTv.getText().length() < 3) {
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) badgeTv.getLayoutParams();
-            layoutParams.setMargins(SizeUtils.dp2px(5), 0, 0, 0);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) badgeTv.getLayoutParams();
+        layoutParams.setMargins(SizeUtils.dp2px(5), 0, 0, 0);
+
+       /* if (badgeTv.getText().length() < 3) {
+
         } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) badgeTv.getLayoutParams();
             layoutParams.setMargins(SizeUtils.dp2px(-8), 0, 0, 0);
-        }
+        }*/
     }
 }

@@ -237,7 +237,7 @@ public class ProductDetailUIHelper {
         this.newUserBean = newUserBean;
 
         if (newUserBean != null) {
-            if (newUserBean.getRole().getRoleLevel() == 30) {
+            if (newUserBean.getRoleId() == 3) {
                 //黑卡会员
                 rlBecomeMasterGuide.setVisibility(View.GONE);
             } else {
@@ -333,39 +333,34 @@ public class ProductDetailUIHelper {
             double tax = UserManager.getInstance().getTaxationForUser(mSpuInfo);
             if (tax > 0) {
                 tvUserTaxation.setText("进口税:¥" + NumberHandler.reservedDecimalFor2(tax));
-                btnTaxExplain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //不包税税费说明
-                        APIManager.startRequest(mProductService.getProductTax(mSpuInfo.getProductId()), new BaseRequestListener<Double>() {
-                            @Override
-                            public void onSuccess(Double result) {
-                                super.onSuccess(result);
-                                if (result > 0) {
-                                    showTaxExplainDialog(false, result + "%");
-                                } else {
-                                    showTaxExplainDialog(true, "");
-                                }
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                super.onError(e);
-                                ToastUtil.error(e.getMessage());
-                            }
-                        });
-                    }
-                });
             } else {
                 tvUserTaxation.setText("进口税:商品价格已包税");
-                btnTaxExplain.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //包税税费说明
-                        showTaxExplainDialog(true, "");
-                    }
-                });
             }
+
+            btnTaxExplain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //不包税税费说明
+                    APIManager.startRequest(mProductService.getProductTax(mSpuInfo.getProductId()), new BaseRequestListener<Double>() {
+                        @Override
+                        public void onSuccess(Double result) {
+                            super.onSuccess(result);
+                            if (result > 0) {
+                                showTaxExplainDialog(false, result + "%");
+                            } else {
+                                showTaxExplainDialog(true, "");
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            super.onError(e);
+                            ToastUtil.error(e.getMessage());
+                        }
+                    });
+                }
+            });
+
         } else {
             //隐藏
             llCross.setVisibility(View.GONE);

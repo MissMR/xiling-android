@@ -259,10 +259,8 @@ public class XLMemberCenterActivity extends BaseActivity {
             @Override
             public void onSuccess(MemberCenterInfo result) {
                 super.onSuccess(result);
-
                 GlideUtils.loadHead(context, ivHead, result.getHeadImage());
                 tvMemberName.setText(result.getNickName());
-
                 tvCouponSize.setText(result.getCouponCount() + "");
                 if (!TextUtils.isEmpty(result.getCouponDate())) {
                     tvCouponDate.setText(DateUtils.timeStamp2Date(Long.valueOf(DateUtils.date2TimeStamp(result.getCouponDate(), "")), "yyyy.MM.dd") + "到期");
