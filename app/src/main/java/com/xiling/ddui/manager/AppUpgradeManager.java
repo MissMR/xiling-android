@@ -11,6 +11,7 @@ import com.xiling.ddui.bean.DDUpgradeBean;
 import com.xiling.ddui.custom.popupwindow.VersionUpgradeDialog;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.UITools;
+import com.xiling.module.community.DateUtils;
 import com.xiling.shared.contracts.RequestListener;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -53,16 +54,24 @@ public class AppUpgradeManager {
     };
 
     private void showDialog(DDUpgradeBean result) {
-/*
-        result.setMsg("升级测试\n版本号:1.0.1\n升级内容:娃哈哈，宝嘿嘿\n啦啦啦啦\n😄😄😄\n升级测试\n升级测试\n升级测试\n升级测试\n\n升级内容:娃哈哈\n升级内容:娃哈哈");
-        result.setUpgradeStatus(1);
+/*        result.setMsg("升级测试\n版本号:1.0.1\n升级内容:娃哈哈，宝嘿嘿\n啦啦啦啦\n😄😄😄\n升级测试\n升级测试\n升级测试\n升级测试\n\n升级内容:娃哈哈\n升级内容:娃哈哈");
+        result.setUpgradeStatus(2);
         result.setUpUrl("https://ldmf.net");*/
-
         int status = result.getUpgradeStatus();
         if (status > 0) {
-            VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context, result);
-            versionUpgradeDialog.show();
-            SharedPreferenceUtil.getInstance().putLong("upgradeDate", System.currentTimeMillis());
+            //2020.4.8 新增限制，版本更新弹框，一天只弹出一次
+            if (status == 1) {
+                long upgradeDate = SharedPreferenceUtil.getInstance().getLong("upgradeDate", 0);
+                if (upgradeDate == 0 || !DateUtils.isSameData(System.currentTimeMillis(), upgradeDate)) {
+                    SharedPreferenceUtil.getInstance().putLong("upgradeDate", System.currentTimeMillis());
+                    VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context, result);
+                    versionUpgradeDialog.show();
+                }
+            } else if (status == 2) {
+                //强制更新，不受限制
+                VersionUpgradeDialog versionUpgradeDialog = new VersionUpgradeDialog(context, result);
+                versionUpgradeDialog.show();
+            }
         } else {
             DLog.d("不需要升级");
             if (isTips) {

@@ -257,11 +257,7 @@ public class MainActivity extends BaseActivity {
         initTab();
 
         //检查升级
-        //2020.4.8 新增限制，版本更新弹框，一天只弹出一次
-        long upgradeDate = SharedPreferenceUtil.getInstance().getLong("upgradeDate",0);
-        if (upgradeDate == 0 || !DateUtils.isSameData(System.currentTimeMillis(),upgradeDate)){
-            new AppUpgradeManager(context).check(false);
-        }
+        new AppUpgradeManager(context).check(false);
         //获取消息条数
         XLMessageManager.loadUserStatus();
 
