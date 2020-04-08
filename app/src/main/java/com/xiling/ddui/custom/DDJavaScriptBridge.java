@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -24,6 +25,8 @@ import com.xiling.ddui.activity.CategorySecondActivity;
 import com.xiling.ddui.activity.DDCategoryActivity;
 import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.activity.MyFollowersActivity;
+import com.xiling.ddui.activity.RealAuthActivity;
+import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.bean.HomeShortcutBean;
 import com.xiling.ddui.bean.TitleBarValueBean;
 import com.xiling.ddui.bean.WXShareInfo;
@@ -35,8 +38,10 @@ import com.xiling.ddui.tools.DBase64;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.ImageTools;
 import com.xiling.dduis.dialog.DDWebViewShareImageDialog;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.module.user.LoginActivity;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
 import com.xiling.shared.util.ClipboardUtil;
 import com.xiling.shared.util.ConvertUtil;
@@ -82,7 +87,7 @@ public class DDJavaScriptBridge {
     }
 
     public interface DDBOAuthListener {
-        void onOAuthRequest(String oauth, String memberId);
+        void onOAuthRequest(String userJson);
     }
 
     public interface DDHomeShortcutListener {
@@ -235,17 +240,14 @@ public class DDJavaScriptBridge {
                     shareManager.show();
                     break;
                 case GET_OAUTH://OAuth回调
-                    String oauth = SessionUtil.getInstance().getOAuthToken();
-                    String memberId = DEFAULT_MEMBER_ID;
-                    if (SessionUtil.getInstance().isLogin()) {
-                        User user = SessionUtil.getInstance().getLoginUser();
-                        memberId = user.id;
+                    NewUserBean userBean = UserManager.getInstance().getUser();
+                    String userJson = null;
+                    if (userBean != null) {
+                        userJson = new Gson().toJson(userBean);
                     }
-                    DLog.i("getOAuth:" + oauth);
                     WebView webView2 = getWebView();
                     if (webView2 != null) {
-                        DLog.d("vue.onOAuthResponse('" + oauth + "','" + memberId + "')");
-                        webView2.evaluateJavascript("vue.onOAuthResponse('" + oauth + "','" + memberId + "')", new ValueCallback<String>() {
+                        webView2.evaluateJavascript("vue.onOAuthResponse(" + "'" + userJson + "'" + ")", new ValueCallback<String>() {
                             @Override
                             public void onReceiveValue(String s) {
                                 DLog.i("getOAuth.onReceiveValue:" + s);
@@ -253,7 +255,7 @@ public class DDJavaScriptBridge {
                         });
                     } else {
                         if (mOAuthListener != null) {
-                            mOAuthListener.onOAuthRequest(oauth, memberId);
+                            mOAuthListener.onOAuthRequest(userJson);
                         } else {
                             DLog.w("no oauth response register!");
                         }
@@ -370,6 +372,7 @@ public class DDJavaScriptBridge {
 
     /**
      * 拨打电话
+     *
      * @param phoneNum
      */
     @JavascriptInterface
@@ -440,7 +443,6 @@ public class DDJavaScriptBridge {
             DLog.i("closeWebView listener is null");
         }
     }
-
 
 
     /**
@@ -522,10 +524,30 @@ public class DDJavaScriptBridge {
     }
 
     /**
-     * 获取用户认证传用来做cookies("__outh",oauth)
-     * <p>
-     * JavaScript需要实现onOAuthResponse(String oauth)来接收返回值
+     * 登录注册
      */
+    @JavascriptInterface
+    public void showLogin() {
+        mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
+
+    }
+
+    /**
+     * 会员中心
+     */
+    @JavascriptInterface
+    public void showMemberCenter() {
+        mActivity.startActivity(new Intent(mActivity, XLMemberCenterActivity.class));
+    }
+
+    /**
+     * 实名页面
+     */
+    @JavascriptInterface
+    public void showRealName() {
+        mActivity.startActivity(new Intent(mActivity, RealAuthActivity.class));
+    }
+
     @JavascriptInterface
     public void getOAuth() {
         uiHandler.obtainMessage(DDJavaScriptType.GET_OAUTH.ordinal()).sendToTarget();
@@ -814,25 +836,24 @@ public class DDJavaScriptBridge {
      */
     @JavascriptInterface
     public void openProduct(String spuId) {
-        DDProductDetailActivity.start(mActivity,spuId);
+        DDProductDetailActivity.start(mActivity, spuId);
     }
 
     /**
      * 跳转到品牌馆
      */
     @JavascriptInterface
-    public void jumpToBrand(String brandId,String categoryId) {
-        BrandActivity.jumpBrandActivity(mActivity,categoryId,brandId);
+    public void jumpToBrand(String brandId, String categoryId) {
+        BrandActivity.jumpBrandActivity(mActivity, categoryId, brandId);
     }
 
     /**
      * 跳转到二级分类
      */
     @JavascriptInterface
-    public void jumpToCategory(String parentId,String categoryId) {
-        CategorySecondActivity.jumpCategorySecondActivity(mActivity,parentId,categoryId);
+    public void jumpToCategory(String parentId, String categoryId) {
+        CategorySecondActivity.jumpCategorySecondActivity(mActivity, parentId, categoryId);
     }
-
 
 
 }

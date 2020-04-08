@@ -320,10 +320,9 @@ public class WebViewActivity extends BaseActivity {
         });
         ddJsb.setOAuthListener(new DDJavaScriptBridge.DDBOAuthListener() {
             @Override
-            public void onOAuthRequest(String oauth, String memberId) {
-                DLog.d("onOAuthRequest('" + oauth + "','" + memberId + "')");
+            public void onOAuthRequest(String userJson) {
                 if (mAgentWeb != null) {
-                    String js = "vue.onOAuthResponse('" + oauth + "','" + memberId + "')";
+                    String js = "vue.onOAuthResponse('" + userJson + "')";
                     mAgentWeb.getJsEntraceAccess().quickCallJs(js);
                 } else {
                     DLog.e("onOAuthRequest agentWeb is null.");
