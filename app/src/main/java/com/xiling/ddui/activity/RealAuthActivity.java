@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.xiling.R;
 import com.xiling.ddui.adapter.AuthListAdapter;
 import com.xiling.ddui.bean.RealAuthBean;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
+import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.APIManager;
@@ -68,6 +70,9 @@ public class RealAuthActivity extends BaseActivity {
             @Override
             public void onSuccess(RealAuthBean result) {
                 super.onSuccess(result);
+                NewUserBean userBean = UserManager.getInstance().getUser();
+                userBean.setAuthStatus(result.getAuthStatus());
+                UserManager.getInstance().setUser(userBean);
                 //认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
                 switch (result.getAuthStatus()) {
                     case 0:

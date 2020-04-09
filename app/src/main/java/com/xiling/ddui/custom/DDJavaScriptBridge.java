@@ -247,12 +247,23 @@ public class DDJavaScriptBridge {
                     }
                     WebView webView2 = getWebView();
                     if (webView2 != null) {
-                        webView2.evaluateJavascript("vue.onOAuthResponse(" + "'" + userJson + "'" + ")", new ValueCallback<String>() {
-                            @Override
-                            public void onReceiveValue(String s) {
-                                DLog.i("getOAuth.onReceiveValue:" + s);
-                            }
-                        });
+                        if (userJson == null){
+                            webView2.evaluateJavascript("vue.onOAuthResponse("+ userJson + ")", new ValueCallback<String>() {
+                                @Override
+                                public void onReceiveValue(String s) {
+                                    DLog.i("getOAuth.onReceiveValue:" + s);
+                                }
+                            });
+                        }else{
+                            webView2.evaluateJavascript("vue.onOAuthResponse(" + "'" + userJson + "'" + ")", new ValueCallback<String>() {
+                                @Override
+                                public void onReceiveValue(String s) {
+                                    DLog.i("getOAuth.onReceiveValue:" + s);
+                                }
+                            });
+                        }
+
+
                     } else {
                         if (mOAuthListener != null) {
                             mOAuthListener.onOAuthRequest(userJson);
