@@ -57,4 +57,5 @@ public enum Event {
     ,RECHARGE_SUCCESS
     ,WEEK_CARD_OPEN
     ,WEEK_CARD_PAY
+    ,NET_INTERCEPTION_REAL_AUTH
 }

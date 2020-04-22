@@ -118,39 +118,41 @@ public class UserManager {
     }
 
 
+    /**
+     * 获取真实身份
+     *
+     * @return
+     */
     public int getUserLevel() {
         int level = 0;
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            level = userBean.getRole().getRoleLevel();
+        if (userBean != null) {
+            level = userBean.getRoleId();
         }
         return level;
     }
 
-
     /**
-     * 根据用户等级，获取商品价格
+     * 获取临时身份
      *
      * @return
      */
-    public double getPriceForUser(ProductNewBean item) {
-        double mPrice = item.getMinPrice();
+    public int getTemporaryUserLevel() {
+        int level = 0;
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
-                    mPrice = item.getLevel10Price();
-                    break;
-                case 20:
-                    mPrice = item.getLevel20Price();
-                    break;
-                case 30:
-                    mPrice = item.getLevel30Price();
-                    break;
+        if (userBean != null) {
+            int roleId = userBean.getRoleId();
+            String sWeekRoleId = userBean.getWeekRoleId();
+            int weekRoleId = 0;
+            if (!TextUtils.isEmpty(sWeekRoleId)) {
+                weekRoleId = Integer.valueOf(sWeekRoleId);
             }
+            level = roleId > weekRoleId ? roleId : weekRoleId;
         }
-        return mPrice;
+
+        return level;
     }
+
 
     /**
      * 根据用户等级，获取税费
@@ -162,19 +164,41 @@ public class UserManager {
         if (item.getSkus().size() == 0) {
             return 0;
         }
-
         double mPrice = item.getSkus().get(0).getRetailTax();
+        switch (getTemporaryUserLevel()) {
+            case 1:
+                mPrice = item.getSkus().get(0).getLevel10Tax();
+                break;
+            case 2:
+                mPrice = item.getSkus().get(0).getLevel20Tax();
+                break;
+            case 3:
+                mPrice = item.getSkus().get(0).getLevel30Tax();
+                break;
+        }
+
+        return mPrice;
+    }
+
+
+    /**
+     * 根据用户等级，获取商品价格
+     *
+     * @return
+     */
+    public double getPriceForUser(ProductNewBean item) {
+        double mPrice = item.getMinPrice();
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
-                    mPrice = item.getSkus().get(0).getLevel10Tax();
+        if (userBean != null) {
+            switch (getTemporaryUserLevel()) {
+                case 1:
+                    mPrice = item.getLevel10Price();
                     break;
-                case 20:
-                    mPrice = item.getSkus().get(0).getLevel20Tax();
+                case 2:
+                    mPrice = item.getLevel20Price();
                     break;
-                case 30:
-                    mPrice = item.getSkus().get(0).getLevel30Tax();
+                case 3:
+                    mPrice = item.getLevel30Price();
                     break;
             }
         }
@@ -190,15 +214,15 @@ public class UserManager {
     public double getPriceForUser(IndexBrandBean.IndexBrandBeanListBean item) {
         double mPrice = item.getMinPrice();
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
+        if (userBean != null) {
+            switch (getTemporaryUserLevel()) {
+                case 1:
                     mPrice = item.getLevel10Price();
                     break;
-                case 20:
+                case 2:
                     mPrice = item.getLevel20Price();
                     break;
-                case 30:
+                case 3:
                     mPrice = item.getLevel30Price();
                     break;
             }
@@ -215,15 +239,15 @@ public class UserManager {
     public double getPriceForUser(HomeRecommendDataBean.DatasBean item) {
         double mPrice = item.getMinPrice();
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
+        if (userBean != null) {
+            switch (getTemporaryUserLevel()) {
+                case 1:
                     mPrice = item.getLevel10Price();
                     break;
-                case 20:
+                case 2:
                     mPrice = item.getLevel20Price();
                     break;
-                case 30:
+                case 3:
                     mPrice = item.getLevel30Price();
                     break;
             }
@@ -239,20 +263,97 @@ public class UserManager {
     public double getPriceForUser(ProductNewBean.SkusBean item) {
         double mPrice = item.getRetailPrice();
         NewUserBean userBean = getUser();
-        if (userBean != null && userBean.getAuthStatus() == 2) {
-            switch (userBean.getRole().getRoleLevel()) {
-                case 10:
+        if (userBean != null) {
+            switch (getTemporaryUserLevel()) {
+                case 1:
                     mPrice = item.getLevel10Price();
                     break;
-                case 20:
+                case 2:
                     mPrice = item.getLevel20Price();
                     break;
-                case 30:
+                case 3:
                     mPrice = item.getLevel30Price();
                     break;
             }
         }
         return mPrice;
+    }
+
+    /**
+     * 根据身份获取优惠价图标
+     *
+     * @param allowPurchase 允许购买，已下架或已售罄此值为false
+     * @return
+     */
+    public int getDiscountIconForUser(boolean allowPurchase) {
+        int drawableRes = 0;
+
+        NewUserBean userBean = getUser();
+        if (userBean != null) {
+            int roleId = userBean.getRoleId();
+            String sWeekRoleId = userBean.getWeekRoleId();
+            int weekRoleId = 0;
+            if (!TextUtils.isEmpty(sWeekRoleId)) {
+                weekRoleId = Integer.valueOf(sWeekRoleId);
+            }
+
+            if (weekRoleId > roleId) {
+                // 临时身份
+                if (weekRoleId == 2) {
+                    drawableRes = allowPurchase ? R.drawable.icon_discount_svip_ex : R.drawable.icon_discount_svip_ex_un;
+                } else if (weekRoleId == 3) {
+                    drawableRes = allowPurchase ? R.drawable.icon_discount_black_ex : R.drawable.icon_discount_black_ex_un;
+                }
+            } else {
+                //真实身份
+                switch (roleId) {
+                    case 0:
+                        drawableRes = allowPurchase ? R.drawable.icon_discount : R.drawable.icon_discount_un;
+                        break;
+                    case 1:
+                        drawableRes = allowPurchase ? R.drawable.icon_discount_vip : R.drawable.icon_discount_vip_un;
+                        break;
+                    case 2:
+                        drawableRes = allowPurchase ? R.drawable.icon_discount_svip : R.drawable.icon_discount_svip_un;
+                        break;
+                    case 3:
+                        drawableRes = allowPurchase ? R.drawable.icon_discount_black : R.drawable.icon_discount_black_un;
+                        break;
+                }
+            }
+        } else {
+            drawableRes = allowPurchase ? R.drawable.icon_discount : R.drawable.icon_discount_un;
+        }
+
+        return drawableRes;
+    }
+
+    public int getCommodityLevel() {
+        int level = 0;
+        NewUserBean userBean = getUser();
+        if (userBean != null) {
+            int roleId = userBean.getRoleId();
+            String sWeekRoleId = userBean.getWeekRoleId();
+            int weekRoleId = 0;
+            if (!TextUtils.isEmpty(sWeekRoleId)) {
+                weekRoleId = Integer.valueOf(sWeekRoleId);
+            }
+            if (weekRoleId > roleId) {
+                switch (weekRoleId){
+                    case 2:
+                        level = 4;
+                        break;
+                    case 3:
+                        level =5;
+                        break;
+                }
+
+            } else {
+                level = roleId;
+            }
+        }
+
+        return level;
     }
 
     /**
@@ -355,9 +456,6 @@ public class UserManager {
     }
 
 
-    /**
-     *
-     */
     public interface RealAuthListener {
         void onRealAuth();
     }

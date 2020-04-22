@@ -5,6 +5,7 @@ import com.xiling.ddui.bean.CategoryBean;
 import com.xiling.ddui.bean.DDSkuListBean;
 import com.xiling.ddui.bean.ListResultBean;
 import com.xiling.ddui.bean.ProductNewBean;
+import com.xiling.ddui.bean.ProductParameterBean;
 import com.xiling.ddui.bean.SecondCategoryBean;
 import com.xiling.ddui.bean.SecondClassificationBean;
 import com.xiling.ddui.bean.TopCategoryBean;
@@ -64,7 +65,7 @@ public interface IProductService {
     // 获取商品列表接口
     @FormUrlEncoded
     @POST("secondLevel/getProductList")
-    Observable<RequestResult<HomeRecommendDataBean>> getProductList(@FieldMap HashMap<String,String> map);
+    Observable<RequestResult<HomeRecommendDataBean>> getProductList(@FieldMap HashMap<String, String> map);
 
 
     // 获取品牌详情
@@ -75,6 +76,11 @@ public interface IProductService {
     //  获取商品详情（新）
     @GET("product/spuDetail")
     Observable<RequestResult<ProductNewBean>> getProductDetail(@Query("spuId") String productId);
+
+
+    //  获取商品参数
+    @GET("product/spuParameter")
+    Observable<RequestResult<List<ProductParameterBean>>> getSpuParameter(@Query("spuId") String productId);
 
 
     //  获取商品详情（旧）
@@ -94,7 +100,6 @@ public interface IProductService {
 
     @GET("product/skuDetail")
     Observable<RequestResult<SkuInfo>> getSkuById(@Query("skuId") String skuId);
-
 
 
     @GET("product/skuDetailByProperty")

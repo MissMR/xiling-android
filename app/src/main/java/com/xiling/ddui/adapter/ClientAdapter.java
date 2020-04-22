@@ -25,7 +25,7 @@ public class ClientAdapter extends BaseQuickAdapter<MyClientListBean.DataBean, B
     protected void convert(BaseViewHolder helper, MyClientListBean.DataBean item) {
         GlideUtils.loadHead(mContext, (ImageView) helper.getView(R.id.iv_head),item.getHeadImage());
         helper.setText(R.id.tv_name,item.getMemberName());
-        helper.setText(R.id.tv_index,"本月消费指数¥"+ NumberHandler.reservedDecimalFor2(item.getMonthlyConsumption()));
+        helper.setText(R.id.tv_index,"本月消费指数 "+ NumberHandler.reservedDecimalFor2(item.getMonthlyConsumption()));
 
     }
 }

@@ -3,48 +3,42 @@ package com.xiling.ddui.bean;
 import java.util.List;
 
 public class RealAuthBean {
+
     /**
-     * memberId :
-     * authStatus : 0
-     * idType :
-     * userName :
+     * memberId : 31ec4035098a4323bfea88ad86300796
+     * authStatus : 2
      * identityCard :
-     * idcardFrontImg :
-     * idcardBackImg :
-     * idcardHeadImg :
+     * idcardFrontImg : https://oss.xilingbm.com/auth/2020-04/2020041408205680986.jpg
+     * idcardBackImg : https://oss.xilingbm.com/auth/2020-04/20200414082100615XX.jpg
      * authRemark :
      * checkRemark :
-     * storeType :
-     * storeName :
-     * companyName :
+     * storeType : 1
+     * storeName : 喜领
+     * storeId :
+     * storeAddress :
+     * companyAddress : 无
      * businessLicense :
-     * memberAuthStoreList :
+     * monthSales : 1
+     * memberAuthStoreList : []
+     * memberAuthCategoryList : []
      */
 
     private String memberId;
     private int authStatus;
-    private String idType;
-    private String userName;
     private String identityCard;
     private String idcardFrontImg;
     private String idcardBackImg;
-    private String idcardHeadImg;
     private String authRemark;
     private String checkRemark;
     private String storeType;
     private String storeName;
-    private String companyName;
+    private String storeId;
+    private String storeAddress;
+    private String companyAddress;
     private String businessLicense;
-
-    public List<MemberAuthStoreListBean> getMemberAuthStoreList() {
-        return memberAuthStoreList;
-    }
-
-    public void setMemberAuthStoreList(List<MemberAuthStoreListBean> memberAuthStoreList) {
-        this.memberAuthStoreList = memberAuthStoreList;
-    }
-
-    private List<MemberAuthStoreListBean> memberAuthStoreList;
+    private String monthSales;
+    private List<?> memberAuthStoreList;
+    private List<?> memberAuthCategoryList;
 
     public String getMemberId() {
         return memberId;
@@ -60,22 +54,6 @@ public class RealAuthBean {
 
     public void setAuthStatus(int authStatus) {
         this.authStatus = authStatus;
-    }
-
-    public String getIdType() {
-        return idType;
-    }
-
-    public void setIdType(String idType) {
-        this.idType = idType;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getIdentityCard() {
@@ -100,14 +78,6 @@ public class RealAuthBean {
 
     public void setIdcardBackImg(String idcardBackImg) {
         this.idcardBackImg = idcardBackImg;
-    }
-
-    public String getIdcardHeadImg() {
-        return idcardHeadImg;
-    }
-
-    public void setIdcardHeadImg(String idcardHeadImg) {
-        this.idcardHeadImg = idcardHeadImg;
     }
 
     public String getAuthRemark() {
@@ -142,12 +112,28 @@ public class RealAuthBean {
         this.storeName = storeName;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
+    }
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
     public String getBusinessLicense() {
@@ -158,33 +144,27 @@ public class RealAuthBean {
         this.businessLicense = businessLicense;
     }
 
-   public class MemberAuthStoreListBean{
-        String id;
-        String memberId;
-        String storeId;
+    public String getMonthSales() {
+        return monthSales;
+    }
 
-        public String getId() {
-            return id;
-        }
+    public void setMonthSales(String monthSales) {
+        this.monthSales = monthSales;
+    }
 
-        public void setId(String id) {
-            this.id = id;
-        }
+    public List<?> getMemberAuthStoreList() {
+        return memberAuthStoreList;
+    }
 
-        public String getMemberId() {
-            return memberId;
-        }
+    public void setMemberAuthStoreList(List<?> memberAuthStoreList) {
+        this.memberAuthStoreList = memberAuthStoreList;
+    }
 
-        public void setMemberId(String memberId) {
-            this.memberId = memberId;
-        }
+    public List<?> getMemberAuthCategoryList() {
+        return memberAuthCategoryList;
+    }
 
-        public String getStoreId() {
-            return storeId;
-        }
-
-        public void setStoreId(String storeId) {
-            this.storeId = storeId;
-        }
+    public void setMemberAuthCategoryList(List<?> memberAuthCategoryList) {
+        this.memberAuthCategoryList = memberAuthCategoryList;
     }
 }

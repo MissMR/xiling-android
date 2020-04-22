@@ -1,5 +1,6 @@
 package com.xiling.ddui.service;
 
+import com.xiling.ddui.bean.ByWeekCardStatusBean;
 import com.xiling.ddui.bean.MemberCenterInfo;
 import com.xiling.ddui.bean.StoreBean;
 import com.xiling.ddui.bean.WeekCardBean;
@@ -38,5 +39,10 @@ public interface IMemberService {
     // 开通周卡
     @GET("center/openWeekCard")
     Observable<RequestResult<Object>> openWeekCard(@Query("id") String id);
+
+    // 获取体验卡可购买状态
+    @GET("center/byWeekCardStatus")
+    Observable<RequestResult<ByWeekCardStatusBean>> byWeekCardStatus();
+
 
 }

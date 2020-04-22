@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="@dimen/dp_330"
-        android:layout_height="@dimen/dp_337"
+        android:layout_height="@dimen/dp_430"
       />
 
 </RelativeLayout>

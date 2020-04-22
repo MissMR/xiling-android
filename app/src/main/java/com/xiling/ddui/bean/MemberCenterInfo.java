@@ -22,6 +22,25 @@ public class MemberCenterInfo {
     private double growValue;
     private double growValueTotle;
     private int couponCount;
+
+    public int getWeekCardCount() {
+        return weekCardCount;
+    }
+
+    public void setWeekCardCount(int weekCardCount) {
+        this.weekCardCount = weekCardCount;
+    }
+
+    public String getLastWeekCardExpiredTime() {
+        return lastWeekCardExpiredTime;
+    }
+
+    public void setLastWeekCardExpiredTime(String lastWeekCardExpiredTime) {
+        this.lastWeekCardExpiredTime = lastWeekCardExpiredTime;
+    }
+
+    private int weekCardCount;
+    private String lastWeekCardExpiredTime;
     private String couponDate;
 
     public String getMemberId() {

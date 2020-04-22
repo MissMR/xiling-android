@@ -62,11 +62,12 @@ public class CategorySecondActivity extends BaseActivity {
     private ArrayList<Fragment> fragments = new ArrayList<>();
 
 
-    private String parentName, categoryId;
+    private String categoryId;
 
     // 当前在第几个分类
     private int mPosition = 0;
     private String mParentId;
+    private String mParentName;
     private List<SecondCategoryBean.SecondCategoryListBean> secondCategoryList = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
 
@@ -80,19 +81,20 @@ public class CategorySecondActivity extends BaseActivity {
      * 排序属性 0-价格,1-上新,2-销量
      * 默认 上新
      */
-    private int orderBy = 1;
+    private int orderBy = 4;
 
     /**
      * 排序方式 0-降序(Desc), 1-升序(Asc)
      */
-    private int orderType = 0;
+    private int orderType = 2;
     private String keyWord = "";
 
 
-    public static void jumpCategorySecondActivity(Context mContext, String parentId, String categoryId) {
+    public static void jumpCategorySecondActivity(Context mContext, String parentId, String categoryId,String parentName) {
         Intent intent = new Intent(mContext, CategorySecondActivity.class);
         intent.putExtra("categoryId", categoryId);
         intent.putExtra("parentId", parentId);
+        intent.putExtra("parentName",parentName);
         mContext.startActivity(intent);
     }
 
@@ -106,6 +108,7 @@ public class CategorySecondActivity extends BaseActivity {
         if (getIntent() != null) {
             categoryId = getIntent().getStringExtra("categoryId");
             mParentId = getIntent().getStringExtra("parentId");
+            mParentName= getIntent().getStringExtra("parentName");
         }
         getSecondClassification();
 
@@ -125,7 +128,6 @@ public class CategorySecondActivity extends BaseActivity {
                         SecondCategoryBean.SecondCategoryListBean secondCategoryListBean = secondCategoryList.get(i);
                         if (secondCategoryListBean.getCategoryId().equals(categoryId)) {
                             mPosition = i;
-                            parentName = secondCategoryListBean.getCategoryName();
                         }
                         childNames.add(secondCategoryListBean.getCategoryName());
                         fragments.add(ShopFragment.newInstance(mParentId, secondCategoryListBean.getCategoryId(), "", minPrice, maxPrice, isShippingFree, orderBy, orderType, ""));
@@ -144,7 +146,7 @@ public class CategorySecondActivity extends BaseActivity {
 
 
     public void initView() {
-        mHeaderLayout.setTitle(parentName);
+        mHeaderLayout.setTitle(mParentName);
         mHeaderLayout.setLeftDrawable(R.mipmap.icon_back_black);
         mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +163,6 @@ public class CategorySecondActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                parentName = secondCategoryList.get(position).getCategoryName();
-                mHeaderLayout.setTitle(parentName);
                 viewpagerShop.requestLayout();
             }
 

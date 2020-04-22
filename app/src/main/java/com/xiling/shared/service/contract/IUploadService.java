@@ -31,13 +31,11 @@ public interface IUploadService {
     /**
      * 上传身份证照片
      * @param body
-     * @param type
      * @return
      */
     @Multipart
     @POST("auth/uploadImageForAuth")
-    Observable<RequestResult<UploadResponse>> uploadIdCard(@Part MultipartBody.Part body,
-                                                           @Part("type") RequestBody type);
+    Observable<RequestResult<UploadResponse>> uploadIdCard(@Part MultipartBody.Part body);
 
 
     /**

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.xiling.R;
 import com.xiling.ddui.activity.XLCashierActivity;
 import com.xiling.ddui.bean.SkuListBean;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IPayService;
 import com.xiling.shared.util.ToastUtil;
@@ -26,13 +27,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_CHARGE_MONEY;
+import static com.xiling.shared.service.contract.IPayService.PAY_TYPE_WEEK_CARD;
 
 /**
  * @author 逄涛
  * 黑卡直充
  */
 public class DirectRechargeDialog extends Dialog {
-    public static final String TYPE_VIP = "VIP";
+    public static final String TYPE_VIP = "SVIP";
     public static final String TYPE_BLACK = "黑卡";
     Context mContext;
     IPayService iPayService;
@@ -71,7 +73,7 @@ public class DirectRechargeDialog extends Dialog {
         switch (type) {
             case TYPE_VIP:
                 etAmount.setText("16800");
-                tvAccount.setText("直升VIP会员");
+                tvAccount.setText("直升SVIP会员");
                 tvRechargingInstructions.setText("充值说明：\n 一次性充值货款16800直升VIP会员，充值的货款将直接存储 到个人账户中，后续下单订货可以直接使用余额支付 ");
                 break;
             case TYPE_BLACK:
@@ -95,6 +97,17 @@ public class DirectRechargeDialog extends Dialog {
         }
     }
 
+    private void recharge() {
+        double amount = 0;
+        try {
+            amount = Integer.valueOf(etAmount.getText().toString());
+            //跳转收银台
+            XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_CHARGE_MONEY, amount, 45 * 60 * 1000, (int) (amount * 100) + "");
+        } catch (Exception e) {
+            ToastUtil.error("充值金额必须为整数");
+        }
+    }
+
     @OnClick({R.id.iv_close, R.id.btn_recharge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -102,14 +115,20 @@ public class DirectRechargeDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.btn_recharge:
-                double amount = 0;
-                try {
-                    amount = Integer.valueOf(etAmount.getText().toString());
-                    //跳转收银台
-                    XLCashierActivity.jumpCashierActivity(mContext, PAY_TYPE_CHARGE_MONEY, amount, 45 * 60 * 1000, (int) (amount * 100) + "");
-                } catch (Exception e) {
-                    ToastUtil.error("充值金额必须为整数");
+
+                // 如果身份在svip及以上，需要实名认证后才能充值
+                if (UserManager.getInstance().getUserLevel() >= 2) {
+                    UserManager.getInstance().isRealAuth(mContext, new UserManager.RealAuthListener() {
+                        @Override
+                        public void onRealAuth() {
+                            recharge();
+                        }
+                    });
+                } else {
+                    recharge();
                 }
+
+
                 break;
         }
 

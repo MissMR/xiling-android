@@ -43,12 +43,7 @@ public class IdentificationUploadActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_ID_CARD_FRONT = 1;
     private static final int REQUEST_CODE_ID_CARD_BEHIND = 2;
-    @BindView(R.id.btn_upload_just)
-    TextView btnUploadJust;
-    @BindView(R.id.btn_upload_back)
-    TextView btnUploadBack;
-    @BindView(R.id.btn_next)
-    TextView btnNext;
+
     private int mType = UploadManager.IDENTITY_CARD_FRONT;
 
     @BindView(R.id.iv_just)
@@ -69,7 +64,6 @@ public class IdentificationUploadActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("上传身份证");
         setLeftBlack();
-        btnNext.setEnabled(false);
     }
 
     @OnClick({R.id.btn_upload_just, R.id.btn_upload_back, R.id.btn_next})
@@ -91,7 +85,7 @@ public class IdentificationUploadActivity extends BaseActivity {
                     @Override
                     public void onAlbum() {
                         mType = UploadManager.IDENTITY_CARD_FRONT;
-                        PhotoTools.openAlbum(IdentificationUploadActivity.this,10010);
+                        PhotoTools.openAlbum(IdentificationUploadActivity.this, 10010);
                     }
                 });
                 break;
@@ -110,13 +104,19 @@ public class IdentificationUploadActivity extends BaseActivity {
                     @Override
                     public void onAlbum() {
                         mType = UploadManager.IDENTITY_CARD_BEHIND;
-                        PhotoTools.openAlbum(IdentificationUploadActivity.this,10010);
+                        PhotoTools.openAlbum(IdentificationUploadActivity.this, 10010);
                     }
                 });
 
                 break;
             case R.id.btn_next:
-                startActivity(new Intent(context, IdentificationInputActivity.class));
+                if (checkNotNullImages()) {
+                    Intent intent = new Intent();
+                    intent.putExtra("idcardFrontImg", mImgURL[0]);
+                    intent.putExtra("idcardBackImg", mImgURL[1]);
+                    setResult(10001, intent);
+                }
+                finish();
                 break;
         }
     }
@@ -132,17 +132,13 @@ public class IdentificationUploadActivity extends BaseActivity {
                         ivJustDefault.setVisibility(View.GONE);
                         ivJust.setImageURI(result.url);
                         mImgURL[0] = result.url;
-                        btnUploadJust.setText("重新上传照片");
                         break;
                     case REQUEST_CODE_ID_CARD_BEHIND:
                         ivBackDefault.setVisibility(View.GONE);
                         ivBack.setImageURI(Uri.parse(result.url));
                         mImgURL[1] = result.url;
-                        btnUploadBack.setText("重新上传照片");
                         break;
                 }
-                btnNext.setEnabled(checkNotNullImages());
-
             }
 
             @Override
@@ -197,11 +193,5 @@ public class IdentificationUploadActivity extends BaseActivity {
         return !TextUtils.isEmpty(mImgURL[0]) && !TextUtils.isEmpty(mImgURL[1]);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginSuccess(EventMessage message) {
-        if (message.getEvent().equals(Event.REAL_AUTH_SUCCESS)) {
-            finish();
-        }
-    }
 
 }

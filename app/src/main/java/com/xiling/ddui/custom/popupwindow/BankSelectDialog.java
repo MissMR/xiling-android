@@ -33,7 +33,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 取消订单
+ * 选择银行卡
  */
 public class BankSelectDialog extends Dialog {
     IBankService iBankService;

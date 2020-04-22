@@ -66,6 +66,7 @@
                 android:id="@+id/iv_manager_head"
                 android:layout_width="@dimen/dp_48"
                 android:layout_height="@dimen/dp_48"
+                android:src="@mipmap/default_avatar"
                 android:layout_centerVertical="true"
             />
 
@@ -172,24 +173,28 @@
             android:background="#F5F5F5" />
 
         <TextView
+            android:id="@+id/tv_remarks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="一站式解决各类基础问题、货品经销问题，精准匹配专业课程，帮助经销商快速成长"
             android:textColor="#ffdcb982"
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/tv_work_time1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_14"
             android:text="工作时间（北京时间）工作日9：00-18：00"
             android:textColor="#ffaaaaaa"
+            android:visibility="gone"
             android:textSize="@dimen/sp_10" />
 
         <TextView
+            android:id="@+id/tv_work_time2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/dp_5"
             android:text="法定节假日/双休日 您可微信留言或联系在线客服"
             android:textColor="#ffaaaaaa"

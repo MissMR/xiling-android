@@ -154,10 +154,10 @@ public class MyClientFragment extends BaseFragment implements OnRefreshListener,
                         if (pageOffset == 1) {
                             list = result.getDatas();
 
-                            /**
+                          /*  *//**
                              * 测试数据
-                             */
-                           /* for (int i = 0; i < 3; i++) {
+                             *//*
+                            for (int i = 0; i < 3; i++) {
                                 MyClientListBean.DataBean dataBean = new MyClientListBean.DataBean();
                                 dataBean.setMemberName("打开好物");
                                 dataBean.setMonthlyConsumption(412.12345);

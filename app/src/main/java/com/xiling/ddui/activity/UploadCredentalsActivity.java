@@ -19,6 +19,7 @@ import com.xiling.R;
 import com.xiling.ddui.bean.OrderDetailBean;
 import com.xiling.ddui.tools.GlideEngine;
 import com.xiling.ddui.tools.PhotoTools;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.community.DateUtils;
 import com.xiling.shared.basic.BaseActivity;
@@ -148,7 +149,7 @@ public class UploadCredentalsActivity extends BaseActivity {
                 KeyboardUtils.hideSoftInput(this);
                 break;
             case R.id.btn_upload:
-                PhotoTools.openAlbum(this,10101);
+                PhotoTools.openAlbum(this, 10101);
                 break;
         }
     }
@@ -164,9 +165,9 @@ public class UploadCredentalsActivity extends BaseActivity {
                 if (type.equals(PAY_TYPE_ORDER)) {
                     //发送订单完成广播，通知页面关闭
                     EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-                   // XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
+                    // XLOrderDetailsActivity.jumpOrderDetailsActivity(context, key);
                     //拆单需求变更，跳转订单列表
-                    OrderListActivit.jumpOrderList(context,ORDER_WAIT_SHIP);
+                    OrderListActivit.jumpOrderList(context, ORDER_WAIT_SHIP);
                 } else if (type.equals(PAY_TYPE_CHARGE_MONEY)) {
                     EventBus.getDefault().post(new EventMessage(RECHARGE_SUCCESS));
                 }
@@ -206,9 +207,15 @@ public class UploadCredentalsActivity extends BaseActivity {
 
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable e, String businessCode) {
                 super.onError(e);
-                ToastUtil.error(e.getMessage());
+                if (!TextUtils.isEmpty(businessCode)) {
+                    if (businessCode.equals("un-auth")) {
+                        UserManager.getInstance().isRealAuth(context, null);
+                    }
+                } else {
+                    ToastUtil.error(e.getMessage());
+                }
             }
 
         });

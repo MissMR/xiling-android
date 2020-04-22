@@ -315,7 +315,12 @@ public class XLOrderDetailsActivity extends BaseActivity {
                 tvOrderId.setText("订单编号：" + orderDetailsBean.getOrderCode());
                 tvOrderCreateTime.setText("创建时间：" + orderDetailsBean.getCreateTime());
                 tvOrderPayType.setText("支付方式：" + orderDetailsBean.getPayType() + " >");
-                tvOrderExpressId.setText("物流单号：" + orderDetailsBean.getExpressCode());
+                String[] exoressCodeArr = orderDetailsBean.getExpressCode().split(",");
+                if (exoressCodeArr.length > 1) {
+                    tvOrderExpressId.setText("物流单号：" + exoressCodeArr[0] + "  查看更多>");
+                } else if (exoressCodeArr.length == 1) {
+                    tvOrderExpressId.setText("物流单号：" + exoressCodeArr[0]);
+                }
 
                 btnSee.setVisibility(View.VISIBLE);
                 btnConfirm.setVisibility(View.VISIBLE);
@@ -407,9 +412,17 @@ public class XLOrderDetailsActivity extends BaseActivity {
         void onTick(long l);
     }
 
-    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment, R.id.btn_examine, R.id.tv_order_pay_type})
+    @OnClick({R.id.btn_see, R.id.btn_confirm, R.id.btn_remind, R.id.btm_cancel, R.id.btn_payment, R.id.btn_examine, R.id.tv_order_pay_type, R.id.tv_order_express_id})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_order_express_id:
+                if (orderDetailsBean.getExpressCode().split(",").length > 1) {
+                    //查看物流
+                    String url = WEB_URL_EXPRESS.replace("@expressCode", orderDetailsBean.getExpressCode());
+                    url = url.replace("@expressId", orderDetailsBean.getExpressId() + "");
+                    WebViewActivity.jumpUrl(context, "查看物流", url);
+                }
+                break;
             case R.id.btn_see:
                 //查看物流
                 String url = WEB_URL_EXPRESS.replace("@expressCode", orderDetailsBean.getExpressCode());

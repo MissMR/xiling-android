@@ -37,7 +37,6 @@
                 android:id="@+id/tv_need_price_decimal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="80"
                 android:textColor="#ffa6251a"
                 android:textSize="@dimen/sp_16" />
 

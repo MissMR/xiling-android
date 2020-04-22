@@ -6,7 +6,7 @@ import android.content.Context;
 import com.huantansheng.easyphotos.EasyPhotos;
 
 /**
- * @author  逄涛
+ * @author 逄涛
  * 相册与拍照
  */
 public class PhotoTools {
@@ -14,6 +14,12 @@ public class PhotoTools {
         EasyPhotos.createAlbum(activity, true, GlideEngine.getInstance())
                 .setFileProviderAuthority("com.xiling.fileProvider")
                 .setPuzzleMenu(false)
+                .start(requestCode);
+    }
+
+    public static void photogaph(Activity activity, int requestCode) {
+        EasyPhotos.createCamera(activity)
+                .setFileProviderAuthority("com.xiling.fileProvider")
                 .start(requestCode);
     }
 }

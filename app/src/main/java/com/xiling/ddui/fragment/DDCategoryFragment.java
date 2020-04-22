@@ -121,7 +121,12 @@ public class DDCategoryFragment extends BaseFragment {
                 }
             }
         });
-        topLayoutMainager = new LinearLayoutManager(getContext());
+        topLayoutMainager = new LinearLayoutManager(getContext()){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         mRvCategoryNav.setLayoutManager(topLayoutMainager);
         mRvCategoryNav.setAdapter(mCategoryNavigationAdapter);
 
@@ -137,7 +142,7 @@ public class DDCategoryFragment extends BaseFragment {
                 if (topCategoryList != null && secondCategoryList != null) {
                     String parentId = topCategoryList.get(childPosition).getCategoryId();
                     String childId = secondCategoryList.get(position).getCategoryId();
-                    CategorySecondActivity.jumpCategorySecondActivity(mContext, parentId, childId);
+                    CategorySecondActivity.jumpCategorySecondActivity(mContext, parentId, childId,topCategoryList.get(childPosition).getCategoryName());
                 }
             }
         });
@@ -145,7 +150,12 @@ public class DDCategoryFragment extends BaseFragment {
         categoryBrandAdapter = new CategoryBrandAdapter();
         rvCategoryBrand.addItemDecoration(new SpacesItemDecoration(ScreenUtils.dip2px(getActivity(), 8), ScreenUtils.dip2px(getActivity(), 10)));
         rvCategoryBrand.setAdapter(categoryBrandAdapter);
-        rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 3));
+        rvCategoryBrand.setLayoutManager(new GridLayoutManager(mContext, 3){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
 
         categoryBrandAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 

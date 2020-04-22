@@ -24,7 +24,7 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_100"
-            android:src="@mipmap/ic_login_ddm" />
+         />
 
         <TextView
             android:layout_width="wrap_content"

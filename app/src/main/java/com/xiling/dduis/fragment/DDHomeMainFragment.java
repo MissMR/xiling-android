@@ -158,6 +158,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         unbinder = ButterKnife.bind(this, view);
         initView();
         checkUserInfo();
+
         showNewComerDialog();
         return view;
     }
@@ -165,8 +166,8 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
     private void showNewComerDialog() {
         SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
         if (!spUtils.getBoolean("oneStart")) {
-            NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
-            newcomerDiscountDialog.show();
+     /*       NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
+            newcomerDiscountDialog.show();*/
             spUtils.putBoolean("oneStart", true);
         }
 
@@ -231,7 +232,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         recyclerViewRecommend.setLayoutManager(recommendLayoutManager);
         recommendAdapter = new ShopListAdapter(R.layout.item_old_home_recommend, recommendDataList);
         recyclerViewRecommend.setAdapter(recommendAdapter);
-        LinearLayoutManager selectedBrandLayoutManager = new LinearLayoutManager(mContext){
+        LinearLayoutManager selectedBrandLayoutManager = new LinearLayoutManager(mContext) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
@@ -270,7 +271,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     hotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            CategorySecondActivity.jumpCategorySecondActivity(mContext, hots.get(position).getParentId(), hots.get(position).getCategoryId());
+                            CategorySecondActivity.jumpCategorySecondActivity(mContext, hots.get(position).getParentId(), hots.get(position).getCategoryId(),hots.get(position).getParentName());
                         }
                     });
 
@@ -519,12 +520,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         switch (view.getId()) {
             case R.id.btn_user:
                 if (UserManager.getInstance().isLogin(mContext)) {
-                    UserManager.getInstance().isRealAuth(mContext, new UserManager.RealAuthListener() {
-                        @Override
-                        public void onRealAuth() {
-                            startActivity(new Intent(mContext, XLMemberCenterActivity.class));
-                        }
-                    });
+                    startActivity(new Intent(mContext, XLMemberCenterActivity.class));
                 }
                 break;
             case R.id.rel_search:
@@ -560,6 +556,11 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
             case UPDATE_NICK:
                 btnLogin.setText((String) message.getData());
                 break;
+            case WEEK_CARD_OPEN:
+                //开通体验卡，刷新商品列表
+                pageOffset = 1;
+                requestRecommend();
+                break;
         }
     }
 
@@ -587,16 +588,15 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                 GlideUtils.loadHead(mContext, ivHeadIcon, user.getHeadImage());
                 switch (UserManager.getInstance().getUserLevel()) {
                     case 0:
-                        //注册用户
                         tvGrade.setBackgroundResource(R.drawable.bg_home_register);
                         break;
-                    case 10:
+                    case 1:
                         tvGrade.setBackgroundResource(R.drawable.bg_home_user);
                         break;
-                    case 20:
+                    case 2:
                         tvGrade.setBackgroundResource(R.drawable.bg_home_vip);
                         break;
-                    case 30:
+                    case 3:
                         tvGrade.setBackgroundResource(R.drawable.bg_home_back);
                         break;
                 }

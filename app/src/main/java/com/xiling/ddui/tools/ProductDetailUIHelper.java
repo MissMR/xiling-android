@@ -202,7 +202,8 @@ public class ProductDetailUIHelper {
 
         ButterKnife.bind(this, baseContentView);
         webView = new WebView(mContext);
-        webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        webView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        webView.getSettings().setDomStorageEnabled(true);
         mProductDetailWebView.addView(webView);
 
         QMUIStatusBarHelper.translucent(mContext);
@@ -268,7 +269,7 @@ public class ProductDetailUIHelper {
             mTvSkuInfo.setClickable(false);
             relSkuInfo.setClickable(false);
 
-            ivRate.setBackgroundResource(R.drawable.bg_special_price_out);
+            ivRate.setBackgroundResource(UserManager.getInstance().getDiscountIconForUser(false));
             tvRmb.setTextColor(Color.parseColor("#999999"));
             tvDiscountPrice.setTextColor(Color.parseColor("#999999"));
             tvDiscountPriceDecimal.setTextColor(Color.parseColor("#999999"));
@@ -283,7 +284,7 @@ public class ProductDetailUIHelper {
             mTvSkuInfo.setClickable(true);
             relSkuInfo.setClickable(true);
 
-            ivRate.setBackgroundResource(R.drawable.bg_special_price);
+            ivRate.setBackgroundResource(UserManager.getInstance().getDiscountIconForUser(true));
             tvRmb.setTextColor(Color.parseColor("#ffa6251a"));
             tvDiscountPrice.setTextColor(Color.parseColor("#ffa6251a"));
             tvDiscountPriceDecimal.setTextColor(Color.parseColor("#ffa6251a"));

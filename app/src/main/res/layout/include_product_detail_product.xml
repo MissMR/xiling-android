@@ -51,7 +51,7 @@
 
     <!--价格区域-->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_13"
@@ -81,10 +81,9 @@
 
         <TextView
             android:id="@+id/iv_rate"
-            android:layout_width="@dimen/dp_46"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_15"
             android:layout_marginLeft="@dimen/dp_8"
-            android:background="@drawable/bg_special_price"
             android:gravity="center"
             android:textColor="#fffdddab"
             android:textSize="@dimen/sp_12" />
@@ -253,35 +252,32 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:visibility="gone"
-      >
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_15"
             android:text="当天下午14点前下单48小时内发货，如遇到国检抽检，会延误1-2天"
             android:textColor="#ff666666"
-            android:textSize="@dimen/sp_10"
-            android:layout_marginTop="@dimen/dp_15"
-            android:layout_marginLeft="@dimen/dp_18"
-            />
+            android:textSize="@dimen/sp_10" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_17"
-            android:layout_marginLeft="@dimen/dp_18"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
                 android:text="物流"
                 android:textColor="#ff202020"
-                android:textSize="@dimen/sp_14"
-                android:layout_marginTop="@dimen/dp_3"
-                />
+                android:textSize="@dimen/sp_14" />
 
             <ImageView
                 android:layout_width="@dimen/dp_280"
@@ -296,10 +292,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_19"
             android:layout_marginBottom="@dimen/dp_15"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -321,15 +317,52 @@
                 android:id="@+id/btn_tax_explain"
                 android:layout_width="@dimen/dp_16"
                 android:layout_height="@dimen/dp_16"
-                android:padding="@dimen/dp_2"
                 android:layout_marginLeft="@dimen/dp_5"
-                android:background="@drawable/icon_tips" />
+                android:background="@drawable/icon_tips"
+                android:padding="@dimen/dp_2" />
         </LinearLayout>
-
-        <include layout="@layout/include_divider_10"
-            />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:background="#F5F5F5" />
+
+    <LinearLayout
+        android:id="@+id/ll_params"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_24">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参数"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_weight="1"
+            android:text="品牌 型号…"
+            android:textColor="#ff202020"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_21"
+            android:layout_height="7dp"
+            android:background="@drawable/icon_product_more" />
+
+    </LinearLayout>
+
+
+    <include layout="@layout/include_divider_10" />
 
 </LinearLayout>

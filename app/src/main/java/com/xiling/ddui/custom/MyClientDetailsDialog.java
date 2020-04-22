@@ -39,6 +39,8 @@ public class MyClientDetailsDialog extends Dialog {
     TextView tvUserLevel3;
     @BindView(R.id.tv_role_name)
     TextView tvRoleName;
+    @BindView(R.id.tv_user_level0)
+    TextView tvUserLevel0;
 
     public MyClientDetailsDialog(@NonNull Context context, MyClientListBean.DataBean clientBean) {
         this(context, R.style.DDMDialog);
@@ -63,18 +65,19 @@ public class MyClientDetailsDialog extends Dialog {
     }
 
 
-    private void getCustomerDetail(){
+    private void getCustomerDetail() {
         APIManager.startRequest(iNewUserService.getCustomerDetail(clientBean.getMemberId()), new BaseRequestListener<MyClientListBean.DataBean>() {
 
             @Override
             public void onSuccess(MyClientListBean.DataBean result) {
                 super.onSuccess(result);
-                if (result != null){
+                if (result != null) {
                     clientBean = result;
                     GlideUtils.loadHead(mContext, ivHead, clientBean.getHeadImage());
                     tvName.setText(clientBean.getMemberName());
                     tvRoleName.setText(clientBean.getRoleName());
                     tvZhishu.setText(NumberHandler.reservedDecimalFor2(clientBean.getMonthlyConsumption()));
+                    tvUserLevel0.setText(clientBean.getLevel0Count());
                     tvUserLevel1.setText(clientBean.getLevel1Count());
                     tvUserLevel2.setText(clientBean.getLevel2Count());
                     tvUserLevel3.setText(clientBean.getLevel3Count());

@@ -250,12 +250,6 @@
                             android:layout_height="@dimen/dp_40"
                             android:background="@drawable/bg_member_ship">
 
-                            <ImageView
-                                android:id="@+id/iv_level"
-                                android:layout_width="@dimen/dp_72"
-                                android:layout_height="@dimen/dp_18"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="@dimen/dp_12" />
 
                             <ImageView
                                 android:layout_width="@dimen/dp_66"
@@ -607,6 +601,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:maxLength="10"
                 android:textColor="#ff202020"
                 android:textSize="@dimen/sp_18" />
 

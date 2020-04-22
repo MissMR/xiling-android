@@ -92,9 +92,9 @@ public class WebViewUtil {
     }
 
     public static void loadDataToWebView(WebView webView, String content) {
-       /* if (!content.contains("<br")) {
-            content += "<br/>";
-        }*/
+        if (!content.endsWith("<p><br/></p>")) {
+            content += "<p><br/></p>";
+        }
         content = String.format("<!DOCTYPE html><html lang=\"zh-CN\"><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no\"><style>body{padding:0;margin:0;}p{padding:0;margin:0;} p:last-child {line-height:0;} img{vertical-align:bottom;width:100%%;font-size:0;padding:0;margin:0;}</style></head><body>%s</body></html>", content);
         webView.loadDataWithBaseURL(null, content, "text/html", "UTF-8", null);
     }

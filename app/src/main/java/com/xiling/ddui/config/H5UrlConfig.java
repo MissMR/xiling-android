@@ -31,5 +31,7 @@ public class H5UrlConfig {
     public static final String LARGE_PAYMENT  =BuildConfig.BASE_URL +"voucher?orderId=";
     //用户需知
     public static final String CROSS_NEED_NOTE  =BuildConfig.BASE_URL +"crossNeedNote";
+    //卡券中心
+    public static final String CARD_VOUCHER_CENTER  =BuildConfig.BASE_URL +"cardsAndCouponsList";
 
 }

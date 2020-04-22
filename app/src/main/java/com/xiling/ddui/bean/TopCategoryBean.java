@@ -27,6 +27,16 @@ public class TopCategoryBean {
     private String remark;
     private String bannerUrl;
 
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    private boolean isSelect;
+
     public String getCategoryId() {
         return categoryId;
     }
@@ -91,4 +101,8 @@ public class TopCategoryBean {
         this.bannerUrl = bannerUrl;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return  ((TopCategoryBean)obj).getCategoryId().equals(this.getCategoryId());
+    }
 }

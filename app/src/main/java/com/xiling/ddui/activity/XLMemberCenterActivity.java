@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -20,6 +19,7 @@ import com.xiling.ddui.bean.MemberCenterInfo;
 import com.xiling.ddui.bean.WeekCardConfigBean;
 import com.xiling.ddui.bean.WeekCardInfo;
 import com.xiling.ddui.config.H5UrlConfig;
+import com.xiling.ddui.custom.popupwindow.BuyWeekCardPopWindow;
 import com.xiling.ddui.custom.popupwindow.DirectRechargeDialog;
 import com.xiling.ddui.custom.popupwindow.WeekBeOverdueDialog;
 import com.xiling.ddui.service.IMemberService;
@@ -38,8 +38,10 @@ import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.util.SharedPreferenceUtil;
 import com.xiling.shared.util.ToastUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.xiling.shared.constant.Event.viewHome;
 
 /**
  * @auth 逄涛
@@ -103,25 +107,23 @@ public class XLMemberCenterActivity extends BaseActivity {
 
     WeekCardInfo weekCardInfo;
     boolean isOpenWeekCard = false;
-    @BindView(R.id.btn_buy_black)
-    TextView btnBuyBlack;
+    @BindView(R.id.btn_buy)
+    TextView btnBuy;
     @BindView(R.id.btn_sale)
     TextView btnSale;
-    @BindView(R.id.btn_buy_vip)
-    TextView btnBuyVip;
-    @BindView(R.id.btn_sale_vip)
-    TextView btnSaleVip;
     @BindView(R.id.tv_experience)
     TextView tvExperience;
 
     List<WeekCardConfigBean> weekCardConfigBeanList = new ArrayList<>();
     List<WeekCardConfigBean> myWeekCardList = new ArrayList<>();
+    List<WeekCardConfigBean> myBuyWeekCardList = new ArrayList<>();
     WeekCardConfigBean weekCardConfigBean = null;
-    @BindView(R.id.tv_my_week_card_package)
-    TextView tvMyWeekCardPackage;
+    @BindView(R.id.btn_order_invitation)
+    RelativeLayout tvMyWeekCardPackage;
     @BindView(R.id.rel_bottom)
     View relBottom;
 
+    private NewUserBean mUserBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,18 +147,18 @@ public class XLMemberCenterActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                weekCardConfigBean = weekCardConfigBeanList.get(position);
-                if (weekCardConfigBean.getWeekType() == 1) {
+                weekCardConfigBean = myWeekCardList.get(position);
+                if (weekCardConfigBean == null) {
                     ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_vip);
-                    btnBuyVip.setVisibility(View.VISIBLE);
-                    btnSaleVip.setVisibility(View.VISIBLE);
-                    btnBuyBlack.setVisibility(View.GONE);
+                    btnBuy.setVisibility(View.VISIBLE);
                     btnSale.setVisibility(View.GONE);
                 } else if (weekCardConfigBean.getWeekType() == 2) {
+                    ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_svip);
+                    btnBuy.setVisibility(View.VISIBLE);
+                    btnSale.setVisibility(View.VISIBLE);
+                } else if (weekCardConfigBean.getWeekType() == 3) {
                     ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_balck);
-                    btnBuyVip.setVisibility(View.GONE);
-                    btnSaleVip.setVisibility(View.GONE);
-                    btnBuyBlack.setVisibility(View.VISIBLE);
+                    btnBuy.setVisibility(View.VISIBLE);
                     btnSale.setVisibility(View.VISIBLE);
                 }
             }
@@ -182,28 +184,40 @@ public class XLMemberCenterActivity extends BaseActivity {
                     pagerWeekPackage.setVisibility(View.VISIBLE);
                     weekPackageList.clear();
                     myWeekCardList.clear();
+                    myBuyWeekCardList.clear();
                     NewUserBean userBean = UserManager.getInstance().getUser();
                     weekCardConfigBeanList = result;
 
+                    if (userBean.getRoleId() == 0) {
+                        //如果是普通用户，添加升级vip权益
+                        View view = LayoutInflater.from(context).inflate(R.layout.item_week_package, null);
+                        ImageView imageView = view.findViewById(R.id.iv_img);
+                        imageView.setBackgroundResource(R.drawable.bg_upgrading_vip);
+                        myWeekCardList.add(null);
+                        weekPackageList.add(view);
+                    }
+
                     for (WeekCardConfigBean weekCardConfigBean : result) {
-                        if (userBean.getRoleId() == 1) {
+                        if (userBean.getRoleId() == 0 || userBean.getRoleId() == 1) {
                             // 如果本身是普通会员，都可以购买
                             View view = LayoutInflater.from(context).inflate(R.layout.item_week_package, null);
                             ImageView imageView = view.findViewById(R.id.iv_img);
-                            if (weekCardConfigBean.getWeekType() == 1) {
-                                imageView.setBackgroundResource(R.drawable.bg_upgrading_vip);
-                            } else if (weekCardConfigBean.getWeekType() == 2) {
+                            if (weekCardConfigBean.getWeekType() == 2) {
+                                imageView.setBackgroundResource(R.drawable.bg_upgrading_svip);
+                            } else if (weekCardConfigBean.getWeekType() == 3) {
                                 imageView.setBackgroundResource(R.drawable.bg_upgrading_balck);
                             }
                             myWeekCardList.add(weekCardConfigBean);
+                            myBuyWeekCardList.add(weekCardConfigBean);
                             weekPackageList.add(view);
                         } else if (userBean.getRoleId() == 2) {
-                            //如果是vip会员，只能购买黑卡
-                            if (weekCardConfigBean.getWeekType() == 2) {
+                            //如果是svip会员，只能购买黑卡
+                            if (weekCardConfigBean.getWeekType() == 3) {
                                 View view = LayoutInflater.from(context).inflate(R.layout.item_week_package, null);
                                 ImageView imageView = view.findViewById(R.id.iv_img);
                                 imageView.setBackgroundResource(R.drawable.bg_upgrading_balck);
                                 myWeekCardList.add(weekCardConfigBean);
+                                myBuyWeekCardList.add(weekCardConfigBean);
                                 weekPackageList.add(view);
                             }
                         }
@@ -211,18 +225,18 @@ public class XLMemberCenterActivity extends BaseActivity {
 
                     if (myWeekCardList.size() > 0) {
                         weekCardConfigBean = myWeekCardList.get(0);
-                        if (myWeekCardList.get(0).getWeekType() == 1) {
+                        if (weekCardConfigBean == null) {
                             ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_vip);
-                            btnBuyBlack.setVisibility(View.GONE);
+                            btnBuy.setVisibility(View.VISIBLE);
                             btnSale.setVisibility(View.GONE);
-                            btnBuyVip.setVisibility(View.VISIBLE);
-                            btnSaleVip.setVisibility(View.VISIBLE);
                         } else if (myWeekCardList.get(0).getWeekType() == 2) {
-                            ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_balck);
-                            btnBuyBlack.setVisibility(View.VISIBLE);
+                            ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_svip);
+                            btnBuy.setVisibility(View.VISIBLE);
                             btnSale.setVisibility(View.VISIBLE);
-                            btnBuyVip.setVisibility(View.GONE);
-                            btnSaleVip.setVisibility(View.GONE);
+                        } else if (myWeekCardList.get(0).getWeekType() == 3) {
+                            ivUpgrading.setBackgroundResource(R.drawable.bg_upgrading_mode_balck);
+                            btnBuy.setVisibility(View.VISIBLE);
+                            btnSale.setVisibility(View.VISIBLE);
                         }
                     }
 
@@ -255,21 +269,33 @@ public class XLMemberCenterActivity extends BaseActivity {
      * 会员中心首页接口
      */
     private void getCenterInfo(final NewUserBean newUserBean) {
+        mUserBean = newUserBean;
         APIManager.startRequest(iMemberService.getCenterInfo(), new BaseRequestListener<MemberCenterInfo>() {
             @Override
             public void onSuccess(MemberCenterInfo result) {
                 super.onSuccess(result);
                 GlideUtils.loadHead(context, ivHead, result.getHeadImage());
                 tvMemberName.setText(result.getNickName());
-                tvCouponSize.setText(result.getCouponCount() + "");
-                if (!TextUtils.isEmpty(result.getCouponDate())) {
-                    tvCouponDate.setText(DateUtils.timeStamp2Date(Long.valueOf(DateUtils.date2TimeStamp(result.getCouponDate(), "")), "yyyy.MM.dd") + "到期");
+                tvCouponSize.setText(result.getWeekCardCount() + "");
+                if (!TextUtils.isEmpty(result.getLastWeekCardExpiredTime())) {
+                    tvCouponDate.setText(DateUtils.timeStamp2Date(Long.valueOf(DateUtils.date2TimeStamp(result.getLastWeekCardExpiredTime(), "")), "yyyy.MM.dd") + "到期");
+                } else {
+                    tvCouponDate.setText("查看更多");
                 }
                 growthValueCurrent.setText(NumberHandler.reservedDecimalFor2(Double.valueOf(result.getGrowValueTotle())));
+
+
                 if (newUserBean.getRoleId() == 3) {
                     progressBar.setProgress(100);
                     progressBar.setMax(100);
                     tvGrowthMessage.setText("您当前已是黑卡会员");
+
+                    ToastUtil.hideLoading();
+                    pagerWeekPackage.setVisibility(View.GONE);
+                    relBottom.setVisibility(View.GONE);
+                    ivUpgrading.setVisibility(View.GONE);
+                    setWeekCardStatus(null);
+
                 } else {
                     double max = Double.valueOf(result.getNextMemberRole().getGrowValue());
                     progressBar.setMax((int) max);
@@ -277,46 +303,44 @@ public class XLMemberCenterActivity extends BaseActivity {
                     progressBar.setProgress((int) progress);
                     tvGrowthMessage.setText("差" + NumberHandler.reservedDecimalFor2(Double.valueOf(result.getNextMemberRole().getGrowValue()) - Double.valueOf(result.getGrowValueTotle()))
                             + "成长值升级成为终身" + result.getNextMemberRole().getRoleName() + "(享受" + Double.valueOf(result.getNextMemberRole().getRoleDiscount()) / 10 + "折优惠)");
-                }
 
-                switch (Integer.valueOf(result.getMemberRole().getRoleLevel())) {
-                    case 10:
-                        //普通会员
-                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_ordinary);
-                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_ordinary);
-                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_ordinary);
-                        break;
-                    case 20:
-                        //vip会员
-                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_vip);
-                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_vip);
-                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_vip);
-                        break;
-                    case 30:
-                        //黑卡会员
-                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_black);
-                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_black);
-                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_black);
-                        break;
-                }
-
-                if (newUserBean.getRoleId() == 3) {
-                    // 已经是黑卡，不需要请求周卡信息
-                    ToastUtil.hideLoading();
-                    pagerWeekPackage.setVisibility(View.GONE);
-                    relBottom.setVisibility(View.GONE);
-                    ivUpgrading.setVisibility(View.GONE);
-                    tvMyWeekCardPackage.setText("我的周卡记录");
-                    setWeekCardStatus(null);
-                } else {
-                    tvMyWeekCardPackage.setText("我的周卡礼包");
                     pagerWeekPackage.setVisibility(View.VISIBLE);
                     ivUpgrading.setVisibility(View.VISIBLE);
                     relBottom.setVisibility(View.VISIBLE);
                     getWeekCardConfigList();
                     getWeekCardInfo();
-                }
 
+                }
+                switch (newUserBean.getRoleId()) {
+                    case 0:
+                        // 普通会员
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_ordinary);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_ordinary);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_ordinary);
+                        tvMyWeekCardPackage.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        //VIP
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_vip);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_vip);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_vip);
+                        tvMyWeekCardPackage.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        //SVIP
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_svip);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_svip);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_svip);
+                        tvMyWeekCardPackage.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        //BLACK
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_black);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_black);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_black);
+                        tvMyWeekCardPackage.setVisibility(View.VISIBLE);
+                        break;
+                }
             }
 
             @Override
@@ -366,13 +390,13 @@ public class XLMemberCenterActivity extends BaseActivity {
             if (weekCardInfo.getStatus().equals("1")) {
                 // 有效
                 switch (weekCardInfo.getWeekType()) {
-                    case "1":
+                    case "2":
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_vip);
                         ivCartUs.setBackgroundResource(R.drawable.icon_us_vip);
                         tvCartUs.setTextColor(Color.parseColor("#6D8891"));
                         tvExperience.setTextColor(Color.parseColor("#6D8891"));
                         break;
-                    case "2":
+                    case "3":
                         relWeekCard.setBackgroundResource(R.drawable.bg_member_week_card_black);
                         ivCartUs.setBackgroundResource(R.drawable.icon_us_black);
                         tvCartUs.setTextColor(Color.parseColor("#A27309"));
@@ -380,9 +404,9 @@ public class XLMemberCenterActivity extends BaseActivity {
                         break;
                 }
 
-                tvMyWeekCard.setText("当前已开通" + weekCardInfo.getWeekName());
+                tvMyWeekCard.setText(weekCardInfo.getWeekName());
                 relWeekCard.setVisibility(View.VISIBLE);
-                tvWeekCardName.setText("喜领" + weekCardInfo.getWeekName());
+                tvWeekCardName.setText(weekCardInfo.getWeekName());
                 long waitPayTimeMilli = DateUtils.date2TimeStampLong(weekCardInfo.getExpiredTime(), "") - System.currentTimeMillis();
                 startCountDown(waitPayTimeMilli);
             } else {
@@ -414,19 +438,14 @@ public class XLMemberCenterActivity extends BaseActivity {
                 if (result != null && result.getWeekType() != null) {
                     NewUserBean newUserBean = UserManager.getInstance().getUser();
                     //有效
-                    if (result.getWeekType().equals("1")) {
-                        // 如果当前有效周卡为vip卡，只有普通用户有效
-                        if (newUserBean.getRoleId() == 1) {
-                            setWeekCardStatus(result);
-                        } else {
-                            setWeekCardStatus(null);
-                        }
-                    } else if (result.getWeekType().equals("2")) {
-                        // 如果当前有效周卡为黑卡 普通和vip用户都有效
-                        setWeekCardStatus(result);
-                    } else {
+                    if (TextUtils.isEmpty(result.getWeekType())) {
                         setWeekCardStatus(null);
+                    } else {
+                        if (Integer.valueOf(result.getWeekType()) > newUserBean.getRoleId()) {
+                            setWeekCardStatus(result);
+                        }
                     }
+
                 } else {
                     setWeekCardStatus(null);
                 }
@@ -460,8 +479,8 @@ public class XLMemberCenterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.btn_order_goods, R.id.btn_my_week_card_package, R.id.btn_growth, R.id.ll_coupon,
-            R.id.ll_growth_detailed, R.id.btn_buy_black, R.id.btn_buy_vip, R.id.btn_sale, R.id.btn_sale_vip})
+    @OnClick({R.id.btn_close, R.id.btn_notes, R.id.btn_order_goods, R.id.btn_order_invitation, R.id.btn_growth, R.id.ll_coupon,
+            R.id.ll_growth_detailed, R.id.btn_buy, R.id.btn_sale})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_close:
@@ -471,18 +490,9 @@ public class XLMemberCenterActivity extends BaseActivity {
                 //会员说明
                 WebViewActivity.jumpUrl(context, "会员说明", H5UrlConfig.MEMBER_EXPLAIN);
                 break;
-            case R.id.btn_my_week_card_package:
-                //我的周卡包
-                if (tvMyWeekCardPackage.getText().equals("我的周卡礼包")) {
-                    Intent intent = new Intent(context, MyWeekCardPackageActivity.class);
-                    if (weekCardInfo != null) {
-                        intent.putExtra("weekCardInfo", weekCardInfo);
-                    }
-                    startActivity(intent);
-                } else {
-                    WebViewActivity.jumpUrl(context, "我的周卡记录", H5UrlConfig.WEEKLY_BLACK);
-                }
-
+            case R.id.btn_order_invitation:
+                //去邀请
+                startActivity(new Intent(context, InviteFriendsActivity.class));
                 break;
             case R.id.btn_growth:
                 WebViewActivity.jumpUrl(context, "成长值说明", H5UrlConfig.GROWTH_INTRO);
@@ -492,27 +502,26 @@ public class XLMemberCenterActivity extends BaseActivity {
                 break;
             case R.id.ll_coupon:
                 //优惠券
-                startActivity(new Intent(context, XLCouponActivity.class));
+                WebViewActivity.jumpUrl(context, "卡券中心", H5UrlConfig.CARD_VOUCHER_CENTER);
                 break;
             case R.id.btn_order_goods:
                 //去订货
-                Intent mainIntent = new Intent(context, MainActivity.class);
-                mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(mainIntent);
+                EventBus.getDefault().post(new EventMessage(viewHome));
                 finish();
                 break;
-            case R.id.btn_buy_black:
-                //购买黑卡
-            case R.id.btn_buy_vip:
-                //购买vip卡
-                purchaseWeekCard(weekCardConfigBean);
+            case R.id.btn_buy:
+                //购买周卡
+                if (mUserBean != null) {
+                  new BuyWeekCardPopWindow(context, myBuyWeekCardList).show();
+                }
                 break;
             case R.id.btn_sale:
                 //预存货款升级
-                new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_BLACK).show();
-                break;
-            case R.id.btn_sale_vip:
-                new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_VIP).show();
+                if (weekCardConfigBean.getWeekType() == 2) {
+                    new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_VIP).show();
+                } else if (weekCardConfigBean.getWeekType() == 3) {
+                    new DirectRechargeDialog(context, DirectRechargeDialog.TYPE_BLACK).show();
+                }
                 break;
         }
     }
@@ -533,6 +542,28 @@ public class XLMemberCenterActivity extends BaseActivity {
                 isOpenWeekCard = true;
                 getMemberCenterInfo();
                 break;
+            case WEEK_CARD_PAY:
+                // 购买了周卡，刷新可用体验卡数量
+                APIManager.startRequest(iMemberService.getCenterInfo(), new BaseRequestListener<MemberCenterInfo>() {
+                    @Override
+                    public void onSuccess(MemberCenterInfo result) {
+                        super.onSuccess(result);
+                        tvCouponSize.setText(result.getWeekCardCount() + "");
+                        if (!TextUtils.isEmpty(result.getLastWeekCardExpiredTime())) {
+                            tvCouponDate.setText(DateUtils.timeStamp2Date(Long.valueOf(DateUtils.date2TimeStamp(result.getLastWeekCardExpiredTime(), "")), "yyyy.MM.dd") + "到期");
+                        } else {
+                            tvCouponDate.setText("查看更多");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        ToastUtil.error(e.getMessage());
+                    }
+                });
+                break;
+
         }
     }
 }

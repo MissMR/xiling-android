@@ -42,6 +42,7 @@ import butterknife.OnClick;
  * @auth 逄涛
  * 实名认证-信息录入
  */
+@Deprecated
 public class IdentificationInputActivity extends BaseActivity {
     @BindView(R.id.et_name)
     EditText etName;

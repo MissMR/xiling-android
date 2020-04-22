@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.xiling.ddui.custom.popupwindow.LargePayDialog;
 import com.xiling.ddui.service.IBankService;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.Config;
 import com.xiling.module.community.DateUtils;
 import com.xiling.module.pay.PayMsg;
@@ -377,9 +379,15 @@ public class XLCashierActivity extends BaseActivity {
 
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable e, String businessCode) {
                 super.onError(e);
-                ToastUtil.error(e.getMessage());
+                if (!TextUtils.isEmpty(businessCode)) {
+                    if (businessCode.equals("un-auth")) {
+                        UserManager.getInstance().isRealAuth(context, null);
+                    }
+                } else {
+                    ToastUtil.error(e.getMessage());
+                }
             }
 
         });

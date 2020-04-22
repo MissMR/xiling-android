@@ -259,22 +259,30 @@ public class ConfirmationOrderActivity extends BaseActivity {
                         NumberHandler.setPriceText(totlaPrice, tvNeedPrice, tvNeedPriceDecimal);
                     }
                     upDataBalance();
-                    switch (UserManager.getInstance().getUserLevel()) {
+                    switch (UserManager.getInstance().getCommodityLevel()) {
                         case 0:
-                            //注册会员
+                            //普通会员
                             tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_register);
                             break;
-                        case 10:
-                            //普通会员
+                        case 1:
+                            //VIP
                             tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_ordinary);
                             break;
-                        case 20:
-                            //vip会员
+                        case 2:
+                            //sVip会员
                             tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_vip);
                             break;
-                        case 30:
+                        case 3:
                             //黑卡会员
                             tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black);
+                            break;
+                        case 4:
+                            //临时SVIP
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_vip_ex);
+                            break;
+                        case 5:
+                            //临时黑卡会员
+                            tvIdentityPrice.setBackgroundResource(R.drawable.bg_price_black_ex);
                             break;
                     }
 
@@ -501,13 +509,11 @@ public class ConfirmationOrderActivity extends BaseActivity {
                     OrderListActivit.jumpOrderList(context, ORDER_WAIT_SHIP);
                 }
                 EventBus.getDefault().post(new EventMessage(FINISH_ORDER));
-
             }
 
             @Override
             public void onError(Throwable e, String businessCode) {
                 super.onError(e);
-
                 if (!TextUtils.isEmpty(businessCode)) {
                     if (businessCode.equals("un-auth")) {
                         UserManager.getInstance().isRealAuth(context, null);
@@ -517,13 +523,10 @@ public class ConfirmationOrderActivity extends BaseActivity {
                         couponBean = null;
                         getConfirmOrder(accountInfo);
                         tvCoupon.setText("");
-
                     }
                 } else {
                     ToastUtil.error(e.getMessage());
                 }
-
-
             }
         });
     }

@@ -30,6 +30,25 @@ public class WeekCardConfigBean implements Parcelable {
     private String updateDate;
     private String updateUser;
 
+    public boolean isNeedSelect() {
+        return needSelect;
+    }
+
+    public void setNeedSelect(boolean needSelect) {
+        this.needSelect = needSelect;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    private boolean needSelect = true;
+    private boolean isSelect;
+
     public int getWeekId() {
         return weekId;
     }

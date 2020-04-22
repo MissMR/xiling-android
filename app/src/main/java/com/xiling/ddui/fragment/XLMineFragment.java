@@ -153,8 +153,6 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
     ImageView btnFinancialManagement;
     @BindView(R.id.ll_my_servuce)
     LinearLayout llMyServuce;
-    @BindView(R.id.iv_level)
-    ImageView ivLevel;
     @BindView(R.id.iv_message)
     ImageView ivMessage;
 
@@ -188,29 +186,9 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
         recyclerService.setLayoutManager(new GridLayoutManager(mContext, 4));
         serviceAdapter = new MineServiceAdapter();
         recyclerService.setAdapter(serviceAdapter);
-        requestUserInfo();
         return view;
     }
 
-    /**
-     * 获取实名认证信息
-     */
-    private void getAuth(final NewUserBean newUserBean) {
-        APIManager.startRequest(iNewUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
-            @Override
-            public void onSuccess(RealAuthBean result) {
-                super.onSuccess(result);
-                initView(result, newUserBean);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtil.error(e.getMessage());
-
-            }
-        });
-    }
 
     private void initView(final RealAuthBean result, NewUserBean newUserBean) {
         //  result.setAuthStatus(0);
@@ -297,6 +275,78 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
 
     }
 
+
+    private void initView() {
+        serviceBeanList.clear();
+        if (UserManager.getInstance().getUserLevel() > 0) {
+            ivUserOrdinary.setVisibility(View.GONE);
+            llUserVip.setVisibility(View.VISIBLE);
+            relCustom.setVisibility(View.VISIBLE);
+            requestVipData();
+
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "卡券中心", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_policy, "政策", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_rule, "规则中心", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_activite, "活动报名", false));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_paihang, "排行榜", false));
+        } else {
+            ivUserOrdinary.setVisibility(View.VISIBLE);
+            llUserVip.setVisibility(View.GONE);
+            relCustom.setVisibility(View.GONE);
+            ivUserOrdinary.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(mContext, XLMemberCenterActivity.class));
+                }
+            });
+
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_address, "管理地址", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_coupon, "卡券中心", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_finance, "财务管理", true));
+            serviceBeanList.add(new MineServiceAdapter.ServiceBean(R.drawable.icon_help, "帮助与客服", true));
+        }
+
+        serviceAdapter.setNewData(serviceBeanList);
+
+        serviceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ViewUtil.setViewClickedDelay(view);
+                switch (serviceBeanList.get(position).getTitle()) {
+                    case "管理地址":
+                        Intent intent = new Intent(mContext, AddressListActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "卡券中心":
+                        WebViewActivity.jumpUrl(mContext, "卡券中心", H5UrlConfig.CARD_VOUCHER_CENTER);
+                        break;
+                    case "财务管理":
+                        startActivity(new Intent(mContext, XLFinanceManangerActivity.class));
+                        break;
+                    case "政策":
+                        WebViewActivity.jumpUrl(mContext, "政策", H5UrlConfig.POLICY);
+                        break;
+                    case "帮助与客服":
+                        WebViewActivity.jumpUrl(mContext, "帮助与客服", H5UrlConfig.HELP);
+                        break;
+                    case "规则中心":
+                        WebViewActivity.jumpUrl(mContext, "规则中心", H5UrlConfig.RULES_CENTER);
+                        break;
+                    case "活动报名":
+                        // ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                    case "排行榜":
+                        //ToastUtil.success(serviceBeanList.get(position).getTitle());
+                        break;
+                }
+            }
+        });
+
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -326,20 +376,21 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
                         tvName.setText(newUserBean.getNickName());
                         titleName.setText(newUserBean.getNickName());
                         tvPhone.setText(PhoneNumberUtil.getSecretPhoneNumber(newUserBean.getPhone()));
-                        switch (newUserBean.getRole().getRoleLevel()) {
-                            case 10:
-                                ivLevel.setBackgroundResource(R.drawable.icon_user);
+                        switch (newUserBean.getRoleId()) {
+                            case 0:
+                                relUserVip.setBackgroundResource(R.drawable.icon_mine_user);
                                 break;
-                            case 20:
-                                ivLevel.setBackgroundResource(R.drawable.icon_vip);
+                            case 1:
+                                relUserVip.setBackgroundResource(R.drawable.icon_mine_vip);
                                 break;
-                            case 30:
-                                ivLevel.setBackgroundResource(R.drawable.icon_black);
+                            case 2:
+                                relUserVip.setBackgroundResource(R.drawable.icon_mine_svip);
+                                break;
+                            case 3:
+                                relUserVip.setBackgroundResource(R.drawable.icon_mine_black);
                                 break;
                         }
-
-
-                        getAuth(newUserBean);
+                        initView();
                     }
                 }
 

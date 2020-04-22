@@ -31,6 +31,9 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
+import static com.xiling.shared.constant.Event.FINISH_ORDER;
+import static com.xiling.shared.constant.Event.NET_INTERCEPTION_REAL_AUTH;
+
 /**
  * APIManager
  * Created by JayChan on 2016/12/13.

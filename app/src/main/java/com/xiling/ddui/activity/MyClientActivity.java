@@ -45,8 +45,7 @@ public class MyClientActivity extends BaseActivity {
     private ArrayList<Fragment> fragments = new ArrayList<>();
     private List<String> childNames = new ArrayList<>();
 
-    //会员级别 : 1-普通,2-金牌,3-钻石
-    String type = "1";
+    String type = "0";
     int mPosition = 0;
 
     @Override
@@ -62,8 +61,9 @@ public class MyClientActivity extends BaseActivity {
     private void initView() {
         childNames.add("普通用户");
         childNames.add("VIP会员");
+        childNames.add("SVIP会员");
         childNames.add("黑卡会员");
-
+        fragments.add(MyClientFragment.newInstance("0", ""));
         fragments.add(MyClientFragment.newInstance("1", ""));
         fragments.add(MyClientFragment.newInstance("2", ""));
         fragments.add(MyClientFragment.newInstance("3", ""));
@@ -77,7 +77,7 @@ public class MyClientActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 mPosition = position;
-                type = position + 1 + "";
+                type = position  + "";
                 getCustomerCount();
             }
 
@@ -117,7 +117,7 @@ public class MyClientActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.keywordEt:
-                startActivity(new Intent(this,SearchMyClientActivity.class));
+                startActivity(new Intent(this, SearchMyClientActivity.class));
                 break;
         }
     }

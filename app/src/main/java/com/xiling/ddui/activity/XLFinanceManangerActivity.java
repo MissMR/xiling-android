@@ -79,12 +79,18 @@ public class XLFinanceManangerActivity extends BaseActivity {
                 startActivity(new Intent(context, BalanceDetailsActivity.class));
                 break;
             case R.id.btn_recharge:
-                UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
-                    @Override
-                    public void onRealAuth() {
-                        new RechargeDialog(context).show();
-                    }
-                });
+                // 如果身份在svip及以上，需要实名认证后才能充值
+                if (UserManager.getInstance().getUserLevel() >= 2) {
+                    UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
+                        @Override
+                        public void onRealAuth() {
+                            new RechargeDialog(context).show();
+                        }
+                    });
+                } else {
+                    new RechargeDialog(context).show();
+                }
+
                 break;
         }
     }

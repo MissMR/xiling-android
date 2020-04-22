@@ -67,6 +67,16 @@ public class HomeDataBean {
 
         private String categoryId;
         private String parentId;
+
+        public String getParentName() {
+            return parentName;
+        }
+
+        public void setParentName(String parentName) {
+            this.parentName = parentName;
+        }
+
+        private String parentName;
         private String categoryName;
 
         public String getCategoryId() {

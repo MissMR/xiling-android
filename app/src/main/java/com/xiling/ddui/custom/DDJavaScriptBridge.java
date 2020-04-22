@@ -43,6 +43,7 @@ import com.xiling.module.page.WebViewActivity;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.bean.NewUserBean;
 import com.xiling.shared.bean.User;
+import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.util.ClipboardUtil;
 import com.xiling.shared.util.ConvertUtil;
 import com.xiling.shared.util.SessionUtil;
@@ -63,6 +64,7 @@ import static com.xiling.ddui.custom.DDJavaScriptBridge.DDJavaScriptType.SET_HOM
 import static com.xiling.ddui.custom.DDJavaScriptBridge.DDJavaScriptType.SET_TITLE_BAR_SHARE_ACTION;
 import static com.xiling.ddui.custom.DDJavaScriptBridge.DDJavaScriptType.SHARE_TO_WX;
 import static com.xiling.ddui.custom.DDJavaScriptBridge.DDJavaScriptType.SHOW_SHARE_IMAGE_PANEL;
+import static com.xiling.shared.constant.Event.WEEK_CARD_OPEN;
 
 public class DDJavaScriptBridge {
 
@@ -380,6 +382,9 @@ public class DDJavaScriptBridge {
             ToastUtil.error("请先安装" + appName + "客户端");
         }
     }
+
+
+
 
     /**
      * 拨打电话
@@ -862,8 +867,16 @@ public class DDJavaScriptBridge {
      * 跳转到二级分类
      */
     @JavascriptInterface
-    public void jumpToCategory(String parentId, String categoryId) {
-        CategorySecondActivity.jumpCategorySecondActivity(mActivity, parentId, categoryId);
+    public void jumpToCategory(String parentId, String categoryId,String parentName) {
+        CategorySecondActivity.jumpCategorySecondActivity(mActivity, parentId, categoryId,parentName);
+    }
+
+    /**
+     * 开通周卡回调
+     */
+    @JavascriptInterface
+    public void OnOpenWeekCard() {
+        EventBus.getDefault().post(new EventMessage(WEEK_CARD_OPEN));
     }
 
 

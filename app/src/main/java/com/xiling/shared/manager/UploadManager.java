@@ -97,7 +97,7 @@ public class UploadManager {
         // 模块名
         RequestBody typeBody = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(type));
         IUploadService uploadService = ServiceManager.getInstance().createService(IUploadService.class);
-        APIManager.startRequest(uploadService.uploadIdCard(fileBody, typeBody), responseRequestListener);
+        APIManager.startRequest(uploadService.uploadIdCard(fileBody), responseRequestListener);
     }
 
     /**
@@ -152,6 +152,34 @@ public class UploadManager {
             throw new IllegalArgumentException("type 不合法");
         }
         File file = uri2File(uri, activity);
+        if (file == null) {
+            return;
+        }
+        Luban.with(activity)
+                .load(file)                     //传人要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        responseRequestListener.onStart();
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        uploadIdCard(file, type, responseRequestListener);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        responseRequestListener.onError(e);
+                    }
+                }).launch();
+    }
+
+    public static void uploadIdCard(Activity activity, String path, final int type, final RequestListener<UploadResponse> responseRequestListener) {
+        if (type != 0 && type != 1) {
+            throw new IllegalArgumentException("type 不合法");
+        }
+        File file = uri2File(path, activity);
         if (file == null) {
             return;
         }
@@ -419,7 +447,6 @@ public class UploadManager {
 
             return new File(tempFilename).getAbsolutePath();
         } catch (Exception ignored) {
-
             ignored.getStackTrace();
         } finally {
             closeSilently(input);

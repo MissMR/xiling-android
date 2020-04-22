@@ -85,6 +85,7 @@
                         android:id="@+id/rv_category"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="false"
                         android:layout_marginLeft="@dimen/dp_12" />
 
                     <LinearLayout
@@ -112,7 +113,9 @@
                     <com.xiling.dduis.custom.NestRecyclerView
                         android:id="@+id/rv_category_brand"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        />
                 </LinearLayout>
             </ScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

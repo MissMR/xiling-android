@@ -817,7 +817,8 @@
     <dimen name="dp_370">370dp</dimen>
 
     <dimen name="dp_400">400dp</dimen>
-
+    <dimen name="dp_430">430dp</dimen>
+    <dimen name="dp_480">480dp</dimen>
     <dimen name="dp_410">410dp</dimen>
 
     <dimen name="dp_422">422dp</dimen>
@@ -831,7 +832,6 @@
     <dimen name="dp_640">640dp</dimen>
 
     <dimen name="dp_720">720dp</dimen>
-
 
 
     <!-- font size,you can add if there is no one -->
@@ -893,7 +893,6 @@
     <dimen name="sp_42">42sp</dimen>
 
     <dimen name="sp_48">48sp</dimen>
-
 
 
 </resources>

@@ -57,16 +57,32 @@ public class MyClientListBean {
     }
 
     public static class DataBean implements Parcelable {
-        String memberId;
-        String createDate;
-        String headImage;
-        String memberName;
-        double monthlyConsumption;
-        String roleName;
-        String level3Count;
-        String level2Count;
-        String level1Count;
 
+        /**
+         * memberId : 51816e0cf636483a8ee35cc54681f371
+         * createDate : 2020-04-20 10:55:11
+         * headImage : http://thirdwx.qlogo.cn/mmopen/vi_32/cq9Ab16r2KcEJ9xQibSyT8AOGEVh5eQBsyMpFCuQBAFYL4BsUDX1DB2Rg2WDR7paUL47fM8IoLLbrWibsY3UluYQ/132
+         * memberName : 喜领测试260y45655664576545677655
+         * monthlyConsumption : 550
+         * roleName : VIP会员
+         * roleId :
+         * level3Count :
+         * level2Count :
+         * level1Count :
+         * level0Count :
+         */
+
+        private String memberId;
+        private String createDate;
+        private String headImage;
+        private String memberName;
+        private double monthlyConsumption;
+        private String roleName;
+        private String roleId;
+        private String level3Count;
+        private String level2Count;
+        private String level1Count;
+        private String level0Count;
 
         public String getMemberId() {
             return memberId;
@@ -116,6 +132,14 @@ public class MyClientListBean {
             this.roleName = roleName;
         }
 
+        public String getRoleId() {
+            return roleId;
+        }
+
+        public void setRoleId(String roleId) {
+            this.roleId = roleId;
+        }
+
         public String getLevel3Count() {
             return level3Count;
         }
@@ -140,6 +164,14 @@ public class MyClientListBean {
             this.level1Count = level1Count;
         }
 
+        public String getLevel0Count() {
+            return level0Count;
+        }
+
+        public void setLevel0Count(String level0Count) {
+            this.level0Count = level0Count;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -153,9 +185,11 @@ public class MyClientListBean {
             dest.writeString(this.memberName);
             dest.writeDouble(this.monthlyConsumption);
             dest.writeString(this.roleName);
+            dest.writeString(this.roleId);
             dest.writeString(this.level3Count);
             dest.writeString(this.level2Count);
             dest.writeString(this.level1Count);
+            dest.writeString(this.level0Count);
         }
 
         public DataBean() {
@@ -168,12 +202,14 @@ public class MyClientListBean {
             this.memberName = in.readString();
             this.monthlyConsumption = in.readDouble();
             this.roleName = in.readString();
+            this.roleId = in.readString();
             this.level3Count = in.readString();
             this.level2Count = in.readString();
             this.level1Count = in.readString();
+            this.level0Count = in.readString();
         }
 
-        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
             @Override
             public DataBean createFromParcel(Parcel source) {
                 return new DataBean(source);

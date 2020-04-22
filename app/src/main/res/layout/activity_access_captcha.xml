@@ -90,7 +90,9 @@
                 android:layout_height="wrap_content"
                 android:text="该手机号已不再使用"
                 android:textColor="#ffaaaaaa"
-                android:textSize="@dimen/sp_12" />
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/cb_btn_captcha_voice"
