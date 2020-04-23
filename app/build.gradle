@@ -279,8 +279,8 @@ android {
             ]
 
             // 测试环境  210映射 61.162.59.74:9050
-           // buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
-             buildConfigField("String", "BASE_URL", "\"https://xl-mall.axiling.com/\"")
+           buildConfigField("String", "BASE_URL", "\"https://xl-mall.xilingbm.com/\"")
+           //buildConfigField("String", "BASE_URL", "\"https://xl-mall.axiling.com/\"")
             //韩奇电脑
             // buildConfigField("String", "BASE_URL", "\"http://192.168.1.172:8080/\"")
             //张哲

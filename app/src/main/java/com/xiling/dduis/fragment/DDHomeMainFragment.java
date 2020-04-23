@@ -54,6 +54,7 @@ import com.xiling.shared.basic.BaseFragment;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.MyStatus;
 import com.xiling.shared.bean.NewUserBean;
+import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
@@ -158,11 +159,31 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         unbinder = ButterKnife.bind(this, view);
         initView();
         checkUserInfo();
-
+        realAuthForVip();
         showNewComerDialog();
         return view;
     }
 
+
+    /**
+     * Vip用户，第一次进入app，提示实名认证
+     */
+    private void realAuthForVip() {
+        SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
+        if (!spUtils.getBoolean("oneVipStart")) {
+            if (UserManager.getInstance().isLogin()) {
+                if (UserManager.getInstance().getUserLevel() == 1) {
+                    UserManager.getInstance().isRealAuth(mContext, null);
+                    spUtils.putBoolean("oneVipStart", true);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 新用户弹框
+     */
     private void showNewComerDialog() {
         SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);
         if (!spUtils.getBoolean("oneStart")) {
@@ -271,7 +292,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
                     hotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            CategorySecondActivity.jumpCategorySecondActivity(mContext, hots.get(position).getParentId(), hots.get(position).getCategoryId(),hots.get(position).getParentName());
+                            CategorySecondActivity.jumpCategorySecondActivity(mContext, hots.get(position).getParentId(), hots.get(position).getCategoryId(), hots.get(position).getParentName());
                         }
                     });
 

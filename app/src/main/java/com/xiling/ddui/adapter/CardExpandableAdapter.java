@@ -73,16 +73,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String mStatus = ShopUtils.checkShopStatus(item.getBean().getStatus(), item.getBean().getStock());
-                        if (mStatus.equals("已下架")) {
-                            ToastUtil.error(mStatus);
-                        } else {
-                            Intent intent = new Intent(mContext, DDProductDetailActivity.class);
-                            intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
-                            mContext.startActivity(intent);
-
-                        }
-
+                        Intent intent = new Intent(mContext, DDProductDetailActivity.class);
+                        intent.putExtra(Key.SPU_ID, item.getBean().getProductId());
+                        mContext.startActivity(intent);
                     }
                 });
                 XLCardListBean.SkuProductListBean skuProductListBean = item.getBean();
@@ -118,7 +111,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                             if (value != item.getBean().getQuantity() && onSelectChangeListener != null) {
                                 item.getBean().setQuantity(value);
                                 onSelectChangeListener.onShopChange(item, value);
-                                if (item.getBean().getStep() > 0){
+                                if (item.getBean().getStep() > 0) {
                                     helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
                                 }
                                 noticeSelectSize();
@@ -126,9 +119,9 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
                             getSelectPrice();
                         }
                     });
-                    if (item.getBean().getStep() > 0){
+                    if (item.getBean().getStep() > 0) {
                         helper.setVisible(R.id.ll_xianggui, item.getBean().getQuantity() % item.getBean().getStep() != 0);
-                    }else{
+                    } else {
                         helper.setVisible(R.id.ll_xianggui, false);
                     }
 
@@ -284,6 +277,7 @@ public class CardExpandableAdapter extends BaseMultiItemQuickAdapter<CardExpanda
 
     /**
      * 判断商品是否可用（已售罄，已下架返回false）
+     *
      * @param cardBean
      * @return
      */

@@ -74,8 +74,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_12"
                         android:layout_marginTop="@dimen/dp_70"
-                        android:layout_toRightOf="@id/avatarIv"
                         android:layout_toLeftOf="@id/rel_message"
+                        android:layout_toRightOf="@id/avatarIv"
                         android:ellipsize="end"
                         android:lines="1"
                         android:textColor="#ff202020"
@@ -139,7 +139,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:text="第一手资产信息实时更新"
+                                android:text="信息实时更新"
                                 android:textColor="#ffaaaaaa"
                                 android:textSize="@dimen/sp_13" />
 

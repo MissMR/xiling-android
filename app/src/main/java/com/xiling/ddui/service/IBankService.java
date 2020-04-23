@@ -1,5 +1,6 @@
 package com.xiling.ddui.service;
 
+import com.xiling.ddui.bean.BankInfoBean;
 import com.xiling.ddui.bean.BankListBean;
 import com.xiling.shared.bean.api.RequestResult;
 
@@ -50,5 +51,13 @@ public interface IBankService {
     @GET("bank/list")
     Observable<RequestResult<List<BankListBean>>> getBankList();
 
+
+    /**
+     * 银行列表
+     *
+     * @return
+     */
+    @GET("pay/bank-info")
+    Observable<RequestResult<BankInfoBean>> getBankInfo();
 
 }

@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="温馨提示：请填写实际汇款方全程，且上传的银行汇款凭证要显示出汇款全程，以便喜领财务核对转账信息，凭证核实无误后会第一时间安排发货事宜"
+                    android:text="温馨提示：请填写实际汇款方全称，且上传的银行汇款凭证要显示出汇款全称，以便喜领财务核对转账信息，凭证核实无误后会第一时间安排发货事宜"
                     android:textColor="#ffffffff"
                     android:textSize="@dimen/sp_11" />
 
