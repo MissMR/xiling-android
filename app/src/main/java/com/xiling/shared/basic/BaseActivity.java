@@ -403,7 +403,7 @@ abstract public class BaseActivity extends AppCompatActivity implements SensorEv
         mHeaderLayout.setOnLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+              onBackPressed();
             }
         });
     }

@@ -79,12 +79,12 @@ public class MyManagerActivity extends BaseActivity {
                     switch (result.getAuthStatus()) {
                         case 0:
                         case 4:
-                            tvRemarks.setText("请先在“我的-设置-实名认证”，认证实名后，才能免费开启专属管家服务");
+                            tvRemarks.setText("请先在“我的-设置-账户认证”，认证实名后，才能免费开启专属管家服务");
                             tvWorkTime1.setVisibility(View.GONE);
                             tvWorkTime2.setVisibility(View.GONE);
                             break;
                         case 1:
-                            tvRemarks.setText("您的实名认证正在加急审核中，通过后免费开启专属管家服务");
+                            tvRemarks.setText("您的账户认证正在加急审核中，通过后免费开启专属管家服务");
                             tvWorkTime1.setVisibility(View.GONE);
                             tvWorkTime2.setVisibility(View.GONE);
                             break;

@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 实名认证
+ * 账户认证
  */
 public class RealAuthActivity extends BaseActivity {
     INewUserService mUserService;
@@ -74,14 +74,14 @@ public class RealAuthActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_real_auth);
         ButterKnife.bind(this);
-        setTitle("实名认证");
+        setTitle("账户认证");
         setLeftBlack();
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         getAuth();
     }
 
     /**
-     * 获取实名认证信息
+     * 获取账户认证信息
      */
     private void getAuth() {
         APIManager.startRequest(mUserService.getAuth(), new BaseRequestListener<RealAuthBean>() {
@@ -114,8 +114,8 @@ public class RealAuthActivity extends BaseActivity {
                     case 4:
                         emptyView.setVisibility(View.VISIBLE);
                         btnSet.setVisibility(View.VISIBLE);
-                        tvTitle.setText("您的实名认证信息审核失败\n填写的身份证号与身份证的证件号不匹配 ");
-                        btnSet.setText("重新提交实名认证");
+                        tvTitle.setText("您的账户认证信息审核失败\n填写的身份证号与身份证的证件号不匹配 ");
+                        btnSet.setText("重新提交账户认证");
                         break;
                 }
             }

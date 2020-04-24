@@ -12,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.camera.DDIDCardActivity;
 import com.xiling.ddui.custom.popupwindow.PhotoSelectDialog;
 import com.xiling.ddui.tools.DLog;
@@ -24,6 +25,7 @@ import com.xiling.shared.bean.UploadResponse;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.constant.Event;
 import com.xiling.shared.manager.UploadManager;
+import com.xiling.shared.service.contract.IFootService;
 import com.xiling.shared.util.ToastUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +39,7 @@ import butterknife.OnClick;
 
 /**
  * @auth 逄涛
- * 实名认证-上传身份证
+ * 账户认证-上传身份证
  */
 public class IdentificationUploadActivity extends BaseActivity {
 
@@ -64,6 +66,24 @@ public class IdentificationUploadActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("上传身份证");
         setLeftBlack();
+
+        if (getIntent() != null) {
+            String idcardFrontImg = getIntent().getStringExtra("idcardFrontImg");
+            String idcardBackImg = getIntent().getStringExtra("idcardBackImg");
+            if (!TextUtils.isEmpty(idcardFrontImg)) {
+                mImgURL[0] = idcardFrontImg;
+                ivJustDefault.setVisibility(View.GONE);
+                ivJust.setImageURI(Uri.parse(idcardFrontImg));
+            }
+
+            if (!TextUtils.isEmpty(idcardBackImg)) {
+                mImgURL[1] = idcardBackImg;
+                ivBackDefault.setVisibility(View.GONE);
+                ivBack.setImageURI(Uri.parse(idcardBackImg));
+            }
+
+        }
+
     }
 
     @OnClick({R.id.btn_upload_just, R.id.btn_upload_back, R.id.btn_next})
@@ -121,8 +141,22 @@ public class IdentificationUploadActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        D3ialogTools.showAlertDialog(context, "确认退出么", "退出", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        }, "取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    private void updateImage(final int request, final Uri uri) {
+            }
+        });
+    }
+
+    private void updateImage(final int request, final String uri) {
         ToastUtil.showLoading(context);
         UploadManager.uploadIdCard(this, uri, mType, new BaseRequestListener<UploadResponse>(this) {
             @Override
@@ -135,7 +169,7 @@ public class IdentificationUploadActivity extends BaseActivity {
                         break;
                     case REQUEST_CODE_ID_CARD_BEHIND:
                         ivBackDefault.setVisibility(View.GONE);
-                        ivBack.setImageURI(Uri.parse(result.url));
+                        ivBack.setImageURI(result.url);
                         mImgURL[1] = result.url;
                         break;
                 }
@@ -165,21 +199,18 @@ public class IdentificationUploadActivity extends BaseActivity {
                 if (data != null) {
                     ArrayList<Photo> resultPhotos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
                     String imagePath = resultPhotos.get(0).path;
-                    Uri imageUri = Uri.parse(imagePath);
                     switch (mType) {
                         case UploadManager.IDENTITY_CARD_FRONT:
-                            updateImage(REQUEST_CODE_ID_CARD_FRONT, imageUri);
+                            updateImage(REQUEST_CODE_ID_CARD_FRONT, imagePath);
                             break;
                         case UploadManager.IDENTITY_CARD_BEHIND:
-                            updateImage(REQUEST_CODE_ID_CARD_BEHIND, imageUri);
+                            updateImage(REQUEST_CODE_ID_CARD_BEHIND, imagePath);
                             break;
                     }
                 }
             } else {
                 String imagePath = data.getStringExtra("result");
-                DLog.i("get:" + imagePath);
-                Uri imageUri = Uri.parse(imagePath);
-                updateImage(requestCode, imageUri);
+                updateImage(requestCode, imagePath);
             }
         }
     }

@@ -195,7 +195,7 @@
 
             <TextView
                 style="@style/settings_row_title"
-                android:text="实名认证" />
+                android:text="账户认证" />
 
             <ImageView
                 style="@style/settings_row_arrow"

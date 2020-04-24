@@ -93,11 +93,11 @@
 
 
         <TextView
+            android:id="@+id/tv_account_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_21"
-            android:text="喜领-账户名称：青岛喜领电子商务有限公司"
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/sp_12" />
 
@@ -111,11 +111,11 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/tv_bank_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_10"
-            android:text="喜领-银行支行：招商银行山东省青岛市山东路支行"
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/sp_12" />
 

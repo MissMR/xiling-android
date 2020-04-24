@@ -96,7 +96,7 @@ public class AuthPhoneActivity extends BaseActivity {
     private void initView() {
         switch (mType) {
             case Config.USER.INTENT_KEY_TYPE_AUTH_PHONE:
-                setTitle("实名认证");
+                setTitle("账户认证");
                 mIvImg.setImageResource(R.drawable.bg_auth_phone);
                 break;
             case Config.USER.INTENT_KEY_TYPE_AUTH_CARD:

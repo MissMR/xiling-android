@@ -204,7 +204,7 @@
             app:icon_drawable="@mipmap/icon_link_verify"
             app:icon_height="30dp"
             app:icon_width="30dp"
-            app:item_label="实名认证"
+            app:item_label="账户认证"
             app:item_textSize="14sp"
             app:layout_flexBasisPercent="25%"/>
 

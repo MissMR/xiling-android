@@ -118,7 +118,7 @@ public class AuthSecurityActivity extends BaseActivity {
     @OnClick({R.id.rl_bind_phone, R.id.rl_auth, R.id.tv_bank_card, R.id.rl_trade_password, R.id.rl_security})
     public void onViewClicked(View view) {
         if (view.getId() == R.id.rl_security) {
-            //进入安全问题之前检查是否实名认证
+            //进入安全问题之前检查是否账户认证
             checkAuth(new CheckAuthListener() {
                 @Override
                 public void onPass(UserAuthBean result) {
@@ -126,7 +126,7 @@ public class AuthSecurityActivity extends BaseActivity {
                 }
             });
         } else if (view.getId() == R.id.rl_trade_password) {
-            //进入交易密码之前检查是否实名认证
+            //进入交易密码之前检查是否账户认证
             checkAuth(new CheckAuthListener() {
                 @Override
                 public void onPass(UserAuthBean result) {
@@ -134,7 +134,7 @@ public class AuthSecurityActivity extends BaseActivity {
                 }
             });
         } else if (view.getId() == R.id.tv_bank_card) {
-            //进入绑定银行卡之前检查是否实名认证
+            //进入绑定银行卡之前检查是否账户认证
             checkAuth(new CheckAuthListener() {
                 @Override
                 public void onPass(UserAuthBean result) {
@@ -164,7 +164,7 @@ public class AuthSecurityActivity extends BaseActivity {
     }
 
     /**
-     * 检查是否已通过实名认证
+     * 检查是否已通过账户认证
      */
     public void checkAuth(final CheckAuthListener listener) {
         APIManager.startRequest(mIUserService.getUserAuth(), new BaseRequestListener<UserAuthBean>() {

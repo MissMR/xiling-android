@@ -141,7 +141,8 @@
                                 android:layout_centerVertical="true"
                                 android:text="信息实时更新"
                                 android:textColor="#ffaaaaaa"
-                                android:textSize="@dimen/sp_13" />
+                                android:textSize="@dimen/sp_13"
+                                android:visibility="invisible" />
 
                         </RelativeLayout>
 

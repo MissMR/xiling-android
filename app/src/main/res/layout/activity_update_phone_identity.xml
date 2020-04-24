@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_14"
-            android:text="请用实名认证身份证验证"
+            android:text="请用账户认证身份证验证"
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/sp_12" />
 

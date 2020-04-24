@@ -8,7 +8,7 @@ package com.xiling.shared.constant;
  */
 public class AppTypes {
     /**
-     * 实名认证状态
+     * 账户认证状态
      */
     public static final class AUTH_STATUS {
         public final static int NO_SUBMIT = 0;

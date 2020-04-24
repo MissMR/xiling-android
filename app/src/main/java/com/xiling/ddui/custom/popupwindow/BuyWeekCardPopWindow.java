@@ -155,7 +155,7 @@ public class BuyWeekCardPopWindow extends Dialog {
 
     @OnClick(R.id.btn_buy)
     public void onViewClicked() {
-        // 如果身份在svip及以上，需要实名认证后才能购买周卡
+        // 如果身份在svip及以上，需要账户认证后才能购买周卡
         if (UserManager.getInstance().getUserLevel() >= 2) {
             UserManager.getInstance().isRealAuth(mContext, new UserManager.RealAuthListener() {
                 @Override

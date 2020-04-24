@@ -139,7 +139,7 @@ public class Config {
         public static final int INTENT_KEY_TYPE_REGISTER = 10000;
         public static final int INTENT_KEY_TYPE_FIND_PASSWORD = 10001;
         /**
-         * 实名认证提交成功
+         * 账户认证提交成功
          */
         public static final int INTENT_KEY_TYPE_AUTH_IDENTITY_SUBMIT_SUCCESS = 10002;
         public static final int INTENT_KEY_TYPE_AUTH_PHONE = 10003;
@@ -149,15 +149,15 @@ public class Config {
          */
         public static final int INTENT_KEY_TYPE_AUTH_DEAL = 10004 * 2;
         /**
-         * 实名认证 审核失败
+         * 账户认证 审核失败
          */
         public static final int INTENT_KEY_TYPE_AUTH_IDENTITY_FAIL = 10005;
         /**
-         * 实名认证 审核成功
+         * 账户认证 审核成功
          */
         public static final int INTENT_KEY_TYPE_AUTH_IDENTITY_SUCCESS = 10006;
         /**
-         * 实名认证 审核中
+         * 账户认证 审核中
          */
         public static final int INTENT_KEY_TYPE_AUTH_IDENTITY_WAIT = 10007;
 

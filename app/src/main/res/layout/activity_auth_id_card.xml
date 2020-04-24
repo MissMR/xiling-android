@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:background="@color/ddm_gray_light"
         android:gravity="center"
-        android:text="请填写实名认证基本信息"
+        android:text="请填写账户认证基本信息"
         android:textColor="@color/ddm_gray_dark"
         android:textSize="@dimen/text_size_12sp" />
 

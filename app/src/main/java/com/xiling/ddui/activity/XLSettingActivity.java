@@ -63,7 +63,7 @@ public class XLSettingActivity extends BaseActivity {
             case R.id.rel_personal_data://个人资料
                 startActivity(new Intent(context, PersonalDataActivity.class));
                 break;
-            case R.id.rel_real_name://实名认证
+            case R.id.rel_real_name://账户认证
                 startActivity(new Intent(context, RealAuthActivity.class));
                 break;
             case R.id.rel_account://账户管理

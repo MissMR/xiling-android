@@ -167,7 +167,7 @@ public interface INewUserService {
 
 
     /**
-     * 获取实名认证信息
+     * 获取账户认证信息
      */
     @GET("auth/get")
     Observable<RequestResult<RealAuthBean>> getAuth();
@@ -180,7 +180,7 @@ public interface INewUserService {
 
 
     /**
-     * 提交实名认证信息
+     * 提交账户认证信息
      */
     @FormUrlEncoded
     @POST("auth/edit")

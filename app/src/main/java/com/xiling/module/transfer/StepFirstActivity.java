@@ -88,7 +88,7 @@ public class StepFirstActivity extends BaseActivity {
         } else {
             WJDialog dialog = new WJDialog(StepFirstActivity.this);
             dialog.show();
-            dialog.setContentText("对方未进行实名认证\n无法转帐");
+            dialog.setContentText("对方未进行账户认证\n无法转帐");
         }
     }
 

@@ -12,7 +12,7 @@ import com.xiling.image.GlideUtils;
 import java.util.List;
 
 /**
- * 实名认证列表
+ * 账户认证列表
  */
 public class AuthListAdapter extends BaseQuickAdapter<RealAuthBean, BaseViewHolder> {
     public AuthListAdapter(@Nullable List<RealAuthBean> data) {

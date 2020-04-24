@@ -75,7 +75,7 @@ public class AuthIdentityActivity extends BaseActivity {
         setContentView(R.layout.activity_auth_identity);
 
         ButterKnife.bind(this);
-        setTitle("实名认证");
+        setTitle("账户认证");
         setLeftBlack();
         initData();
     }
@@ -136,7 +136,7 @@ public class AuthIdentityActivity extends BaseActivity {
     }
 
     /**
-     * 提交实名认证资料
+     * 提交账户认证资料
      */
     private void submitAuth() {
         IUserService service = ServiceManager.getInstance().createService(IUserService.class);

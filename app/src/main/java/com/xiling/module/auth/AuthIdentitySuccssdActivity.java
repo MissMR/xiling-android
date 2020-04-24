@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * <p>
  * Created by zjm on 2017/6/8 下午9:24.
  * <p>
- * 实名认证成功
+ * 账户认证成功
  */
 public class AuthIdentitySuccssdActivity extends BaseActivity {
 
@@ -46,7 +46,7 @@ public class AuthIdentitySuccssdActivity extends BaseActivity {
         ButterKnife.bind(this);
         initData();
         setLeftBlack();
-        setTitle("实名认证");
+        setTitle("账户认证");
     }
 
     private void initData() {

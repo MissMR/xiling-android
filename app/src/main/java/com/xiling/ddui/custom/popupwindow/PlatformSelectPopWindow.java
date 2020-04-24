@@ -37,7 +37,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-平台选择
+ * 账户认证-平台选择
  */
 public class PlatformSelectPopWindow extends Dialog {
 

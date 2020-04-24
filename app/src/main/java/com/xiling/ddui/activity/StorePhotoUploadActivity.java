@@ -12,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.camera.DDIDCardActivity;
 import com.xiling.ddui.custom.popupwindow.PhotoSelectDialog;
 import com.xiling.ddui.tools.DLog;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-上传店铺照片
+ * 账户认证-上传店铺照片
  */
 public class StorePhotoUploadActivity extends BaseActivity {
     private static final int REQUEST_CODE_ID_CARD_FRONT = 1;
@@ -57,6 +58,25 @@ public class StorePhotoUploadActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("上传店铺照片");
         setLeftBlack();
+
+        if (getIntent() != null) {
+            String idcardFrontImg = getIntent().getStringExtra("idcardFrontImg");
+            String idcardBackImg = getIntent().getStringExtra("idcardBackImg");
+            if (!TextUtils.isEmpty(idcardFrontImg)) {
+                mImgURL[0] = idcardFrontImg;
+
+                ivJustDefault.setVisibility(View.GONE);
+                ivJust.setImageURI(Uri.parse(idcardFrontImg));
+            }
+
+            if (!TextUtils.isEmpty(idcardBackImg)) {
+                mImgURL[1] = idcardBackImg;
+                ivBackDefault.setVisibility(View.GONE);
+                ivBack.setImageURI(Uri.parse(idcardBackImg));
+            }
+
+        }
+
     }
 
     @OnClick({R.id.btn_upload_just, R.id.btn_upload_back, R.id.btn_next})
@@ -174,6 +194,23 @@ public class StorePhotoUploadActivity extends BaseActivity {
 
     private boolean checkNotNullImages() {
         return !TextUtils.isEmpty(mImgURL[0]) && !TextUtils.isEmpty(mImgURL[1]);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        D3ialogTools.showAlertDialog(context, "确认退出么", "退出", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        }, "取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
 }

@@ -127,7 +127,7 @@ public class AccessCaptchaActivity extends BaseActivity implements CaptchaBtn.On
     }
 
     /**
-     * 获取实名认证信息
+     * 获取账户认证信息
      */
     private void getAuth() {
         UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {

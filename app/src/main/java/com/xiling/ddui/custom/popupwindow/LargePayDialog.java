@@ -39,6 +39,10 @@ public class LargePayDialog extends Dialog {
     IBankService iBankService;
     @BindView(R.id.tv_bank_info)
     TextView tvBankInfo;
+    @BindView(R.id.tv_account_name)
+    TextView tvAccountName;
+    @BindView(R.id.tv_bank_name)
+    TextView tvBankName;
 
     public LargePayDialog(@NonNull Context context) {
         this(context, R.style.DDMDialog);
@@ -76,7 +80,9 @@ public class LargePayDialog extends Dialog {
             @Override
             public void onSuccess(BankInfoBean result) {
                 super.onSuccess(result);
+                tvAccountName.setText("喜领-账户名称：" + result.getName());
                 tvBankInfo.setText("喜领-银行账户：" + result.getAccount());
+                tvBankName.setText("喜领-银行支行：" + result.getAddress());
             }
 
             @Override

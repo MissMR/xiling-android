@@ -40,7 +40,7 @@ import butterknife.OnClick;
 
 /**
  * @auth 逄涛
- * 实名认证-信息录入
+ * 账户认证-信息录入
  */
 @Deprecated
 public class IdentificationInputActivity extends BaseActivity {
@@ -119,7 +119,7 @@ public class IdentificationInputActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_identification_input);
         ButterKnife.bind(this);
-        setTitle("实名认证");
+        setTitle("账户认证");
         mUserService = ServiceManager.getInstance().createService(INewUserService.class);
         setLeftBlack();
     }

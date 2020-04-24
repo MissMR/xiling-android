@@ -166,7 +166,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
 
 
     /**
-     * Vip用户，第一次进入app，提示实名认证
+     * Vip用户，第一次进入app，提示账户认证
      */
     private void realAuthForVip() {
         SPUtils spUtils = new SPUtils(SplashActivity.class.getName() + "_" + BuildConfig.VERSION_NAME);

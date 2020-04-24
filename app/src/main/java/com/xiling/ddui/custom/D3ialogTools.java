@@ -12,7 +12,7 @@ import com.xiling.shared.component.dialog.DDMDialog;
 public class D3ialogTools {
 
     /**
-     * 显示实名认证通用对话框
+     * 显示账户认证通用对话框
      *
      * @param context    上下文对象
      * @param authStatus 审核状态,0:未提交;1:等待审核;2:审核通过;3:审核失败,int,默认为0
@@ -24,16 +24,16 @@ public class D3ialogTools {
         String content = "";
         switch (authStatus) {
             case 0:
-                content = "您还未进行实名认证哦~";
+                content = "您还未进行账户认证哦~";
                 positiveText = "去认证";
                 break;
             case 1:
-                content = "您的实名认证还在审核哦~";
+                content = "您的账户认证还在审核哦~";
                 positiveText = "继续等待";
                 break;
             case 3:
             case 4:
-                content = "您的实名认证审核失败~";
+                content = "您的账户认证审核失败~";
                 positiveText = "重新提交";
                 break;
         }

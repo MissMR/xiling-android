@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:background="@color/ddm_gray_light"
         android:gravity="center"
-        android:text="添加银行必须和实名认证保持一致"
+        android:text="添加银行必须和账户认证保持一致"
         android:textColor="@color/ddm_gray_dark"
         android:textSize="@dimen/text_size_12sp" />
 

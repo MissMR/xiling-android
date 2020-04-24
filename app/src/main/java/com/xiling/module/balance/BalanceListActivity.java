@@ -137,7 +137,7 @@ public class BalanceListActivity extends BaseActivity implements PageManager.Req
     @OnClick(R.id.transferTv)
     public void onMTransferTvClicked() {
         if (SessionUtil.getInstance().getLoginUser().authStatus != AppTypes.AUTH_STATUS.SUCESS) {
-            ToastUtil.error("未进行实名认证，无法转账");
+            ToastUtil.error("未进行账户认证，无法转账");
             return;
         }
         UserService.checkHasPassword(this, new UserService.HasPasswordListener() {
@@ -151,7 +151,7 @@ public class BalanceListActivity extends BaseActivity implements PageManager.Req
     @OnClick(R.id.withdrawalTv)
     public void onMWithdrawalTvClicked() {
         if (SessionUtil.getInstance().getLoginUser().authStatus != AppTypes.AUTH_STATUS.SUCESS) {
-            ToastUtil.error("未进行实名认证，无法提现");
+            ToastUtil.error("未进行账户认证，无法提现");
             return;
         }
         UserService.checkHasPassword(this, new UserService.HasPasswordListener() {

@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_14"
-            android:text="通过实名认证后，信息将不可进行修改"
+            android:text="通过账户认证后，信息将不可进行修改"
             android:textColor="#ffaaaaaa"
             android:textSize="@dimen/sp_12" />
 

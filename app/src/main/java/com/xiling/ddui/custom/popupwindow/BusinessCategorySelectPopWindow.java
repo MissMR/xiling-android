@@ -35,7 +35,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-经营类目选择
+ * 账户认证-经营类目选择
  */
 public class BusinessCategorySelectPopWindow extends Dialog {
 

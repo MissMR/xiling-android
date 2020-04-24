@@ -265,7 +265,7 @@ public class CashWithdrawActivity extends BaseActivity {
     private CharSequence getDialogContent() {
         SpanUtils spanUtils = new SpanUtils();
         spanUtils.append("提现有什么要求？\n");
-        spanUtils.append("会员的实名认证姓名必须与提现银行卡姓名保持一致，并且银行卡信息完整。");
+        spanUtils.append("会员的账户认证姓名必须与提现银行卡姓名保持一致，并且银行卡信息完整。");
         setSpanSmallSize(spanUtils);
         if (mWithdrawBean.getMinWithdrawAmount() > 0) {
             spanUtils.append("最低金额为" + ConvertUtil.cent2yuan(mWithdrawBean.getMinWithdrawAmount()) + "元!");

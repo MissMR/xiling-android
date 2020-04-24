@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.xiling.R;
+import com.xiling.ddui.custom.D3ialogTools;
 import com.xiling.ddui.custom.popupwindow.PhotoSelectDialog;
 import com.xiling.ddui.tools.PhotoTools;
 import com.xiling.shared.basic.BaseActivity;
@@ -27,7 +28,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-上传营业执照
+ * 账户认证-上传营业执照
  */
 public class BusinessLicenseUpLoadActivity extends BaseActivity {
 
@@ -46,6 +47,16 @@ public class BusinessLicenseUpLoadActivity extends BaseActivity {
         ButterKnife.bind(this);
         setTitle("上传营业执照");
         setLeftBlack();
+
+        if (getIntent() != null) {
+            String businessLicense = getIntent().getStringExtra("businessLicense");
+            if (!TextUtils.isEmpty(businessLicense)) {
+                imgUrl = businessLicense;
+                ivJustDefault.setVisibility(View.GONE);
+                ivJust.setImageURI(Uri.parse(businessLicense));
+            }
+
+        }
     }
 
     @OnClick({R.id.btn_next, R.id.btn_upload_just})
@@ -115,6 +126,21 @@ public class BusinessLicenseUpLoadActivity extends BaseActivity {
             public void onComplete() {
                 super.onComplete();
                 ToastUtil.hideLoading();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        D3ialogTools.showAlertDialog(context, "确认退出么", "退出", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        }, "取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

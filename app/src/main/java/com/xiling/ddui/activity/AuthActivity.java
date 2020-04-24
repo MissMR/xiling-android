@@ -77,7 +77,7 @@ public class AuthActivity extends BaseActivity {
     }
 
     private void initView() {
-        showHeader("实名认证", true);
+        showHeader("账户认证", true);
     }
 
     @OnClick(R.id.tv_btn_auth)
@@ -134,9 +134,9 @@ public class AuthActivity extends BaseActivity {
         switch (state) {
             case AUTH_UNDO:
                 tvBtnAuth.setVisibility(View.VISIBLE);
-                tvBtnAuth.setText("添加实名认证");
+                tvBtnAuth.setText("添加账户认证");
                 tvTip.setVisibility(View.GONE);
-                hint = "您还没有添加实名认证信息哦~";
+                hint = "您还没有添加账户认证信息哦~";
                 imgRes = R.mipmap.auth_undo;
                 tvTip.setVisibility(View.GONE);
                 break;
@@ -149,9 +149,9 @@ public class AuthActivity extends BaseActivity {
                 break;
             default:
                 tvBtnAuth.setVisibility(View.VISIBLE);
-                tvBtnAuth.setText("重新提交实名认证");
+                tvBtnAuth.setText("重新提交账户认证");
                 tvTip.setVisibility(View.VISIBLE);
-                hint = "您的实名认证信息审核失败";
+                hint = "您的账户认证信息审核失败";
                 tvTip.setVisibility(View.VISIBLE);
                 imgRes = R.mipmap.auth_fail;
         }

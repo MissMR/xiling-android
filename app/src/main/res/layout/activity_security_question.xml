@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="您还没有添加实名认证信息哦~"
+            android:text="您还没有添加账户认证信息哦~"
             android:textColor="@color/ddm_gray"
             android:textSize="12dp" />
 

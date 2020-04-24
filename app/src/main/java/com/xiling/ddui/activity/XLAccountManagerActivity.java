@@ -125,10 +125,10 @@ public class XLAccountManagerActivity extends BaseActivity {
             helper.setText(R.id.tv_name, item.getNickName());
             helper.setText(R.id.tv_phone, PhoneNumberUtil.getSecretPhoneNumber(item.getPhone()));
             if (item.getAuthStatus() == 2) {
-                helper.setText(R.id.tv_auth, "已实名认证");
+                helper.setText(R.id.tv_auth, "已账户认证");
                 helper.setTextColor(R.id.tv_auth, Color.parseColor("#C6C6C6"));
             } else {
-                helper.setText(R.id.tv_auth, "未实名认证");
+                helper.setText(R.id.tv_auth, "未账户认证");
                 helper.setTextColor(R.id.tv_auth, Color.parseColor("#DCB982"));
             }
 

@@ -55,7 +55,7 @@ public class UserAuthBean implements Serializable {
     private int bankAccountFlag;
     private String bankAccountStr;
 
-    // 是否可提现  实名认证&绑定银行卡&设置交易密码&设置安全问题
+    // 是否可提现  账户认证&绑定银行卡&设置交易密码&设置安全问题
     public boolean canCashWithdraw() {
         return isPassedAuth() && isBindedBankCard() && isSetTradePassword() && isSetSecurityQuestion();
     }
@@ -65,7 +65,7 @@ public class UserAuthBean implements Serializable {
         return bankAccountFlag == 1;
     }
 
-    // 是否实名认证
+    // 是否账户认证
     public boolean isPassedAuth() {
         return this.authStatus == 2;
     }
@@ -106,7 +106,7 @@ public class UserAuthBean implements Serializable {
     }
 
     /**
-     * 1，实名认证：若未认证，显示：未认证（字体红色显示）
+     * 1，账户认证：若未认证，显示：未认证（字体红色显示）
      * 若已认证，显示规则：只显示名字最后一个字，如**璐；
      * 若审核失败，显示：审核失败（字体红色显示）
      *

@@ -34,7 +34,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-微商代购认证
+ * 账户认证-微商代购认证
  */
 public class RealAuthenticationWeChatActivity extends BaseActivity {
 
@@ -100,7 +100,12 @@ public class RealAuthenticationWeChatActivity extends BaseActivity {
                 break;
             case R.id.btn_upload_identification:
                 //上传身份证
-                startActivityForResult(new Intent(context, IdentificationUploadActivity.class), 10001);
+                Intent intent = new Intent(context, IdentificationUploadActivity.class);
+                if (!TextUtils.isEmpty(idcardFrontImg) && !TextUtils.isEmpty(idcardBackImg)) {
+                    intent.putExtra("idcardFrontImg", idcardFrontImg);
+                    intent.putExtra("idcardBackImg", idcardBackImg);
+                }
+                startActivityForResult(intent, 10001);
                 break;
             case R.id.btn_submit:
                 submit();
@@ -168,16 +173,7 @@ public class RealAuthenticationWeChatActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(idcardFrontImg) && !TextUtils.isEmpty(idcardBackImg)) {
                     tvUploadId.setTextColor(Color.parseColor("#DCB982"));
                     tvUploadId.setText("已上传");
-                } else {
-                    tvUploadId.setText("未上传");
-                    tvUploadId.setTextColor(Color.parseColor("#AAAAAA"));
-
                 }
-            } else {
-                idcardFrontImg = "";
-                idcardBackImg = "";
-                tvUploadId.setTextColor(Color.parseColor("#AAAAAA"));
-                tvUploadId.setText("未上传");
             }
         }
 

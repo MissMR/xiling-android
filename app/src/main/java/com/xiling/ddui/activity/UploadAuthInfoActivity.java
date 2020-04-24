@@ -111,7 +111,7 @@ public class UploadAuthInfoActivity extends BaseActivity {
                     @Override
                     public void onSuccess(Object result) {
                         super.onSuccess(result);
-                        ToastUtil.success("实名认证申请成功，请等待审核~");
+                        ToastUtil.success("账户认证申请成功，请等待审核~");
                         goBack();
                     }
                 });
@@ -123,7 +123,7 @@ public class UploadAuthInfoActivity extends BaseActivity {
 
     private void initView() {
         tvBtnConfirm.setEnabled(false);
-        showHeader("实名认证", true);
+        showHeader("账户认证", true);
         etUserName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

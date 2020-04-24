@@ -84,7 +84,7 @@ public class CashWithdrawManager {
         String positiveButtonText = "";
         final Intent intent = new Intent();
         if (!mUserAuthBean.isPassedAuth()) {
-            msg = "请先进行实名认证~";
+            msg = "请先进行账户认证~";
             positiveButtonText = "去认证";
             intent.setClass(mContext, AuthActivity.class);
         } else if (!mUserAuthBean.isBindedBankCard()) {

@@ -365,14 +365,14 @@ public class DDMasterCenterView extends FrameLayout {
     public void onAuthAndSecurityItemClick(View view) {
         switch (view.getId()) {
             case R.id.ll_master_auth:
-                // 实名认证
+                // 账户认证
                 Intent intent = new Intent();
                 intent.setClass(mContext, AuthActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_master_bank:
                 // 银行卡信息
-                //进入绑定银行卡之前检查是否实名认证
+                //进入绑定银行卡之前检查是否账户认证
                 checkAuth(new CheckAuthListener() {
                     @Override
                     public void onPass(UserAuthBean result) {
@@ -384,13 +384,13 @@ public class DDMasterCenterView extends FrameLayout {
 
                     @Override
                     public void onNoPass() {
-                        ToastUtil.error("绑卡前请先进行实名认证哦~");
+                        ToastUtil.error("绑卡前请先进行账户认证哦~");
                     }
                 });
                 break;
             case R.id.ll_master_password:
                 // 交易密码
-                //进入交易密码之前检查是否实名认证
+                //进入交易密码之前检查是否账户认证
                 checkAuth(new CheckAuthListener() {
                     @Override
                     public void onPass(UserAuthBean result) {
@@ -399,13 +399,13 @@ public class DDMasterCenterView extends FrameLayout {
 
                     @Override
                     public void onNoPass() {
-                        ToastUtil.error("设置交易密码前请先进行实名认证哦~");
+                        ToastUtil.error("设置交易密码前请先进行账户认证哦~");
                     }
                 });
                 return;
             case R.id.ll_master_security:
                 // 安全问题
-                //进入安全问题之前检查是否实名认证
+                //进入安全问题之前检查是否账户认证
                 checkAuth(new CheckAuthListener() {
                     @Override
                     public void onPass(UserAuthBean result) {
@@ -414,7 +414,7 @@ public class DDMasterCenterView extends FrameLayout {
 
                     @Override
                     public void onNoPass() {
-                        ToastUtil.error("设置安全问题前请先进行实名认证哦~");
+                        ToastUtil.error("设置安全问题前请先进行账户认证哦~");
                     }
                 });
 
@@ -423,7 +423,7 @@ public class DDMasterCenterView extends FrameLayout {
     }
 
     /**
-     * 检查是否已通过实名认证
+     * 检查是否已通过账户认证
      */
     public void checkAuth(final CheckAuthListener listener) {
         APIManager.startRequest(mUserService.getUserAuth(), new BaseRequestListener<UserAuthBean>() {

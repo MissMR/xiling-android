@@ -360,7 +360,7 @@ public class UserCenterFragment extends BaseFragment implements SwipeRefreshLayo
         mLinkFamilyOrderCmp.setVisibility(View.GONE);//积分订单
 //        mBalanceLayout.setVisibility(View.VISIBLE);//余额
 //        mLinkBindCardCmp.setVisibility(View.VISIBLE);//绑定银行卡
-//        mLinkVerifyCmp.setVisibility(View.VISIBLE);//实名认证
+//        mLinkVerifyCmp.setVisibility(View.VISIBLE);//账户认证
     }
 
     private void reloadBalance() {
@@ -388,7 +388,7 @@ public class UserCenterFragment extends BaseFragment implements SwipeRefreshLayo
     }
 
     /**
-     * 实名认证
+     * 账户认证
      */
     private void goAuth() {
         if (mUser == null) {
@@ -615,7 +615,7 @@ public class UserCenterFragment extends BaseFragment implements SwipeRefreshLayo
     @OnClick(R.id.linkBindCardCmp)
     protected void bindCard() {
         if (mUser == null || mUser.authStatus != AppTypes.AUTH_STATUS.SUCESS) {
-            ToastUtils.showShortToast("请先实名认证");
+            ToastUtils.showShortToast("请先账户认证");
             return;
         }
         if (mMyStatus == null) {

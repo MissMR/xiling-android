@@ -339,12 +339,12 @@ public class UserManager {
                 weekRoleId = Integer.valueOf(sWeekRoleId);
             }
             if (weekRoleId > roleId) {
-                switch (weekRoleId){
+                switch (weekRoleId) {
                     case 2:
                         level = 4;
                         break;
                     case 3:
-                        level =5;
+                        level = 5;
                         break;
                 }
 
@@ -401,7 +401,7 @@ public class UserManager {
 
 
     /**
-     * 判断实名认证
+     * 判断账户认证
      * 认证状态（0，未认证，1，认证申请，2，认证通过，4，认证拒绝）
      */
     public void isRealAuth(final Context mContext, final RealAuthListener realAuthListener) {
@@ -410,7 +410,7 @@ public class UserManager {
             public void onSuccess(RealAuthBean result) {
                 super.onSuccess(result);
                 if (result.getAuthStatus() == 2) {
-                    // 已实名认证
+                    // 已账户认证
                     if (realAuthListener != null) {
                         realAuthListener.onRealAuth();
                     }
@@ -428,12 +428,12 @@ public class UserManager {
     }
 
     /**
-     * 未实名认证
+     * 未账户认证
      */
     public void showNoAuthDialog(final Context mContext, RealAuthBean result) {
         if (result.getAuthStatus() == 1) {
             D3ialogTools.showSingleAlertDialog(mContext, "",
-                    "您的实名认证正在认证中\n1个工作日内通过，请耐心等待~~~", "我知道了",
+                    "您的账户正在认证中，1个工作日内审核，请耐心等待～～", "我知道了",
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -441,7 +441,7 @@ public class UserManager {
                         }
                     });
         } else {
-            D3ialogTools.showAlertDialog(mContext, "请先实名认证\n当前商户信息", "去认证", new View.OnClickListener() {
+            D3ialogTools.showAlertDialog(mContext, "请先完善认证当前用户实名信息", "去认证", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mContext.startActivity(new Intent(mContext, RealAuthActivity.class));

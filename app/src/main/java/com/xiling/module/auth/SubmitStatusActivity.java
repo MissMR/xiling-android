@@ -45,7 +45,7 @@ public class SubmitStatusActivity extends BaseActivity implements View.OnClickLi
         mTvSubmit.setOnClickListener(this);
         showHeader();
         setLeftBlack();
-        setTitle("实名认证");
+        setTitle("账户认证");
         EventBus.getDefault().register(this);
     }
 

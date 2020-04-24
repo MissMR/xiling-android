@@ -430,7 +430,7 @@ public class MApiActivity extends BaseActivity {
         adapter.addEvent(pId, new ApiEvent() {
             @Override
             public String getTitle() {
-                return "实名认证 - 上传正面";
+                return "账户认证 - 上传正面";
             }
 
             @Override
@@ -443,7 +443,7 @@ public class MApiActivity extends BaseActivity {
         adapter.addEvent(pId, new ApiEvent() {
             @Override
             public String getTitle() {
-                return "实名认证 - 上传背面";
+                return "账户认证 - 上传背面";
             }
 
             @Override
@@ -456,7 +456,7 @@ public class MApiActivity extends BaseActivity {
         adapter.addEvent(pId, new ApiEvent() {
             @Override
             public String getTitle() {
-                return "实名认证 - 提交数据";
+                return "账户认证 - 提交数据";
             }
 
             @Override

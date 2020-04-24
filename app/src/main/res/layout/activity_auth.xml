@@ -27,7 +27,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="您还没有添加实名认证信息哦~"
+            android:text="您还没有添加账户认证信息哦~"
             android:textColor="@color/ddm_gray"
             android:textSize="12dp" />
 
@@ -49,7 +49,7 @@
             style="@style/MyButton.DDMRed.Middle"
             android:layout_width="168dp"
             android:layout_marginTop="22dp"
-            android:text="添加实名认证" />
+            android:text="添加账户认证" />
 
     </LinearLayout>
 
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="14dp"
-            android:text="通过实名认证后，信息将不可进行修改"
+            android:text="通过账户认证后，信息将不可进行修改"
             android:textColor="@color/ddm_gray_dark" />
 
     </LinearLayout>

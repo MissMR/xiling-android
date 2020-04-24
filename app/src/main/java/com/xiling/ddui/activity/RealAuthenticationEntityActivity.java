@@ -37,7 +37,7 @@ import butterknife.OnClick;
 
 /**
  * @author 逄涛
- * 实名认证-实体门店认证
+ * 账户认证-实体门店认证
  */
 public class RealAuthenticationEntityActivity extends BaseActivity {
 
@@ -168,11 +168,20 @@ public class RealAuthenticationEntityActivity extends BaseActivity {
                 break;
             case R.id.btn_upload_store_phone:
                 //门店照片上传
-                startActivityForResult(new Intent(context, StorePhotoUploadActivity.class), 10001);
+                Intent intent = new Intent(context, StorePhotoUploadActivity.class);
+                if (!TextUtils.isEmpty(idcardFrontImg) && !TextUtils.isEmpty(idcardBackImg)) {
+                    intent.putExtra("idcardFrontImg", idcardFrontImg);
+                    intent.putExtra("idcardBackImg", idcardBackImg);
+                }
+                startActivityForResult(intent, 10001);
                 break;
             case R.id.btn_upload_business_license:
                 //营业执照上传
-                startActivityForResult(new Intent(context, BusinessLicenseUpLoadActivity.class), 10002);
+                Intent intent1 = new Intent(context, BusinessLicenseUpLoadActivity.class);
+                if (!TextUtils.isEmpty(businessLicense)) {
+                    intent1.putExtra("businessLicense", businessLicense);
+                }
+                startActivityForResult(intent1, 10002);
                 break;
             case R.id.btn_submit:
                 submit();
@@ -254,16 +263,7 @@ public class RealAuthenticationEntityActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(idcardFrontImg) && !TextUtils.isEmpty(idcardBackImg)) {
                     tvUploadPhoto.setTextColor(Color.parseColor("#DCB982"));
                     tvUploadPhoto.setText("已上传");
-                } else {
-                    tvUploadPhoto.setText("未上传");
-                    tvUploadPhoto.setTextColor(Color.parseColor("#AAAAAA"));
-
                 }
-            } else {
-                idcardFrontImg = "";
-                idcardBackImg = "";
-                tvUploadPhoto.setTextColor(Color.parseColor("#AAAAAA"));
-                tvUploadPhoto.setText("未上传");
             }
         } else if (requestCode == 10002) {
             //上传营业执照返回
@@ -272,14 +272,7 @@ public class RealAuthenticationEntityActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(businessLicense)) {
                     tvUploadBusiness.setTextColor(Color.parseColor("#DCB982"));
                     tvUploadBusiness.setText("已上传");
-                } else {
-                    tvUploadBusiness.setText("未上传");
-                    tvUploadBusiness.setTextColor(Color.parseColor("#AAAAAA"));
                 }
-            } else {
-                businessLicense = "";
-                tvUploadBusiness.setText("未上传");
-                tvUploadBusiness.setTextColor(Color.parseColor("#AAAAAA"));
             }
         }
 

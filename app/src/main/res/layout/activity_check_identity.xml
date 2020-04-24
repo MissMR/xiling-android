@@ -8,7 +8,7 @@
 
     <TextView
         style="@style/TextView.SettingTopTip"
-        android:text="请用实名认证身份证号验证" />
+        android:text="请用账户认证身份证号验证" />
 
     <EditText
         android:id="@+id/et_identity"

@@ -122,7 +122,7 @@ public class DealFirstActivity extends BaseActivity {
             return;
         }
         if (loginUser.authStatus != AppTypes.AUTH_STATUS.SUCESS) {
-            ToastUtils.showShortToast("请先实名认证");
+            ToastUtils.showShortToast("请先账户认证");
         } else if (mMyStatus.bindBankStatus != AppTypes.CARD_STATUS.SUCESS) {
             switch (mMyStatus.bindBankStatus) {
                 case AppTypes.CARD_STATUS.NO_SUBMIT:
