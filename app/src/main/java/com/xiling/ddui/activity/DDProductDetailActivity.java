@@ -243,13 +243,8 @@ public class DDProductDetailActivity extends BaseActivity implements ProductDeta
     @Override
     public void onClickBecomeMaster() {
         if (UserManager.getInstance().isLogin(context)) {
-            UserManager.getInstance().isRealAuth(context, new UserManager.RealAuthListener() {
-                @Override
-                public void onRealAuth() {
-                    //跳转会员中心
-                    startActivity(new Intent(context, XLMemberCenterActivity.class));
-                }
-            });
+            //跳转会员中心
+            startActivity(new Intent(context, XLMemberCenterActivity.class));
         }
     }
 
