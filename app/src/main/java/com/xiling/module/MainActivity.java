@@ -4,12 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,15 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blankj.utilcode.utils.SPUtils;
-import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.BuildConfig;
-import com.xiling.MyApplication;
 import com.xiling.R;
 import com.xiling.ddui.api.MApiActivity;
-import com.xiling.ddui.bean.UnReadMessageCountBean;
 import com.xiling.ddui.config.UIConfig;
 import com.xiling.ddui.custom.DDPermissionDialog;
-import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.fragment.DDCartFragment;
 import com.xiling.ddui.fragment.DDCategoryFragment;
 import com.xiling.ddui.fragment.DDWebViewFragment;
@@ -41,30 +35,16 @@ import com.xiling.ddui.tools.ViewUtil;
 import com.xiling.dduis.fragment.DDHomeMainFragment;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.auth.event.MsgStatus;
-import com.xiling.module.community.DateUtils;
 import com.xiling.module.publish.PublishDialog;
-import com.xiling.module.publish.PublishHisActivity;
-import com.xiling.module.publish.PublishPicActivity;
 import com.xiling.module.splash.SplashActivity;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.Constants;
 import com.xiling.shared.basic.BaseActivity;
-import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.bean.MainAdModel;
-import com.xiling.shared.bean.MyStatus;
 import com.xiling.shared.bean.event.EventMessage;
-import com.xiling.shared.component.MainAdView;
 import com.xiling.shared.component.NoScrollViewPager;
-import com.xiling.shared.component.dialog.WJDialog;
 import com.xiling.shared.constant.Event;
-import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.PushManager;
-import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.service.contract.IAdService;
-import com.xiling.shared.service.contract.IMessageService;
-import com.xiling.shared.util.SessionUtil;
 import com.xiling.shared.util.SharedPreferenceUtil;
-import com.xiling.shared.util.StringUtil;
 import com.xiling.shared.util.ToastUtil;
 import com.google.common.collect.Lists;
 import com.orhanobut.logger.Logger;
@@ -96,8 +76,6 @@ import static com.xiling.ddui.config.UIConfig.isUseNewUI;
  */
 public class MainActivity extends BaseActivity {
 
-    private static final int REQUEST_PIC_CHOOSE = 1000;
-    private static final int REQUEST_VIDEO_CHOOSE = 1001;
     @BindView(R.id.tabLayout)
     protected LinearLayout mTabLayout;
     @BindViews({R.id.tabHomeLayout, R.id.tabStoreMaster,
@@ -290,10 +268,6 @@ public class MainActivity extends BaseActivity {
         makeStatusBarTranslucent();
     }
 
-  /*  private void initSplash() {
-        initAdDialog();
-    }*/
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -432,28 +406,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_PIC_CHOOSE && data != null) {
-            ArrayList<Uri> uris = (ArrayList<Uri>) Matisse.obtainResult(data);
-          /*  LogUtils.e("拿到图片" + uris.get(0).getPath());
-            updateImage(requestCode, uris.get(0));*/
-            if (StringUtil.isNullOrEmpty(uris)) {
-                return;
-            }
-            Intent intent = new Intent(this, PublishPicActivity.class);
-            intent.putParcelableArrayListExtra(Constants.KEY_EXTROS, uris);
-            startActivity(intent);
-        } else if (requestCode == REQUEST_VIDEO_CHOOSE && data != null) {
-            ArrayList<Uri> uris = (ArrayList<Uri>) Matisse.obtainResult(data);
-            Intent intent = new Intent(this, PublishPicActivity.class);
-            intent.putParcelableArrayListExtra(Constants.KEY_EXTROS, uris);
-            intent.putExtra(Constants.KEY_IS_VIDEO, true);
-            startActivity(intent);
-        }
-    }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMainThreadEvent(EventMessage message) {
@@ -543,78 +495,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-
-
-    private void toLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(Constants.KEY_EXTROS, true);
-        startActivity(intent);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void publishInfo(EventMessage eventMessage) {
-        if (eventMessage.getEvent() == Event.PUBLISH_NEW) {
-            if (!UserManager.getInstance().isLogin()) {
-                toLogin();
-                return;
-            }
-
-            if (mDialog == null) {
-                mDialog = new PublishDialog(this);
-                mDialog.setOnClickCallBack(new PublishCallBackImpl());
-            }
-            mDialog.show();
-        }
-    }
-
-    public class PublishCallBackImpl implements PublishDialog.onClickCallBack {
-
-        @Override
-        public void onTakePic() {
-            gotoSelectPic(true);
-        }
-
-        @Override
-        public void onTakeVideo() {
-            gotoSelectPic(false);
-        }
-
-        @Override
-        public void onHistoryClick() {
-            Intent intent = new Intent(MainActivity.this, PublishHisActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    private void gotoSelectPic(final boolean isPic) {
-        RxPermissions rxPermissions = new RxPermissions(this);
-        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if (aBoolean) {
-                    gotoMatisseActivity(isPic);
-                } else {
-                    Toast.makeText(MainActivity.this, "权限拒绝，无法使用，请打开权限", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    private void gotoMatisseActivity(boolean isPic) {
-        Matisse.from(this)
-                .choose(isPic ? MimeType.ofImage() : MimeType.ofVideo())
-                .captureStrategy(
-                        new CaptureStrategy(true, "com.dodomall.ddmall.fileprovider"))
-                .theme(R.style.Matisse_Dracula)
-                .countable(false)
-                .maxSelectable(isPic ? 9 : 1)
-                .imageEngine(new PicassoEngine())
-                .forResult(isPic ? REQUEST_PIC_CHOOSE : REQUEST_VIDEO_CHOOSE);
-    }
-
-    public static void goBack(Context context) {
-        context.startActivity(new Intent(context, MainActivity.class));
-    }
 
     public static void goBack(Context context, int tabIndex) {
         context.startActivity(new Intent(context, MainActivity.class).putExtra(Constants.Extras.TAB_INDEX, tabIndex));

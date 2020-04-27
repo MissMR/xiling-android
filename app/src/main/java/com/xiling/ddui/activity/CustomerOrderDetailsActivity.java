@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * @author 逄涛
  * 客户订单详情
  */
 public class CustomerOrderDetailsActivity extends BaseActivity {

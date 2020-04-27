@@ -535,11 +535,6 @@ public class OrderDetailActivity extends BaseActivity {
         OrderService.viewApplyRefundMoneyActivity(this, mOrder);
     }
 
-    @OnClick(R.id.itemApplyRefundGoodsBtn)
-    public void applyRefundGoods() {
-        OrderService.viewApplyRefundGoodsActivity(this, mOrder);
-    }
-
     @OnClick({R.id.itemViewExpressBtn, R.id.tvOrderExpressCode})
     public void viewExpress() {
         OrderService.viewExpress(this, mOrder);

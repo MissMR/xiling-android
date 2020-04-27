@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -22,9 +21,7 @@ import android.widget.LinearLayout;
 import com.xiling.BuildConfig;
 import com.xiling.ddui.activity.BrandActivity;
 import com.xiling.ddui.activity.CategorySecondActivity;
-import com.xiling.ddui.activity.DDCategoryActivity;
 import com.xiling.ddui.activity.DDProductDetailActivity;
-import com.xiling.ddui.activity.MyFollowersActivity;
 import com.xiling.ddui.activity.RealAuthActivity;
 import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.bean.HomeShortcutBean;
@@ -42,11 +39,9 @@ import com.xiling.dduis.magnager.UserManager;
 import com.xiling.module.page.WebViewActivity;
 import com.xiling.module.user.LoginActivity;
 import com.xiling.shared.bean.NewUserBean;
-import com.xiling.shared.bean.User;
 import com.xiling.shared.bean.event.EventMessage;
 import com.xiling.shared.util.ClipboardUtil;
 import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.SessionUtil;
 import com.xiling.shared.util.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -709,12 +704,6 @@ public class DDJavaScriptBridge {
     public void setHomeShortcut(String jsonArray) {
         DLog.d("setHomeShortcut:" + jsonArray);
         uiHandler.obtainMessage(SET_HOME_SHORTCUT.ordinal(), jsonArray).sendToTarget();
-    }
-
-    @JavascriptInterface
-    public void jumpMyFans(int mode) {
-        DLog.d("jumpMyFans:" + mode);
-        MyFollowersActivity.start(mActivity, mode);
     }
 
 

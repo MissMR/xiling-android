@@ -6,29 +6,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
 import com.xiling.ddui.bean.XLMessageBean;
-import com.xiling.ddui.manager.MessageManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.shared.basic.BaseAdapter;
-import com.xiling.shared.bean.Message;
 import com.xiling.shared.util.ConvertUtil;
-import com.xiling.shared.util.FrescoUtil;
-import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageAdapter extends BaseAdapter<XLMessageBean, MessageAdapter.MessageViewHolder> {
 
-    private MessageManager mMessageManager;
-
     public MessageAdapter(Context context) {
         super(context);
-        mMessageManager = MessageManager.newInstance(context, null);
     }
 
     @Override

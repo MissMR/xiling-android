@@ -15,7 +15,6 @@ import com.xiling.shared.page.element.InstantElement;
 import com.xiling.shared.page.element.InstantSpecElement;
 import com.xiling.shared.page.element.InstantSwiperElement;
 import com.xiling.shared.page.element.LinkElement;
-import com.xiling.shared.page.element.NoticeElement;
 import com.xiling.shared.page.element.ProductElement;
 import com.xiling.shared.page.element.ProductGroupElement;
 import com.xiling.shared.page.element.ProductLargeElement;
@@ -46,8 +45,6 @@ public class PageElementFactory {
                     return new InstantSpecElement(context, element);
                 case "links":
                     return new LinkElement(context, element);
-                case "notice":
-                    return new NoticeElement(context, element);
                 case "product-large": //大块产品
                     return new ProductLargeElement(context, element);
                 case "group-buy":

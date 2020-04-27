@@ -9,7 +9,6 @@ import com.blankj.utilcode.utils.StringUtils;
 import com.xiling.module.auth.Config;
 import com.xiling.module.auth.event.MsgStatus;
 import com.xiling.module.groupBuy.JoinGroupActivity;
-import com.xiling.module.order.NewRefundGoodsActivity;
 import com.xiling.module.order.OrderDetailActivity;
 import com.xiling.module.order.RefundGoodsActivity;
 import com.xiling.module.order.RefundMoneyActivity;
@@ -122,14 +121,6 @@ public class OrderService {
         context.startActivity(intent);
     }
 
-    public static void viewApplyRefundGoodsActivity(Context context, Order order) {
-//        Intent intent = new Intent(context, RefundGoodsActivity.class);
-//        intent.putExtra("order", order);
-//        context.startActivity(intent);
-        Intent intent = new Intent(context, NewRefundGoodsActivity.class);
-        intent.putExtra(Config.INTENT_KEY_ID, order.orderMain.orderCode);
-        context.startActivity(intent);
-    }
 
     public static void showRefundMoneyDialog(final Activity context, final RefundsOrder refundsOrder) {
 

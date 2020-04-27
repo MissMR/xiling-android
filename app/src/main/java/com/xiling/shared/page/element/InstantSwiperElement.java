@@ -60,47 +60,12 @@ public class InstantSwiperElement extends LinearLayout {
             recyclerView.addItemDecoration(new SpacesItemHorizontalDecoration(ConvertUtil.dip2px(10), true));
             mCountDown = (CountDown) view.findViewById(R.id.eleCountDown);
             mTitleTv = (TextView) view.findViewById(R.id.eleTitleTv);
-            reloadData();
         } catch (Exception e) {
             CarshReportUtils.post(e);
         }
     }
 
-    private void reloadData() {
-        ProductService.getInstantComponentData(new BaseCallback<InstantData>() {
-            @Override
-            public void callback(final InstantData data) {
-                if (data.secondKill == null) {
-                    mTitleTv.setText("暂无秒杀");
-                    mCountDown.setVisibility(View.GONE);
-                    mTvTag.setVisibility(GONE);
 
-                    mMoreBtn.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            EventUtil.viewInstant(getContext(), "");
-                        }
-                    });
-                    return;
-                }
-                mMoreBtn.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        EventUtil.viewInstant(getContext(), data.secondKill.id);
-                    }
-                });
-                mTitleTv.setText(data.secondKill.title);
-                mSwiperAdapter.setItems(data.secondKillProducts);
-                mSwiperAdapter.notifyDataSetChanged();
-                mCountDown.setTimeLeft(getTimeLeft(data.secondKill.endDate), new CountDown.OnFinishListener() {
-                    @Override
-                    public void onFinish() {
-                        reloadData();
-                    }
-                });
-            }
-        });
-    }
 
     private long getTimeLeft(String endTime) {
         if (StringUtils.isEmpty(endTime)) {

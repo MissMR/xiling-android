@@ -1,85 +1,48 @@
 package com.xiling.ddui.custom;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.xiling.ddui.activity.AuthActivity;
 import com.xiling.shared.component.dialog.DDMDialog;
 
 public class D3ialogTools {
 
     /**
-     * 显示账户认证通用对话框
-     *
-     * @param context    上下文对象
-     * @param authStatus 审核状态,0:未提交;1:等待审核;2:审核通过;3:审核失败,int,默认为0
-     * @auth hanQ
-     */
-    public static void showAuthDialog(Context context, final int authStatus) {
-
-        String positiveText = "确定";
-        String content = "";
-        switch (authStatus) {
-            case 0:
-                content = "您还未进行账户认证哦~";
-                positiveText = "去认证";
-                break;
-            case 1:
-                content = "您的账户认证还在审核哦~";
-                positiveText = "继续等待";
-                break;
-            case 3:
-            case 4:
-                content = "您的账户认证审核失败~";
-                positiveText = "重新提交";
-                break;
-        }
-
-        View.OnClickListener ocl = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                if (authStatus == 0 || authStatus == 3 || authStatus == 4) {
-                    context.startActivity(new Intent(context, AuthActivity.class));
-                }
-
-            }
-        };
-
-        Dialog dialog = new DDMDialog(context)
-                .setTitle("提示")
-                .setContent(content)
-                .setPositiveButton(positiveText, ocl);
-        dialog.show();
-    }
-
-    /**
      * 单个按钮
+     *
      * @param context
      * @param title
      * @param message
      * @param btnName
      * @param okClickListener
      */
-    public static void showSingleAlertDialog(Context context,String title,String message,String btnName, View.OnClickListener okClickListener){
+    public static void showSingleAlertDialog(Context context, String title, String message, String btnName, View.OnClickListener okClickListener) {
         Dialog dialog = new SingleAlertDialog(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setOnClickListener(btnName,okClickListener);
+                .setOnClickListener(btnName, okClickListener);
 
         dialog.show();
 
     }
 
 
-    public static void showAlertDialog(Context context, String message, String posBtn, View.OnClickListener posClickListener,String negBtn,View.OnClickListener negListener){
+    public static void showAlertDialog(Context context, String message, String posBtn, View.OnClickListener posClickListener, String negBtn, View.OnClickListener negListener) {
         Dialog dialog = new DDMDialog(context)
                 .setContent(message)
                 .setPositiveButton(posBtn, posClickListener)
-                .setNegativeButton(negBtn,negListener);
+                .setNegativeButton(negBtn, negListener);
+        dialog.show();
+    }
+
+    public static void showAlertDialog(Context context,String title, String message, String posBtn, View.OnClickListener posClickListener, String negBtn, View.OnClickListener negListener) {
+        Dialog dialog = new DDMDialog(context)
+                .setTitle(title)
+                .setContent(message)
+                .setPositiveButton(posBtn, posClickListener)
+                .setNegativeButton(negBtn, negListener);
         dialog.show();
     }
 

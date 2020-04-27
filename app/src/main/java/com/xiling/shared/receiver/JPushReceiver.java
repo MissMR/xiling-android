@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.blankj.utilcode.utils.LogUtils;
-import com.xiling.ddui.manager.MessageManager;
 import com.xiling.module.auth.event.MsgStatus;
 import com.xiling.shared.bean.Message;
 import com.xiling.shared.factory.GsonFactory;
@@ -28,8 +27,8 @@ public class JPushReceiver extends BroadcastReceiver {
         if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction()) && intent.hasExtra(JPushInterface.EXTRA_EXTRA)) {
             String json = intent.getStringExtra(JPushInterface.EXTRA_EXTRA);
             LogUtils.e("推送通知" + json);
-            Message message = getFormatMessage(json);
-            MessageManager.newInstance(context, message).openMessageDetail(true);
+            //Message message = getFormatMessage(json);
+           // MessageManager.newInstance(context, message).openMessageDetail(true);
             //通知刷新消息数量
             EventBus.getDefault().post(new MsgStatus(MsgStatus.ReloadMsgCount));
         }

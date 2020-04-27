@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
 /**
- * pt
+ * @author 逄涛
  * 消息列表
  */
 public class MessageListActivity extends DDBaseListActivity<XLMessageBean> {

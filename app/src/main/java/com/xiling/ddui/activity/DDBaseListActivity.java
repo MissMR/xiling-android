@@ -28,10 +28,8 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
 /**
- * @author Jigsaw
- * @date 2018/9/15
- * 常规list activity
- * BaseAdapter
+ * @author 逄涛
+ * 列表activity
  */
 public abstract class DDBaseListActivity<T> extends BaseActivity implements OnLoadMoreListener, OnRefreshListener {
 

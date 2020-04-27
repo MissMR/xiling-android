@@ -11,15 +11,9 @@ import com.xiling.ddui.activity.DDProductDetailActivity;
 import com.xiling.ddui.service.HtmlService;
 import com.xiling.module.MainActivity;
 import com.xiling.module.auth.Config;
-import com.xiling.module.cart.CartActivity;
 import com.xiling.module.category.CategoryActivity;
-import com.xiling.module.coupon.CouponCenterActivity;
-import com.xiling.module.coupon.CouponListActivity;
-import com.xiling.module.instant.InstantActivity;
-import com.xiling.module.lottery.LotteryActivity;
 import com.xiling.module.message.MessageListActivity;
 import com.xiling.module.order.OrderDetailActivity;
-import com.xiling.module.order.OrderListActivity;
 import com.xiling.module.order.RefundDetailActivity;
 import com.xiling.module.page.CustomPageActivity;
 import com.xiling.module.page.WebViewActivity;
@@ -80,22 +74,11 @@ public class EventUtil {
             case "order-detail":
                 viewOrderDetail(context, parse.getQueryParameter("orderCode"));
                 break;
-            case "order-list":
-                viewOrderList(context, parse.getQueryParameter("type"));
             case "message":
                 context.startActivity(new Intent(context, MessageListActivity.class));
                 break;
             case "about-us":
                 context.startActivity(new Intent(context, AboutUsActivity.class));
-                break;
-            case "instant":
-                viewInstant(context, parse.getQueryParameter("id"));
-                break;
-            case "coupon":
-                context.startActivity(new Intent(context, CouponListActivity.class));
-                break;
-            case "coupon-center":
-                context.startActivity(new Intent(context, CouponCenterActivity.class));
                 break;
             case "add-to-cart":
                 addProductToCart(context, parse.getQueryParameter("skuId"), parse.getQueryParameter("amount"));
@@ -123,14 +106,6 @@ public class EventUtil {
                 break;
             case "new-products":
                 context.startActivity(new Intent(context, NewUpPriductListActivity.class));
-                break;
-            case "cart":
-                context.startActivity(new Intent(context, CartActivity.class));
-                break;
-            case "lottery":
-                if (UiUtils.checkUserLogin(context)) {
-                    context.startActivity(new Intent(context, LotteryActivity.class));
-                }
                 break;
             case "sale-product":
                 context.startActivity(new Intent(context, SalePriductListActivity.class));
@@ -173,12 +148,6 @@ public class EventUtil {
         CouponService.getCoupon(context, couponId);
     }
 
-    public static void viewOrderList(Context context, String type) {
-        Intent intent = new Intent(context, OrderListActivity.class);
-        intent.putExtra("type", type);
-        context.startActivity(intent);
-    }
-
     public static void viewOrderDetail(Context context, String orderCode) {
         if (orderCode == null || orderCode.isEmpty()) {
             return;
@@ -210,13 +179,7 @@ public class EventUtil {
         context.startActivity(intent);
     }
 
-    public static void viewInstant(Context context, String id) {
-        Intent intent = new Intent(context, InstantActivity.class);
-        if (!(id == null || id.isEmpty())) {
-            intent.putExtra("id", id);
-        }
-        context.startActivity(intent);
-    }
+
 
     private static void viewCategory(Context context) {
         Intent intent = new Intent(context, MainActivity.class);

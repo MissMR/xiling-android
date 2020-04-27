@@ -39,7 +39,7 @@ public enum Event {
     regionSelect,
     deleteAddress, saveAddress, cancelOrder, finishOrder, selectImage2Upload, refundOrder,
     paySuccess, refundExpressSubmit, commentFinish, transferSuccess, viewHome, logout,
-    createOrderSuccess, selectLotteryAddress, acceptPrizeSuccess, sendSelectDialog, PUBLISH_NEW,
+    createOrderSuccess, selectLotteryAddress, acceptPrizeSuccess, sendSelectDialog,
     addCommond, addSupport, cancelSupport, PUBLISH_EDIT_FINISH, wxLoginCancel,
     becomeStoreMaster, followStateChange, orderChange, materialUnLike
 

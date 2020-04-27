@@ -30,6 +30,8 @@ import com.xiling.ddui.activity.XLMemberCenterActivity;
 import com.xiling.ddui.activity.XLNewsGroupActivity;
 import com.xiling.ddui.adapter.IndexSelectedBrandAdapter;
 import com.xiling.ddui.bean.IndexBrandBean;
+import com.xiling.ddui.custom.D3ialogTools;
+import com.xiling.ddui.custom.ServicePolicyDialog;
 import com.xiling.ddui.custom.popupwindow.NewcomerDiscountDialog;
 import com.xiling.ddui.manager.AutoClickManager;
 import com.xiling.ddui.manager.XLMessageManager;
@@ -189,6 +191,7 @@ public class DDHomeMainFragment extends BaseFragment implements OnRefreshListene
         if (!spUtils.getBoolean("oneStart")) {
      /*       NewcomerDiscountDialog newcomerDiscountDialog = new NewcomerDiscountDialog(mContext);
             newcomerDiscountDialog.show();*/
+            new ServicePolicyDialog(mContext).show();
             spUtils.putBoolean("oneStart", true);
         }
 

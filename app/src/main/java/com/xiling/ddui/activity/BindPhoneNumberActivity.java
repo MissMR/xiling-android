@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * @author 逄涛
  * 更换手机号 展示当前手机号的页面
  */
 public class BindPhoneNumberActivity extends BaseActivity {

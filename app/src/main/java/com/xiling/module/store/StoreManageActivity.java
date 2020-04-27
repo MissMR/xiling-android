@@ -8,8 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiling.R;
-import com.xiling.module.order.OrderListActivity;
-import com.xiling.module.order.SellerRefundListActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
 import com.xiling.shared.bean.GetOrderStatusCount;
@@ -123,36 +121,14 @@ public class StoreManageActivity extends BaseActivity implements SwipeRefreshLay
         mLayoutRefresh.setOnRefreshListener(this);
     }
 
-    @OnClick({R.id.itemDaifahuo, R.id.itemYifahuo, R.id.itemYishouhuo, R.id.itemYiguanbi})
-    public void onViewClicked(View view) {
-        Intent intent = new Intent(this, OrderListActivity.class);
-        switch (view.getId()) {
-            case R.id.itemDaifahuo:
-                intent.putExtra("type", AppTypes.ORDER.SELLER_WAIT_SHIP);
-                break;
-            case R.id.itemYifahuo:
-                intent.putExtra("type", AppTypes.ORDER.SELLER_HAS_SHIP);
-                break;
-            case R.id.itemYishouhuo:
-                intent.putExtra("type", AppTypes.ORDER.SELLER_HAS_COMPLETE);
-                break;
-            case R.id.itemYiguanbi:
-                intent.putExtra("type", AppTypes.ORDER.SELLER_HAS_CLOSE);
-                break;
-        }
-        startActivity(intent);
-    }
+
 
     @Override
     public void onRefresh() {
         initData();
     }
 
-    @OnClick(R.id.layoutRefund)
-    public void onMLayoutRefundClicked() {
-//        startActivity(new Intent(this,RefundOrderListActivity.class));
-        startActivity(new Intent(this,SellerRefundListActivity.class));
-    }
+
 
     @OnClick(R.id.layoutComent)
     public void onMLayoutComentClicked() {

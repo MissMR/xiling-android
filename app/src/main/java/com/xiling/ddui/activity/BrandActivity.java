@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * @author 逄涛
  * 品牌馆
  */
 public class BrandActivity extends BaseActivity {

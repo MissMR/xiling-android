@@ -66,8 +66,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_toLeftOf="@id/btnTitleRight"
-                android:layout_toRightOf="@id/btnTitleBack" />
+               />
 
         </android.support.design.widget.AppBarLayout>
 

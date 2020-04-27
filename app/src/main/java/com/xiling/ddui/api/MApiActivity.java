@@ -13,22 +13,16 @@ import android.widget.ListView;
 import com.blankj.utilcode.utils.LogUtils;
 import com.xiling.BuildConfig;
 import com.xiling.R;
-import com.xiling.ddui.activity.CashWithdrawActivity;
-import com.xiling.ddui.activity.DDCommunityActivity;
 import com.xiling.ddui.activity.SelectAddressMapActivity;
 import com.xiling.ddui.activity.SharePosterActivity;
-import com.xiling.ddui.bean.DDCouponBean;
 import com.xiling.ddui.bean.DDHomeBean;
 import com.xiling.ddui.bean.WithdrawStatusBean;
 import com.xiling.ddui.custom.D3ialogTools;
-import com.xiling.ddui.custom.DDCouponSelectorDialog;
 import com.xiling.ddui.custom.DDResultDialog;
 import com.xiling.ddui.manager.AppUpgradeManager;
 import com.xiling.ddui.manager.CommunityImageMaker;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.TextTools;
-import com.xiling.dduis.bean.DDHomeDataBean;
-import com.xiling.dduis.bean.DDHomeRushDataBean;
 import com.xiling.dduis.dialog.DDGeneralDialog;
 import com.xiling.module.auth.model.body.SubmitAuthBody;
 import com.xiling.module.page.WebViewActivity;
@@ -59,7 +53,6 @@ import com.zhihu.matisse.Matisse;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -163,20 +156,6 @@ public class MApiActivity extends BaseActivity {
             }
         });
 
-
-        adapter.addRootEvent(new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "测试多商品关联";
-            }
-
-            @Override
-            public boolean onEvent() {
-                Intent intent = new Intent(context, DDCommunityActivity.class);
-                context.startActivity(intent);
-                return true;
-            }
-        });
 
         adapter.addRootEvent(new ApiEvent() {
             @Override
@@ -595,18 +574,6 @@ public class MApiActivity extends BaseActivity {
             }
         });
 
-        adapter.addRootEvent(new ApiEvent() {
-            @Override
-            public String getTitle() {
-                return "进入提现";
-            }
-
-            @Override
-            public boolean onEvent() {
-                startActivity(new Intent(context, CashWithdrawActivity.class));
-                return true;
-            }
-        });
     }
 
 
