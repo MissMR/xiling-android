@@ -461,4 +461,5 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     /*  implementation 'com.android.support:percent:26.1.0'*/
     implementation 'com.zhy:percent-support-extends:1.1.1'
+    implementation (name:'letter_sort',ext:'aar')
 }

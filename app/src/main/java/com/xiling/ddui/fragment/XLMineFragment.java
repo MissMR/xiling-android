@@ -43,6 +43,7 @@ import com.xiling.ddui.custom.NestScrollView;
 import com.xiling.ddui.tools.DLog;
 import com.xiling.ddui.tools.NumberHandler;
 import com.xiling.ddui.tools.ViewUtil;
+import com.xiling.ddui.tools.XLManager;
 import com.xiling.dduis.magnager.UserManager;
 import com.xiling.image.GlideUtils;
 import com.xiling.module.address.AddressListActivity;
@@ -174,6 +175,7 @@ public class XLMineFragment extends BaseFragment implements OnRefreshListener, N
         View view = inflater.inflate(R.layout.fragment_xl_mine, null, false);
         EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this, view);
+        XLManager.UIConfigure();
         iNewUserService = ServiceManager.getInstance().createService(INewUserService.class);
         mOrderService = ServiceManager.getInstance().createService(IOrderService.class);
         //设置拉动事件监听
