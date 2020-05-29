@@ -52,6 +52,7 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+
     public static void loadImageALL(Context context, ImageView imageView, String url) {
         Glide.with(context).load(url)
                 .dontAnimate()

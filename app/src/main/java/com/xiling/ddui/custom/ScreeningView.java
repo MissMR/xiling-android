@@ -15,6 +15,7 @@ import com.xiling.ddui.custom.popupwindow.ScreeningPopupWindow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ScreeningView extends RelativeLayout {
 
@@ -35,6 +36,10 @@ public class ScreeningView extends RelativeLayout {
     ImageView salesStatusView;
 
     ScreeningPopupWindow screeningPopupWindow;
+    @BindView(R.id.tv_profit)
+    TextView tvProfit;
+    @BindView(R.id.profitStatusView)
+    ImageView profitStatusView;
 
     /**
      * 排序属性 0-价格,1-上新,2-销量
@@ -48,6 +53,8 @@ public class ScreeningView extends RelativeLayout {
     private int orderPriceType = 0;
 
     private int orderSaleType = 0;
+
+    private int orderProfitType = 0;
 
 
     public void setOnItemClickLisener(OnItemClickLisener onItemClickLisener) {
@@ -91,6 +98,9 @@ public class ScreeningView extends RelativeLayout {
                     if (orderBy == 2) {
                         tvSales.setTextColor(Color.parseColor("#AAAAAA"));
                         salesStatusView.setImageResource(R.mipmap.icon_price_unselect);
+                    } else if (orderBy == 3) {
+                        tvProfit.setTextColor(Color.parseColor("#AAAAAA"));
+                        profitStatusView.setImageResource(R.mipmap.icon_price_unselect);
                     }
 
 
@@ -127,6 +137,9 @@ public class ScreeningView extends RelativeLayout {
                     if (orderBy == 0) {
                         tvPrice.setTextColor(Color.parseColor("#AAAAAA"));
                         sortStatusView.setImageResource(R.mipmap.icon_price_unselect);
+                    } else if (orderBy == 3) {
+                        tvProfit.setTextColor(Color.parseColor("#AAAAAA"));
+                        profitStatusView.setImageResource(R.mipmap.icon_price_unselect);
                     }
 
                     orderBy = 2;
@@ -164,9 +177,9 @@ public class ScreeningView extends RelativeLayout {
                 screeningPopupWindow.showForRight(ScreeningView.this);
                 screeningPopupWindow.setOnScreenListener(new ScreeningPopupWindow.onScreenListener() {
                     @Override
-                    public void onScreenListener(int isShippingFree, String minPrice, String maxPrice) {
+                    public void onScreenListener(String tradeType, String saleType, String minPrice, String maxPrice) {
                         if (onItemClickLisener != null) {
-                            onItemClickLisener.onFilter(isShippingFree, minPrice, maxPrice);
+                            onItemClickLisener.onFilter(tradeType, saleType,minPrice, maxPrice);
                         }
                     }
                 });
@@ -177,10 +190,45 @@ public class ScreeningView extends RelativeLayout {
         addView(view);
     }
 
+    @OnClick(R.id.ll_profit)
+    public void onViewClicked() {
+        if (orderBy != 3) {
+
+            if (orderBy == 0) {
+                tvPrice.setTextColor(Color.parseColor("#AAAAAA"));
+                sortStatusView.setImageResource(R.mipmap.icon_price_unselect);
+            } else if (orderBy == 2) {
+                tvSales.setTextColor(Color.parseColor("#AAAAAA"));
+                salesStatusView.setImageResource(R.mipmap.icon_price_unselect);
+            }
+
+
+            orderBy = 3;
+            tvProfit.setTextColor(Color.parseColor("#FF4647"));
+            if (orderProfitType == 0) {
+                profitStatusView.setImageResource(R.mipmap.icon_price_down);
+            } else {
+                profitStatusView.setImageResource(R.mipmap.icon_price_up);
+            }
+        } else {
+            if (orderProfitType == 0) {
+                orderProfitType = 1;
+                profitStatusView.setImageResource(R.mipmap.icon_price_up);
+            } else {
+                orderProfitType = 0;
+                profitStatusView.setImageResource(R.mipmap.icon_price_down);
+            }
+        }
+
+        if (onItemClickLisener != null) {
+            onItemClickLisener.onSort(orderBy, orderProfitType);
+        }
+    }
+
     public interface OnItemClickLisener {
         void onSort(int orderBy, int orderType);
 
-        void onFilter(int isShippingFree, String minPrice, String maxPrice);
+        void onFilter(String tradeType, String saleType, String minPrice, String maxPrice);
     }
 
 }

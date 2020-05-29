@@ -4,28 +4,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.utils.SPUtils;
+import com.google.gson.Gson;
 import com.xiling.BuildConfig;
 import com.xiling.R;
 import com.xiling.ddui.bean.SystemConfigBean;
 import com.xiling.ddui.service.IConfigService;
+import com.xiling.image.GlideUtils;
 import com.xiling.module.MainActivity;
 import com.xiling.module.auth.Config;
 import com.xiling.module.splash.GuideActivity;
 import com.xiling.module.splash.SplashActivity;
 import com.xiling.shared.basic.BaseActivity;
 import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.basic.BaseSubscriber;
 import com.xiling.shared.bean.Splash;
 import com.xiling.shared.manager.APIManager;
 import com.xiling.shared.manager.ServiceManager;
 import com.xiling.shared.service.contract.IAdService;
-import com.google.gson.Gson;
 import com.xiling.shared.util.ToastUtil;
 import com.zjm.zviewlibrary.splash.model.SplashModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +38,8 @@ import butterknife.ButterKnife;
  */
 public class DDSplashActivity extends BaseActivity {
     IConfigService iConfigService;
+    @BindView(R.id.iv_splash)
+    ImageView ivSplash;
 
     private String hint = "阿里云提供计算服务\nv %s";
 
@@ -65,8 +68,8 @@ public class DDSplashActivity extends BaseActivity {
             jumpToWelcome();
             return;
         } else {
-            jumpToMain();
-//            getSplashData();
+            //jumpToMain();
+            getSplashData();
         }
     }
 
@@ -93,36 +96,29 @@ public class DDSplashActivity extends BaseActivity {
     }
 
 
-   /* public void getSplashData() {
+    public void getSplashData() {
         //获取网络数据
         IAdService adService = ServiceManager.getInstance().createService(IAdService.class);
-        execute(adService.getSplashAd(), new BaseSubscriber<Splash>() {
-            @Override
-            public void onNext(Splash splash) {
-                super.onNext(splash);
-                //显示广告数据
-                SplashModel model = new SplashModel(splash.backUrl, splash.event, splash.target);
-                if (model != null) {
-                    if (TextUtils.isEmpty(model.imgUrl)) {
-                        //清空上次存储的图片数据
-                        clearFlashImage();
-                        jumpToMain();
-                    } else {
-                        jumpToAds(new Gson().toJson(model));
-                    }
-                } else {
-                    jumpToMain();
-                }
-            }
-
+        APIManager.startRequest(adService.getSplashAd(7), new BaseRequestListener<List<Splash>>() {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
                 //发生错误直接跳转首页
                 jumpToMain();
             }
+
+            @Override
+            public void onSuccess(List<Splash> result) {
+                super.onSuccess(result);
+                if (result.size() > 0) {
+                    GlideUtils.loadImageALL(context,ivSplash,result.get(0).getBackUrl());
+                }
+
+                jumpToMain();
+            }
         });
-    }*/
+
+    }
 
 
     void clearFlashImage() {

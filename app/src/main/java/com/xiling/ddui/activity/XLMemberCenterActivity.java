@@ -282,8 +282,13 @@ public class XLMemberCenterActivity extends BaseActivity {
                 } else {
                     tvCouponDate.setText("查看更多");
                 }
-                growthValueCurrent.setText(NumberHandler.reservedDecimalFor2(Double.valueOf(result.getGrowValueTotle())));
 
+                int intGrowValueTotle = (int) result.getGrowValueTotle();
+                if (intGrowValueTotle == result.getGrowValueTotle()) {
+                    growthValueCurrent.setText(intGrowValueTotle + "");
+                } else {
+                    growthValueCurrent.setText(result.getGrowValueTotle() + "");
+                }
 
                 if (newUserBean.getRoleId() == 3) {
                     progressBar.setProgress(100);
@@ -512,7 +517,7 @@ public class XLMemberCenterActivity extends BaseActivity {
             case R.id.btn_buy:
                 //购买周卡
                 if (mUserBean != null) {
-                  new BuyWeekCardPopWindow(context, myBuyWeekCardList).show();
+                    new BuyWeekCardPopWindow(context, myBuyWeekCardList).show();
                 }
                 break;
             case R.id.btn_sale:

@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_splash"
     tools:context="com.xiling.ddui.activity.DDSplashActivity">
+
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
 
     <ImageView
         android:id="@+id/tv_title1"
@@ -13,6 +19,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_150"
         android:background="@mipmap/bg_splash_title"
+        android:visibility="gone"
        />
 
 
@@ -23,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dp_43"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <ImageView
