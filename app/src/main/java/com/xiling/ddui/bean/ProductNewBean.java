@@ -49,8 +49,8 @@ public class ProductNewBean {
     private List<String> productTags;
     private List<PropertiesBean> properties;
     private List<SkusBean> skus;
-    private int tradeType;
-    private int saleType;
+    private String tradeType;
+    private String saleType;
     private String countryName;
     private String countryIcon;
 
@@ -241,19 +241,19 @@ public class ProductNewBean {
         this.images = images;
     }
 
-    public int getTradeType() {
+    public String getTradeType() {
         return tradeType;
     }
 
-    public void setTradeType(int tradeType) {
+    public void setTradeType(String tradeType) {
         this.tradeType = tradeType;
     }
 
-    public int getSaleType() {
+    public String getSaleType() {
         return saleType;
     }
 
-    public void setSaleType(int saleType) {
+    public void setSaleType(String saleType) {
         this.saleType = saleType;
     }
 

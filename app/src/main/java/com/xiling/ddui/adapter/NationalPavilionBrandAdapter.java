@@ -19,6 +19,6 @@ public class NationalPavilionBrandAdapter extends BaseQuickAdapter<BrandListBean
 
     @Override
     protected void convert(BaseViewHolder helper, BrandListBean.GroupsBean.BrandsBean item) {
-        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_brand),item.getIconUrl());
+        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_brand),item.getCategoryUrl());
     }
 }

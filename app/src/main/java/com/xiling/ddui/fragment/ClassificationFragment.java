@@ -48,7 +48,7 @@ import butterknife.Unbinder;
  * @author pt
  * 分类-一级页面
  */
-public class ClassificationFragment extends BaseFragment {
+public class ClassificationFragment extends BaseFragment  {
 
 
     @BindView(R.id.rv_category_nav)
@@ -151,8 +151,8 @@ public class ClassificationFragment extends BaseFragment {
             @Override
             public void onSuccess(SecondCategoryBean result) {
                 super.onSuccess(result);
+                mSmartRefreshLayout.finishRefresh();
                 try {
-                    mSmartRefreshLayout.finishRefresh();
                     if (result != null) {
                         GlideUtils.loadImage(mContext, sdvCategoryBanner, topCategoryList.get(childPosition).getBannerUrl());
                         tvCategory.setText(topCategoryList.get(childPosition).getCategoryName());
@@ -191,8 +191,9 @@ public class ClassificationFragment extends BaseFragment {
             @Override
             public void onSuccess(final List<NationalPavilionBean> result) {
                 super.onSuccess(result);
+                mSmartRefreshLayout.finishRefresh();
                 if (result.size() > 0){
-                    GlideUtils.loadImage(mContext, sdvCategoryBanner, result.get(0).getCountryListBanner());
+                    GlideUtils.loadImageNoDisk(mContext, sdvCategoryBanner, "http://oss.axiling.com/country/country.png");
                     tvCategory.setText("国家馆");
                     nationalPavilionBeanList.clear();
                     nationalPavilionBeanList.addAll(result);
@@ -205,6 +206,7 @@ public class ClassificationFragment extends BaseFragment {
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                mSmartRefreshLayout.finishRefresh();
             }
 
         });
@@ -271,9 +273,13 @@ public class ClassificationFragment extends BaseFragment {
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                if (topCategoryList.size() > childPosition) {
+
+                if (childPosition == topCategoryList.size() - 1){
+                    getNationalPavilionList();
+                }else if (childPosition < topCategoryList.size() -1){
                     getSecondCategory(topCategoryList.get(childPosition).getCategoryId());
                 }
+
             }
         });
 
@@ -293,4 +299,5 @@ public class ClassificationFragment extends BaseFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

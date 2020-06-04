@@ -51,7 +51,7 @@ public class IndexCategoryAdapter extends BaseQuickAdapter<IndexCategoryBean, Ba
                 if (bean != null) {
                     DDProductDetailActivity.start(mContext, bean.getProductId());
                 } else {
-                    BrandActivity.jumpCategoryActivity(mContext, item.getCategoryId(),item.getCategoryName(), item.getIndexUrl());
+                    BrandActivity.jumpCategoryActivity(mContext, item.getCategoryId(),item.getCategoryName(), item.getCategoryUrl());
                 }
             }
         });
@@ -59,7 +59,7 @@ public class IndexCategoryAdapter extends BaseQuickAdapter<IndexCategoryBean, Ba
         helper.setOnClickListener(R.id.iv_brand, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BrandActivity.jumpCategoryActivity(mContext, item.getCategoryId(),item.getCategoryName(), item.getIndexUrl());
+                BrandActivity.jumpCategoryActivity(mContext, item.getCategoryId(),item.getCategoryName(), item.getCategoryUrl());
             }
         });
 

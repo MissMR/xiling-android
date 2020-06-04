@@ -88,7 +88,7 @@ public class ShopListAdapter extends BaseQuickAdapter<HomeRecommendDataBean.Data
         if (!TextUtils.isEmpty(item.getProductName())) {
             helper.setText(R.id.tv_title, item.getProductName());
         }
-        List<Integer> tags = new ArrayList<>();
+        List<String> tags = new ArrayList<>();
         tags.add(item.getTradeType());
 
         RecyclerView recyclerView = helper.getView(R.id.recycler_tags);

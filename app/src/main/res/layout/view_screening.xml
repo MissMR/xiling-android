@@ -65,7 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/icon_price_unselect" />
+                android:src="@mipmap/icon_price_unselect"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 
@@ -97,7 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/icon_price_unselect" />
+                android:src="@mipmap/icon_price_unselect"
+                android:visibility="gone"
+                />
 
         </LinearLayout>
 

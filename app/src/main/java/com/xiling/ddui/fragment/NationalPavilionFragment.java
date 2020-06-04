@@ -106,7 +106,8 @@ public class NationalPavilionFragment extends BaseFragment implements OnRefreshL
 
 
     private void initView() {
-        GlideUtils.loadImage(mContext, ivBanner, mNationalPavilionBean.getCountryBanner());
+        String url =  mNationalPavilionBean.getCountryDetailBanner();
+        GlideUtils.loadImage(mContext, ivBanner,url);
         smartRefreshLayout.setEnableLoadMore(true);
         smartRefreshLayout.setEnableLoadMore(true);
         smartRefreshLayout.setOnLoadMoreListener(this);
@@ -125,7 +126,7 @@ public class NationalPavilionFragment extends BaseFragment implements OnRefreshL
 
 
         if (!TextUtils.isEmpty(mNationalPavilionBean.getCountryId())) {
-            requestMap.put("counrtyId", mNationalPavilionBean.getCountryId());
+            requestMap.put("countryId", mNationalPavilionBean.getCountryId());
         }
 
 

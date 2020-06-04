@@ -26,6 +26,16 @@ public class NationalPavilionBean implements Parcelable {
     private String updateDate;
     private int deleteFlag;
 
+    public String getCountryDetailBanner() {
+        return countryDetailBanner;
+    }
+
+    public void setCountryDetailBanner(String countryDetailBanner) {
+        this.countryDetailBanner = countryDetailBanner;
+    }
+
+    private String countryDetailBanner;
+
     public String getCountryId() {
         return countryId;
     }
@@ -114,6 +124,7 @@ public class NationalPavilionBean implements Parcelable {
         dest.writeString(this.createDate);
         dest.writeString(this.updateDate);
         dest.writeInt(this.deleteFlag);
+        dest.writeString(this.countryDetailBanner);
     }
 
     public NationalPavilionBean() {
@@ -129,6 +140,7 @@ public class NationalPavilionBean implements Parcelable {
         this.createDate = in.readString();
         this.updateDate = in.readString();
         this.deleteFlag = in.readInt();
+        this.countryDetailBanner = in.readString();
     }
 
     public static final Parcelable.Creator<NationalPavilionBean> CREATOR = new Parcelable.Creator<NationalPavilionBean>() {

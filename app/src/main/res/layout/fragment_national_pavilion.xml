@@ -19,7 +19,7 @@
                 android:id="@+id/iv_banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_180"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_brand"

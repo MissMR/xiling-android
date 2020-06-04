@@ -38,7 +38,7 @@ public class BrandAdapter extends AZBaseAdapter<BrandListBean.GroupsBean.BrandsB
 	@Override
 	public void onBindViewHolder(ItemHolder holder, final int position) {
 		holder.mTextName.setText(mDatas.get(position).getName());
-		GlideUtils.loadImage(mContext,holder.icon,mDatas.get(position).getIconUrl());
+		GlideUtils.loadImage(mContext,holder.icon,mDatas.get(position).getCategoryUrl());
 
 		holder.itemView.setOnClickListener(new View.OnClickListener() {
 			@Override

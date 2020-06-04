@@ -22,7 +22,7 @@ public class NatonalPavilionAdapter extends BaseQuickAdapter<NationalPavilionBea
     @Override
     protected void convert(BaseViewHolder helper, final NationalPavilionBean item) {
         helper.setText(R.id.tv_title,item.getCountryName());
-        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon),item.getCountryIcon());
+        GlideUtils.loadImage(mContext, (ImageView) helper.getView(R.id.iv_icon),item.getCountryListBanner());
     }
 
 

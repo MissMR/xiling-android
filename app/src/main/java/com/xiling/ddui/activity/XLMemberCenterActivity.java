@@ -316,7 +316,7 @@ public class XLMemberCenterActivity extends BaseActivity {
                     getWeekCardInfo();
 
                 }
-                switch (newUserBean.getRoleId()) {
+                switch (UserManager.getInstance().getCommodityLevel()) {
                     case 0:
                         // 普通会员
                         btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_ordinary);
@@ -342,6 +342,18 @@ public class XLMemberCenterActivity extends BaseActivity {
                         //BLACK
                         btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_black);
                         tvRoleLevel.setBackgroundResource(R.drawable.icon_id_black);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_black);
+                        tvMyWeekCardPackage.setVisibility(View.VISIBLE);
+                        break;
+                    case 4:
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_svip);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_svip_ex);
+                        ivRoleLevel.setBackgroundResource(R.drawable.icon_member_svip);
+                        tvMyWeekCardPackage.setVisibility(View.VISIBLE);
+                        break;
+                    case 5:
+                        btnGrowthDetailed.setBackgroundResource(R.drawable.bg_member_black);
+                        tvRoleLevel.setBackgroundResource(R.drawable.icon_id_black_ex);
                         ivRoleLevel.setBackgroundResource(R.drawable.icon_member_black);
                         tvMyWeekCardPackage.setVisibility(View.VISIBLE);
                         break;

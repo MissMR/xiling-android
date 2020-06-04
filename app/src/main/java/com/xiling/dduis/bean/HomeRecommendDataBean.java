@@ -103,7 +103,7 @@ public class HomeRecommendDataBean {
         private float level30Price;
         int isCross;
         int step;
-        int tradeType;
+        String tradeType;
 
         public String getSkuId() {
             return skuId;
@@ -244,11 +244,11 @@ public class HomeRecommendDataBean {
             this.step = step;
         }
 
-        public int getTradeType() {
+        public String getTradeType() {
             return tradeType;
         }
 
-        public void setTradeType(int tradeType) {
+        public void setTradeType(String tradeType) {
             this.tradeType = tradeType;
         }
     }

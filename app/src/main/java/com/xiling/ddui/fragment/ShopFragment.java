@@ -191,7 +191,10 @@ public class ShopFragment extends BaseFragment implements OnRefreshListener, OnL
             arguments.putString("maxPrice", maxPrice);
             arguments.putString("keyWord", keyWord);
             arguments.putInt("orderBy", orderBy);
-            arguments.putInt("orderType", orderType);
+            if (orderType > 0){
+                arguments.putInt("orderType", orderType);
+            }
+
             arguments.putString("saleType", saleType);
             arguments.putString("tradeType", tradeType);
 

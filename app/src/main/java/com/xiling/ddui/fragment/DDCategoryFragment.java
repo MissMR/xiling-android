@@ -2,44 +2,15 @@ package com.xiling.ddui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.flyco.tablayout.SlidingTabLayout;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.sobot.chat.utils.ScreenUtils;
 import com.xiling.R;
-import com.xiling.ddui.activity.BrandActivity;
-import com.xiling.ddui.activity.CategorySecondActivity;
-import com.xiling.ddui.adapter.CategoryAdapter;
-import com.xiling.ddui.adapter.CategoryBrandAdapter;
-import com.xiling.ddui.adapter.CategoryNavigationAdapter;
-import com.xiling.ddui.bean.SecondCategoryBean;
-import com.xiling.ddui.bean.TopCategoryBean;
-import com.xiling.dduis.custom.divider.SpacesItemDecoration;
-import com.xiling.image.GlideUtils;
 import com.xiling.module.search.SearchActivity;
 import com.xiling.shared.basic.BaseFragment;
-import com.xiling.shared.basic.BaseRequestListener;
-import com.xiling.shared.manager.APIManager;
-import com.xiling.shared.manager.ServiceManager;
-import com.xiling.shared.service.contract.IProductService;
-
 import java.util.ArrayList;
 import java.util.List;
 
